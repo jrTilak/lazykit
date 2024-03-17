@@ -5,7 +5,8 @@
   "scripts": {
     "test": "echo \"No test specified\"",
     "preinstall": "npx only-allow pnpm",
-    "prepare": "husky"
+    "prepare": "husky",
+    "dev:www": "pnpm --filter www dev"
   },
   "keywords": [],
   "author": "Tilak Thapa <iamjrtilak@gmail.com>",
