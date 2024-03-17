@@ -51,16 +51,30 @@ types.forEach((type) => {
     methods.forEach((method) => {
       const pathUptoMethod = pathUptoCategory + "/" + method;
       METHODS.push(method);
-      const file = readFileAsString(pathUptoMethod + "/index.ts"); //read the file as string
-      //if the file is empty or does not exist, log an error and exit
-      if (!file) {
-        console.error("Error reading file: ", pathUptoMethod + "/index.ts");
-        console.error("Either the file does not exist or is empty");
+
+      ["index.ts", "index.test.ts", "docs.tsx"].forEach((file) => {
+        const fileData = readFileAsString(pathUptoMethod + `/${file}`); //read the file as string
+        //if the file is empty or does not exist, log an error and exit
+        if (!fileData) {
+          console.error("Error reading file: ", pathUptoMethod + `/${file}`);
+          console.error("Either the file does not exist or is empty");
+          console.error("Exiting...");
+          process.exit(1);
+        }
+      });
+
+      const availableFiles = readFiles(pathUptoMethod);
+      const exampleFiles = availableFiles.filter((file) =>
+        file.endsWith(".example.ts")
+      );
+      if (exampleFiles.length === 0) {
+        console.error("No examples found for: ", pathUptoMethod);
         console.error("Exiting...");
         process.exit(1);
       }
 
-      const ts = file; //typescript code
+      const fileData = readFileAsString(pathUptoMethod + "/index.ts"); //read the file as string
+      const ts = fileData; //typescript code
       const js = typescript.transpileModule(ts, {
         compilerOptions: {
           target: typescript.ScriptTarget.ESNext,

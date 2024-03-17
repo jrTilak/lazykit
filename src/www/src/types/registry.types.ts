@@ -21,3 +21,12 @@ export interface IRegistryJSON {
     };
   };
 }
+
+export interface IDoc {
+  name: string;
+  description: string;
+  externalLinks?: {
+    label: string;
+    url: string;
+  }[];
+}
