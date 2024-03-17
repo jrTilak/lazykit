@@ -3,11 +3,17 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "preinstall": "npx only-allow pnpm"
+    "test": "echo \"No test specified\"",
+    "preinstall": "npx only-allow pnpm",
+    "prepare": "husky"
   },
   "keywords": [],
   "author": "Tilak Thapa <iamjrtilak@gmail.com>",
   "license": "ISC",
-  "repository": "https://github.com/jrTilak/lazykit.git"
+  "repository": "https://github.com/jrTilak/lazykit.git",
+  "devDependencies": {
+    "@commitlint/cli": "^19.2.0",
+    "@commitlint/config-conventional": "^19.1.0",
+    "husky": "^9.0.11"
+  }
 }
