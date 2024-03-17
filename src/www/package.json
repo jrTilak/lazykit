@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "build:registry": "cd src/scripts && tsx generateRegistry.ts"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.0",
@@ -16,7 +17,8 @@
     "react": "^18",
     "react-dom": "^18",
     "tailwind-merge": "^2.2.2",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "vitest": "^1.4.0"
   },
   "devDependencies": {
     "@types/node": "^20",
