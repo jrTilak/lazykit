@@ -1,0 +1,6 @@
+packages:
+  #include
+  - "www/**"
+
+  #exclude
+  - "!registry/**"
