@@ -2,15 +2,15 @@ import * as fs from "fs";
 import { readFolders } from "../utils/readFolders";
 import { readFileAsString, readFiles } from "../utils/readFiles";
 import * as typescript from "typescript";
-// import { generateNavbar } from "./generateNavbar";
 import packageJSON from "../../package.json";
 import { IRegistryJSON } from "@/types/registry.types";
+import { generateNavbar } from "./generateNavbar";
 
 const REGISTRY_DIR = "../registry"; //eg:  registry/:type/:category/{index.ts, docs.tsx, *.examples.ts}
 const PATH_TO_REGISTRY_CONFIG = "../configs/registry.json";
 
-let REGISTRY_JSON: IRegistryJSON = {};
-let prevRegistry: IRegistryJSON | null | undefined = {};
+let REGISTRY_JSON: IRegistryJSON[] = [];
+let prevRegistry: IRegistryJSON[] | null | undefined;
 
 console.log("Reading previous registry... 📖");
 
@@ -32,16 +32,12 @@ if (!types || types.length === 0) {
 }
 
 types.forEach((type) => {
-  REGISTRY_JSON[type] = {};
   // Read the directory /:type/:category
   const pathUptoType = REGISTRY_DIR + "/" + type;
   const categories = readFolders(pathUptoType);
   categories.forEach((category) => {
     const pathUptoCategory = pathUptoType + "/" + category;
     console.log("Reading: ", pathUptoCategory);
-    REGISTRY_JSON[type][category] = {
-      methods: [],
-    }; //initialize the methods array
 
     // List all the files in /:type/:category ie the methods
     const methods = readFolders(pathUptoCategory);
@@ -96,13 +92,17 @@ types.forEach((type) => {
           javascript: js,
           commonjs,
         },
-        param: method.split(".ts")[0].toLowerCase(),
+        category,
+        type,
       };
 
       //@ts-ignore
       //check if the method already exists in the registry
-      const prevMethod = prevRegistry[type]?.[category]?.methods?.find(
-        (m) => m.name === updatedMethod.name
+      const prevMethod = prevRegistry?.find(
+        (m) =>
+          m.name === updatedMethod.name &&
+          m.category === category &&
+          m.type === type
       );
 
       //checking if the method is new or not
@@ -112,7 +112,7 @@ types.forEach((type) => {
           `Adding ${type}/${category}/${method} to the registry... 📝\n`
         );
 
-        REGISTRY_JSON[type][category].methods.push({
+        REGISTRY_JSON.push({
           ...updatedMethod,
           createdAt: {
             date: new Date().toISOString(),
@@ -127,11 +127,11 @@ types.forEach((type) => {
       } else {
         //if the method already exists, check if the code has changed
         if (prevMethod.code.typescript === updatedMethod.code.typescript) {
-          REGISTRY_JSON[type][category].methods.push(prevMethod);
+          REGISTRY_JSON.push(prevMethod);
         } else {
           //if the code has changed, update the lastUpdated field and push the method to the registry
           console.log(`Some changes found in ${type}/${category}/${method} 🔄`);
-          REGISTRY_JSON[type][category].methods.push({
+          REGISTRY_JSON.push({
             ...updatedMethod,
             createdAt: prevMethod.createdAt,
             lastUpdated: {
@@ -172,6 +172,6 @@ fs.writeFileSync(
 console.log("Registry written to file registry.json 🎉\n");
 
 //generate navbar
-// generateNavbar();
+generateNavbar();
 
 console.log("Script execution completed. ⭐⭐");

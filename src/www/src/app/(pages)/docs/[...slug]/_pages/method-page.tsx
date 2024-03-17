@@ -7,8 +7,11 @@ import { IDoc } from "@/types/registry.types";
 const MethodPage = async ({ slug }: { slug: string[] }) => {
   if (!registry) return <NotFound />;
   //@ts-ignore
-  const methodData = registry[slug[0]][slug[1]]["methods"]?.find(
-    (method: any) => method.param === slug[2]
+  const methodData = registry?.find(
+    (method: any) =>
+      method.type === slug[0] &&
+      method.category === slug[1] &&
+      method.name === slug[2]
   );
   if (!methodData) return <NotFound />;
   const MethodComp = await import(
@@ -22,7 +25,9 @@ const MethodPage = async ({ slug }: { slug: string[] }) => {
       {methodInfo.externalLinks && (
         <div>
           {methodInfo.externalLinks.map((link) => (
-            <ExternalLink></ExternalLink>
+            <ExternalLink key={link.url} href={link.url}>
+              {link.label}
+            </ExternalLink>
           ))}
         </div>
       )}

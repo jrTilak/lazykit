@@ -1,25 +1,20 @@
 export interface IRegistryJSON {
-  [type: string]: {
-    [category: string]: {
-      methods: {
-        name: string;
-        code: {
-          typescript: string;
-          javascript: string;
-          commonjs: string;
-        };
-        param: string;
-        createdAt: {
-          date: string;
-          packageVersion: string;
-        };
-        lastUpdated: {
-          date: string;
-          packageVersion: string;
-        };
-      }[];
-    };
+  name: string;
+  code: {
+    typescript: string;
+    javascript: string;
+    commonjs: string;
   };
+  createdAt: {
+    date: string;
+    packageVersion: string;
+  };
+  lastUpdated: {
+    date: string;
+    packageVersion: string;
+  };
+  category: string;
+  type: string;
 }
 
 export interface IDoc {
@@ -28,5 +23,21 @@ export interface IDoc {
   externalLinks?: {
     label: string;
     url: string;
+  }[];
+}
+
+export interface INavLink {
+  heading: string;
+  links?: {
+    label: string;
+    url: string;
+  }[];
+  categories?: {
+    label: string;
+    url: string;
+    methods: {
+      label: string;
+      url: string;
+    }[];
   }[];
 }

@@ -1,0 +1,50 @@
+[
+  {
+    "heading": "Getting Started",
+    "links": [
+      {
+        "label": "Introduction",
+        "url": "/docs/"
+      },
+      {
+        "label": "Installation",
+        "url": "/docs/installation"
+      },
+      {
+        "label": "Usage",
+        "url": "/docs/usage"
+      },
+      {
+        "label": "lazykit.config.json",
+        "url": "/docs/lazykit-config"
+      },
+      {
+        "label": "CLI",
+        "url": "/docs/cli"
+      },
+      {
+        "label": "Changelog",
+        "url": "/docs/changelog"
+      },
+      {
+        "label": "Functions",
+        "url": "/docs/functions/introduction"
+      }
+    ]
+  },
+  {
+    "heading": "Functions",
+    "categories": [
+      {
+        "label": "Arrays",
+        "url": "/docs/functions/arrays",
+        "methods": [
+          {
+            "label": "chunk",
+            "url": "/docs/functions/arrays/chunk"
+          }
+        ]
+      }
+    ]
+  }
+]
