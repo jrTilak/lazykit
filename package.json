@@ -6,6 +6,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "Tilak Thapa <iamjrtilak@gmail.com>",
+  "license": "ISC",
+  "main": "index.js",
+  "repository": "https://github.com/jrTilak/lazykit.git"
 }
