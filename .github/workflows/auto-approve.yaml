@@ -10,12 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Auto Approve
-        if: github.event.label.name == 'auto approve'
-        uses: actions/github-script@v5
+        if: github.event.label.name == 'auto approve' && github.pull_request.user.login == 'jrTilak'
+        uses: actions/github-script@v7.0.1
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            github.rest.pulls.createReview({
+            github.pulls.createReview({
               owner: context.repo.owner,
               repo: context.repo.repo,
               pull_number: context.issue.number,
