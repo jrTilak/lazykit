@@ -6,11 +6,19 @@ import packageJSON from "../../package.json";
 import { IRegistryJSON } from "@/types/registry.types";
 import { generateNavbar } from "./generateNavbar";
 
-const REGISTRY_DIR = "../registry"; //eg:  registry/:type/:category/{index.ts, docs.tsx, *.examples.ts}
+//eg:  registry/:type/:category/{index.ts, docs.tsx, *.examples.ts}
+const REGISTRY_DIR = "../registry";
+
 const PATH_TO_REGISTRY_CONFIG = "../configs/registry.json";
+const NECESSARY_FILES = [
+  "index.ts",
+  "index.test.ts",
+  "docs.tsx",
+  // "*.example.ts",
+];
 
 let REGISTRY_JSON: IRegistryJSON[] = [];
-let prevRegistry: IRegistryJSON[] | null | undefined;
+let prevRegistry: IRegistryJSON[] | undefined;
 
 console.log("Reading previous registry... 📖");
 
@@ -22,53 +30,107 @@ try {
   console.log("No previous registry found, Starting fresh build... 🏗️\n");
 }
 
-// Read the directory :type
+/**
+ *  Read the directory :type
+ * Type can be any of the following for example: function (javascript utility functions), react-hooks, etc
+ **/
 const types = readFolders(REGISTRY_DIR);
 const METHODS: any = [];
 
+/**
+ * If no files are found in the registry, log an error and exit
+ * Else, continue with the script
+ */
 if (!types || types.length === 0) {
   console.error("No files found in the registry. Exiting...");
   process.exit(1);
 }
 
+/**
+ * Loop through all the types
+ */
 types.forEach((type) => {
-  // Read the directory /:type/:category
+  /**
+   * Read the directory /:type/:category
+   * Category can be any of the following for example: array, object, string, etc
+   **/
   const pathUptoType = REGISTRY_DIR + "/" + type;
+
+  /**
+   * List all the folders in /:type
+   * Each folder is a category with a set of methods
+   * For example: array, object, string, etc
+   * Loop through all the categories
+   */
   const categories = readFolders(pathUptoType);
   categories.forEach((category) => {
     const pathUptoCategory = pathUptoType + "/" + category;
     console.log("Reading: ", pathUptoCategory);
 
-    // List all the files in /:type/:category ie the methods
+    /**
+     * List all the folders in /:type/:category
+     * Each folder is a method's content like index.ts, docs.tsx, etc
+     */
     const methods = readFolders(pathUptoCategory);
-
     console.log(`${methods.length} methods found in ${type}/${category}`);
 
+    /**
+     * Loop through all the methods
+     * Each method has a set of files like index.ts, docs.tsx, etc
+     */
     methods.forEach((method) => {
       const pathUptoMethod = pathUptoCategory + "/" + method;
+
+      /**
+       * This is a temporary array to store all the methods so that we can check if all the methods are unique or not
+       */
       METHODS.push(method);
 
-      ["index.ts", "index.test.ts", "docs.tsx"].forEach((file) => {
-        const fileData = readFileAsString(pathUptoMethod + `/${file}`); //read the file as string
-        //if the file is empty or does not exist, log an error and exit
-        if (!fileData) {
-          console.error("Error reading file: ", pathUptoMethod + `/${file}`);
-          console.error("Either the file does not exist or is empty");
-          console.error("Exiting...");
-          process.exit(1);
-        }
-      });
-
+      /**
+       * Check if all the necessary files are present in the method folder
+       * If not, log an error and exit
+       * Else, continue with the script
+       */
       const availableFiles = readFiles(pathUptoMethod);
+      /**
+       * Check if at least one example file is present in the method folder
+       */
       const exampleFiles = availableFiles.filter((file) =>
-        file.endsWith(".example.ts")
+        file.includes(".example.ts")
       );
       if (exampleFiles.length === 0) {
-        console.error("No examples found for: ", pathUptoMethod);
-        console.error("Exiting...");
+        console.error(
+          `Error: No example file found in ${type}/${category}/${method}. 😐\nExiting...`
+        );
         process.exit(1);
       }
 
+      /**
+       * Check if all the necessary files are present in the method folder
+       */
+      const missingFiles = NECESSARY_FILES.filter(
+        (file) => !availableFiles.includes(file)
+      );
+      if (missingFiles.length > 0) {
+        console.error(
+          `Error: ${missingFiles.join(
+            ", "
+          )} missing in ${type}/${category}/${method}. 😐\nExiting...`
+        );
+        process.exit(1);
+      }
+
+      /**
+       * Read the docs.tsx file as string
+       * See if that file exports a default object and another object named Info with name, description as compulsory fields and externalLinks as optional fields. If externalLinks is present, it should be an array of objects with label and url as compulsory fields.
+       */
+      const docsData = readFileAsString(pathUptoMethod + "/docs.tsx");
+      // todo: complete this
+
+      /**
+       * Read the index.ts file as string
+       * Transpile the typescript code to javascript and commonjs
+       */
       const fileData = readFileAsString(pathUptoMethod + "/index.ts"); //read the file as string
       const ts = fileData; //typescript code
       const js = typescript.transpileModule(ts, {
@@ -78,6 +140,9 @@ types.forEach((type) => {
         },
       }).outputText; //transpiled to esnext
 
+      /**
+       * todo: remove the exports from the code in commonjs if possible to make it cleaner and only the function code
+       */
       const commonjs = typescript.transpileModule(ts, {
         compilerOptions: {
           target: typescript.ScriptTarget.ESNext,
@@ -85,6 +150,9 @@ types.forEach((type) => {
         },
       }).outputText; //transpiled to commonjs
 
+      /**
+       * Create an object with the method name, code, category, type
+       */
       const updatedMethod = {
         name: method.split(".ts")[0],
         code: {
@@ -96,8 +164,13 @@ types.forEach((type) => {
         type,
       };
 
-      //@ts-ignore
-      //check if the method already exists in the registry
+      /**
+       * Check if the method already exists in the registry
+       * If not, add the method to the registry
+       * If yes, check if the code has changed
+       * If the code has changed, update the lastUpdated field and push the method to the registry
+       * If the code has not changed, push the method to the registry
+       */
       const prevMethod = prevRegistry?.find(
         (m) =>
           m.name === updatedMethod.name &&

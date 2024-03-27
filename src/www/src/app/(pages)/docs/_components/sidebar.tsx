@@ -38,6 +38,7 @@ const Sidebar = () => {
           }
           return (
             <Accordion key={i} type="single" collapsible>
+              <span>{navLink.heading}</span>
               {navLink.categories.map((category, i) => {
                 return (
                   <AccordionItem key={i} value={category.label}>
