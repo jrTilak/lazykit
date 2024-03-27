@@ -1,0 +1,21 @@
+{
+  "name": "lazykit",
+  "version": "0.0.0-alpha",
+  "description": "",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsup src/index.ts --minify --dts --format cjs,esm --out-dir dist",
+    "lint": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "tsup": "^8.0.2",
+    "typescript": "^5",
+    "@changesets/cli": "^2.27.1"
+  }
+}
