@@ -7,7 +7,8 @@
     "preinstall": "npx only-allow pnpm",
     "prepare": "husky",
     "dev:www": "pnpm --filter www dev",
-    "build:registry": "pnpm --filter www build:registry"
+    "build:registry": "pnpm --filter www build:registry",
+    "build:cli": "pnpm --filter lazykit build"
   },
   "keywords": [],
   "author": "Tilak Thapa <iamjrtilak@gmail.com>",
