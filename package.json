@@ -6,7 +6,8 @@
     "test": "echo \"No test specified\"",
     "preinstall": "npx only-allow pnpm",
     "prepare": "husky",
-    "dev:www": "pnpm --filter www dev"
+    "dev:www": "pnpm --filter www dev",
+    "build:registry": "pnpm --filter www build:registry"
   },
   "keywords": [],
   "author": "Tilak Thapa <iamjrtilak@gmail.com>",
@@ -16,5 +17,8 @@
     "@commitlint/cli": "^19.2.0",
     "@commitlint/config-conventional": "^19.1.0",
     "husky": "^9.0.11"
+  },
+  "dependencies": {
+    "tsx": "^4.7.1"
   }
 }
