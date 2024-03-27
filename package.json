@@ -5,7 +5,10 @@
   "scripts": {
     "test": "echo \"No test specified\"",
     "preinstall": "npx only-allow pnpm",
-    "prepare": "husky"
+    "prepare": "husky",
+    "dev:www": "pnpm --filter www dev",
+    "build:registry": "pnpm --filter www build:registry",
+    "build:cli": "pnpm --filter lazykit build"
   },
   "keywords": [],
   "author": "Tilak Thapa <iamjrtilak@gmail.com>",
@@ -15,5 +18,8 @@
     "@commitlint/cli": "^19.2.0",
     "@commitlint/config-conventional": "^19.1.0",
     "husky": "^9.0.11"
+  },
+  "dependencies": {
+    "tsx": "^4.7.1"
   }
 }
