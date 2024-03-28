@@ -1,21 +1,47 @@
 {
-  "name": "lazykit",
+  "name": "@jrtilak/lazykit",
   "version": "0.0.0-alpha",
   "description": "",
+  "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
+  "homepage": "https://lazykit.thapatilak.com.np",
+  "bin": {
+    "lazykit": "dist/index.js"
+  },
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/jrtilak/lazykit",
+    "directory": "src/cli"
+  },
   "scripts": {
     "build": "tsup src/index.ts --minify --dts --format cjs,esm --out-dir dist",
-    "lint": "tsc"
+    "lint": "tsc",
+    "dev": "node dist/index.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "lazykit",
+    "lazy",
+    "kit",
+    "cli",
+    "tool",
+    "utility",
+    "lazykit-cli",
+    "js-utility",
+    "utility functions"
+  ],
+  "author": "Tilak Thapa <iamjrtilak@gmail.com>",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "cli-spinners": "^2.9.2",
+    "commander": "^12.0.0"
+  },
   "devDependencies": {
+    "@changesets/cli": "^2.27.1",
+    "@types/node": "^20",
     "tsup": "^8.0.2",
-    "typescript": "^5",
-    "@changesets/cli": "^2.27.1"
+    "typescript": "^5"
   }
 }
