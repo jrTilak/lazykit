@@ -4,7 +4,14 @@ import writeConfig from "../utils/writeConfig.js";
 import { Config } from "../types/config.types.js";
 import checkInitialization from "../utils/checkInitialization.js";
 
+/**
+ * Initializes the project with the provided configuration.
+ * @param args - The command line arguments passed to the script.
+ */
 export default function init(...args: any) {
+  /**
+   * Get the arguments passed to the script from the command line.
+   */
   const arg = args[0];
 
   const DEFAULT_CONFIG: Config = {
@@ -12,7 +19,12 @@ export default function init(...args: any) {
     path: arg.path || "src/utils",
     separate: arg.separate || false,
   };
-  //check if the project is already initialized
+
+  /**
+   * Check if the project is already initialized, if yes, then exit the process.
+   * If the user has provided the --force flag, then force initialize the project.
+   * If the user has not provided the --force flag, then exit the process.
+   */
   if (!arg.force) {
     if (checkInitialization().isInitialized) {
       console.log(
@@ -25,16 +37,22 @@ export default function init(...args: any) {
   }
 
   /**
-   * If the user has not provided any language, use the default language ie. typescript
+   * If the user has not provided any language flag, then detect the language of the project.
+   * If the user has provided the language flag, then use the provided language.
    */
   if (!arg.javascript && !arg.commonjs && !arg.typescript) {
-    //detect the language from the project
-    console.log("Detecting the language of the project");
-    //get the path of the project
+    console.log(chalk.dim("Detecting the language of the project"));
+
+    /**
+     * Get the current working directory of the project.
+     */
     const path = process.cwd();
     let packageJson = undefined;
     try {
-      //import the package.json file as string
+      /**
+       * Read the package.json file of the project.
+       * If the package.json file does not exist, then exit the process.
+       */
       packageJson = fs.readFileSync(`${path}/package.json`, "utf-8");
     } catch (e) {
       /**
@@ -46,7 +64,10 @@ export default function init(...args: any) {
       }
     }
 
-    //convert the package.json file to json object
+    /**
+     * Parse the package.json file to a JSON object.
+     * If the package.json file is invalid, then exit the process.
+     */
     let packageJsonObj = undefined;
     try {
       packageJsonObj = JSON.parse(packageJson);
@@ -55,7 +76,10 @@ export default function init(...args: any) {
       process.exit(1);
     }
 
-    //check if the project is a typescript project
+    /**
+     * Check if the project is a typescript project or a javascript project.
+     * If the project is a typescript project, then set the typescript flag to true or set the javascript flag to true.
+     */
     if (
       packageJsonObj.devDependencies.typescript ||
       packageJsonObj.dependencies.typescript
@@ -71,30 +95,22 @@ export default function init(...args: any) {
   }
 
   /**
-   * Initialize the project with typescript
+   * Initialize the project with the provided configuration.
    */
+  console.log(
+    chalk.green("Initializing the project with the following config: 👇")
+  );
   if (arg.typescript) {
-    console.log(
-      chalk.green("Initializing the project with the following config: 👇")
-    );
-    console.log(JSON.stringify(DEFAULT_CONFIG, null, 2));
     writeConfig(DEFAULT_CONFIG);
   } else if (arg.javascript) {
     DEFAULT_CONFIG.language = "javascript";
-    console.log(
-      chalk.green("Initializing the project with the following config: 👇")
-    );
-    console.log(JSON.stringify(DEFAULT_CONFIG, null, 2));
     writeConfig(DEFAULT_CONFIG);
   } else if (arg.commonjs) {
     DEFAULT_CONFIG.language = "commonjs";
-    console.log(
-      chalk.green("Initializing the project with the following config: 👇")
-    );
-    console.log(JSON.stringify(DEFAULT_CONFIG, null, 2));
     writeConfig(DEFAULT_CONFIG);
   }
-
+  console.log(chalk.dim(JSON.stringify(DEFAULT_CONFIG, null, 2)));
   console.log(chalk.green("Project initialized successfully ⭐"));
   console.log("Enjoy using lazykit 🚀");
+  process.exit(0);
 }
