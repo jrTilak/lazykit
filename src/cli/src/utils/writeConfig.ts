@@ -4,7 +4,9 @@ import { Config } from "../types/config.types.js";
 
 export default function writeConfig(config: Config) {
   if (config.separate) {
-    console.log(chalk.green("Writing config to separate file"));
+    console.log(
+      chalk.green("Writing config to separate file called lazykit.config.json")
+    );
     fs.writeFileSync(
       `${process.cwd()}/lazykit.config.json`,
       JSON.stringify(config, null, 2)
