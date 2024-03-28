@@ -3,6 +3,7 @@
 import { Command } from "commander";
 import chalk from "chalk";
 import init from "./scripts/init.js";
+import teardown from "./scripts/teardown.js";
 
 /**
  * Main CLI program
@@ -32,6 +33,9 @@ if (process.argv.length === 2) {
   process.exit(0);
 }
 
+/**
+ * Command to initialize the project
+ */
 program
   .command("init")
   .description("Initialize the project")
@@ -49,5 +53,18 @@ program
     "Initialize the project configuration in separate file called lazykit.config.js else in package.json"
   )
   .action(init);
+
+/**
+ * Command to teardown the project
+ */
+program
+  .command("teardown")
+  .description("Remove the lazykit configuration from the project")
+  .alias("td")
+  .option(
+    "-del, --delete",
+    "Delete the directory where all the methods are stored !!!! WARNING !!!!"
+  )
+  .action(teardown);
 
 program.parse(process.argv);
