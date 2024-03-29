@@ -2,19 +2,17 @@
   {
     "name": "chunk",
     "code": {
-      "typescript": "const chunk = <T>(\r\n  array: T[],\r\n  size: number = 1,\r\n  strict: boolean = false //remove the last chunk if it is not equal to the size\r\n): T[][] => {\r\n  const result: T[][] = [];\r\n\r\n  //push the chunks into the result array\r\n  for (let i = 0; i < array.length; i += size) {\r\n    result.push(array.slice(i, i + size));\r\n  }\r\n\r\n  //remove the last chunk if it is not equal to the size\r\n  if (strict && result[result.length - 1].length !== size) {\r\n    result.pop();\r\n  }\r\n  return result;\r\n};\r\n\r\nexport default chunk;\r\n",
-      "javascript": "const chunk = (array, size = 1, strict = false //remove the last chunk if it is not equal to the size\n) => {\n    const result = [];\n    //push the chunks into the result array\n    for (let i = 0; i < array.length; i += size) {\n        result.push(array.slice(i, i + size));\n    }\n    //remove the last chunk if it is not equal to the size\n    if (strict && result[result.length - 1].length !== size) {\n        result.pop();\n    }\n    return result;\n};\nexport default chunk;\n",
-      "commonjs": "\"use strict\";\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst chunk = (array, size = 1, strict = false //remove the last chunk if it is not equal to the size\n) => {\n    const result = [];\n    //push the chunks into the result array\n    for (let i = 0; i < array.length; i += size) {\n        result.push(array.slice(i, i + size));\n    }\n    //remove the last chunk if it is not equal to the size\n    if (strict && result[result.length - 1].length !== size) {\n        result.pop();\n    }\n    return result;\n};\nexports.default = chunk;\n"
+      "ts": "const chunk = <T>(\r\n  array: T[],\r\n  size: number = 1,\r\n  strict: boolean = false //remove the last chunk if it is not equal to the size\r\n): T[][] => {\r\n  const result: T[][] = [];\r\n\r\n  //push the chunks into the result array\r\n  for (let i = 0; i < array.length; i += size) {\r\n    result.push(array.slice(i, i + size));\r\n  }\r\n\r\n  //remove the last chunk if it is not equal to the size\r\n  if (strict && result[result.length - 1].length !== size) {\r\n    result.pop();\r\n  }\r\n  return result;\r\n};\r\n\r\nexport default chunk;\r\n",
+      "js": "const chunk = (array, size = 1, strict = false //remove the last chunk if it is not equal to the size\n) => {\n    const result = [];\n    //push the chunks into the result array\n    for (let i = 0; i < array.length; i += size) {\n        result.push(array.slice(i, i + size));\n    }\n    //remove the last chunk if it is not equal to the size\n    if (strict && result[result.length - 1].length !== size) {\n        result.pop();\n    }\n    return result;\n};\nexport default chunk;\n"
     },
-    "param": "chunk",
     "category": "arrays",
     "type": "functions",
     "createdAt": {
-      "date": "2024-03-17T17:07:16.155Z",
+      "date": "2024-03-29T02:21:42.708Z",
       "packageVersion": "0.1.0"
     },
     "lastUpdated": {
-      "date": "2024-03-17T17:07:16.155Z",
+      "date": "2024-03-29T02:21:42.708Z",
       "packageVersion": "0.1.0"
     }
   }
