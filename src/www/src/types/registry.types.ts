@@ -40,3 +40,8 @@ export interface INavLink {
     }[];
   }[];
 }
+
+export interface INavLinkForPrevNextButton {
+  label: string;
+  url: string;
+}

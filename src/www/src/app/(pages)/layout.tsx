@@ -16,7 +16,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <header className="w-full h-12 bg-slate-600">Header</header>
+        <div className="h-[calc(100vh-3rem)] overflow-y-scroll">{children}</div>
+      </body>
     </html>
   );
 }
