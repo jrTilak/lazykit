@@ -13,8 +13,8 @@ export default function writeConfig(config: Config) {
     );
   } else {
     console.log(chalk.green("Writing config to package.json"));
-    let packageJson = fs.readFileSync(`${process.cwd()}/package.json`, "utf-8");
-    let packageJsonObj = JSON.parse(packageJson);
+    const packageJson = fs.readFileSync(`${process.cwd()}/package.json`, "utf-8");
+    const packageJsonObj = JSON.parse(packageJson);
     fs.writeFileSync(
       `${process.cwd()}/package.json`,
       JSON.stringify(
