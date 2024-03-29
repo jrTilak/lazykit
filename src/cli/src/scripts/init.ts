@@ -19,6 +19,7 @@ export default async function init(...args: any) {
     language: arg.typescript ? "ts" : "js",
     path: arg.path || "src/utils",
     separate: arg.separate || false,
+    v: packageJson.version,
   };
 
   /**
