@@ -61,10 +61,6 @@ program
   .command("teardown")
   .description("Remove the lazykit configuration from the project")
   .alias("td")
-  .option(
-    "-del, --delete",
-    "Delete the directory where all the methods are stored !!!! WARNING !!!!"
-  )
   .action(teardown);
 
 program.parse(process.argv);

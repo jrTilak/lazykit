@@ -143,7 +143,7 @@ types.forEach((type) => {
       /**
        * todo: remove the exports from the code in commonjs if possible to make it cleaner and only the function code
        */
-      const commonjs = typescript.transpileModule(ts, {
+      const cjs = typescript.transpileModule(ts, {
         compilerOptions: {
           target: typescript.ScriptTarget.ESNext,
           module: typescript.ModuleKind.CommonJS,
@@ -156,9 +156,9 @@ types.forEach((type) => {
       const updatedMethod = {
         name: method.split(".ts")[0],
         code: {
-          typescript: ts,
-          javascript: js,
-          commonjs,
+          ts,
+          js,
+          cjs,
         },
         category,
         type,
@@ -199,7 +199,7 @@ types.forEach((type) => {
         return;
       } else {
         //if the method already exists, check if the code has changed
-        if (prevMethod.code.typescript === updatedMethod.code.typescript) {
+        if (prevMethod.code.ts === updatedMethod.code.ts) {
           REGISTRY_JSON.push(prevMethod);
         } else {
           //if the code has changed, update the lastUpdated field and push the method to the registry

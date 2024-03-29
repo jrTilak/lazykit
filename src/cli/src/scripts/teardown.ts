@@ -44,23 +44,4 @@ export default function teardown(...args: any) {
     }
   }
   console.log(chalk.green("Project teardown successful! 🚀"));
-
-  /**
-   * Delete the directory where all the methods are stored, if the user has provided the --delete flag.
-   */
-  if (arg.delete) {
-    console.log(
-      chalk.red("Deleting the directory where all the methods are stored")
-    );
-    try {
-      const pathToMethods = config.config.path.startsWith("/")
-        ? config.config.path.slice(1)
-        : config.config.path;
-      fs.rmSync(`${process.cwd()}/${pathToMethods}`, { recursive: true });
-    } catch (e) {
-      console.log(chalk.red("Error deleting the directory"));
-      process.exit(1);
-    }
-    console.log(chalk.green("Directory deleted successfully"));
-  }
 }

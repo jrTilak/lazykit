@@ -1,8 +1,9 @@
 export interface IRegistryJSON {
   name: string;
   code: {
-    typescript: string;
-    javascript: string;
+    ts: string;
+    js: string;
+    cjs: string;
   };
   createdAt: {
     date: string;
