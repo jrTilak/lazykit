@@ -1,6 +1,6 @@
 {
   "name": "@jrtilak/lazykit",
-  "version": "0.0.0-alpha",
+  "version": "0.0.1-alpha",
   "description": "",
   "type": "module",
   "main": "dist/index.js",
