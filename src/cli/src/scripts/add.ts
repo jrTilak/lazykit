@@ -3,6 +3,7 @@ import checkInitialization from "../utils/checkInitialization.js";
 import * as fs from "fs";
 import packageJson from "../../package.json";
 import inquirer from "inquirer";
+import { REGISTRY_URL } from "../data/constant.js";
 
 export default async function add(...args: any[]) {
   const method = args[0];
@@ -50,16 +51,12 @@ export default async function add(...args: any[]) {
 
   /**
    * URL is the URL of the website where the registry is hosted.
-   * Token is the token to access the registry to avoid unauthorized access or spam.
    */
-  const url = process.env.WEBSITE_URL;
-  const token = process.env.WEBSITE_TOKEN;
 
-  const res = await fetch(`${url}/api/${method}?lang=${lang}`, {
+  const res = await fetch(`${REGISTRY_URL}/api/${method}?lang=${lang}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      TOKEN: token,
     },
   });
   const data = await res.json();

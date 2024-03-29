@@ -7,6 +7,7 @@ import init from "./scripts/init.js";
 import teardown from "./scripts/teardown.js";
 import add from "./scripts/add.js";
 import dotenv from "dotenv";
+import { REGISTRY_URL } from "./data/constant.js";
 
 dotenv.config();
 
@@ -32,7 +33,7 @@ if (process.argv.length === 2) {
   console.log("For help, run: ", chalk.blue("--help"));
   console.log(
     "For documentation, visit: ",
-    chalk.green(process.env.WEBSITE_URL)
+    chalk.green(REGISTRY_URL + "/docs")
   );
   console.log(
     "For github, visit: ",
