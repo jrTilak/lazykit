@@ -1,5 +1,5 @@
 export interface Config {
-  language: "typescript" | "javascript" | "commonjs";
+  language: "ts" | "js";
   path: string;
   separate: boolean;
 }

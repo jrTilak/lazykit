@@ -15,7 +15,7 @@ export default function init(...args: any) {
   const arg = args[0];
 
   const DEFAULT_CONFIG: Config = {
-    language: "typescript",
+    language: "ts",
     path: arg.path || "src/utils",
     separate: arg.separate || false,
   };
@@ -102,11 +102,8 @@ export default function init(...args: any) {
   );
   if (arg.typescript) {
     writeConfig(DEFAULT_CONFIG);
-  } else if (arg.javascript) {
-    DEFAULT_CONFIG.language = "javascript";
-    writeConfig(DEFAULT_CONFIG);
-  } else if (arg.commonjs) {
-    DEFAULT_CONFIG.language = "commonjs";
+  } else {
+    DEFAULT_CONFIG.language = "js";
     writeConfig(DEFAULT_CONFIG);
   }
   console.log(chalk.dim(JSON.stringify(DEFAULT_CONFIG, null, 2)));

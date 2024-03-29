@@ -20,10 +20,7 @@ export const GET = async (req: NextRequest, context: Context) => {
   }
 
   const [type, name] = context.params.slug;
-  const lang = (req.nextUrl.searchParams.get("lang") || "ts") as
-    | "ts"
-    | "js"
-    | "cjs";
+  const lang = (req.nextUrl.searchParams.get("lang") || "ts") as "ts" | "js";
 
   const res = registry.find((item) => item.type === type && item.name === name);
 

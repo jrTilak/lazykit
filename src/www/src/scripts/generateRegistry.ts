@@ -141,16 +141,6 @@ types.forEach((type) => {
       }).outputText; //transpiled to esnext
 
       /**
-       * todo: remove the exports from the code in commonjs if possible to make it cleaner and only the function code
-       */
-      const cjs = typescript.transpileModule(ts, {
-        compilerOptions: {
-          target: typescript.ScriptTarget.ESNext,
-          module: typescript.ModuleKind.CommonJS,
-        },
-      }).outputText; //transpiled to commonjs
-
-      /**
        * Create an object with the method name, code, category, type
        */
       const updatedMethod = {
@@ -158,7 +148,6 @@ types.forEach((type) => {
         code: {
           ts,
           js,
-          cjs,
         },
         category,
         type,

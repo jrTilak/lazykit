@@ -42,7 +42,6 @@ program
   .alias("i")
   .option("-js, --javascript", "Initialize the project with javascript")
   .option("-ts, --typescript", "Initialize the project with typescript")
-  .option("-cjs, --commonjs", "Initialize the project with commonjs")
   .option("-p, --path <path>", "Initialize the project in the given path")
   .option(
     "-f, --force",

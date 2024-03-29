@@ -3,7 +3,6 @@ export interface IRegistryJSON {
   code: {
     ts: string;
     js: string;
-    cjs: string;
   };
   createdAt: {
     date: string;
