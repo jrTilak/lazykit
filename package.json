@@ -8,7 +8,7 @@
     "prepare": "husky",
     "dev:www": "pnpm --filter www dev",
     "build:registry": "pnpm --filter www build:registry",
-    "build:cli": "pnpm --filter lazykit build"
+    "build:cli": "pnpm --filter @jrtilak/lazykit build"
   },
   "keywords": [],
   "author": "Tilak Thapa <iamjrtilak@gmail.com>",
