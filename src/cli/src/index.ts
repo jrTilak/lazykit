@@ -4,7 +4,9 @@ import { Command } from "commander";
 import chalk from "chalk";
 import init from "./scripts/init.js";
 import teardown from "./scripts/teardown.js";
-
+import add from "./scripts/add.js";
+import dotenv from "dotenv";
+dotenv.config();
 /**
  * Main CLI program
  * @version 0.0.1
@@ -61,5 +63,13 @@ program
   .description("Remove the lazykit configuration from the project")
   .alias("td")
   .action(teardown);
+
+program
+  .command("add <method>")
+  .description("Add a new method to the project")
+  .option("-p, --path <path>", "Add the method in the given path")
+  .option("-ts, --typescript", "Add the method in typescript")
+  .option("-js, --javascript", "Add the method in javascript")
+  .action(add);
 
 program.parse(process.argv);

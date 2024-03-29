@@ -36,12 +36,18 @@
   "dependencies": {
     "chalk": "^5.3.0",
     "cli-spinners": "^2.9.2",
-    "commander": "^12.0.0"
+    "commander": "^12.0.0",
+    "dotenv": "^16.4.5"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
     "@types/node": "^20",
     "tsup": "^8.0.2",
     "typescript": "^5"
+  },
+  "lazykit": {
+    "language": "ts",
+    "path": "src/utils",
+    "separate": false
   }
 }
