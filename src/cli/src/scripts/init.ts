@@ -1,21 +1,22 @@
 import chalk from "chalk";
 import * as fs from "fs";
+import inquirer from "inquirer";
 import writeConfig from "../utils/writeConfig.js";
 import { Config } from "../types/config.types.js";
 import checkInitialization from "../utils/checkInitialization.js";
-
+import packageJson from "../../package.json";
 /**
  * Initializes the project with the provided configuration.
  * @param args - The command line arguments passed to the script.
  */
-export default function init(...args: any) {
+export default async function init(...args: any) {
   /**
    * Get the arguments passed to the script from the command line.
    */
   const arg = args[0];
 
   const DEFAULT_CONFIG: Config = {
-    language: "ts",
+    language: arg.typescript ? "ts" : "js",
     path: arg.path || "src/utils",
     separate: arg.separate || false,
   };
@@ -27,10 +28,10 @@ export default function init(...args: any) {
    */
   if (!arg.force) {
     if (checkInitialization().isInitialized) {
+      console.log(chalk.red("\n!! WARNING !!"));
+      console.log("Project is already initialized 🚫");
       console.log(
-        chalk.red(
-          "Project already initialized, use --force to force initialize the project"
-        )
+        "If you want to reinitialize the project, use --force or -f flag\n"
       );
       process.exit(1);
     }
@@ -40,9 +41,7 @@ export default function init(...args: any) {
    * If the user has not provided any language flag, then detect the language of the project.
    * If the user has provided the language flag, then use the provided language.
    */
-  if (!arg.javascript && !arg.commonjs && !arg.typescript) {
-    console.log(chalk.dim("Detecting the language of the project"));
-
+  if (!arg.javascript && !arg.typescript) {
     /**
      * Get the current working directory of the project.
      */
@@ -59,7 +58,15 @@ export default function init(...args: any) {
        * todo if the package.json file does not exist, search in parent folders, give priority to the nearest package.json file in the parent folder and do the operation there
        */
       if (!packageJson) {
-        console.log(chalk.red("No package.json file found"));
+        console.log(chalk.red("No package.json file found 💀"));
+        console.log(
+          chalk.dim("Please run the command in the root of the project")
+        );
+        console.log(
+          chalk.dim(
+            "To initialize the project you need a package.json file, otherwise, you can just copy and paste methods in the utils folder"
+          )
+        );
         process.exit(1);
       }
     }
@@ -72,7 +79,12 @@ export default function init(...args: any) {
     try {
       packageJsonObj = JSON.parse(packageJson);
     } catch (e) {
-      console.log(chalk.red("Invalid package.json file"));
+      console.log(chalk.red("\nInvalid package.json file 💀"));
+      console.log(
+        chalk.dim(
+          "Please make sure that the package.json file is a valid JSON file\n"
+        )
+      );
       process.exit(1);
     }
 
@@ -84,30 +96,71 @@ export default function init(...args: any) {
       packageJsonObj.devDependencies.typescript ||
       packageJsonObj.dependencies.typescript
     ) {
-      console.log(chalk.dim("Detected typescript project"));
-      arg.typescript = true;
+      DEFAULT_CONFIG.language = "ts";
     } else {
-      console.log(
-        chalk.dim("No typescript project detected, Using javascript")
-      );
-      arg.javascript = true;
+      DEFAULT_CONFIG.language = "js";
     }
+    /**
+     *  Configure the project with the detected language with user using inquirer
+     */
+    const ans = await inquirer.prompt([
+      {
+        type: "list",
+        name: "language",
+        message: "Confirm the language for the project: ",
+        choices: [
+          { name: "Typescript", value: "ts" },
+          { name: "Javascript", value: "js" },
+        ],
+        default: DEFAULT_CONFIG.language,
+      },
+    ]);
+    DEFAULT_CONFIG.language = ans.language;
+  }
+
+  /**
+   * If the user has not provided the path flag, ask the user for the path.
+   */
+  if (!arg.path) {
+    const ans = await inquirer.prompt([
+      {
+        type: "input",
+        name: "path",
+        message: "Enter the path to store the utility methods: ",
+        default: DEFAULT_CONFIG.path,
+      },
+    ]);
+
+    DEFAULT_CONFIG.path = ans.path;
+  }
+
+  /**
+   * If the user has not provided the separate flag, ask the user for the separate flag.
+   */
+  if (!arg.separate) {
+    const ans = await inquirer.prompt([
+      {
+        type: "confirm",
+        name: "separate",
+        message: "Do you want to store the configuration in a separate file? ",
+        default: DEFAULT_CONFIG.separate,
+      },
+    ]);
+
+    DEFAULT_CONFIG.separate = ans.separate;
   }
 
   /**
    * Initialize the project with the provided configuration.
    */
   console.log(
-    chalk.green("Initializing the project with the following config: 👇")
+    chalk.green("\nInitializing the project with the following config: 👇\n")
   );
-  if (arg.typescript) {
-    writeConfig(DEFAULT_CONFIG);
-  } else {
-    DEFAULT_CONFIG.language = "js";
-    writeConfig(DEFAULT_CONFIG);
-  }
+  writeConfig(DEFAULT_CONFIG);
   console.log(chalk.dim(JSON.stringify(DEFAULT_CONFIG, null, 2)));
-  console.log(chalk.green("Project initialized successfully ⭐"));
-  console.log("Enjoy using lazykit 🚀");
+  console.log(chalk.green("\nProject initialized successfully ⭐"));
+  console.log("Enjoy using lazykit 🚀\n");
+  console.log(chalk.dim(packageJson.name + " v" + packageJson.version));
+
   process.exit(0);
 }

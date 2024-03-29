@@ -1,16 +1,17 @@
 #!/usr/bin/env node
 
 import { Command } from "commander";
+import packageJson from "../package.json";
 import chalk from "chalk";
 import init from "./scripts/init.js";
 import teardown from "./scripts/teardown.js";
 import add from "./scripts/add.js";
 import dotenv from "dotenv";
+
 dotenv.config();
+
 /**
  * Main CLI program
- * @version 0.0.1
- * @description CLI program for managing the project
  */
 const program = new Command();
 program
@@ -27,11 +28,17 @@ program
  */
 
 if (process.argv.length === 2) {
-  console.log("\n");
-  console.log(chalk.green("Welcome to Lazykit CLI"));
-  console.log("For help, run: --help");
-  console.log("For documentation, visit: https://lazykit.thapatilak.com.np");
-  console.log("For github repo: https//:github.com/jrtilak/lazykit\n");
+  console.log(chalk.green("\nWelcome to Lazykit CLI 🚀"));
+  console.log("For help, run: ", chalk.blue("--help"));
+  console.log(
+    "For documentation, visit: ",
+    chalk.green(process.env.WEBSITE_URL)
+  );
+  console.log(
+    "For github, visit: ",
+    chalk.green("https//:github.com/jrtilak/lazykit\n")
+  );
+  console.log(chalk.dim(packageJson.name + " v" + packageJson.version));
   process.exit(0);
 }
 
