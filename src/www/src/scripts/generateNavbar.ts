@@ -19,7 +19,7 @@ const GETTING_STARTED = {
   links: [
     {
       label: "Introduction",
-      url: "/docs/getting-started",
+      url: "/docs/introduction",
     },
     {
       label: "Installation",

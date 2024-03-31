@@ -8,15 +8,17 @@ export default function DocsLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <section className="grid grid-cols-8">
-      <div className="col-span-2">
+    <section className="grid grid-cols-12 h-full gap-12">
+      <div className="col-span-3 h-full">
         <Sidebar />
       </div>
-      <main className="col-span-5 flex flex-col ">
+      <main className="col-span-7 flex flex-col h-full pt-12">
         {children}
         <PrevNext />
       </main>
-      <OnThisPage />
+      <div className="col-span-2 h-full">
+        <OnThisPage />
+      </div>
     </section>
   );
 }

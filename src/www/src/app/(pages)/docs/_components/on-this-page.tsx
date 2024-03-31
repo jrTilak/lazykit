@@ -1,4 +1,4 @@
 const OnThisPage = () => {
-  return <div>OnThisPage</div>;
+  return <div className="h-full shadow-lg w-full pt-12">OnThisPage</div>;
 };
 export default OnThisPage;

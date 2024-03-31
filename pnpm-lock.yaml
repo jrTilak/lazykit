@@ -73,6 +73,9 @@ importers:
       '@radix-ui/react-scroll-area':
         specifier: ^1.0.5
         version: 1.0.5(@types/react-dom@18.2.22)(@types/react@18.2.66)(react-dom@18.2.0)(react@18.2.0)
+      '@radix-ui/react-slot':
+        specifier: ^1.0.2
+        version: 1.0.2(@types/react@18.2.66)(react@18.2.0)
       change-case:
         specifier: ^5.4.3
         version: 5.4.3
