@@ -1,7 +1,7 @@
 import { IDoc } from "@/types/registry.types";
 
 const Docs = () => {
-  return <div>Docs</div>;
+  return <div>Hello World</div>;
 };
 export default Docs;
 

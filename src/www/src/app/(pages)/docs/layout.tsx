@@ -12,7 +12,7 @@ export default function DocsLayout({
       <div className="col-span-3 h-full">
         <Sidebar />
       </div>
-      <main className="col-span-7 flex flex-col h-full pt-12">
+      <main className="col-span-7 flex flex-col h-full pt-12 gap-6">
         {children}
         <PrevNext />
       </main>

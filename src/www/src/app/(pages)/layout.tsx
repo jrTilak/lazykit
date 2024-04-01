@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "@/app/globals.css";
 import { META_DATA } from "@/data/metadata";
 import Header from "@/components/reusable/Header";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,6 +19,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Header />
         <div className="h-[calc(100vh-55px)] overflow-y-scroll">{children}</div>
+        <Toaster />
       </body>
     </html>
   );
