@@ -1,4 +1,6 @@
+"use client";
 import { useToast } from "@/components/ui/use-toast";
+import { cn } from "@/lib/utils";
 import { Check, Files, LucideIcon, WrapText, X } from "lucide-react";
 import { useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -48,7 +50,10 @@ const CodeBlock = ({ code, language }: ICodeBlock) => {
         </button>
         <button
           onClick={() => setWrapLines((prev) => !prev)}
-          className="hover:bg-neutral-600 p-1 rounded-md transition-colors"
+          className={cn(
+            "hover:bg-neutral-600 p-1 rounded-md transition-colors",
+            wrapLines ? "opacity-100" : "opacity-80"
+          )}
         >
           <WrapText className="h-5 w-5" />
         </button>
