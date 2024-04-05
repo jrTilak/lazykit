@@ -51,8 +51,8 @@ const MethodPage = async ({ slug }: { slug: string[] }) => {
         </p>
         {methodInfo.externalLinks && (
           <div className="flex gap-3">
-            {methodInfo.externalLinks.map((link) => (
-              <Link href={link.url} target="_blank">
+            {methodInfo.externalLinks.map((link, i) => (
+              <Link href={link.url} key={i} target="_blank">
                 <Badge
                   variant="secondary"
                   className="inline-flex gap-2 rounded"
@@ -99,7 +99,7 @@ const MethodPage = async ({ slug }: { slug: string[] }) => {
 
         <MethodComp.default />
       </div>
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 overflow-hidden">
         <h3
           className="text-lg sm:text-xl lg:text-2xl font-semibold flex gap-2"
           id="props"
@@ -107,7 +107,9 @@ const MethodPage = async ({ slug }: { slug: string[] }) => {
           <span>4. Props</span>
           <hr />
         </h3>
-        <PropsTable data={MethodComp.Props} />
+        <div className="overflow-x-auto">
+          <PropsTable data={MethodComp.Props} />
+        </div>
       </div>
       <div className="flex flex-col gap-3">
         <h3
@@ -117,9 +119,9 @@ const MethodPage = async ({ slug }: { slug: string[] }) => {
           <span>5. Examples</span>
           <hr />
         </h3>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-3 sm:gap-4">
           {exampleFilesData?.map((example, index) => (
-            <CodeBlock code={example} language="javascript" />
+            <CodeBlock code={example} key={index} language="javascript" />
           ))}
         </div>
       </div>

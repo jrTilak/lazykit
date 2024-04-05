@@ -13,7 +13,7 @@ type Props = {
 };
 const PropsTable = ({ data }: Props) => {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col min-w-[500px]">
       <div className="grid grid-cols-3 gap-2 px-6 py-2 rounded-t-sm bg-gray-300">
         <div className="mr-auto flex gap-3 items-center">
           <h1>Prop</h1>
@@ -35,7 +35,7 @@ const PropsTable = ({ data }: Props) => {
           <span>Type</span>
         </h3>
         <h3 className="ml-auto">
-          <span> Default Value</span>
+          <span className="truncate">Default Value</span>
         </h3>
       </div>
       {data.map((prop, index) => (
