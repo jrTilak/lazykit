@@ -14,6 +14,7 @@ export interface IRegistryJSON {
   };
   category: string;
   type: string;
+  examples: string[];
 }
 
 export interface IDoc {

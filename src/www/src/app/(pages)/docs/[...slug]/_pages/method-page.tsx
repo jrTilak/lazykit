@@ -10,8 +10,6 @@ import PropsTable from "../_components/PropsTable";
 import { readFileAsString, readFiles } from "@/utils/readFiles";
 import CodeBlock from "../_components/code-block";
 
-const PATH_TO_REGISTRY = "./src/registry"; //I don't how this is working, but it is working
-
 const MethodPage = async ({ slug }: { slug: string[] }) => {
   if (!registry) return <NotFound />;
 
@@ -27,16 +25,6 @@ const MethodPage = async ({ slug }: { slug: string[] }) => {
   const MethodComp = await import(
     `@/registry/${slug[0]}/${slug[1]}/${methodData.name}/docs.tsx`
   );
-
-  const allExampleFiles = readFiles(
-    `${PATH_TO_REGISTRY}/${slug[0]}/${slug[1]}/${methodData.name}`
-  )?.filter((file) => file.endsWith(".example.ts"));
-
-  const exampleFilesData = allExampleFiles?.map((file) => {
-    const path = `${PATH_TO_REGISTRY}/${slug[0]}/${slug[1]}/${methodData.name}/${file}`;
-    const data = readFileAsString(path);
-    return data;
-  });
 
   const methodInfo: IDoc = MethodComp.Info;
 
@@ -120,8 +108,8 @@ const MethodPage = async ({ slug }: { slug: string[] }) => {
           <hr />
         </h3>
         <div className="flex flex-col gap-3 sm:gap-4">
-          {exampleFilesData?.map((example, index) => (
-            <CodeBlock code={example} key={index} language="javascript" />
+          {methodData.examples?.map((example, index) => (
+            <CodeBlock code={example} key={index} language="typescript" />
           ))}
         </div>
       </div>
