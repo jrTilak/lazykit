@@ -4,10 +4,12 @@ import {
   IRegistryJSON,
 } from "@/types/registry.types";
 import * as fs from "fs";
+import * as changeCase from "change-case";
 
 const PATH_TO_REGISTRY = "../configs/registry.json";
 const PATH_TO_NAVBAR = "../configs/nav-links.json";
 const PATH_TO_PREV_NEXT_BUTTON_LINKS = "../configs/prev-next-button-links.json";
+const PATH_TO_TYPES = "../configs/types.json";
 
 const NAV_LINKS_FOR_PREV_NEXT_BUTTON: INavLinkForPrevNextButton[] = [];
 
@@ -70,11 +72,21 @@ export const generateNavbar = () => {
         links: [...GETTING_STARTED.links],
       },
     ];
+    const TYPES: INavLink["links"] = [];
 
     NAV_LINKS_FOR_PREV_NEXT_BUTTON.push(...GETTING_STARTED.links);
 
     //write the navbar to the file
     availableTypes.forEach((type) => {
+      /**
+       * Add this type to the navbar in top section
+       */
+      const typeName = changeCase.capitalCase(type);
+      TYPES.push({
+        label: typeName,
+        url: `/docs/${type}`,
+      });
+
       const categories = registry
         .filter((method) => method.type === type)
         .map((method) => method.category);
@@ -101,6 +113,7 @@ export const generateNavbar = () => {
       NAV_LINKS.push(link);
     });
 
+    fs.writeFileSync(PATH_TO_TYPES, JSON.stringify(TYPES, null, 2));
     fs.writeFileSync(PATH_TO_NAVBAR, JSON.stringify(NAV_LINKS, null, 2));
     fs.writeFileSync(
       PATH_TO_PREV_NEXT_BUTTON_LINKS,

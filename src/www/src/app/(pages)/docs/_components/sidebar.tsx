@@ -6,6 +6,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import navLinks from "@/configs/nav-links.json";
+import types from "@/configs/types.json";
 import Link from "next/link";
 const Sidebar = () => {
   return (
@@ -21,6 +22,17 @@ const Sidebar = () => {
                   </AccordionTrigger>
                   <AccordionContent className="flex gap-2 flex-col">
                     {navLink.links.map((link, i) => {
+                      return (
+                        <Link
+                          key={i}
+                          href={link.url}
+                          className="block hover:underline text-base text-muted-foreground hover:text-foreground transition-colors w-fit"
+                        >
+                          {link.label}
+                        </Link>
+                      );
+                    })}
+                    {types.map((link, i) => {
                       return (
                         <Link
                           key={i}

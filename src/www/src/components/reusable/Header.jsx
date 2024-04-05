@@ -3,6 +3,8 @@ import { META_DATA } from "@/data/metadata";
 import Image from "next/image";
 import Link from "next/link";
 import ToggleSidebarButton from "./ToggleSidebarButton";
+import types from "@/configs/types.json";
+import SearchPopup from "./SearchPopup";
 
 const Header = () => {
   return (
@@ -13,21 +15,49 @@ const Header = () => {
           padding: "0.5rem 2rem",
         }}
       >
-        <div className="flex gap-5 items-center">
+        <div
+          className="flex items-center"
+          style={{
+            gap: "1rem",
+          }}
+        >
           <ToggleSidebarButton />
           <Link href="/" className="flex gap-3 items-center">
             <Image src="/logo.svg" alt="logo" width={80} height={32} />
-            <span>{META_DATA.title}</span>
+            <h2>{META_DATA.title}</h2>
           </Link>
-          <div className="md:flex gap-4 items-center hidden">
+          <div
+            className="items-center text-sm"
+            style={{
+              gap: "1rem",
+              display: "flex",
+            }}
+          >
             {HEADER_LINKS.map((link, index) => (
-              <Link key={index} href={link.href} target={link.target}>
+              <Link
+                key={index}
+                href={link.href}
+                target={link.target}
+                className="text-gray-400 hover:text-muted-foreground transition-all hover:underline"
+              >
                 {link.title}
+              </Link>
+            ))}
+            {types.map((link, index) => (
+              <Link
+                key={index}
+                href={link.url}
+                target={link.target}
+                className="text-gray-400 hover:text-muted-foreground transition-all hover:underline"
+              >
+                {link.label}
               </Link>
             ))}
           </div>
         </div>
-        <div>Other</div>
+        <div>
+          <SearchPopup />
+        </div>
       </nav>
     </header>
   );
