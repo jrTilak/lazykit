@@ -1,16 +1,16 @@
 import { Metadata } from "next";
+import { CREATOR_INFO, PACKAGE_INFO } from "./info";
 
 export const META_DATA: Metadata = {
-  title: "@jrtilak/lazykit",
-  description:
-    "Boost your coding efficiency with LazyKit – a collection of JavaScript and TypeScript utility functions for seamless integration into your projects.",
+  title: PACKAGE_INFO.name,
+  description: PACKAGE_INFO.description,
   authors: [
     {
-      name: "jrTilak",
-      url: "https://thapatilak.com.np/",
+      name: CREATOR_INFO.username,
+      url: CREATOR_INFO.github,
     },
   ],
-  creator: "jrTilak",
+  creator: CREATOR_INFO.name,
   icons: [
     {
       url: "/logo.svg",

@@ -11,7 +11,7 @@ export default function DocsLayout({
     <section className="grid grid-cols-12 h-full gap-6 lg:gap-12 overflow-hidden">
       <div
         id="sidebar"
-        className="lg:col-span-3 absolute lg:static h-[calc(100vh-55px)] lg:h-full w-[250px] lg:w-auto bg-background lg:bg-inherit z-40 lg:z-auto -translate-x-full lg:translate-x-0 transition-transform"
+        className="lg:col-span-3 absolute lg:static h-[calc(100vh-40px)] lg:h-full w-[250px] lg:w-auto bg-background lg:bg-inherit z-40 lg:z-auto -translate-x-full lg:translate-x-0 transition-transform"
       >
         <Sidebar />
       </div>
