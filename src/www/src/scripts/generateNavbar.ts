@@ -86,6 +86,10 @@ export const generateNavbar = () => {
         label: typeName,
         url: `/docs/${type}`,
       });
+      NAV_LINKS_FOR_PREV_NEXT_BUTTON.push({
+        label: typeName,
+        url: `/docs/${type}`,
+      });
 
       const categories = registry
         .filter((method) => method.type === type)
