@@ -1,6 +1,6 @@
 import NotFound from "@/components/pages/not-found";
-import PAGES_CONFIG from "./_configs/_pages.config";
-import MethodPage from "./_pages/method-page";
+import PAGES_CONFIG from "../_configs/_pages.config";
+import MethodPage from "../_pages/method-page";
 import registry from "@/configs/prev-next-button-links.json";
 const DocsPage = ({ params: { slug } }: { params: { slug: string[] } }) => {
   const predefinedPage = PAGES_CONFIG.find(
