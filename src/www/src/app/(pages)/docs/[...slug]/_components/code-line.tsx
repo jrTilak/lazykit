@@ -8,9 +8,10 @@ import useLocalStorage from "use-local-storage";
 interface ICodeLine {
   code: string;
   language: string;
+  className?: string;
 }
 
-const CodeLine = ({ code, language }: ICodeLine) => {
+const CodeLine = ({ code, language, className }: ICodeLine) => {
   const [lang] = useLocalStorage("code-lang", "ts");
   const [isCopying, setIsCopying] = useState({
     isCopying: false,
@@ -39,7 +40,7 @@ const CodeLine = ({ code, language }: ICodeLine) => {
   };
   const codeWithLangFlag = `${code} -${lang === "js" ? "js" : "ts"}`;
   return (
-    <div className="relative overflow-y-scroll">
+    <div className={`relative overflow-y-scroll ${className}`}>
       <button
         disabled={isCopying.isCopying}
         onClick={handleCopy}
@@ -53,6 +54,7 @@ const CodeLine = ({ code, language }: ICodeLine) => {
         customStyle={{
           borderRadius: "0.25rem",
           padding: "1rem",
+          width: "100%",
         }}
         style={vscDarkPlus}
         codeTagProps={{

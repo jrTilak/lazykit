@@ -2,6 +2,7 @@ export const GITHUB_INFO = {
   user: "jrtilak",
   repo: "lazykit",
   url: "https://github.com/jrtilak/lazykit",
+  api: "https://api.github.com/repos/jrtilak/lazykit",
 };
 
 export const TWITTER_INFO = {

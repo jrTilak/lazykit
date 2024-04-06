@@ -1,4 +1,4 @@
-import NotFound from "@/components/not-found";
+import NotFound from "@/components/pages/not-found";
 import registry from "@/configs/registry.json";
 import { IDoc } from "@/types/registry.types";
 import CodeTabs from "../_components/code-tabs";

@@ -11,7 +11,7 @@ import X from "@/assets/icons/x.svg";
 
 const Header = () => {
   return (
-    <header className="w-full shadow-lg z-50">
+    <header className="w-full shadow-lg z-50 h-14 flex items-center justify-center">
       <nav className="flex justify-between items-center w-full mx-auto px-3 lg:px-12 py-1">
         <div className="flex items-center gap-6">
           <ToggleSidebarButton />
