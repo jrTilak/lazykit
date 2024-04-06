@@ -105,6 +105,14 @@ types.forEach((type) => {
         process.exit(1);
       }
 
+      const examples = exampleFiles.map((file) =>
+        readFileAsString(pathUptoMethod + "/" + file)
+      );
+
+      /**
+       * Add the example files in the registry
+       */
+
       /**
        * Check if all the necessary files are present in the method folder
        */
@@ -151,6 +159,7 @@ types.forEach((type) => {
         },
         category,
         type,
+        examples,
       };
 
       /**

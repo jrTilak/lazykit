@@ -1,7 +1,8 @@
 const chunk = <T>(
   array: T[],
   size: number = 1,
-  strict: boolean = false //remove the last chunk if it is not equal to the size
+  strict: boolean = false
+  //remove the last chunk if it is not equal to the size
 ): T[][] => {
   const result: T[][] = [];
 

@@ -13,7 +13,7 @@ const ExternalLink: React.FC<ExternalLinkProps> = ({
 }) => {
   return (
     <Link href={href as string} target={target} {...props}>
-      <Badge variant="secondary" className="inline-flex gap-2">
+      <Badge variant="secondary" className="inline-flex gap-2 rounded">
         {children}
         <ExternalLinkIcon size={12} />
       </Badge>

@@ -1,17 +1,23 @@
-import CategoryPage from "./_pages/category-page";
-import MethodPage from "./_pages/method-page";
-import TypePage from "./_pages/type-page";
-
+import NotFound from "@/components/pages/not-found";
+import PAGES_CONFIG from "../_configs/_pages.config";
+import MethodPage from "../_pages/method-page";
+import registry from "@/configs/prev-next-button-links.json";
 const DocsPage = ({ params: { slug } }: { params: { slug: string[] } }) => {
-  switch (slug.length) {
-    case 1:
-      return <TypePage type={slug[0]} />;
-    case 2:
-      return <CategoryPage category={slug[1]} />;
-    case 3:
-      return <MethodPage slug={slug} />;
-    default:
-      return <div>Not found</div>;
+  const predefinedPage = PAGES_CONFIG.find(
+    (page) => page.path === `/docs/${slug.join("/")}`
+  );
+  if (predefinedPage) {
+    return <predefinedPage.component />;
   }
+  if (slug.length === 3) {
+    return <MethodPage slug={slug} />;
+  }
+  return <NotFound />;
 };
 export default DocsPage;
+
+export async function generateStaticParams() {
+  const urls = registry.map((item) => item.url.replace("/docs", "").split("/"));
+  const params = urls.map((url) => ({ params: { slug: url } }));
+  return params;
+}
