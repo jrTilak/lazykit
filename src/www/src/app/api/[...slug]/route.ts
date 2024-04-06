@@ -7,22 +7,10 @@ interface Context {
 }
 
 export const GET = async (req: NextRequest, context: Context) => {
-  if (context.params.slug.length !== 2) {
-    return NextResponse.json(
-      {
-        status: 400,
-        message: "Invalid request",
-      },
-      {
-        status: 400,
-      }
-    );
-  }
-
-  const [type, name] = context.params.slug;
+  const [name] = context.params.slug;
   const lang = (req.nextUrl.searchParams.get("lang") || "ts") as "ts" | "js";
 
-  const res = registry.find((item) => item.type === type && item.name === name);
+  const res = registry.find((item) => item.name === name);
 
   if (!res || !res.code[lang]) {
     return NextResponse.json(
