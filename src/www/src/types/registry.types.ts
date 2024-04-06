@@ -14,10 +14,10 @@ export interface IRegistryJSON {
   };
   category: string;
   type: string;
+  examples: string[];
 }
 
 export interface IDoc {
-  name: string;
   description: string;
   externalLinks?: {
     label: string;
@@ -40,3 +40,26 @@ export interface INavLink {
     }[];
   }[];
 }
+
+export interface INavLinkForPrevNextButton {
+  label: string;
+  url: string;
+}
+
+export type IRegistryFunctionPropTable =
+  | {
+      title: string;
+      required: boolean;
+      defaultValue: string | undefined;
+      propDesc: string;
+      type: "string" | "number" | "boolean" | "object" | "array" | "function";
+      typeDesc?: string;
+    }
+  | {
+      title: string;
+      required: boolean;
+      defaultValue: string | undefined;
+      propDesc: string;
+      type: "enum";
+      enums: string[];
+    };

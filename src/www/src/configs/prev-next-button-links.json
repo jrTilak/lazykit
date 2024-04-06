@@ -1,0 +1,34 @@
+[
+  {
+    "label": "Introduction",
+    "url": "/docs/introduction"
+  },
+  {
+    "label": "Installation",
+    "url": "/docs/installation"
+  },
+  {
+    "label": "Usage",
+    "url": "/docs/usage"
+  },
+  {
+    "label": "lazykit.config.json",
+    "url": "/docs/lazykit-config"
+  },
+  {
+    "label": "CLI",
+    "url": "/docs/cli"
+  },
+  {
+    "label": "Changelog",
+    "url": "/docs/changelog"
+  },
+  {
+    "label": "Functions",
+    "url": "/docs/functions"
+  },
+  {
+    "label": "chunk",
+    "url": "/docs/functions/arrays/chunk"
+  }
+]
