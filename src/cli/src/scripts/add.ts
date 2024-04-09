@@ -15,6 +15,11 @@ export default async function add(...args: any[]) {
    * If the project is not initialized, then exit the process.
    */
   const config = checkInitialization();
+  if (!config.isPackageJsonFound) {
+    console.log(chalk.red("\npackage.json not found\n"));
+    console.log(chalk.dim("Run `npm init -y` to create a package.json file\n"));
+    process.exit(1);
+  }
   if (!config.isInitialized) {
     console.log(chalk.red("\nProject is not initialized\n"));
 
@@ -46,7 +51,8 @@ export default async function add(...args: any[]) {
   const lang = (() => {
     if (arg.javascript) return "js";
     if (arg.typescript) return "ts";
-    return config.config.language === "ts" ? "ts" : "js";
+    if (!config.isInitialized) return "js";
+    return config?.config?.language === "ts" ? "ts" : "js";
   })();
 
   /**

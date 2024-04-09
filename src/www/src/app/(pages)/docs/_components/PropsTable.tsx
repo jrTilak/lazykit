@@ -16,7 +16,7 @@ const PropsTable = ({ data }: Props) => {
     <div className="flex flex-col min-w-[500px]">
       <div className="grid grid-cols-3 gap-2 px-6 py-2 rounded-t-sm bg-gray-300">
         <div className="mr-auto flex gap-3 items-center">
-          <h1>Prop</h1>
+          <h4>Prop</h4>
           <TooltipProvider delayDuration={0}>
             <Tooltip>
               <TooltipTrigger>
@@ -31,12 +31,12 @@ const PropsTable = ({ data }: Props) => {
             </Tooltip>
           </TooltipProvider>
         </div>
-        <h3 className="mx-auto">
+        <h4 className="mx-auto">
           <span>Type</span>
-        </h3>
-        <h3 className="ml-auto">
+        </h4>
+        <h4 className="ml-auto">
           <span className="truncate">Default Value</span>
-        </h3>
+        </h4>
       </div>
       {data.map((prop, index) => (
         <div

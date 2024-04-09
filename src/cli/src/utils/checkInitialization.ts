@@ -3,6 +3,7 @@ import * as fs from "fs";
 export default function checkInitialization() {
   let isInitialized = false;
   let config = null;
+  let isPackageJsonFound = false;
 
   try {
     const packageJson = fs.readFileSync(
@@ -14,8 +15,9 @@ export default function checkInitialization() {
       isInitialized = true;
       config = packageJsonObj.lazykit;
     }
+    isPackageJsonFound = true;
   } catch (e) {
-    // Handle error reading package.json
+    isPackageJsonFound = false;
   }
 
   if (!isInitialized) {
@@ -34,5 +36,5 @@ export default function checkInitialization() {
     }
   }
 
-  return { isInitialized, config };
+  return { isInitialized, config, isPackageJsonFound };
 }

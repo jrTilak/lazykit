@@ -4,7 +4,7 @@ import packageJson from "../../package.json";
 import * as fs from "fs";
 
 /**
- * Tears down the project by deleting the configuration file and removing the lazykit configuration from package.json.
+ * Tears down the project by deleting the configuration file and removing the lazykit configuration from package.json or lazykit.config.json.
  * @param args - The arguments passed to the teardown function.
  */
 export default function teardown() {

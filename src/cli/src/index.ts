@@ -1,14 +1,15 @@
 #!/usr/bin/env node
 
 import { Command } from "commander";
-import packageJson from "../package.json";
 import chalk from "chalk";
 import init from "./scripts/init.js";
 import teardown from "./scripts/teardown.js";
 import add from "./scripts/add.js";
 import dotenv from "dotenv";
-import { REGISTRY_URL } from "./data/constant.js";
+import { GITHUB_URL, REGISTRY_URL } from "./data/constant.js";
+import exit0 from "./utils/exit0.js";
 
+//todo: The idea of using dotenv is to add some key while fetching the code so that the code api will be only accessible by CLI
 dotenv.config();
 
 /**
@@ -18,7 +19,7 @@ const program = new Command();
 program
   .name("@jrtilak/lazykit")
   .description(
-    "CLI program for adding utility methods to your the project fro lazykit like a pro"
+    "CLI program for adding utility methods to your the project for lazykit like a pro"
   );
 
 /**
@@ -33,14 +34,10 @@ if (process.argv.length === 2) {
   console.log("For help, run: ", chalk.blue("--help"));
   console.log(
     "For documentation, visit: ",
-    chalk.green(REGISTRY_URL + "/docs")
+    chalk.green(REGISTRY_URL + "/docs/introduction")
   );
-  console.log(
-    "For github, visit: ",
-    chalk.green("https//:github.com/jrtilak/lazykit\n")
-  );
-  console.log(chalk.dim(packageJson.name + " v" + packageJson.version));
-  process.exit(0);
+  console.log("For github, visit: ", chalk.green(GITHUB_URL));
+  exit0();
 }
 
 /**
@@ -49,10 +46,9 @@ if (process.argv.length === 2) {
 program
   .command("init")
   .description("Initialize the project")
-  .alias("i")
   .option("-js, --javascript", "Initialize the project with javascript")
   .option("-ts, --typescript", "Initialize the project with typescript")
-  .option("-p, --path <path>", "Initialize the project in the given path")
+  .option("-p <path>, --path <path>", "Initialize the project in the given path")
   .option(
     "-f, --force",
     "Force initialize the project, even if the project is already initialized"

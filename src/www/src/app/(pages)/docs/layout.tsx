@@ -15,7 +15,10 @@ export default function DocsLayout({
       >
         <Sidebar />
       </div>
-      <main className="col-span-12 px-4 sm:px-6 md:px-12 lg:px-0 lg:col-span-7 flex flex-col h-full py-6 lg:py-12 gap-6 overflow-y-scroll">
+      <main
+        id="main-content"
+        className="col-span-12 px-4 sm:px-6 md:px-12 lg:px-0 lg:col-span-7 flex flex-col h-full py-6 lg:py-12 gap-6 overflow-y-scroll"
+      >
         {children}
         <PrevNext />
       </main>
