@@ -102,13 +102,15 @@ const CLI = () => {
               </Accordion>
             </div>
             <div className="flex flex-col gap-3">
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col gap-1 overflow-x-hidden">
                 <h4 className="text-lg sm:text-xl">II. Flags</h4>
                 <p>
                   You can pass the following flags to the init command to skip
                   the questions.
                 </p>
-                <Table {...cliDetails} />
+                <div className="overflow-x-auto">
+                  <Table {...cliDetails} />
+                </div>
               </div>
             </div>
           </div>
