@@ -1,11 +1,11 @@
 "use client";
 
 import { Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
 import { useEffect } from "react";
-import useLocalStorage from "use-local-storage";
 
 const ToggleTheme = () => {
-  const [theme, setTheme] = useLocalStorage("theme", "light");
+  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
     if (theme === "light") {

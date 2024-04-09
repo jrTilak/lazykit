@@ -18,6 +18,5 @@ export default DocsPage;
 
 export async function generateStaticParams() {
   const urls = registry.map((item) => item.url.replace("/docs", "").split("/"));
-  const params = urls.map((url) => ({ params: { slug: url } }));
-  return params;
+  return urls.map((url) => ({ slug: url }));
 }
