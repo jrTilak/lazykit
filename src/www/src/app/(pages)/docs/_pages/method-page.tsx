@@ -29,7 +29,7 @@ const MethodPage = async ({ slug }: { slug: string[] }) => {
   const methodInfo: IDoc = MethodComp.Info;
 
   return (
-    <div className="flex flex-col gap-4 lg:gap-8">
+    <div className="flex flex-col gap-4 lg:gap-8 2xl:gap-12">
       <div className="flex flex-col gap-2">
         <h1 className=" text-2xl sm:text-3xl lg:text-4xl font-bold">
           {methodData.name}
