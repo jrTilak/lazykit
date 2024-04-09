@@ -17,6 +17,6 @@ const DocsPage = ({ params: { slug } }: { params: { slug: string[] } }) => {
 export default DocsPage;
 
 export async function generateStaticParams() {
-  const urls = registry.map((item) => item.url.replace("/docs", "").split("/"));
+  const urls = registry.map((item) => item.url.replace("/docs/", "").split("/"));
   return urls.map((url) => ({ slug: url }));
 }

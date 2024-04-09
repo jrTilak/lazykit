@@ -8,6 +8,7 @@
     "prepare": "husky",
     "dev:www": "pnpm --filter www dev",
     "build:registry": "pnpm --filter www build:registry",
+    "build:www": "pnpm --filter www build",
     "build:cli": "pnpm --filter @jrtilak/lazykit build"
   },
   "keywords": [],
