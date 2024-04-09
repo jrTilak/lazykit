@@ -8,6 +8,7 @@ import SearchPopup from "./SearchPopup";
 import { GITHUB_INFO, TWITTER_INFO } from "@/data/info";
 import githubIcon from "@/assets/icons/github-142-svgrepo-com.svg";
 import X from "@/assets/icons/x.svg";
+import ToggleTheme from "./ToggleTheme";
 
 const Header = () => {
   return (
@@ -69,6 +70,7 @@ const Header = () => {
               className="cursor-pointer"
             />
           </Link>
+          <ToggleTheme />
         </div>
       </nav>
     </header>

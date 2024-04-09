@@ -8,7 +8,7 @@ import Usage, { usageMetaData } from "../_pages/usage";
 const PAGES_CONFIG = [
   {
     component: Introduction,
-    path: "/docs",
+    path: "/docs/introduction",
     metaData: introductionMetaData,
   },
   {
