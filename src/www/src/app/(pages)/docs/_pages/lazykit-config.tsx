@@ -23,7 +23,7 @@ const LazykitConfig = () => {
         </h3>
         <p>
           It is used while installing the utility methods in your project to
-          detect the location of the utility methods in your project and it's
+          detect the location of the utility methods in your project and it&apos;s
           language.
         </p>
         <p>
