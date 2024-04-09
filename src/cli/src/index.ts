@@ -7,7 +7,7 @@ import teardown from "./scripts/teardown.js";
 import add from "./scripts/add.js";
 import dotenv from "dotenv";
 import { GITHUB_URL, REGISTRY_URL } from "./data/constant.js";
-import exit0 from "./utils/exit0.js";
+import exitProcess from "./utils/exitProcess.js";
 
 //todo: The idea of using dotenv is to add some key while fetching the code so that the code api will be only accessible by CLI
 dotenv.config();
@@ -37,7 +37,7 @@ if (process.argv.length === 2) {
     chalk.green(REGISTRY_URL + "/docs/introduction")
   );
   console.log("For github, visit: ", chalk.green(GITHUB_URL));
-  exit0();
+  exitProcess(0);
 }
 
 /**
@@ -48,7 +48,10 @@ program
   .description("Initialize the project")
   .option("-js, --javascript", "Initialize the project with javascript")
   .option("-ts, --typescript", "Initialize the project with typescript")
-  .option("-p <path>, --path <path>", "Initialize the project in the given path")
+  .option(
+    "-p <path>, --path <path>",
+    "Initialize the project in the given path"
+  )
   .option(
     "-f, --force",
     "Force initialize the project, even if the project is already initialized"

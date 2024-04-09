@@ -2,6 +2,7 @@ import chalk from "chalk";
 import checkInitialization from "../utils/checkInitialization.js";
 import packageJson from "../../package.json";
 import * as fs from "fs";
+import exitProcess from "../utils/exitProcess.js";
 
 /**
  * Tears down the project by deleting the configuration file and removing the lazykit configuration from package.json or lazykit.config.json.
@@ -16,7 +17,7 @@ export default function teardown() {
    */
   if (!config.isInitialized) {
     console.log(chalk.red("Project is not initialized 😐"));
-    process.exit(1);
+    exitProcess(1);
   }
 
   /**
@@ -27,7 +28,7 @@ export default function teardown() {
       fs.unlinkSync(`${process.cwd()}/lazykit.config.json`);
     } catch (e) {
       console.log(chalk.red("Error deleting the configuration file"));
-      process.exit(1);
+      exitProcess(1);
     }
   } else {
     try {
@@ -45,10 +46,10 @@ export default function teardown() {
       console.log(
         chalk.red("Error deleting the configuration from package.json")
       );
-      process.exit(1);
+      exitProcess(1);
     }
   }
   console.log(chalk.green("Project teardown successful! 🚀\n"));
   console.log(chalk.dim(packageJson.name + " v" + packageJson.version));
-  process.exit(0);
+  exitProcess(0);
 }

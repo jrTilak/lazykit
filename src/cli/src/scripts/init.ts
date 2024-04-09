@@ -5,8 +5,8 @@ import writeConfig from "../utils/writeConfig.js";
 import { Config } from "../types/config.types.js";
 import checkInitialization from "../utils/checkInitialization.js";
 import packageJson from "../../package.json";
-import exit0 from "../utils/exit0.js";
-/**
+import exitProcess from "../utils/exitProcess.js";
+/**../utils/exit.js
  * Initializes the project with the provided configuration.
  * @param args - The command line arguments passed to the script.
  */
@@ -35,7 +35,7 @@ export default async function init(...args: any) {
       console.log(
         "If you want to reinitialize the project, use --force or -f flag"
       );
-      exit0();
+      exitProcess(1);
     }
   }
 
@@ -71,7 +71,7 @@ export default async function init(...args: any) {
             "To initialize the project you need a package.json file, otherwise, you can just copy and paste methods in the utils folder"
           )
         );
-        process.exit(1);
+        exitProcess(1);
       }
     }
 
@@ -89,7 +89,7 @@ export default async function init(...args: any) {
           "Please make sure that the package.json file is a valid JSON file\n"
         )
       );
-      process.exit(1);
+      exitProcess(1);
     }
 
     /**
@@ -166,5 +166,5 @@ export default async function init(...args: any) {
   console.log("Enjoy using lazykit 🚀\n");
   console.log(chalk.dim(packageJson.name + " v" + packageJson.version));
 
-  process.exit(0);
+  exitProcess(0);
 }
