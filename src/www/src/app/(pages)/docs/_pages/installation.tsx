@@ -52,7 +52,7 @@ const Installation = () => {
             language="bash"
           />
         </div>
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 overflow-x-hidden">
           <h3
             className="text-lg sm:text-xl lg:text-2xl font-semibold flex gap-2"
             id="flags"
@@ -64,7 +64,9 @@ const Installation = () => {
             The following flags can be used while adding the method in your
             project.
           </p>
-          <Table {...tableData} />
+          <div className="overflow-x-auto">
+            <Table {...tableData} />
+          </div>
         </div>
       </div>
     </>

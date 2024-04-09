@@ -23,8 +23,8 @@ const LazykitConfig = () => {
         </h3>
         <p>
           It is used while installing the utility methods in your project to
-          detect the location of the utility methods in your project and it&apos;s
-          language.
+          detect the location of the utility methods in your project and
+          it&apos;s language.
         </p>
         <p>
           This configuration object can be stored inside{" "}
@@ -34,7 +34,7 @@ const LazykitConfig = () => {
           you can choose while initializing the project.
         </p>
       </div>
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 overflow-x-hidden">
         <h3
           className="text-lg sm:text-xl lg:text-2xl font-semibold flex gap-2"
           id="description"
@@ -42,7 +42,9 @@ const LazykitConfig = () => {
           <span>2. Description</span>
           <hr />
         </h3>
-        <Table {...tableData} />
+        <div className="overflow-x-auto">
+          <Table {...tableData} />
+        </div>
       </div>
     </div>
   );
