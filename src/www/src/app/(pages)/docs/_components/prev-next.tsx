@@ -10,7 +10,7 @@ const PrevNext = () => {
     (link) => link.url === pathname
   );
   return (
-    <div className="w-full flex justify-between items-center gap-4">
+    <div className="w-full flex justify-between items-center gap-4 mt-4 md:mt-6">
       {indexOfCurrentPage > 0 ? (
         <Button
           variant="secondary"
