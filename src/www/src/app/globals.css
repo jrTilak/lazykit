@@ -72,7 +72,7 @@
 
   /* default font */
   p {
-    @apply font-inter;
+    @apply font-inter text-muted-foreground;
   }
 
   /* default heading font */

@@ -9,7 +9,8 @@
     "dev:www": "pnpm --filter www dev",
     "build:registry": "pnpm --filter www build:registry",
     "build:www": "pnpm --filter www build",
-    "build:cli": "pnpm --filter @jrtilak/lazykit build"
+    "build:cli": "pnpm --filter @jrtilak/lazykit build",
+    "watch:cli": "pnpm --filter @jrtilak/lazykit watch"
   },
   "keywords": [],
   "author": "Tilak Thapa <iamjrtilak@gmail.com>",

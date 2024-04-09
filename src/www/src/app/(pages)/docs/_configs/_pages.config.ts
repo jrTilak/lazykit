@@ -3,7 +3,6 @@ import CLI, { cliMetaData } from "../_pages/cli";
 import Installation, { installationMetaData } from "../_pages/installation";
 import Introduction, { introductionMetaData } from "../_pages/introduction";
 import LazykitConfig, { lazykitConfigMetaData } from "../_pages/lazykit-config";
-import Usage, { usageMetaData } from "../_pages/usage";
 
 const PAGES_CONFIG = [
   {
@@ -15,11 +14,6 @@ const PAGES_CONFIG = [
     component: Installation,
     path: "/docs/installation",
     metaData: installationMetaData,
-  },
-  {
-    component: Usage,
-    path: "/docs/usage",
-    metaData: usageMetaData,
   },
   {
     component: LazykitConfig,

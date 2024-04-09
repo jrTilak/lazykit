@@ -9,9 +9,15 @@ interface ICodeLine {
   code: string;
   language: string;
   className?: string;
+  showLangFlag?: boolean;
 }
 
-const CodeLine = ({ code, language, className }: ICodeLine) => {
+const CodeLine = ({
+  code,
+  language,
+  className,
+  showLangFlag = true,
+}: ICodeLine) => {
   const [lang] = useLocalStorage("code-lang", "ts");
   const [isCopying, setIsCopying] = useState({
     isCopying: false,
@@ -63,7 +69,7 @@ const CodeLine = ({ code, language, className }: ICodeLine) => {
           },
         }}
       >
-        {codeWithLangFlag}
+        {showLangFlag ? codeWithLangFlag : code}
       </SyntaxHighlighter>
     </div>
   );

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import registry from "../../../configs/registry.json";
+import registry from "../../../../configs/registry.json";
 interface Context {
   params: {
     slug: string[];
@@ -19,7 +19,7 @@ export const GET = async (req: NextRequest, context: Context) => {
         message: "Not found",
       },
       {
-        status: 400,
+        status: 404,
       }
     );
   }

@@ -5,7 +5,8 @@ import writeConfig from "../utils/writeConfig.js";
 import { Config } from "../types/config.types.js";
 import checkInitialization from "../utils/checkInitialization.js";
 import packageJson from "../../package.json";
-/**
+import exitProcess from "../utils/exitProcess.js";
+/**../utils/exit.js
  * Initializes the project with the provided configuration.
  * @param args - The command line arguments passed to the script.
  */
@@ -16,9 +17,9 @@ export default async function init(...args: any) {
   const arg = args[0];
 
   const DEFAULT_CONFIG: Config = {
-    language: arg.typescript ? "ts" : "js",
-    path: arg.path || "src/utils",
-    separate: arg.separate || false,
+    language: arg?.typescript ? "ts" : "js",
+    path: arg?.path || "src/utils",
+    separate: arg?.separate || false,
     v: packageJson.version,
   };
 
@@ -32,9 +33,9 @@ export default async function init(...args: any) {
       console.log(chalk.red("\n!! WARNING !!"));
       console.log("Project is already initialized 🚫");
       console.log(
-        "If you want to reinitialize the project, use --force or -f flag\n"
+        "If you want to reinitialize the project, use --force or -f flag"
       );
-      process.exit(1);
+      exitProcess(1);
     }
   }
 
@@ -42,7 +43,7 @@ export default async function init(...args: any) {
    * If the user has not provided any language flag, then detect the language of the project.
    * If the user has provided the language flag, then use the provided language.
    */
-  if (!arg.javascript && !arg.typescript) {
+  if (!arg?.javascript && !arg?.typescript) {
     /**
      * Get the current working directory of the project.
      */
@@ -61,14 +62,16 @@ export default async function init(...args: any) {
       if (!packageJson) {
         console.log(chalk.red("No package.json file found 💀"));
         console.log(
-          chalk.dim("Please run the command in the root of the project")
+          chalk.dim(
+            "Please run the command in the root of the project or initialize the project before running the command\n"
+          )
         );
         console.log(
           chalk.dim(
             "To initialize the project you need a package.json file, otherwise, you can just copy and paste methods in the utils folder"
           )
         );
-        process.exit(1);
+        exitProcess(1);
       }
     }
 
@@ -86,7 +89,7 @@ export default async function init(...args: any) {
           "Please make sure that the package.json file is a valid JSON file\n"
         )
       );
-      process.exit(1);
+      exitProcess(1);
     }
 
     /**
@@ -94,8 +97,8 @@ export default async function init(...args: any) {
      * If the project is a typescript project, then set the typescript flag to true or set the javascript flag to true.
      */
     if (
-      packageJsonObj.devDependencies.typescript ||
-      packageJsonObj.dependencies.typescript
+      packageJsonObj?.devDependencies?.typescript ||
+      packageJsonObj?.dependencies?.typescript
     ) {
       DEFAULT_CONFIG.language = "ts";
     } else {
@@ -163,5 +166,5 @@ export default async function init(...args: any) {
   console.log("Enjoy using lazykit 🚀\n");
   console.log(chalk.dim(packageJson.name + " v" + packageJson.version));
 
-  process.exit(0);
+  exitProcess(0);
 }

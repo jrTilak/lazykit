@@ -2,8 +2,8 @@
   {
     "name": "chunk",
     "code": {
-      "ts": "const chunk = <T>(\r\n  array: T[],\r\n  size: number = 1,\r\n  strict: boolean = false //remove the last chunk if it is not equal to the size\r\n): T[][] => {\r\n  const result: T[][] = [];\r\n\r\n  //push the chunks into the result array\r\n  for (let i = 0; i < array.length; i += size) {\r\n    result.push(array.slice(i, i + size));\r\n  }\r\n\r\n  //remove the last chunk if it is not equal to the size\r\n  if (strict && result[result.length - 1].length !== size) {\r\n    result.pop();\r\n  }\r\n  return result;\r\n};\r\n\r\nexport default chunk;\r\n",
-      "js": "const chunk = (array, size = 1, strict = false //remove the last chunk if it is not equal to the size\n) => {\n    const result = [];\n    //push the chunks into the result array\n    for (let i = 0; i < array.length; i += size) {\n        result.push(array.slice(i, i + size));\n    }\n    //remove the last chunk if it is not equal to the size\n    if (strict && result[result.length - 1].length !== size) {\n        result.pop();\n    }\n    return result;\n};\nexport default chunk;\n"
+      "ts": "const chunk = <T>(\r\n  array: T[],\r\n  size: number = 1,\r\n  strict: boolean = false\r\n  //remove the last chunk if it is not equal to the size\r\n): T[][] => {\r\n  const result: T[][] = [];\r\n\r\n  //push the chunks into the result array\r\n  for (let i = 0; i < array.length; i += size) {\r\n    result.push(array.slice(i, i + size));\r\n  }\r\n\r\n  //remove the last chunk if it is not equal to the size\r\n  if (strict && result[result.length - 1].length !== size) {\r\n    result.pop();\r\n  }\r\n  return result;\r\n};\r\n\r\nexport default chunk;",
+      "js": "const chunk = (array, size = 1, strict = false\n//remove the last chunk if it is not equal to the size\n) => {\n    const result = [];\n    //push the chunks into the result array\n    for (let i = 0; i < array.length; i += size) {\n        result.push(array.slice(i, i + size));\n    }\n    //remove the last chunk if it is not equal to the size\n    if (strict && result[result.length - 1].length !== size) {\n        result.pop();\n    }\n    return result;\n};\nexport default chunk;\n"
     },
     "category": "arrays",
     "type": "functions",
@@ -16,7 +16,7 @@
       "packageVersion": "0.1.0"
     },
     "lastUpdated": {
-      "date": "2024-04-05T02:08:39.642Z",
+      "date": "2024-04-09T10:18:46.636Z",
       "packageVersion": "0.1.0"
     }
   }

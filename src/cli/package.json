@@ -1,22 +1,23 @@
 {
   "name": "@jrtilak/lazykit",
-  "version": "0.0.2-alpha",
+  "version": "1.0.0",
   "description": "",
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
-  "homepage": "https://lazykit.thapatilak.com.np",
+  "homepage": "https://lazykit.thapatilak.com.np/docs/cli",
   "bin": {
     "lazykit": "dist/index.js"
   },
   "repository": {
     "type": "github",
     "url": "git+https://github.com/jrtilak/lazykit.git",
-    "directory": "src/cli"
+    "directory": "/src/cli"
   },
   "scripts": {
     "build": "tsup src/index.ts --minify --dts --format cjs,esm --out-dir dist",
+    "watch": "tsup src/index.ts --minify --dts --format cjs,esm --out-dir dist --watch",
     "lint": "eslint . --ext .ts",
     "dev": "node dist/index.js"
   },
@@ -43,16 +44,11 @@
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
     "@types/inquirer": "^9.0.7",
-    "@types/node": "^20",
+    "@types/node": "^20.11.28",
     "@typescript-eslint/eslint-plugin": "^7.4.0",
     "@typescript-eslint/parser": "^7.4.0",
     "eslint": "^8",
     "tsup": "^8.0.2",
     "typescript": "^5"
-  },
-  "lazykit": {
-    "language": "js",
-    "path": "\tsr\t\t\t\t\t\t",
-    "separate": false
   }
 }
