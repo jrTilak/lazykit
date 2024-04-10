@@ -8,8 +8,7 @@
     "category": "arrays",
     "type": "functions",
     "examples": [
-      "// advanced example\r\n\r\nimport chunk from \".\";\r\n\r\nconst arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];\r\n\r\nconsole.log(chunk(arr, 2));\r\n// Expected output: [[1, 2], [3, 4], [5, 6], [7, 8], [9, 10]]\r\n\r\nconsole.log(chunk(arr, 3, true));\r\n// Expected output: [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10]]\r\n\r\nconsole.log(chunk(arr, 4, true));\r\n// Expected output: [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10]]\r\n",
-      "import chunk from \".\";\r\n\r\nconst arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];\r\n\r\nconsole.log(chunk(arr, 2));\r\n// Expected output: [[1, 2], [3, 4], [5, 6], [7, 8], [9, 10]]\r\n\r\nconsole.log(chunk(arr, 3));\r\n// Expected output: [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10]]\r\n\r\nconsole.log(chunk(arr, 4));\r\n// Expected output: [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10]]\r\n"
+      "import chunk from \".\";\r\n\r\nconst arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];\r\n\r\n// No size provided, default size is 1\r\nconsole.log(chunk(arr));\r\n// Expected output: [[1], [2], [3], [4], [5], [6], [7], [8], [9], [10]];\r\n\r\n// Providing size as 2\r\nconsole.log(chunk(arr, 2));\r\n// Expected output: [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ], [ 7, 8 ], [ 9, 10 ] ]\r\n\r\n// Providing size as 3 and strict as true\r\nconsole.log(chunk(arr, 3, true));\r\n// Expected output: [ [ 1, 2, 3 ], [ 4, 5, 6 ], [ 7, 8, 9 ] ]\r\n\r\n// Providing size as 4 and strict as true\r\nconsole.log(chunk(arr, 4, true));\r\n// Expected output: [ [ 1, 2, 3, 4 ], [ 5, 6, 7, 8 ] ]\r\n"
     ],
     "createdAt": {
       "date": "2024-04-05T02:08:39.641Z",

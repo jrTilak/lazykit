@@ -198,7 +198,27 @@ types.forEach((type) => {
       } else {
         //if the method already exists, check if the code has changed
         if (prevMethod.code.ts === updatedMethod.code.ts) {
-          REGISTRY_JSON.push(prevMethod);
+          //check if the examples have changed
+          if (
+            JSON.stringify(prevMethod.examples) ===
+            JSON.stringify(updatedMethod.examples)
+          ) {
+            console.log(
+              `No changes found in example of ${type}/${category}/${method} 🚫`
+            );
+
+            REGISTRY_JSON.push(prevMethod);
+          } else {
+            //if the examples have changed, update the lastUpdated field and push the method to the registry
+            console.log(
+              `Some changes found in example of ${type}/${category}/${method} 🔄`
+            );
+            REGISTRY_JSON.push({
+              ...updatedMethod,
+              createdAt: prevMethod.createdAt,
+              lastUpdated: prevMethod.lastUpdated,
+            });
+          }
         } else {
           //if the code has changed, update the lastUpdated field and push the method to the registry
           console.log(`Some changes found in ${type}/${category}/${method} 🔄`);
