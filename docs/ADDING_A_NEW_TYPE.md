@@ -8,5 +8,5 @@ In future we may add more types like `react-hooks`, etc
 2. Add at least one category in the type.
 3. Add at least one method in the category.
 
-_See how to add a new category [here](ADDING_A_NEW_CATEGORY.md)_
+_See how to add a new category [here](ADDING_A_NEW_CATEGORY.md)_ <br/>
 _See how to add a new method [here](ADDING_A_NEW_METHOD.md)_
