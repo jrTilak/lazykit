@@ -25,5 +25,5 @@ export const CREATOR_INFO = {
 export const PACKAGE_INFO = {
   name: "@jrtilak/lazykit",
   description:
-    "Boost your coding efficiency with LazyKit – a collection of JavaScript and TypeScript utility functions for seamless integration into your projects.",
+    "Refine your JavaScript workflows with Lazykit. A concentrated collection of lean utility functions, not a bloated library.",
 };

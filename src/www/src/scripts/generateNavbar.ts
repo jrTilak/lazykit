@@ -24,6 +24,10 @@ const GETTING_STARTED = {
       url: "/docs/introduction",
     },
     {
+      label: "CLI",
+      url: "/docs/cli",
+    },
+    {
       label: "Installation",
       url: "/docs/installation",
     },
@@ -31,10 +35,7 @@ const GETTING_STARTED = {
       label: "lazykit.config.json",
       url: "/docs/lazykit-config",
     },
-    {
-      label: "CLI",
-      url: "/docs/cli",
-    },
+
     {
       label: "Changelog",
       url: "/docs/changelog",
