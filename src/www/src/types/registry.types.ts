@@ -52,7 +52,7 @@ export type IRegistryFunctionPropTable =
       required: boolean;
       defaultValue: string | undefined;
       propDesc: string;
-      type: "string" | "number" | "boolean" | "object" | "array" | "function";
+      type: string
       typeDesc?: string;
     }
   | {

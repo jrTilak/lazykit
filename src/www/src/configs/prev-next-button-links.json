@@ -26,5 +26,9 @@
   {
     "label": "chunk",
     "url": "/docs/functions/arrays/chunk"
+  },
+  {
+    "label": "search",
+    "url": "/docs/functions/arrays/search"
   }
 ]

@@ -11,11 +11,31 @@
       "import chunk from \".\";\r\n\r\nconst arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];\r\n\r\n// No size provided, default size is 1\r\nconsole.log(chunk(arr));\r\n// Expected output: [[1], [2], [3], [4], [5], [6], [7], [8], [9], [10]];\r\n\r\n// Providing size as 2\r\nconsole.log(chunk(arr, 2));\r\n// Expected output: [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ], [ 7, 8 ], [ 9, 10 ] ]\r\n\r\n// Providing size as 3 and strict as true\r\nconsole.log(chunk(arr, 3, true));\r\n// Expected output: [ [ 1, 2, 3 ], [ 4, 5, 6 ], [ 7, 8, 9 ] ]\r\n\r\n// Providing size as 4 and strict as true\r\nconsole.log(chunk(arr, 4, true));\r\n// Expected output: [ [ 1, 2, 3, 4 ], [ 5, 6, 7, 8 ] ]\r\n"
     ],
     "createdAt": {
-      "date": "2024-04-05T02:08:39.641Z",
+      "date": "2024-04-10T18:49:29.640Z",
       "packageVersion": "0.1.0"
     },
     "lastUpdated": {
-      "date": "2024-04-09T10:18:46.636Z",
+      "date": "2024-04-10T18:49:29.642Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "search",
+    "code": {
+      "ts": "/**\r\n * Function to search objects in an array based on provided keys and query string.\r\n * @param  array - Array of objects to search through.\r\n * @param queryString - Query string to search for.\r\n * @param  keys - Keys of the object to search within.\r\n * @returns - Filtered array of objects matching the query, sorted by relevance.\r\n */\r\n\r\nconst search = <T extends Record<string, unknown>>(\r\n  array: T[],\r\n  queryString: string,\r\n  keys: (keyof T)[] | string[]\r\n) => {\r\n  // Check if the query string or keys are empty, return empty array if true\r\n  try {\r\n    if (keys.length === 0) {\r\n      return []; // Return empty array if no keys are provided\r\n    }\r\n\r\n    if (!queryString.trim()) {\r\n      return array; // Return the original array if the query string is empty\r\n    }\r\n\r\n    // Loop through the array to filter objects\r\n    const filteredArray = array.filter((obj) => {\r\n      // Loop through the keys of each object\r\n      for (let key of keys) {\r\n        // Convert the value to string only for the comparison\r\n\r\n        let value = obj[key] as any;\r\n\r\n        if (typeof value !== \"string\" && typeof value !== \"number\") {\r\n          continue; // Skip the key if it is not a string or number\r\n        }\r\n        if (typeof value === \"number\") {\r\n          value = value.toString();\r\n        }\r\n        value = value.toLowerCase();\r\n        if (value.includes(queryString.toLowerCase()?.trim())) {\r\n          return true;\r\n        }\r\n      }\r\n      // Return false if none of the keys contain the query string\r\n      return false;\r\n    });\r\n\r\n    // Return the filtered array\r\n    return filteredArray;\r\n  } catch (error) {\r\n    return [];\r\n  }\r\n};\r\n\r\nexport default search;\r\n",
+      "js": "/**\n * Function to search objects in an array based on provided keys and query string.\n * @param  array - Array of objects to search through.\n * @param queryString - Query string to search for.\n * @param  keys - Keys of the object to search within.\n * @returns - Filtered array of objects matching the query, sorted by relevance.\n */\nconst search = (array, queryString, keys) => {\n    // Check if the query string or keys are empty, return empty array if true\n    try {\n        if (keys.length === 0) {\n            return []; // Return empty array if no keys are provided\n        }\n        if (!queryString.trim()) {\n            return array; // Return the original array if the query string is empty\n        }\n        // Loop through the array to filter objects\n        const filteredArray = array.filter((obj) => {\n            // Loop through the keys of each object\n            for (let key of keys) {\n                // Convert the value to string only for the comparison\n                let value = obj[key];\n                if (typeof value !== \"string\" && typeof value !== \"number\") {\n                    continue; // Skip the key if it is not a string or number\n                }\n                if (typeof value === \"number\") {\n                    value = value.toString();\n                }\n                value = value.toLowerCase();\n                if (value.includes(queryString.toLowerCase()?.trim())) {\n                    return true;\n                }\n            }\n            // Return false if none of the keys contain the query string\n            return false;\n        });\n        // Return the filtered array\n        return filteredArray;\n    }\n    catch (error) {\n        return [];\n    }\n};\nexport default search;\n"
+    },
+    "category": "arrays",
+    "type": "functions",
+    "examples": [
+      "import search from \".\";\r\n\r\nconst array = [\r\n  { name: \"John\", age: 25 },\r\n  { name: \"Jane\", age: 30 },\r\n  { name: \"John Doe\", age: 35 },\r\n];\r\n\r\n// No keys provided\r\nconsole.log(search(array, \"John\", []));\r\n// Expected output: []\r\n\r\n// Query string is empty\r\nconsole.log(search(array, \"\", [\"name\"]));\r\n// Expected output: [ { name: 'John', age: 25 }, { name: 'Jane', age: 30 }, { name: 'John Doe', age: 35 } ]\r\n\r\n// Filtered array of objects matching the query\r\nconsole.log(search(array, \"John\", [\"name\"]));\r\n// Expected output: [ { name: 'John', age: 25 }, { name: 'John Doe', age: 35 } ]\r\n\r\n// None of the keys contain the query string\r\nconsole.log(search(array, \"Doe\", [\"name\"]));\r\n// Expected output: []\r\n\r\n// Keys does not exist in the object\r\nconsole.log(search(array, \"John\", [\"email\"]));\r\n// Expected output: []\r\n"
+    ],
+    "createdAt": {
+      "date": "2024-04-10T18:49:29.683Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-10T18:49:29.683Z",
       "packageVersion": "0.1.0"
     }
   }
