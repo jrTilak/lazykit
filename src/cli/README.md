@@ -46,4 +46,4 @@ For detailed documentation, visit [here](https://lazykit.thapatilak.com.np/docs/
 
 ---
 
-Thanks for using` @jrtilak/lazykit` 🚀
+Thanks for using `@jrtilak/lazykit` 🚀
