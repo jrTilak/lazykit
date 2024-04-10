@@ -1,0 +1,2 @@
+These are the collection of javascript utility functions.
+These utility functions are used in the project to perform various operations.
