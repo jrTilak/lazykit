@@ -7,16 +7,16 @@
         "url": "/docs/introduction"
       },
       {
+        "label": "CLI",
+        "url": "/docs/cli"
+      },
+      {
         "label": "Installation",
         "url": "/docs/installation"
       },
       {
         "label": "lazykit.config.json",
         "url": "/docs/lazykit-config"
-      },
-      {
-        "label": "CLI",
-        "url": "/docs/cli"
       },
       {
         "label": "Changelog",
