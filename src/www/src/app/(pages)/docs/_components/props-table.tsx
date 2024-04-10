@@ -14,7 +14,7 @@ type Props = {
 const PropsTable = ({ data }: Props) => {
   return (
     <div className="flex flex-col min-w-[500px]">
-      <div className="grid grid-cols-3 gap-2 px-6 py-2 rounded-t-sm bg-gray-300">
+      <div className="grid grid-cols-3 gap-2 px-6 py-2 rounded-t-sm bg-gray-300 dark:bg-gray-800">
         <div className="mr-auto flex gap-3 items-center">
           <h4>Prop</h4>
           <TooltipProvider delayDuration={0}>
@@ -42,7 +42,7 @@ const PropsTable = ({ data }: Props) => {
         <div
           key={index}
           className={cn(
-            "grid grid-cols-3 gap-2 px-6 py-2 even:bg-gray-100 odd:bg-gray-200",
+            "grid grid-cols-3 gap-2 px-6 py-2 even:bg-gray-100 dark:even:bg-gray-900 odd:bg-gray-200 dark:odd:bg-gray-800 text-muted-foreground",
             index === data.length - 1 && "rounded-b-sm"
           )}
         >

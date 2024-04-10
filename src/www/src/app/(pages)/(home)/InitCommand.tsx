@@ -20,10 +20,12 @@ const InitCommand = () => {
       onClick={handleClick}
       className="bg-muted text-muted-foreground px-8 py-3 rounded-lg cursor-pointer hover:scale-[1.01] transition-transform flex items-center justify-center gap-2"
     >
-      <span>$</span>
-      <span className="text-primary">npx</span>
-      <span className="text-gray-800">@jrtilak/lazykit@latest</span>
-      <span className="text-pink-800">init</span>
+      <span className="text-muted-foreground">$</span>
+      <span className="text-primary dark:text-purple-400">npx</span>
+      <span className="text-gray-800 dark:text-gray-300">
+        @jrtilak/lazykit@latest
+      </span>
+      <span className="text-pink-800 dark:text-pink-200">init</span>
     </div>
   );
 };

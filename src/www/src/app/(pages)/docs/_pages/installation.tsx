@@ -1,7 +1,8 @@
 import { PACKAGE_INFO } from "@/data/info";
 import { Metadata } from "next";
 import CodeLine from "../_components/code-line";
-import Table from "../_components/Table";
+import Table from "../_components/table-comp";
+import Link from "next/link";
 
 const Installation = () => {
   return (
@@ -30,6 +31,13 @@ const Installation = () => {
             program provided by lazykit. The CLI program will add the utility
             method to your project in a more efficient way.
           </p>
+          <p>
+            For initializing the project,{" "}
+            <Link href="/docs/cli" className="text-purple-600 underline">
+              see this section
+            </Link>
+            .
+          </p>
         </div>
         <div className="flex flex-col gap-3">
           <h3
@@ -42,7 +50,7 @@ const Installation = () => {
           <p>
             To add the method in you project, you can run the following command.
           </p>
-          <p className="text-sm text-red-800">
+          <p className="text-sm text-red-800 dark:text-red-200 dark:opacity-65">
             Note: If you have not initialized the project, then you need to give
             the path and language after running the command or as flags.
           </p>

@@ -23,12 +23,13 @@ type Props = {
     desc?: string;
   }[][];
 };
+
 const Table = ({ headers, content, classNames }: Props) => {
   return (
     <div className="flex flex-col min-w-[500px]">
       <div
         className={cn(
-          "grid gap-2 px-6 py-2 rounded-t-sm bg-gray-300",
+          "grid gap-2 px-6 py-2 rounded-t-sm bg-gray-300 dark:bg-gray-800",
           `grid-cols-${headers.length}`,
           classNames?.headers
         )}
@@ -61,7 +62,7 @@ const Table = ({ headers, content, classNames }: Props) => {
         <div
           key={index}
           className={cn(
-            "grid gap-2 px-6 py-2 even:bg-gray-100 odd:bg-gray-200",
+            "grid gap-2 px-6 py-2 even:bg-gray-100 dark:even:bg-gray-900 odd:bg-gray-200 dark:odd:bg-gray-800 text-muted-foreground",
             index === headers.length - 1 && "rounded-b-sm",
             `grid-cols-${headers.length}`,
             classNames?.content

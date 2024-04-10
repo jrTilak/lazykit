@@ -7,41 +7,37 @@ import {
 } from "@/components/ui/accordion";
 import navLinks from "@/configs/nav-links.json";
 import types from "@/configs/types.json";
+import SidebarLink from "./sidebar-link";
+import { META_DATA } from "@/data/metadata";
 import Link from "next/link";
+import Image from "next/image";
 const Sidebar = () => {
   return (
     <aside className="shadow-lg h-full">
       <ScrollArea className="h-full w-full p-6 pl-8">
+        <Link href="/" className="lg:hidden gap-3 items-center flex">
+          <Image src="/logo.svg" alt="logo" width={60} height={24} />
+          <h2 className="text-sm">{META_DATA.title as string}</h2>
+        </Link>
         {navLinks.map((navLink, i) => {
           if (navLink.links) {
             return (
-              <Accordion key={i} type="single" collapsible>
+              <Accordion
+                key={i}
+                type="single"
+                collapsible
+                defaultValue={navLink.heading}
+              >
                 <AccordionItem value={navLink.heading}>
                   <AccordionTrigger className="hover:no-underline">
                     <span className="text-lg">{navLink.heading}</span>
                   </AccordionTrigger>
                   <AccordionContent className="flex gap-2 flex-col">
                     {navLink.links.map((link, i) => {
-                      return (
-                        <Link
-                          key={i}
-                          href={link.url}
-                          className="block hover:underline text-base text-muted-foreground hover:text-foreground transition-colors w-fit"
-                        >
-                          {link.label}
-                        </Link>
-                      );
+                      return <SidebarLink key={i} link={link} />;
                     })}
                     {types.map((link, i) => {
-                      return (
-                        <Link
-                          key={i}
-                          href={link.url}
-                          className="block hover:underline text-base text-muted-foreground hover:text-foreground transition-colors w-fit"
-                        >
-                          {link.label}
-                        </Link>
-                      );
+                      return <SidebarLink key={i} link={link} />;
                     })}
                   </AccordionContent>
                 </AccordionItem>
@@ -61,15 +57,7 @@ const Sidebar = () => {
                     </AccordionTrigger>
                     <AccordionContent>
                       {category.methods.map((link, i) => {
-                        return (
-                          <Link
-                            key={i}
-                            href={link.url}
-                            className="block hover:underline text-base text-muted-foreground hover:text-foreground transition-colors w-fit"
-                          >
-                            {link.label}
-                          </Link>
-                        );
+                        return <SidebarLink key={i} link={link} />;
                       })}
                     </AccordionContent>
                   </AccordionItem>
