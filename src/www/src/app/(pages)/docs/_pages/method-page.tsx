@@ -6,7 +6,7 @@ import CodeLine from "../_components/code-line";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { SquareArrowOutUpRight } from "lucide-react";
-import PropsTable from "../_components/PropsTable";
+import PropsTable from "../_components/props-table";
 import { readFileAsString, readFiles } from "@/utils/readFiles";
 import CodeBlock from "../_components/code-block";
 

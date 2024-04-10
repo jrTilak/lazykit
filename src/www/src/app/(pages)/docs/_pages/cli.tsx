@@ -8,7 +8,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import Table from "../_components/Table";
+import Table from "../_components/table";
 
 const CLI = () => {
   return (
@@ -46,7 +46,7 @@ const CLI = () => {
             <hr />
           </h3>
           <p>For the initial setup, you can run the following command.</p>
-          <p className="text-sm text-red-800">
+          <p className="text-sm text-red-800 dark:text-red-200 dark:opacity-60">
             Note: To initialize the project, you need to have a{" "}
             <code className="text-fuchsia-400">package.json</code> file in your
             project.
