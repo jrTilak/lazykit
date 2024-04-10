@@ -3,14 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "echo \"No test specified\"",
     "preinstall": "npx only-allow pnpm",
     "prepare": "husky",
     "dev:www": "pnpm --filter www dev",
     "build:registry": "pnpm --filter www build:registry",
     "build:www": "pnpm --filter www build",
     "build:cli": "pnpm --filter @jrtilak/lazykit build",
-    "watch:cli": "pnpm --filter @jrtilak/lazykit watch"
+    "watch:cli": "pnpm --filter @jrtilak/lazykit watch",
+    "test": "pnpm --filter www test"
   },
   "keywords": [],
   "author": "Tilak Thapa <iamjrtilak@gmail.com>",
