@@ -54,6 +54,6 @@ export const Props: IRegistryFunctionPropTable[] = [
     required: true,
     defaultValue: undefined,
     propDesc: "Keys of the object to search within.",
-    type: "strings[]",
+    type: "string[]",
   },
 ];
