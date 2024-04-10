@@ -8,6 +8,4 @@
 
 <h4 align="center">Trim the fat, Keep the function</h4>
 
-![screenshot](./public//image.png)
-
-See the docs [here](../docs/README.md)
+![screenshot](./public/image.png)
