@@ -8,6 +8,7 @@ import { ANNOUNCEMENT_DATA } from "@/data/announcement";
 import { Separator } from "@/components/ui/separator";
 import registry from "@/configs/registry.json";
 import InitCommand from "./InitCommand";
+import { Metadata } from "next";
 
 export default async function Home() {
   const getGithubStars = async () => {
@@ -134,3 +135,8 @@ export default async function Home() {
     </>
   );
 }
+
+export const metadata: Metadata = {
+  title: PACKAGE_INFO.name,
+  description: PACKAGE_INFO.description,
+};

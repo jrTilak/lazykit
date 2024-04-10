@@ -54,7 +54,7 @@ export default LazykitConfig;
 export const lazykitConfigMetaData: Metadata = {
   title: "lazykit-config | " + PACKAGE_INFO.name,
   description:
-    "CLI program for adding utility methods to your the project for lazykit like a pro.",
+    "It is json object that contains the configuration for the lazykit CLI. It is used while installing the utility methods in your project to detect the location of the utility methods in your project and it's language. This configuration object can be stored inside package.json or in a separate file named lazykit.config.json which you can choose while initializing the project.",
 };
 
 const tableData = {
