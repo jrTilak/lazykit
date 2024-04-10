@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRightIcon, Blocks, LucideIcon } from "lucide-react";
+import { ArrowRightIcon, LucideIcon } from "lucide-react";
 import { Separator } from "../ui/separator";
 
 type AnnouncementProps = {

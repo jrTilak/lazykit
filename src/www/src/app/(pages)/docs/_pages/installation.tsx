@@ -1,7 +1,7 @@
 import { PACKAGE_INFO } from "@/data/info";
 import { Metadata } from "next";
 import CodeLine from "../_components/code-line";
-import Table from "../_components/table";
+import Table from "../_components/table-comp";
 import Link from "next/link";
 
 const Installation = () => {

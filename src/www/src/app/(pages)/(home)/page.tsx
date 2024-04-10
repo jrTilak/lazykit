@@ -3,7 +3,7 @@ import Link from "next/link";
 import githubIcon from "@/assets/icons/github-142-svgrepo-com.svg";
 import { CREATOR_INFO, GITHUB_INFO, PACKAGE_INFO } from "@/data/info";
 import Image from "next/image";
-import { Announcement } from "@/components/reusable/announcement";
+import { Announcement } from "@/components/reusable/announce";
 import { ANNOUNCEMENT_DATA } from "@/data/announcement";
 import { Separator } from "@/components/ui/separator";
 import registry from "@/configs/registry.json";

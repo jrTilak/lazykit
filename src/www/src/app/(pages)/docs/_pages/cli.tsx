@@ -8,7 +8,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import Table from "../_components/table";
+import Table from "../_components/table-comp";
 
 const CLI = () => {
   return (

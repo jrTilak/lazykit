@@ -23,6 +23,7 @@ type Props = {
     desc?: string;
   }[][];
 };
+
 const Table = ({ headers, content, classNames }: Props) => {
   return (
     <div className="flex flex-col min-w-[500px]">
