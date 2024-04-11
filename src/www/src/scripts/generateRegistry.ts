@@ -132,6 +132,7 @@ types.forEach((type) => {
        * Read the docs.tsx file as string
        * See if that file exports a default object and another object named Info with name, description as compulsory fields and externalLinks as optional fields. If externalLinks is present, it should be an array of objects with label and url as compulsory fields.
        */
+      
       const docsData = readFileAsString(pathUptoMethod + "/docs.tsx");
       // todo: complete this
 

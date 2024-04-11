@@ -7,6 +7,7 @@
  * @param {(value: T, key: string, obj: Record<string, T>) => U} callback - The callback function to apply to each property.
  * @returns {Record<string, U>} - The resulting object with the mapped properties.
  */
+
 const mapObj = <T, U>(
   obj: Record<string, T>,
   callback: (value: T, key: string, obj: Record<string, T>) => U
