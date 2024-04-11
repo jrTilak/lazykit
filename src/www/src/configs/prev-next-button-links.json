@@ -30,5 +30,9 @@
   {
     "label": "search",
     "url": "/docs/functions/arrays/search"
+  },
+  {
+    "label": "mapObj",
+    "url": "/docs/functions/objects/mapObj"
   }
 ]

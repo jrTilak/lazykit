@@ -40,6 +40,16 @@
             "url": "/docs/functions/arrays/search"
           }
         ]
+      },
+      {
+        "label": "Objects",
+        "url": "/docs/functions/objects",
+        "methods": [
+          {
+            "label": "mapObj",
+            "url": "/docs/functions/objects/mapObj"
+          }
+        ]
       }
     ]
   }
