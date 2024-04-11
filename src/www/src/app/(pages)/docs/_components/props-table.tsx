@@ -73,19 +73,19 @@ const PropsTable = ({ data }: Props) => {
                     <Info className="h-4 w-4 text-muted-foreground" />
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>{prop.enums?.join(" | ")}</p>
+                    <p>{(prop as { enums: string[] }).enums?.join(" | ")}</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
             ) : (
-              prop.typeDesc && (
+              (prop as { typeDesc?: string }).typeDesc && (
                 <TooltipProvider delayDuration={0}>
                   <Tooltip>
                     <TooltipTrigger>
                       <Info className="h-4 w-4 text-muted-foreground" />
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>{prop.typeDesc}</p>
+                      <p>{(prop as { typeDesc?: string }).typeDesc}</p>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>

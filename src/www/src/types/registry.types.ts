@@ -52,14 +52,14 @@ export type IRegistryFunctionPropTable =
       required: boolean;
       defaultValue: string | undefined;
       propDesc: string;
-      type: string
-      typeDesc?: string;
+      type: "enum";
+      enums: string[];
     }
   | {
       title: string;
       required: boolean;
       defaultValue: string | undefined;
       propDesc: string;
-      type: "enum";
-      enums: string[];
+      type: string;
+      typeDesc?: string;
     };
