@@ -1,4 +1,3 @@
-import { readFileAsString } from "@/utils/readFiles";
 import { capitalCase } from "change-case";
 import registry from "@/configs/registry.json";
 import Link from "next/link";

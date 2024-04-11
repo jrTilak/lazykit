@@ -18,7 +18,7 @@ const Docs = () => {
         The function accepts two parameters: obj and callback. obj is the input
         object, and callback is a function that gets applied to each property of
         obj. The callback function takes three parameters: value, key, and obj.
-        value is the current property's value, key is the current property's
+        value is the current property&apos;s value, key is the current property&apos;s
         key, and obj is the original input object.
       </p>
     </div>

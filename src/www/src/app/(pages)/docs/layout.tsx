@@ -1,6 +1,7 @@
 import Sidebar from "@/components/reusable/sidebar";
 import OnThisPage from "./_components/on-this-page";
 import PrevNext from "./_components/prev-next";
+import React from "react";
 
 export default function DocsLayout({
   children,
