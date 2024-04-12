@@ -197,16 +197,18 @@ async function main() {
                 process.exit(1);
               }
 
-              //sample async function to log hello world
-              const asyncFunction = () => {
-                return new Promise((resolve) => {
-                  setTimeout(() => {
-                    console.log("Hello World");
-                    resolve(1);
-                  }, 1000);
-                });
-              };
-              await asyncFunction();
+              /**
+               * Check if the index.ts file has default export
+               */
+              const indexData = await import(
+                `@/registry/${type}/${category}/${method}/index.ts`
+              );
+              if (!indexData.default) {
+                console.error(
+                  `Error: Default export missing in ${type}/${category}/${method}/index.ts. 😐\nExiting...`
+                );
+                process.exit(1);
+              }
 
               /**
                * Read the index.ts file as string
