@@ -42,7 +42,6 @@
     "inquirer": "^9.2.16"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.27.1",
     "@types/inquirer": "^9.0.7",
     "@types/node": "^20.11.28",
     "@typescript-eslint/eslint-plugin": "^7.4.0",
