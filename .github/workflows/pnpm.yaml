@@ -1,0 +1,31 @@
+name: pnpm tests
+
+on:
+  pull_request_target:
+    types: [labeled]
+
+jobs:
+  build:
+    if: github.event.label.name == 'seems-good'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "20"
+
+      - name: Install pnpm
+        run: curl -f https://get.pnpm.io/v6.js | node - add --global pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run tests
+        run: pnpm run test
+
+      - name: Lint "www" directory
+        run: pnpm run lint:www
