@@ -66,6 +66,6 @@ const ChangeLog = async () => {
 };
 export default ChangeLog;
 
-export const changelogMetaData: Metadata = {
+export const changeLogMetaData: Metadata = {
   title: "Changelog | " + PACKAGE_INFO.name,
 };
