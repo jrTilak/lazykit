@@ -11,11 +11,11 @@
       "import chunk from \".\";\r\n\r\nconst arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];\r\n\r\n// No size provided, default size is 1\r\nconsole.log(chunk(arr));\r\n// Expected output: [[1], [2], [3], [4], [5], [6], [7], [8], [9], [10]];\r\n\r\n// Providing size as 2\r\nconsole.log(chunk(arr, 2));\r\n// Expected output: [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ], [ 7, 8 ], [ 9, 10 ] ]\r\n\r\n// Providing size as 3 and strict as true\r\nconsole.log(chunk(arr, 3, true));\r\n// Expected output: [ [ 1, 2, 3 ], [ 4, 5, 6 ], [ 7, 8, 9 ] ]\r\n\r\n// Providing size as 4 and strict as true\r\nconsole.log(chunk(arr, 4, true));\r\n// Expected output: [ [ 1, 2, 3, 4 ], [ 5, 6, 7, 8 ] ]\r\n"
     ],
     "createdAt": {
-      "date": "2024-04-10T18:49:29.640Z",
+      "date": "2024-04-12T14:30:31.226Z",
       "packageVersion": "0.1.0"
     },
     "lastUpdated": {
-      "date": "2024-04-11T06:11:18.479Z",
+      "date": "2024-04-12T14:30:31.227Z",
       "packageVersion": "0.1.0"
     }
   },
@@ -31,18 +31,18 @@
       "import search from \".\";\r\n\r\nconst array = [\r\n  { name: \"John\", age: 25 },\r\n  { name: \"Jane\", age: 30 },\r\n  { name: \"John Doe\", age: 35 },\r\n];\r\n\r\n// No keys provided\r\nconsole.log(search(array, \"John\", []));\r\n// Expected output: []\r\n\r\n// Query string is empty\r\nconsole.log(search(array, \"\", [\"name\"]));\r\n// Expected output: [ { name: 'John', age: 25 }, { name: 'Jane', age: 30 }, { name: 'John Doe', age: 35 } ]\r\n\r\n// Filtered array of objects matching the query\r\nconsole.log(search(array, \"John\", [\"name\"]));\r\n// Expected output: [ { name: 'John', age: 25 }, { name: 'John Doe', age: 35 } ]\r\n\r\n// None of the keys contain the query string\r\nconsole.log(search(array, \"Doe\", [\"name\"]));\r\n// Expected output: []\r\n\r\n// Keys does not exist in the object\r\nconsole.log(search(array, \"John\", [\"email\"]));\r\n// Expected output: []\r\n"
     ],
     "createdAt": {
-      "date": "2024-04-10T18:49:29.683Z",
+      "date": "2024-04-12T14:30:31.247Z",
       "packageVersion": "0.1.0"
     },
     "lastUpdated": {
-      "date": "2024-04-11T06:11:18.505Z",
+      "date": "2024-04-12T14:30:31.247Z",
       "packageVersion": "0.1.0"
     }
   },
   {
     "name": "mapObj",
     "code": {
-      "ts": "/**\r\n * Maps over the properties of an object and applies a callback function to each property.\r\n *\r\n * @template T - The type of the values in the input object.\r\n * @template U - The type of the values in the output object.\r\n * @param {Record<string, T>} obj - The input object.\r\n * @param {(value: T, key: string, obj: Record<string, T>) => U} callback - The callback function to apply to each property.\r\n * @returns {Record<string, U>} - The resulting object with the mapped properties.\r\n */\r\nconst mapObj = <T, U>(\r\n  obj: Record<string, T>,\r\n  callback: (value: T, key: string, obj: Record<string, T>) => U\r\n): Record<string, U> => {\r\n  const result: Record<string, U> = {};\r\n\r\n  // loop through each key in the object\r\n  for (const key in obj) {\r\n    // check if the key is a property of the object\r\n    if (Object.prototype.hasOwnProperty.call(obj, key)) {\r\n      result[key] = callback(obj[key], key, obj);\r\n    }\r\n  }\r\n\r\n  return result;\r\n};\r\n\r\nexport default mapObj;\r\n",
+      "ts": "/**\r\n * Maps over the properties of an object and applies a callback function to each property.\r\n *\r\n * @template T - The type of the values in the input object.\r\n * @template U - The type of the values in the output object.\r\n * @param {Record<string, T>} obj - The input object.\r\n * @param {(value: T, key: string, obj: Record<string, T>) => U} callback - The callback function to apply to each property.\r\n * @returns {Record<string, U>} - The resulting object with the mapped properties.\r\n */\r\n\r\nconst mapObj = <T, U>(\r\n  obj: Record<string, T>,\r\n  callback: (value: T, key: string, obj: Record<string, T>) => U\r\n): Record<string, U> => {\r\n  const result: Record<string, U> = {};\r\n\r\n  // loop through each key in the object\r\n  for (const key in obj) {\r\n    // check if the key is a property of the object\r\n    if (Object.prototype.hasOwnProperty.call(obj, key)) {\r\n      result[key] = callback(obj[key], key, obj);\r\n    }\r\n  }\r\n\r\n  return result;\r\n};\r\n\r\nexport default mapObj;\r\n",
       "js": "/**\n * Maps over the properties of an object and applies a callback function to each property.\n *\n * @template T - The type of the values in the input object.\n * @template U - The type of the values in the output object.\n * @param {Record<string, T>} obj - The input object.\n * @param {(value: T, key: string, obj: Record<string, T>) => U} callback - The callback function to apply to each property.\n * @returns {Record<string, U>} - The resulting object with the mapped properties.\n */\nconst mapObj = (obj, callback) => {\n    const result = {};\n    // loop through each key in the object\n    for (const key in obj) {\n        // check if the key is a property of the object\n        if (Object.prototype.hasOwnProperty.call(obj, key)) {\n            result[key] = callback(obj[key], key, obj);\n        }\n    }\n    return result;\n};\nexport default mapObj;\n"
     },
     "category": "objects",
@@ -51,11 +51,11 @@
       "import mapObj from \".\";\r\n\r\nconst obj1 = { a: 1, b: 2, c: 3 };\r\nconst result1 = mapObj(obj1, (value: number) => value * 2);\r\nconsole.log(result1);\r\n// Expected output:  { a: 2, b: 4, c: 6 }\r\n\r\nconst obj2 = {};\r\nconst result2 = mapObj(obj2, (value: any) => value);\r\nconsole.log(result2);\r\n// Expected output:  {}\r\n\r\nconst obj3 = { 1: \"one\", 2: \"two\", 3: \"three\" };\r\nconst result = mapObj(obj3, (value: string, i) => value.toUpperCase() + i);\r\nconsole.log(result);\r\n// Expected output: { 1: 'ONE1', 2: 'TWO2', 3: 'THREE3' }\r\n"
     ],
     "createdAt": {
-      "date": "2024-04-11T06:11:18.523Z",
+      "date": "2024-04-12T14:30:31.266Z",
       "packageVersion": "0.1.0"
     },
     "lastUpdated": {
-      "date": "2024-04-11T06:11:18.523Z",
+      "date": "2024-04-12T14:30:31.266Z",
       "packageVersion": "0.1.0"
     }
   }
