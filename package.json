@@ -24,10 +24,5 @@
   },
   "dependencies": {
     "tsx": "^4.7.1"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pnpm run test && pnpm run lint:www"
-    }
   }
 }
