@@ -3,7 +3,6 @@ import PAGES_CONFIG from "../_configs/_pages.config";
 import MethodPage from "../_pages/method-page";
 import prevNextBtnJson from "@/configs/prev-next-button-links.json";
 import registry from "@/configs/registry.json";
-import { Metadata } from "next";
 import types from "@/configs/types.json";
 import TypePage from "../_pages/type-page";
 import { PACKAGE_INFO } from "@/data/info";

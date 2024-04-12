@@ -7,16 +7,16 @@
         "url": "/docs/introduction"
       },
       {
+        "label": "CLI",
+        "url": "/docs/cli"
+      },
+      {
         "label": "Installation",
         "url": "/docs/installation"
       },
       {
         "label": "lazykit.config.json",
         "url": "/docs/lazykit-config"
-      },
-      {
-        "label": "CLI",
-        "url": "/docs/cli"
       },
       {
         "label": "Changelog",
@@ -34,6 +34,20 @@
           {
             "label": "chunk",
             "url": "/docs/functions/arrays/chunk"
+          },
+          {
+            "label": "search",
+            "url": "/docs/functions/arrays/search"
+          }
+        ]
+      },
+      {
+        "label": "Objects",
+        "url": "/docs/functions/objects",
+        "methods": [
+          {
+            "label": "mapObj",
+            "url": "/docs/functions/objects/mapObj"
           }
         ]
       }
