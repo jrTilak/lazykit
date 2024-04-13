@@ -1,25 +1,5 @@
 [
   {
-    "name": "compact",
-    "code": {
-      "ts": "/**\r\n * Removes falsy values\r\n * Also removes empty objects and arrays if strict is true\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} array - The array to compact.\r\n * @param {boolean} [strict=false] - If true, also removes empty objects and arrays.\r\n * @returns {T[]} - The compacted array.\r\n */\r\nconst compact = <T>(array: T[], strict: boolean = false): T[] => {\r\n  let truthy = array.filter((item) => {\r\n    // remove all falsy values and excluded values\r\n    return Boolean(item);\r\n  });\r\n\r\n  if (strict) {\r\n    // remove all empty objects\r\n    truthy = truthy.filter((item) => {\r\n      if (typeof item === \"object\" && !(item instanceof Array)) {\r\n        return Object.keys(item as object).length > 0;\r\n      }\r\n      return true;\r\n    });\r\n    // remove all empty arrays\r\n    truthy = truthy.filter((item) => {\r\n      if (Array.isArray(item)) {\r\n        return (item as []).length > 0;\r\n      }\r\n      return true;\r\n    });\r\n  }\r\n  return truthy;\r\n};\r\n\r\nexport default compact;\r\n",
-      "js": "/**\n * Removes falsy values\n * Also removes empty objects and arrays if strict is true\n *\n * @template T - The type of elements in the array.\n * @param {T[]} array - The array to compact.\n * @param {boolean} [strict=false] - If true, also removes empty objects and arrays.\n * @returns {T[]} - The compacted array.\n */\nconst compact = (array, strict = false) => {\n    let truthy = array.filter((item) => {\n        // remove all falsy values and excluded values\n        return Boolean(item);\n    });\n    if (strict) {\n        // remove all empty objects\n        truthy = truthy.filter((item) => {\n            if (typeof item === \"object\" && !(item instanceof Array)) {\n                return Object.keys(item).length > 0;\n            }\n            return true;\n        });\n        // remove all empty arrays\n        truthy = truthy.filter((item) => {\n            if (Array.isArray(item)) {\n                return item.length > 0;\n            }\n            return true;\n        });\n    }\n    return truthy;\n};\nexport default compact;\n"
-    },
-    "category": "arrays",
-    "type": "functions",
-    "examples": [
-      "import compact from \".\";\r\n\r\nconst input = [0, false, \"\", null, undefined, NaN, {}, [], 1, \"hello\"];\r\n\r\n// no strict mode\r\nconst result = compact(input);\r\nconsole.log(result);\r\n// Expected output: [{}, [], 1, \"hello\"]\r\n\r\n// strict mode\r\nconst resultStrict = compact(input, true);\r\nconsole.log(resultStrict);\r\n// Expected output: [1, \"hello\"]\r\n"
-    ],
-    "createdAt": {
-      "date": "2024-04-13T14:39:39.185Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-13T14:39:39.185Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
     "name": "chunk",
     "code": {
       "ts": "/**\r\n * Splits an array into chunks of a specified size.\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} array - The array to be chunked.\r\n * @param {number} [size=1] - The size of each chunk.\r\n * @param {boolean} [strict=false] - Whether to remove the last chunk if it is not equal to the size.\r\n * @returns {T[][]} - An array of chunks.\r\n */\r\nconst chunk = <T>(\r\n  array: T[],\r\n  size: number = 1,\r\n  strict: boolean = false\r\n  //remove the last chunk if it is not equal to the size\r\n): T[][] => {\r\n  const result: T[][] = [];\r\n\r\n  //push the chunks into the result array\r\n  for (let i = 0; i < array.length; i += size) {\r\n    result.push(array.slice(i, i + size));\r\n  }\r\n\r\n  //remove the last chunk if it is not equal to the size\r\n  if (strict && result[result.length - 1].length !== size) {\r\n    result.pop();\r\n  }\r\n  return result;\r\n};\r\n\r\nexport default chunk;\r\n",
@@ -36,6 +16,86 @@
     },
     "lastUpdated": {
       "date": "2024-04-13T14:39:39.132Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "mapObj",
+    "code": {
+      "ts": "/**\r\n * Maps over the properties of an object and applies a callback function to each property.\r\n *\r\n * @template T - The type of the values in the input object.\r\n * @template U - The type of the values in the output object.\r\n * @param {Record<string, T>} obj - The input object.\r\n * @param {(value: T, key: string, obj: Record<string, T>) => U} callback - The callback function to apply to each property.\r\n * @returns {Record<string, U>} - The resulting object with the mapped properties.\r\n */\r\n\r\nconst mapObj = <T, U>(\r\n  obj: Record<string, T>,\r\n  callback: (value: T, key: string, obj: Record<string, T>) => U\r\n): Record<string, U> => {\r\n  const result: Record<string, U> = {};\r\n\r\n  // loop through each key in the object\r\n  for (const key in obj) {\r\n    // check if the key is a property of the object\r\n    if (Object.prototype.hasOwnProperty.call(obj, key)) {\r\n      result[key] = callback(obj[key], key, obj);\r\n    }\r\n  }\r\n\r\n  return result;\r\n};\r\n\r\nexport default mapObj;\r\n",
+      "js": "/**\n * Maps over the properties of an object and applies a callback function to each property.\n *\n * @template T - The type of the values in the input object.\n * @template U - The type of the values in the output object.\n * @param {Record<string, T>} obj - The input object.\n * @param {(value: T, key: string, obj: Record<string, T>) => U} callback - The callback function to apply to each property.\n * @returns {Record<string, U>} - The resulting object with the mapped properties.\n */\nconst mapObj = (obj, callback) => {\n    const result = {};\n    // loop through each key in the object\n    for (const key in obj) {\n        // check if the key is a property of the object\n        if (Object.prototype.hasOwnProperty.call(obj, key)) {\n            result[key] = callback(obj[key], key, obj);\n        }\n    }\n    return result;\n};\nexport default mapObj;\n"
+    },
+    "category": "objects",
+    "type": "functions",
+    "examples": [
+      "import mapObj from \".\";\r\n\r\nconst obj1 = { a: 1, b: 2, c: 3 };\r\nconst result1 = mapObj(obj1, (value: number) => value * 2);\r\nconsole.log(result1);\r\n// Expected output:  { a: 2, b: 4, c: 6 }\r\n\r\nconst obj2 = {};\r\nconst result2 = mapObj(obj2, (value: any) => value);\r\nconsole.log(result2);\r\n// Expected output:  {}\r\n\r\nconst obj3 = { 1: \"one\", 2: \"two\", 3: \"three\" };\r\nconst result = mapObj(obj3, (value: string, i) => value.toUpperCase() + i);\r\nconsole.log(result);\r\n// Expected output: { 1: 'ONE1', 2: 'TWO2', 3: 'THREE3' }\r\n"
+    ],
+    "createdAt": {
+      "date": "2024-04-13T14:39:39.287Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-13T14:39:39.287Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "unique",
+    "code": {
+      "ts": "/**\r\n * Returns an array with unique elements from the input array.\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} arr - The input array.\r\n * @returns {T[]} - An array with unique elements.\r\n */\r\nconst unique = <T>(arr: T[]): T[] => {\r\n  //@ts-ignore\r\n  return [...new Set(arr)];\r\n};\r\n\r\nexport default unique;\r\n",
+      "js": "/**\n * Returns an array with unique elements from the input array.\n *\n * @template T - The type of elements in the array.\n * @param {T[]} arr - The input array.\n * @returns {T[]} - An array with unique elements.\n */\nconst unique = (arr) => {\n    //@ts-ignore\n    return [...new Set(arr)];\n};\nexport default unique;\n"
+    },
+    "category": "arrays",
+    "type": "functions",
+    "examples": [
+      "import unique from \".\";\r\n\r\nconst arr = [1, 2, 3, 3, 4, 5, 5, 6, 7, 8, 8, 9, 10];\r\nconst result = unique(arr);\r\nconsole.log(result);\r\n// Expected Output: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]\r\n"
+    ],
+    "createdAt": {
+      "date": "2024-04-13T18:45:24.667Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-13T18:45:24.668Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "and",
+    "code": {
+      "ts": "/**\r\n * Performs a logical AND operation on the given boolean values.\r\n * Returns true if all arguments are true, otherwise returns false.\r\n *\r\n * @param args - The boolean values to perform the AND operation on.\r\n * @returns The result of the logical AND operation.\r\n */\r\nconst and = (...args: any[]) => {\r\n  if (args.length === 0) return false;\r\n  return args.every((arg) => Boolean(arg));\r\n};\r\n\r\nexport default and;\r\n",
+      "js": "/**\n * Performs a logical AND operation on the given boolean values.\n * Returns true if all arguments are true, otherwise returns false.\n *\n * @param args - The boolean values to perform the AND operation on.\n * @returns The result of the logical AND operation.\n */\nconst and = (...args) => {\n    if (args.length === 0)\n        return false;\n    return args.every((arg) => Boolean(arg));\n};\nexport default and;\n"
+    },
+    "category": "gates",
+    "type": "functions",
+    "examples": [
+      "import and from \".\";\r\n\r\nconsole.log(and(true, true));\r\n// Expected Output: true\r\n\r\nconsole.log(and(true, false));\r\n// Expected Output: false\r\n\r\nconsole.log(and());\r\n// Expected Output: true\r\n\r\nconsole.log(and(1, \"lazykit\"));\r\n// Expected Output: true\r\n"
+    ],
+    "createdAt": {
+      "date": "2024-04-13T14:39:39.237Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-13T14:39:39.237Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "compact",
+    "code": {
+      "ts": "/**\r\n * Removes falsy values\r\n * Also removes empty objects and arrays if strict is true\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} array - The array to compact.\r\n * @param {boolean} [strict=false] - If true, also removes empty objects and arrays.\r\n * @returns {T[]} - The compacted array.\r\n */\r\nconst compact = <T>(array: T[], strict: boolean = false): T[] => {\r\n  let truthy = array.filter((item) => {\r\n    // remove all falsy values and excluded values\r\n    return Boolean(item);\r\n  });\r\n\r\n  if (strict) {\r\n    // remove all empty objects\r\n    truthy = truthy.filter((item) => {\r\n      if (typeof item === \"object\" && !(item instanceof Array)) {\r\n        return Object.keys(item as object).length > 0;\r\n      }\r\n      return true;\r\n    });\r\n    // remove all empty arrays\r\n    truthy = truthy.filter((item) => {\r\n      if (Array.isArray(item)) {\r\n        return (item as []).length > 0;\r\n      }\r\n      return true;\r\n    });\r\n  }\r\n  return truthy;\r\n};\r\n\r\nexport default compact;\r\n",
+      "js": "/**\n * Removes falsy values\n * Also removes empty objects and arrays if strict is true\n *\n * @template T - The type of elements in the array.\n * @param {T[]} array - The array to compact.\n * @param {boolean} [strict=false] - If true, also removes empty objects and arrays.\n * @returns {T[]} - The compacted array.\n */\nconst compact = (array, strict = false) => {\n    let truthy = array.filter((item) => {\n        // remove all falsy values and excluded values\n        return Boolean(item);\n    });\n    if (strict) {\n        // remove all empty objects\n        truthy = truthy.filter((item) => {\n            if (typeof item === \"object\" && !(item instanceof Array)) {\n                return Object.keys(item).length > 0;\n            }\n            return true;\n        });\n        // remove all empty arrays\n        truthy = truthy.filter((item) => {\n            if (Array.isArray(item)) {\n                return item.length > 0;\n            }\n            return true;\n        });\n    }\n    return truthy;\n};\nexport default compact;\n"
+    },
+    "category": "arrays",
+    "type": "functions",
+    "examples": [
+      "import compact from \".\";\r\n\r\nconst input = [0, false, \"\", null, undefined, NaN, {}, [], 1, \"hello\"];\r\n\r\n// no strict mode\r\nconst result = compact(input);\r\nconsole.log(result);\r\n// Expected output: [{}, [], 1, \"hello\"]\r\n\r\n// strict mode\r\nconst resultStrict = compact(input, true);\r\nconsole.log(resultStrict);\r\n// Expected output: [1, \"hello\"]\r\n"
+    ],
+    "createdAt": {
+      "date": "2024-04-13T14:39:39.185Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-13T14:39:39.185Z",
       "packageVersion": "0.1.0"
     }
   },
@@ -121,46 +181,6 @@
     }
   },
   {
-    "name": "unique",
-    "code": {
-      "ts": "/**\r\n * Returns an array with unique elements from the input array.\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} arr - The input array.\r\n * @returns {T[]} - An array with unique elements.\r\n */\r\nconst unique = <T>(arr: T[]): T[] => {\r\n  //@ts-ignore\r\n  return [...new Set(arr)];\r\n};\r\n\r\nexport default unique;\r\n",
-      "js": "/**\n * Returns an array with unique elements from the input array.\n *\n * @template T - The type of elements in the array.\n * @param {T[]} arr - The input array.\n * @returns {T[]} - An array with unique elements.\n */\nconst unique = (arr) => {\n    //@ts-ignore\n    return [...new Set(arr)];\n};\nexport default unique;\n"
-    },
-    "category": "arrays",
-    "type": "functions",
-    "examples": [
-      "import unique from \".\";\r\n\r\nconst arr = [1, 2, 3, 3, 4, 5, 5, 6, 7, 8, 8, 9, 10];\r\nconst result = unique(arr);\r\nconsole.log(result);\r\n// Expected Output: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]\r\n"
-    ],
-    "createdAt": {
-      "date": "2024-04-13T18:45:24.667Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-13T18:45:24.668Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
-    "name": "and",
-    "code": {
-      "ts": "/**\r\n * Performs a logical AND operation on the given boolean values.\r\n * Returns true if all arguments are true, otherwise returns false.\r\n *\r\n * @param args - The boolean values to perform the AND operation on.\r\n * @returns The result of the logical AND operation.\r\n */\r\nconst and = (...args: any[]) => {\r\n  if (args.length === 0) return false;\r\n  return args.every((arg) => Boolean(arg));\r\n};\r\n\r\nexport default and;\r\n",
-      "js": "/**\n * Performs a logical AND operation on the given boolean values.\n * Returns true if all arguments are true, otherwise returns false.\n *\n * @param args - The boolean values to perform the AND operation on.\n * @returns The result of the logical AND operation.\n */\nconst and = (...args) => {\n    if (args.length === 0)\n        return false;\n    return args.every((arg) => Boolean(arg));\n};\nexport default and;\n"
-    },
-    "category": "gates",
-    "type": "functions",
-    "examples": [
-      "import and from \".\";\r\n\r\nconsole.log(and(true, true));\r\n// Expected Output: true\r\n\r\nconsole.log(and(true, false));\r\n// Expected Output: false\r\n\r\nconsole.log(and());\r\n// Expected Output: true\r\n\r\nconsole.log(and(1, \"lazykit\"));\r\n// Expected Output: true\r\n"
-    ],
-    "createdAt": {
-      "date": "2024-04-13T14:39:39.237Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-13T14:39:39.237Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
     "name": "nand",
     "code": {
       "ts": "/**\r\n * Performs a NAND (NOT AND) operation on the given arguments.\r\n * Returns `false` if no arguments are provided or if all arguments are truthy.\r\n * Returns `true` if any argument is falsy.\r\n *\r\n * @param args - The arguments to perform the NAND operation on.\r\n * @returns The result of the NAND operation.\r\n */\r\nconst nand = (...args: any[]) => {\r\n  if (args.length === 0) return false;\r\n  const and = args.every((arg) => Boolean(arg));\r\n  return !and;\r\n};\r\n\r\nexport default nand;\r\n",
@@ -217,26 +237,6 @@
     },
     "lastUpdated": {
       "date": "2024-04-13T14:39:39.259Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
-    "name": "mapObj",
-    "code": {
-      "ts": "/**\r\n * Maps over the properties of an object and applies a callback function to each property.\r\n *\r\n * @template T - The type of the values in the input object.\r\n * @template U - The type of the values in the output object.\r\n * @param {Record<string, T>} obj - The input object.\r\n * @param {(value: T, key: string, obj: Record<string, T>) => U} callback - The callback function to apply to each property.\r\n * @returns {Record<string, U>} - The resulting object with the mapped properties.\r\n */\r\n\r\nconst mapObj = <T, U>(\r\n  obj: Record<string, T>,\r\n  callback: (value: T, key: string, obj: Record<string, T>) => U\r\n): Record<string, U> => {\r\n  const result: Record<string, U> = {};\r\n\r\n  // loop through each key in the object\r\n  for (const key in obj) {\r\n    // check if the key is a property of the object\r\n    if (Object.prototype.hasOwnProperty.call(obj, key)) {\r\n      result[key] = callback(obj[key], key, obj);\r\n    }\r\n  }\r\n\r\n  return result;\r\n};\r\n\r\nexport default mapObj;\r\n",
-      "js": "/**\n * Maps over the properties of an object and applies a callback function to each property.\n *\n * @template T - The type of the values in the input object.\n * @template U - The type of the values in the output object.\n * @param {Record<string, T>} obj - The input object.\n * @param {(value: T, key: string, obj: Record<string, T>) => U} callback - The callback function to apply to each property.\n * @returns {Record<string, U>} - The resulting object with the mapped properties.\n */\nconst mapObj = (obj, callback) => {\n    const result = {};\n    // loop through each key in the object\n    for (const key in obj) {\n        // check if the key is a property of the object\n        if (Object.prototype.hasOwnProperty.call(obj, key)) {\n            result[key] = callback(obj[key], key, obj);\n        }\n    }\n    return result;\n};\nexport default mapObj;\n"
-    },
-    "category": "objects",
-    "type": "functions",
-    "examples": [
-      "import mapObj from \".\";\r\n\r\nconst obj1 = { a: 1, b: 2, c: 3 };\r\nconst result1 = mapObj(obj1, (value: number) => value * 2);\r\nconsole.log(result1);\r\n// Expected output:  { a: 2, b: 4, c: 6 }\r\n\r\nconst obj2 = {};\r\nconst result2 = mapObj(obj2, (value: any) => value);\r\nconsole.log(result2);\r\n// Expected output:  {}\r\n\r\nconst obj3 = { 1: \"one\", 2: \"two\", 3: \"three\" };\r\nconst result = mapObj(obj3, (value: string, i) => value.toUpperCase() + i);\r\nconsole.log(result);\r\n// Expected output: { 1: 'ONE1', 2: 'TWO2', 3: 'THREE3' }\r\n"
-    ],
-    "createdAt": {
-      "date": "2024-04-13T14:39:39.287Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-13T14:39:39.287Z",
       "packageVersion": "0.1.0"
     }
   }

@@ -74,7 +74,7 @@ async function main() {
            * List all the folders in /:type/:category
            * Each folder is a method's content like index.ts, docs.tsx, etc
            */
-          const methods = readFolders(pathUptoCategory);
+          const methods = readFolders(pathUptoCategory).sort();
           console.log(`${methods.length} methods found in ${type}/${category}`);
 
           /**
@@ -312,10 +312,6 @@ async function main() {
                 }
               }
             })
-          );
-
-          console.log(
-            `Completed reading ${methods.length} methods in ${type}/${category} 🔥\n`
           );
         })
       );
