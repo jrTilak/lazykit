@@ -24,6 +24,22 @@
     "url": "/docs/functions"
   },
   {
+    "label": "or",
+    "url": "/docs/functions/gates/or"
+  },
+  {
+    "label": "nor",
+    "url": "/docs/functions/gates/nor"
+  },
+  {
+    "label": "and",
+    "url": "/docs/functions/gates/and"
+  },
+  {
+    "label": "nand",
+    "url": "/docs/functions/gates/nand"
+  },
+  {
     "label": "chunk",
     "url": "/docs/functions/arrays/chunk"
   },
@@ -34,18 +50,6 @@
   {
     "label": "search",
     "url": "/docs/functions/arrays/search"
-  },
-  {
-    "label": "nand",
-    "url": "/docs/functions/gates/nand"
-  },
-  {
-    "label": "and",
-    "url": "/docs/functions/gates/and"
-  },
-  {
-    "label": "or",
-    "url": "/docs/functions/gates/or"
   },
   {
     "label": "mapObj",

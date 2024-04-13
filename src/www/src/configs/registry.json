@@ -1,5 +1,45 @@
 [
   {
+    "name": "or",
+    "code": {
+      "ts": "/**\r\n * Performs a logical OR operation on the given arguments.\r\n *\r\n * @param args - The arguments to perform the OR operation on.\r\n * @returns The result of the OR operation.\r\n */\r\nconst or = (...args: any[]) => {\r\n  return args.some((arg) => Boolean(arg));\r\n};\r\n\r\nexport default or;\r\n",
+      "js": "/**\n * Performs a logical OR operation on the given arguments.\n *\n * @param args - The arguments to perform the OR operation on.\n * @returns The result of the OR operation.\n */\nconst or = (...args) => {\n    return args.some((arg) => Boolean(arg));\n};\nexport default or;\n"
+    },
+    "category": "gates",
+    "type": "functions",
+    "examples": [
+      "import or from \".\";\r\n\r\nconsole.log(or(true, true));\r\n// Expected Output: true\r\n\r\nconsole.log(or(false, true));\r\n// Expected Output: true\r\n\r\nconsole.log(or(false, false));\r\n// Expected Output: false\r\n\r\nconsole.log(or());\r\n// Expected Output: false\r\n\r\nconsole.log(or(1, \"lazykit\"));\r\n// Expected Output: true\r\n"
+    ],
+    "createdAt": {
+      "date": "2024-04-13T13:09:49.496Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-13T13:09:49.497Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "nor",
+    "code": {
+      "ts": "/**\r\n * Performs a logical NOR operation on the given arguments.\r\n * Returns true if none of the arguments are truthy, otherwise returns false.\r\n *\r\n * @param args - The arguments to perform the NOR operation on.\r\n * @returns The result of the NOR operation.\r\n */\r\nconst nor = (...args: any[]) => {\r\n  if (args.length === 0) return false;\r\n  const or = args.some((arg) => Boolean(arg));\r\n  return !or;\r\n};\r\n\r\nexport default nor;\r\n",
+      "js": "/**\n * Performs a logical NOR operation on the given arguments.\n * Returns true if none of the arguments are truthy, otherwise returns false.\n *\n * @param args - The arguments to perform the NOR operation on.\n * @returns The result of the NOR operation.\n */\nconst nor = (...args) => {\n    if (args.length === 0)\n        return false;\n    const or = args.some((arg) => Boolean(arg));\n    return !or;\n};\nexport default nor;\n"
+    },
+    "category": "gates",
+    "type": "functions",
+    "examples": [
+      "import or from \".\";\r\n\r\nconsole.log(or(true, true));\r\n// Expected Output: false\r\n\r\nconsole.log(or(false, true));\r\n// Expected Output: false\r\n\r\nconsole.log(or(false, false));\r\n// Expected Output: true\r\n\r\nconsole.log(or());\r\n// Expected Output: true\r\n\r\nconsole.log(or(1, \"lazykit\"));\r\n// Expected Output: false\r\n"
+    ],
+    "createdAt": {
+      "date": "2024-04-13T14:34:03.909Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-13T14:34:03.910Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
     "name": "chunk",
     "code": {
       "ts": "/**\r\n * Splits an array into chunks of a specified size.\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} array - The array to be chunked.\r\n * @param {number} [size=1] - The size of each chunk.\r\n * @param {boolean} [strict=false] - Whether to remove the last chunk if it is not equal to the size.\r\n * @returns {T[][]} - An array of chunks.\r\n */\r\nconst chunk = <T>(\r\n  array: T[],\r\n  size: number = 1,\r\n  strict: boolean = false\r\n  //remove the last chunk if it is not equal to the size\r\n): T[][] => {\r\n  const result: T[][] = [];\r\n\r\n  //push the chunks into the result array\r\n  for (let i = 0; i < array.length; i += size) {\r\n    result.push(array.slice(i, i + size));\r\n  }\r\n\r\n  //remove the last chunk if it is not equal to the size\r\n  if (strict && result[result.length - 1].length !== size) {\r\n    result.pop();\r\n  }\r\n  return result;\r\n};\r\n\r\nexport default chunk;\r\n",
@@ -16,26 +56,6 @@
     },
     "lastUpdated": {
       "date": "2024-04-12T14:30:31.227Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
-    "name": "nand",
-    "code": {
-      "ts": "/**\r\n * Performs a NAND (NOT AND) operation on the given arguments.\r\n * Returns `false` if no arguments are provided or if all arguments are truthy.\r\n * Returns `true` if any argument is falsy.\r\n *\r\n * @param args - The arguments to perform the NAND operation on.\r\n * @returns The result of the NAND operation.\r\n */\r\nconst nand = (...args: any[]) => {\r\n  if (args.length === 0) return false;\r\n  const and = args.every((arg) => Boolean(arg));\r\n  return !and;\r\n};\r\n\r\nexport default nand;\r\n",
-      "js": "/**\n * Performs a NAND (NOT AND) operation on the given arguments.\n * Returns `false` if no arguments are provided or if all arguments are truthy.\n * Returns `true` if any argument is falsy.\n *\n * @param args - The arguments to perform the NAND operation on.\n * @returns The result of the NAND operation.\n */\nconst nand = (...args) => {\n    if (args.length === 0)\n        return false;\n    const and = args.every((arg) => Boolean(arg));\n    return !and;\n};\nexport default nand;\n"
-    },
-    "category": "gates",
-    "type": "functions",
-    "examples": [
-      "import nand from \".\";\r\n\r\nconsole.log(nand(true, true));\r\n// Expected Output: false\r\n\r\nconsole.log(nand(true, false));\r\n// Expected Output: true\r\n\r\nconsole.log(nand());\r\n// Expected Output: false\r\n\r\nconsole.log(nand(1, \"lazykit\"));\r\n// Expected Output: false\r\n"
-    ],
-    "createdAt": {
-      "date": "2024-04-13T13:22:26.115Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-13T13:22:26.116Z",
       "packageVersion": "0.1.0"
     }
   },
@@ -100,22 +120,22 @@
     }
   },
   {
-    "name": "or",
+    "name": "nand",
     "code": {
-      "ts": "/**\r\n * Performs a logical OR operation on the given arguments.\r\n *\r\n * @param args - The arguments to perform the OR operation on.\r\n * @returns The result of the OR operation.\r\n */\r\nconst or = (...args: any[]) => {\r\n  return args.some((arg) => Boolean(arg));\r\n};\r\n\r\nexport default or;\r\n",
-      "js": "/**\n * Performs a logical OR operation on the given arguments.\n *\n * @param args - The arguments to perform the OR operation on.\n * @returns The result of the OR operation.\n */\nconst or = (...args) => {\n    return args.some((arg) => Boolean(arg));\n};\nexport default or;\n"
+      "ts": "/**\r\n * Performs a NAND (NOT AND) operation on the given arguments.\r\n * Returns `false` if no arguments are provided or if all arguments are truthy.\r\n * Returns `true` if any argument is falsy.\r\n *\r\n * @param args - The arguments to perform the NAND operation on.\r\n * @returns The result of the NAND operation.\r\n */\r\nconst nand = (...args: any[]) => {\r\n  if (args.length === 0) return false;\r\n  const and = args.every((arg) => Boolean(arg));\r\n  return !and;\r\n};\r\n\r\nexport default nand;\r\n",
+      "js": "/**\n * Performs a NAND (NOT AND) operation on the given arguments.\n * Returns `false` if no arguments are provided or if all arguments are truthy.\n * Returns `true` if any argument is falsy.\n *\n * @param args - The arguments to perform the NAND operation on.\n * @returns The result of the NAND operation.\n */\nconst nand = (...args) => {\n    if (args.length === 0)\n        return false;\n    const and = args.every((arg) => Boolean(arg));\n    return !and;\n};\nexport default nand;\n"
     },
     "category": "gates",
     "type": "functions",
     "examples": [
-      "import or from \".\";\r\n\r\nconsole.log(or(true, true));\r\n// Expected Output: true\r\n\r\nconsole.log(or(false, true));\r\n// Expected Output: true\r\n\r\nconsole.log(or(false, false));\r\n// Expected Output: false\r\n\r\nconsole.log(or());\r\n// Expected Output: false\r\n\r\nconsole.log(or(1, \"lazykit\"));\r\n// Expected Output: true\r\n"
+      "import nand from \".\";\r\n\r\nconsole.log(nand(true, true));\r\n// Expected Output: false\r\n\r\nconsole.log(nand(true, false));\r\n// Expected Output: true\r\n\r\nconsole.log(nand());\r\n// Expected Output: false\r\n\r\nconsole.log(nand(1, \"lazykit\"));\r\n// Expected Output: false\r\n"
     ],
     "createdAt": {
-      "date": "2024-04-13T13:09:49.496Z",
+      "date": "2024-04-13T13:22:26.115Z",
       "packageVersion": "0.1.0"
     },
     "lastUpdated": {
-      "date": "2024-04-13T13:09:49.497Z",
+      "date": "2024-04-13T13:22:26.116Z",
       "packageVersion": "0.1.0"
     }
   },
