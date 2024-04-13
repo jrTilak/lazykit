@@ -24,12 +24,12 @@
     "url": "/docs/functions"
   },
   {
-    "label": "chunk",
-    "url": "/docs/functions/arrays/chunk"
-  },
-  {
     "label": "compact",
     "url": "/docs/functions/arrays/compact"
+  },
+  {
+    "label": "chunk",
+    "url": "/docs/functions/arrays/chunk"
   },
   {
     "label": "search",
@@ -38,5 +38,9 @@
   {
     "label": "mapObj",
     "url": "/docs/functions/objects/mapObj"
+  },
+  {
+    "label": "or",
+    "url": "/docs/functions/gates/or"
   }
 ]

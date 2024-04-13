@@ -1,25 +1,5 @@
 [
   {
-    "name": "chunk",
-    "code": {
-      "ts": "/**\r\n * Splits an array into chunks of a specified size.\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} array - The array to be chunked.\r\n * @param {number} [size=1] - The size of each chunk.\r\n * @param {boolean} [strict=false] - Whether to remove the last chunk if it is not equal to the size.\r\n * @returns {T[][]} - An array of chunks.\r\n */\r\nconst chunk = <T>(\r\n  array: T[],\r\n  size: number = 1,\r\n  strict: boolean = false\r\n  //remove the last chunk if it is not equal to the size\r\n): T[][] => {\r\n  const result: T[][] = [];\r\n\r\n  //push the chunks into the result array\r\n  for (let i = 0; i < array.length; i += size) {\r\n    result.push(array.slice(i, i + size));\r\n  }\r\n\r\n  //remove the last chunk if it is not equal to the size\r\n  if (strict && result[result.length - 1].length !== size) {\r\n    result.pop();\r\n  }\r\n  return result;\r\n};\r\n\r\nexport default chunk;\r\n",
-      "js": "/**\n * Splits an array into chunks of a specified size.\n *\n * @template T - The type of elements in the array.\n * @param {T[]} array - The array to be chunked.\n * @param {number} [size=1] - The size of each chunk.\n * @param {boolean} [strict=false] - Whether to remove the last chunk if it is not equal to the size.\n * @returns {T[][]} - An array of chunks.\n */\nconst chunk = (array, size = 1, strict = false\n//remove the last chunk if it is not equal to the size\n) => {\n    const result = [];\n    //push the chunks into the result array\n    for (let i = 0; i < array.length; i += size) {\n        result.push(array.slice(i, i + size));\n    }\n    //remove the last chunk if it is not equal to the size\n    if (strict && result[result.length - 1].length !== size) {\n        result.pop();\n    }\n    return result;\n};\nexport default chunk;\n"
-    },
-    "category": "arrays",
-    "type": "functions",
-    "examples": [
-      "import chunk from \".\";\r\n\r\nconst arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];\r\n\r\n// No size provided, default size is 1\r\nconsole.log(chunk(arr));\r\n// Expected output: [[1], [2], [3], [4], [5], [6], [7], [8], [9], [10]];\r\n\r\n// Providing size as 2\r\nconsole.log(chunk(arr, 2));\r\n// Expected output: [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ], [ 7, 8 ], [ 9, 10 ] ]\r\n\r\n// Providing size as 3 and strict as true\r\nconsole.log(chunk(arr, 3, true));\r\n// Expected output: [ [ 1, 2, 3 ], [ 4, 5, 6 ], [ 7, 8, 9 ] ]\r\n\r\n// Providing size as 4 and strict as true\r\nconsole.log(chunk(arr, 4, true));\r\n// Expected output: [ [ 1, 2, 3, 4 ], [ 5, 6, 7, 8 ] ]\r\n"
-    ],
-    "createdAt": {
-      "date": "2024-04-12T14:30:31.226Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-12T14:30:31.227Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
     "name": "compact",
     "code": {
       "ts": "/**\r\n * Removes falsy values\r\n * Also removes empty objects and arrays if strict is true\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} array - The array to compact.\r\n * @param {boolean} [strict=false] - If true, also removes empty objects and arrays.\r\n * @returns {T[]} - The compacted array.\r\n */\r\nconst compact = <T>(array: T[], strict: boolean = false): T[] => {\r\n  let truthy = array.filter((item) => {\r\n    // remove all falsy values and excluded values\r\n    return Boolean(item);\r\n  });\r\n\r\n  if (strict) {\r\n    // remove all empty objects\r\n    truthy = truthy.filter((item) => {\r\n      if (typeof item === \"object\" && !(item instanceof Array)) {\r\n        return Object.keys(item as object).length > 0;\r\n      }\r\n      return true;\r\n    });\r\n    // remove all empty arrays\r\n    truthy = truthy.filter((item) => {\r\n      if (Array.isArray(item)) {\r\n        return (item as []).length > 0;\r\n      }\r\n      return true;\r\n    });\r\n  }\r\n  return truthy;\r\n};\r\n\r\nexport default compact;\r\n",
@@ -36,6 +16,46 @@
     },
     "lastUpdated": {
       "date": "2024-04-13T10:05:40.351Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "mapObj",
+    "code": {
+      "ts": "/**\r\n * Maps over the properties of an object and applies a callback function to each property.\r\n *\r\n * @template T - The type of the values in the input object.\r\n * @template U - The type of the values in the output object.\r\n * @param {Record<string, T>} obj - The input object.\r\n * @param {(value: T, key: string, obj: Record<string, T>) => U} callback - The callback function to apply to each property.\r\n * @returns {Record<string, U>} - The resulting object with the mapped properties.\r\n */\r\n\r\nconst mapObj = <T, U>(\r\n  obj: Record<string, T>,\r\n  callback: (value: T, key: string, obj: Record<string, T>) => U\r\n): Record<string, U> => {\r\n  const result: Record<string, U> = {};\r\n\r\n  // loop through each key in the object\r\n  for (const key in obj) {\r\n    // check if the key is a property of the object\r\n    if (Object.prototype.hasOwnProperty.call(obj, key)) {\r\n      result[key] = callback(obj[key], key, obj);\r\n    }\r\n  }\r\n\r\n  return result;\r\n};\r\n\r\nexport default mapObj;\r\n",
+      "js": "/**\n * Maps over the properties of an object and applies a callback function to each property.\n *\n * @template T - The type of the values in the input object.\n * @template U - The type of the values in the output object.\n * @param {Record<string, T>} obj - The input object.\n * @param {(value: T, key: string, obj: Record<string, T>) => U} callback - The callback function to apply to each property.\n * @returns {Record<string, U>} - The resulting object with the mapped properties.\n */\nconst mapObj = (obj, callback) => {\n    const result = {};\n    // loop through each key in the object\n    for (const key in obj) {\n        // check if the key is a property of the object\n        if (Object.prototype.hasOwnProperty.call(obj, key)) {\n            result[key] = callback(obj[key], key, obj);\n        }\n    }\n    return result;\n};\nexport default mapObj;\n"
+    },
+    "category": "objects",
+    "type": "functions",
+    "examples": [
+      "import mapObj from \".\";\r\n\r\nconst obj1 = { a: 1, b: 2, c: 3 };\r\nconst result1 = mapObj(obj1, (value: number) => value * 2);\r\nconsole.log(result1);\r\n// Expected output:  { a: 2, b: 4, c: 6 }\r\n\r\nconst obj2 = {};\r\nconst result2 = mapObj(obj2, (value: any) => value);\r\nconsole.log(result2);\r\n// Expected output:  {}\r\n\r\nconst obj3 = { 1: \"one\", 2: \"two\", 3: \"three\" };\r\nconst result = mapObj(obj3, (value: string, i) => value.toUpperCase() + i);\r\nconsole.log(result);\r\n// Expected output: { 1: 'ONE1', 2: 'TWO2', 3: 'THREE3' }\r\n"
+    ],
+    "createdAt": {
+      "date": "2024-04-12T14:30:31.266Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-12T14:30:31.266Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "chunk",
+    "code": {
+      "ts": "/**\r\n * Splits an array into chunks of a specified size.\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} array - The array to be chunked.\r\n * @param {number} [size=1] - The size of each chunk.\r\n * @param {boolean} [strict=false] - Whether to remove the last chunk if it is not equal to the size.\r\n * @returns {T[][]} - An array of chunks.\r\n */\r\nconst chunk = <T>(\r\n  array: T[],\r\n  size: number = 1,\r\n  strict: boolean = false\r\n  //remove the last chunk if it is not equal to the size\r\n): T[][] => {\r\n  const result: T[][] = [];\r\n\r\n  //push the chunks into the result array\r\n  for (let i = 0; i < array.length; i += size) {\r\n    result.push(array.slice(i, i + size));\r\n  }\r\n\r\n  //remove the last chunk if it is not equal to the size\r\n  if (strict && result[result.length - 1].length !== size) {\r\n    result.pop();\r\n  }\r\n  return result;\r\n};\r\n\r\nexport default chunk;\r\n",
+      "js": "/**\n * Splits an array into chunks of a specified size.\n *\n * @template T - The type of elements in the array.\n * @param {T[]} array - The array to be chunked.\n * @param {number} [size=1] - The size of each chunk.\n * @param {boolean} [strict=false] - Whether to remove the last chunk if it is not equal to the size.\n * @returns {T[][]} - An array of chunks.\n */\nconst chunk = (array, size = 1, strict = false\n//remove the last chunk if it is not equal to the size\n) => {\n    const result = [];\n    //push the chunks into the result array\n    for (let i = 0; i < array.length; i += size) {\n        result.push(array.slice(i, i + size));\n    }\n    //remove the last chunk if it is not equal to the size\n    if (strict && result[result.length - 1].length !== size) {\n        result.pop();\n    }\n    return result;\n};\nexport default chunk;\n"
+    },
+    "category": "arrays",
+    "type": "functions",
+    "examples": [
+      "import chunk from \".\";\r\n\r\nconst arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];\r\n\r\n// No size provided, default size is 1\r\nconsole.log(chunk(arr));\r\n// Expected output: [[1], [2], [3], [4], [5], [6], [7], [8], [9], [10]];\r\n\r\n// Providing size as 2\r\nconsole.log(chunk(arr, 2));\r\n// Expected output: [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ], [ 7, 8 ], [ 9, 10 ] ]\r\n\r\n// Providing size as 3 and strict as true\r\nconsole.log(chunk(arr, 3, true));\r\n// Expected output: [ [ 1, 2, 3 ], [ 4, 5, 6 ], [ 7, 8, 9 ] ]\r\n\r\n// Providing size as 4 and strict as true\r\nconsole.log(chunk(arr, 4, true));\r\n// Expected output: [ [ 1, 2, 3, 4 ], [ 5, 6, 7, 8 ] ]\r\n"
+    ],
+    "createdAt": {
+      "date": "2024-04-12T14:30:31.226Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-12T14:30:31.227Z",
       "packageVersion": "0.1.0"
     }
   },
@@ -60,22 +80,22 @@
     }
   },
   {
-    "name": "mapObj",
+    "name": "or",
     "code": {
-      "ts": "/**\r\n * Maps over the properties of an object and applies a callback function to each property.\r\n *\r\n * @template T - The type of the values in the input object.\r\n * @template U - The type of the values in the output object.\r\n * @param {Record<string, T>} obj - The input object.\r\n * @param {(value: T, key: string, obj: Record<string, T>) => U} callback - The callback function to apply to each property.\r\n * @returns {Record<string, U>} - The resulting object with the mapped properties.\r\n */\r\n\r\nconst mapObj = <T, U>(\r\n  obj: Record<string, T>,\r\n  callback: (value: T, key: string, obj: Record<string, T>) => U\r\n): Record<string, U> => {\r\n  const result: Record<string, U> = {};\r\n\r\n  // loop through each key in the object\r\n  for (const key in obj) {\r\n    // check if the key is a property of the object\r\n    if (Object.prototype.hasOwnProperty.call(obj, key)) {\r\n      result[key] = callback(obj[key], key, obj);\r\n    }\r\n  }\r\n\r\n  return result;\r\n};\r\n\r\nexport default mapObj;\r\n",
-      "js": "/**\n * Maps over the properties of an object and applies a callback function to each property.\n *\n * @template T - The type of the values in the input object.\n * @template U - The type of the values in the output object.\n * @param {Record<string, T>} obj - The input object.\n * @param {(value: T, key: string, obj: Record<string, T>) => U} callback - The callback function to apply to each property.\n * @returns {Record<string, U>} - The resulting object with the mapped properties.\n */\nconst mapObj = (obj, callback) => {\n    const result = {};\n    // loop through each key in the object\n    for (const key in obj) {\n        // check if the key is a property of the object\n        if (Object.prototype.hasOwnProperty.call(obj, key)) {\n            result[key] = callback(obj[key], key, obj);\n        }\n    }\n    return result;\n};\nexport default mapObj;\n"
+      "ts": "/**\r\n * Performs a logical OR operation on the given arguments.\r\n *\r\n * @param args - The arguments to perform the OR operation on.\r\n * @returns The result of the OR operation.\r\n */\r\nconst or = (...args: any[]) => {\r\n  return args.some((arg) => Boolean(arg));\r\n};\r\n\r\nexport default or;\r\n",
+      "js": "/**\n * Performs a logical OR operation on the given arguments.\n *\n * @param args - The arguments to perform the OR operation on.\n * @returns The result of the OR operation.\n */\nconst or = (...args) => {\n    return args.some((arg) => Boolean(arg));\n};\nexport default or;\n"
     },
-    "category": "objects",
+    "category": "gates",
     "type": "functions",
     "examples": [
-      "import mapObj from \".\";\r\n\r\nconst obj1 = { a: 1, b: 2, c: 3 };\r\nconst result1 = mapObj(obj1, (value: number) => value * 2);\r\nconsole.log(result1);\r\n// Expected output:  { a: 2, b: 4, c: 6 }\r\n\r\nconst obj2 = {};\r\nconst result2 = mapObj(obj2, (value: any) => value);\r\nconsole.log(result2);\r\n// Expected output:  {}\r\n\r\nconst obj3 = { 1: \"one\", 2: \"two\", 3: \"three\" };\r\nconst result = mapObj(obj3, (value: string, i) => value.toUpperCase() + i);\r\nconsole.log(result);\r\n// Expected output: { 1: 'ONE1', 2: 'TWO2', 3: 'THREE3' }\r\n"
+      "import or from \".\";\r\n\r\nconsole.log(or(true, true));\r\n// Expected Output: true\r\n\r\nconsole.log(or(false, true));\r\n// Expected Output: true\r\n\r\nconsole.log(or(false, false));\r\n// Expected Output: false\r\n\r\nconsole.log(or());\r\n// Expected Output: false\r\n\r\nconsole.log(or(1, \"lazykit\"));\r\n// Expected Output: true\r\n"
     ],
     "createdAt": {
-      "date": "2024-04-12T14:30:31.266Z",
+      "date": "2024-04-13T13:09:49.496Z",
       "packageVersion": "0.1.0"
     },
     "lastUpdated": {
-      "date": "2024-04-12T14:30:31.266Z",
+      "date": "2024-04-13T13:09:49.497Z",
       "packageVersion": "0.1.0"
     }
   }
