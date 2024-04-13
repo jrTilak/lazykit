@@ -20,6 +20,26 @@
     }
   },
   {
+    "name": "nand",
+    "code": {
+      "ts": "/**\r\n * Performs a NAND (NOT AND) operation on the given arguments.\r\n * Returns `false` if no arguments are provided or if all arguments are truthy.\r\n * Returns `true` if any argument is falsy.\r\n *\r\n * @param args - The arguments to perform the NAND operation on.\r\n * @returns The result of the NAND operation.\r\n */\r\nconst nand = (...args: any[]) => {\r\n  if (args.length === 0) return false;\r\n  const and = args.every((arg) => Boolean(arg));\r\n  return !and;\r\n};\r\n\r\nexport default nand;\r\n",
+      "js": "/**\n * Performs a NAND (NOT AND) operation on the given arguments.\n * Returns `false` if no arguments are provided or if all arguments are truthy.\n * Returns `true` if any argument is falsy.\n *\n * @param args - The arguments to perform the NAND operation on.\n * @returns The result of the NAND operation.\n */\nconst nand = (...args) => {\n    if (args.length === 0)\n        return false;\n    const and = args.every((arg) => Boolean(arg));\n    return !and;\n};\nexport default nand;\n"
+    },
+    "category": "gates",
+    "type": "functions",
+    "examples": [
+      "import nand from \".\";\r\n\r\nconsole.log(nand(true, true));\r\n// Expected Output: false\r\n\r\nconsole.log(nand(true, false));\r\n// Expected Output: true\r\n\r\nconsole.log(nand());\r\n// Expected Output: false\r\n\r\nconsole.log(nand(1, \"lazykit\"));\r\n// Expected Output: false\r\n"
+    ],
+    "createdAt": {
+      "date": "2024-04-13T13:22:26.115Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-13T13:22:26.116Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
     "name": "compact",
     "code": {
       "ts": "/**\r\n * Removes falsy values\r\n * Also removes empty objects and arrays if strict is true\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} array - The array to compact.\r\n * @param {boolean} [strict=false] - If true, also removes empty objects and arrays.\r\n * @returns {T[]} - The compacted array.\r\n */\r\nconst compact = <T>(array: T[], strict: boolean = false): T[] => {\r\n  let truthy = array.filter((item) => {\r\n    // remove all falsy values and excluded values\r\n    return Boolean(item);\r\n  });\r\n\r\n  if (strict) {\r\n    // remove all empty objects\r\n    truthy = truthy.filter((item) => {\r\n      if (typeof item === \"object\" && !(item instanceof Array)) {\r\n        return Object.keys(item as object).length > 0;\r\n      }\r\n      return true;\r\n    });\r\n    // remove all empty arrays\r\n    truthy = truthy.filter((item) => {\r\n      if (Array.isArray(item)) {\r\n        return (item as []).length > 0;\r\n      }\r\n      return true;\r\n    });\r\n  }\r\n  return truthy;\r\n};\r\n\r\nexport default compact;\r\n",

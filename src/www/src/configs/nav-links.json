@@ -50,6 +50,10 @@
         "url": "/docs/functions/gates",
         "methods": [
           {
+            "label": "nand",
+            "url": "/docs/functions/gates/nand"
+          },
+          {
             "label": "and",
             "url": "/docs/functions/gates/and"
           },
