@@ -24,8 +24,16 @@
     "url": "/docs/functions"
   },
   {
-    "label": "chunk",
-    "url": "/docs/functions/arrays/chunk"
+    "label": "compact",
+    "url": "/docs/functions/arrays/compact"
+  },
+  {
+    "label": "insert",
+    "url": "/docs/functions/arrays/insert"
+  },
+  {
+    "label": "sampleArr",
+    "url": "/docs/functions/arrays/sampleArr"
   },
   {
     "label": "search",
@@ -36,12 +44,8 @@
     "url": "/docs/functions/arrays/shuffleArr"
   },
   {
-    "label": "compact",
-    "url": "/docs/functions/arrays/compact"
-  },
-  {
-    "label": "sampleArr",
-    "url": "/docs/functions/arrays/sampleArr"
+    "label": "chunk",
+    "url": "/docs/functions/arrays/chunk"
   },
   {
     "label": "and",
