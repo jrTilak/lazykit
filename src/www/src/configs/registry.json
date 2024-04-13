@@ -20,6 +20,26 @@
     }
   },
   {
+    "name": "chunk",
+    "code": {
+      "ts": "/**\r\n * Splits an array into chunks of a specified size.\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} array - The array to be chunked.\r\n * @param {number} [size=1] - The size of each chunk.\r\n * @param {boolean} [strict=false] - Whether to remove the last chunk if it is not equal to the size.\r\n * @returns {T[][]} - An array of chunks.\r\n */\r\nconst chunk = <T>(\r\n  array: T[],\r\n  size: number = 1,\r\n  strict: boolean = false\r\n  //remove the last chunk if it is not equal to the size\r\n): T[][] => {\r\n  const result: T[][] = [];\r\n\r\n  //push the chunks into the result array\r\n  for (let i = 0; i < array.length; i += size) {\r\n    result.push(array.slice(i, i + size));\r\n  }\r\n\r\n  //remove the last chunk if it is not equal to the size\r\n  if (strict && result[result.length - 1].length !== size) {\r\n    result.pop();\r\n  }\r\n  return result;\r\n};\r\n\r\nexport default chunk;\r\n",
+      "js": "/**\n * Splits an array into chunks of a specified size.\n *\n * @template T - The type of elements in the array.\n * @param {T[]} array - The array to be chunked.\n * @param {number} [size=1] - The size of each chunk.\n * @param {boolean} [strict=false] - Whether to remove the last chunk if it is not equal to the size.\n * @returns {T[][]} - An array of chunks.\n */\nconst chunk = (array, size = 1, strict = false\n//remove the last chunk if it is not equal to the size\n) => {\n    const result = [];\n    //push the chunks into the result array\n    for (let i = 0; i < array.length; i += size) {\n        result.push(array.slice(i, i + size));\n    }\n    //remove the last chunk if it is not equal to the size\n    if (strict && result[result.length - 1].length !== size) {\n        result.pop();\n    }\n    return result;\n};\nexport default chunk;\n"
+    },
+    "category": "arrays",
+    "type": "functions",
+    "examples": [
+      "import chunk from \".\";\r\n\r\nconst arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];\r\n\r\n// No size provided, default size is 1\r\nconsole.log(chunk(arr));\r\n// Expected output: [[1], [2], [3], [4], [5], [6], [7], [8], [9], [10]];\r\n\r\n// Providing size as 2\r\nconsole.log(chunk(arr, 2));\r\n// Expected output: [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ], [ 7, 8 ], [ 9, 10 ] ]\r\n\r\n// Providing size as 3 and strict as true\r\nconsole.log(chunk(arr, 3, true));\r\n// Expected output: [ [ 1, 2, 3 ], [ 4, 5, 6 ], [ 7, 8, 9 ] ]\r\n\r\n// Providing size as 4 and strict as true\r\nconsole.log(chunk(arr, 4, true));\r\n// Expected output: [ [ 1, 2, 3, 4 ], [ 5, 6, 7, 8 ] ]\r\n"
+    ],
+    "createdAt": {
+      "date": "2024-04-13T14:39:39.130Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-13T14:39:39.132Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
     "name": "insert",
     "code": {
       "ts": "/**\r\n * Inserts elements into an array at a specified index.\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} arr - The array to insert elements into.\r\n * @param {number} index - The index at which to insert the elements.\r\n * @param {boolean} [recursive=false] - Indicates whether to insert elements recursively. If true, the elements will be inserted at every nth index.\r\n * @param {...T[]} items - The elements to insert into the array.\r\n * @returns {T[]} - The modified array with the inserted elements.\r\n */\r\nconst insert = <T>(\r\n  arr: T[],\r\n  index: number,\r\n  [...items]: T[],\r\n  recursive: boolean = false\r\n): T[] => {\r\n  const isNegativeIndex = index < 0;\r\n  // if index is negative, convert it to positive and reverse the array for easier insertion\r\n  if (isNegativeIndex) {\r\n    index = Math.abs(index);\r\n    arr = arr.reverse();\r\n    items = items.reverse();\r\n  }\r\n\r\n  if (!recursive) {\r\n    const newArr = [...arr.slice(0, index), ...items, ...arr.slice(index)];\r\n    return isNegativeIndex ? newArr.reverse() : newArr;\r\n  } else {\r\n    const shouldInsert = Math.floor(arr.length / index);\r\n    let newArr = [...arr];\r\n    for (let i = 0; i < shouldInsert; i++) {\r\n      const insertIndex = (i + 1) * index + i * items.length;\r\n      newArr = [\r\n        ...newArr.slice(0, insertIndex),\r\n        ...items,\r\n        ...newArr.slice(insertIndex),\r\n      ];\r\n    }\r\n    return isNegativeIndex ? newArr.reverse() : newArr;\r\n  }\r\n};\r\n\r\nexport default insert;\r\n",
@@ -101,22 +121,22 @@
     }
   },
   {
-    "name": "chunk",
+    "name": "unique",
     "code": {
-      "ts": "/**\r\n * Splits an array into chunks of a specified size.\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} array - The array to be chunked.\r\n * @param {number} [size=1] - The size of each chunk.\r\n * @param {boolean} [strict=false] - Whether to remove the last chunk if it is not equal to the size.\r\n * @returns {T[][]} - An array of chunks.\r\n */\r\nconst chunk = <T>(\r\n  array: T[],\r\n  size: number = 1,\r\n  strict: boolean = false\r\n  //remove the last chunk if it is not equal to the size\r\n): T[][] => {\r\n  const result: T[][] = [];\r\n\r\n  //push the chunks into the result array\r\n  for (let i = 0; i < array.length; i += size) {\r\n    result.push(array.slice(i, i + size));\r\n  }\r\n\r\n  //remove the last chunk if it is not equal to the size\r\n  if (strict && result[result.length - 1].length !== size) {\r\n    result.pop();\r\n  }\r\n  return result;\r\n};\r\n\r\nexport default chunk;\r\n",
-      "js": "/**\n * Splits an array into chunks of a specified size.\n *\n * @template T - The type of elements in the array.\n * @param {T[]} array - The array to be chunked.\n * @param {number} [size=1] - The size of each chunk.\n * @param {boolean} [strict=false] - Whether to remove the last chunk if it is not equal to the size.\n * @returns {T[][]} - An array of chunks.\n */\nconst chunk = (array, size = 1, strict = false\n//remove the last chunk if it is not equal to the size\n) => {\n    const result = [];\n    //push the chunks into the result array\n    for (let i = 0; i < array.length; i += size) {\n        result.push(array.slice(i, i + size));\n    }\n    //remove the last chunk if it is not equal to the size\n    if (strict && result[result.length - 1].length !== size) {\n        result.pop();\n    }\n    return result;\n};\nexport default chunk;\n"
+      "ts": "/**\r\n * Returns an array with unique elements from the input array.\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} arr - The input array.\r\n * @returns {T[]} - An array with unique elements.\r\n */\r\nconst unique = <T>(arr: T[]): T[] => {\r\n  //@ts-ignore\r\n  return [...new Set(arr)];\r\n};\r\n\r\nexport default unique;\r\n",
+      "js": "/**\n * Returns an array with unique elements from the input array.\n *\n * @template T - The type of elements in the array.\n * @param {T[]} arr - The input array.\n * @returns {T[]} - An array with unique elements.\n */\nconst unique = (arr) => {\n    //@ts-ignore\n    return [...new Set(arr)];\n};\nexport default unique;\n"
     },
     "category": "arrays",
     "type": "functions",
     "examples": [
-      "import chunk from \".\";\r\n\r\nconst arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];\r\n\r\n// No size provided, default size is 1\r\nconsole.log(chunk(arr));\r\n// Expected output: [[1], [2], [3], [4], [5], [6], [7], [8], [9], [10]];\r\n\r\n// Providing size as 2\r\nconsole.log(chunk(arr, 2));\r\n// Expected output: [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ], [ 7, 8 ], [ 9, 10 ] ]\r\n\r\n// Providing size as 3 and strict as true\r\nconsole.log(chunk(arr, 3, true));\r\n// Expected output: [ [ 1, 2, 3 ], [ 4, 5, 6 ], [ 7, 8, 9 ] ]\r\n\r\n// Providing size as 4 and strict as true\r\nconsole.log(chunk(arr, 4, true));\r\n// Expected output: [ [ 1, 2, 3, 4 ], [ 5, 6, 7, 8 ] ]\r\n"
+      "import unique from \".\";\r\n\r\nconst arr = [1, 2, 3, 3, 4, 5, 5, 6, 7, 8, 8, 9, 10];\r\nconst result = unique(arr);\r\nconsole.log(result);\r\n// Expected Output: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]\r\n"
     ],
     "createdAt": {
-      "date": "2024-04-13T14:39:39.130Z",
+      "date": "2024-04-13T18:45:24.667Z",
       "packageVersion": "0.1.0"
     },
     "lastUpdated": {
-      "date": "2024-04-13T14:39:39.132Z",
+      "date": "2024-04-13T18:45:24.668Z",
       "packageVersion": "0.1.0"
     }
   },

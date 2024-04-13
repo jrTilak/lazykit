@@ -13,7 +13,7 @@
   //when index is negative, it will start inserting from the end
   ```
 - [ ] remove: remove an element at a specified index
-- [ ] unique: remove duplicates from an array
+- [x] unique: remove duplicates from an array
 - [ ] rotate: rotate an array by a specified number of steps ie ([1,2,3,4,5], 2) => [3,4,5,1,2]
 - [ ] partition: partition an array into two arrays based on a condition
 - [ ] difference: find the difference between two arrays
