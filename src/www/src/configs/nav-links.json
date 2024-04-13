@@ -36,16 +36,20 @@
             "url": "/docs/functions/arrays/chunk"
           },
           {
+            "label": "search",
+            "url": "/docs/functions/arrays/search"
+          },
+          {
+            "label": "shuffleArr",
+            "url": "/docs/functions/arrays/shuffleArr"
+          },
+          {
             "label": "compact",
             "url": "/docs/functions/arrays/compact"
           },
           {
             "label": "sampleArr",
             "url": "/docs/functions/arrays/sampleArr"
-          },
-          {
-            "label": "search",
-            "url": "/docs/functions/arrays/search"
           }
         ]
       },
@@ -54,12 +58,12 @@
         "url": "/docs/functions/gates",
         "methods": [
           {
-            "label": "nand",
-            "url": "/docs/functions/gates/nand"
-          },
-          {
             "label": "and",
             "url": "/docs/functions/gates/and"
+          },
+          {
+            "label": "nand",
+            "url": "/docs/functions/gates/nand"
           },
           {
             "label": "nor",
