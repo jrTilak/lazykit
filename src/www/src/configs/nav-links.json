@@ -28,28 +28,6 @@
     "heading": "Functions",
     "categories": [
       {
-        "label": "Gates",
-        "url": "/docs/functions/gates",
-        "methods": [
-          {
-            "label": "or",
-            "url": "/docs/functions/gates/or"
-          },
-          {
-            "label": "nor",
-            "url": "/docs/functions/gates/nor"
-          },
-          {
-            "label": "and",
-            "url": "/docs/functions/gates/and"
-          },
-          {
-            "label": "nand",
-            "url": "/docs/functions/gates/nand"
-          }
-        ]
-      },
-      {
         "label": "Arrays",
         "url": "/docs/functions/arrays",
         "methods": [
@@ -64,6 +42,28 @@
           {
             "label": "search",
             "url": "/docs/functions/arrays/search"
+          }
+        ]
+      },
+      {
+        "label": "Gates",
+        "url": "/docs/functions/gates",
+        "methods": [
+          {
+            "label": "nand",
+            "url": "/docs/functions/gates/nand"
+          },
+          {
+            "label": "and",
+            "url": "/docs/functions/gates/and"
+          },
+          {
+            "label": "nor",
+            "url": "/docs/functions/gates/nor"
+          },
+          {
+            "label": "or",
+            "url": "/docs/functions/gates/or"
           }
         ]
       },
