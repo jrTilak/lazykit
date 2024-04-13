@@ -20,66 +20,6 @@
     }
   },
   {
-    "name": "mapObj",
-    "code": {
-      "ts": "/**\r\n * Maps over the properties of an object and applies a callback function to each property.\r\n *\r\n * @template T - The type of the values in the input object.\r\n * @template U - The type of the values in the output object.\r\n * @param {Record<string, T>} obj - The input object.\r\n * @param {(value: T, key: string, obj: Record<string, T>) => U} callback - The callback function to apply to each property.\r\n * @returns {Record<string, U>} - The resulting object with the mapped properties.\r\n */\r\n\r\nconst mapObj = <T, U>(\r\n  obj: Record<string, T>,\r\n  callback: (value: T, key: string, obj: Record<string, T>) => U\r\n): Record<string, U> => {\r\n  const result: Record<string, U> = {};\r\n\r\n  // loop through each key in the object\r\n  for (const key in obj) {\r\n    // check if the key is a property of the object\r\n    if (Object.prototype.hasOwnProperty.call(obj, key)) {\r\n      result[key] = callback(obj[key], key, obj);\r\n    }\r\n  }\r\n\r\n  return result;\r\n};\r\n\r\nexport default mapObj;\r\n",
-      "js": "/**\n * Maps over the properties of an object and applies a callback function to each property.\n *\n * @template T - The type of the values in the input object.\n * @template U - The type of the values in the output object.\n * @param {Record<string, T>} obj - The input object.\n * @param {(value: T, key: string, obj: Record<string, T>) => U} callback - The callback function to apply to each property.\n * @returns {Record<string, U>} - The resulting object with the mapped properties.\n */\nconst mapObj = (obj, callback) => {\n    const result = {};\n    // loop through each key in the object\n    for (const key in obj) {\n        // check if the key is a property of the object\n        if (Object.prototype.hasOwnProperty.call(obj, key)) {\n            result[key] = callback(obj[key], key, obj);\n        }\n    }\n    return result;\n};\nexport default mapObj;\n"
-    },
-    "category": "objects",
-    "type": "functions",
-    "examples": [
-      "import mapObj from \".\";\r\n\r\nconst obj1 = { a: 1, b: 2, c: 3 };\r\nconst result1 = mapObj(obj1, (value: number) => value * 2);\r\nconsole.log(result1);\r\n// Expected output:  { a: 2, b: 4, c: 6 }\r\n\r\nconst obj2 = {};\r\nconst result2 = mapObj(obj2, (value: any) => value);\r\nconsole.log(result2);\r\n// Expected output:  {}\r\n\r\nconst obj3 = { 1: \"one\", 2: \"two\", 3: \"three\" };\r\nconst result = mapObj(obj3, (value: string, i) => value.toUpperCase() + i);\r\nconsole.log(result);\r\n// Expected output: { 1: 'ONE1', 2: 'TWO2', 3: 'THREE3' }\r\n"
-    ],
-    "createdAt": {
-      "date": "2024-04-13T14:39:39.287Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-13T14:39:39.287Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
-    "name": "unique",
-    "code": {
-      "ts": "/**\r\n * Returns an array with unique elements from the input array.\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} arr - The input array.\r\n * @returns {T[]} - An array with unique elements.\r\n */\r\nconst unique = <T>(arr: T[]): T[] => {\r\n  //@ts-ignore\r\n  return [...new Set(arr)];\r\n};\r\n\r\nexport default unique;\r\n",
-      "js": "/**\n * Returns an array with unique elements from the input array.\n *\n * @template T - The type of elements in the array.\n * @param {T[]} arr - The input array.\n * @returns {T[]} - An array with unique elements.\n */\nconst unique = (arr) => {\n    //@ts-ignore\n    return [...new Set(arr)];\n};\nexport default unique;\n"
-    },
-    "category": "arrays",
-    "type": "functions",
-    "examples": [
-      "import unique from \".\";\r\n\r\nconst arr = [1, 2, 3, 3, 4, 5, 5, 6, 7, 8, 8, 9, 10];\r\nconst result = unique(arr);\r\nconsole.log(result);\r\n// Expected Output: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]\r\n"
-    ],
-    "createdAt": {
-      "date": "2024-04-13T18:45:24.667Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-13T18:45:24.668Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
-    "name": "and",
-    "code": {
-      "ts": "/**\r\n * Performs a logical AND operation on the given boolean values.\r\n * Returns true if all arguments are true, otherwise returns false.\r\n *\r\n * @param args - The boolean values to perform the AND operation on.\r\n * @returns The result of the logical AND operation.\r\n */\r\nconst and = (...args: any[]) => {\r\n  if (args.length === 0) return false;\r\n  return args.every((arg) => Boolean(arg));\r\n};\r\n\r\nexport default and;\r\n",
-      "js": "/**\n * Performs a logical AND operation on the given boolean values.\n * Returns true if all arguments are true, otherwise returns false.\n *\n * @param args - The boolean values to perform the AND operation on.\n * @returns The result of the logical AND operation.\n */\nconst and = (...args) => {\n    if (args.length === 0)\n        return false;\n    return args.every((arg) => Boolean(arg));\n};\nexport default and;\n"
-    },
-    "category": "gates",
-    "type": "functions",
-    "examples": [
-      "import and from \".\";\r\n\r\nconsole.log(and(true, true));\r\n// Expected Output: true\r\n\r\nconsole.log(and(true, false));\r\n// Expected Output: false\r\n\r\nconsole.log(and());\r\n// Expected Output: true\r\n\r\nconsole.log(and(1, \"lazykit\"));\r\n// Expected Output: true\r\n"
-    ],
-    "createdAt": {
-      "date": "2024-04-13T14:39:39.237Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-13T14:39:39.237Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
     "name": "compact",
     "code": {
       "ts": "/**\r\n * Removes falsy values\r\n * Also removes empty objects and arrays if strict is true\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} array - The array to compact.\r\n * @param {boolean} [strict=false] - If true, also removes empty objects and arrays.\r\n * @returns {T[]} - The compacted array.\r\n */\r\nconst compact = <T>(array: T[], strict: boolean = false): T[] => {\r\n  let truthy = array.filter((item) => {\r\n    // remove all falsy values and excluded values\r\n    return Boolean(item);\r\n  });\r\n\r\n  if (strict) {\r\n    // remove all empty objects\r\n    truthy = truthy.filter((item) => {\r\n      if (typeof item === \"object\" && !(item instanceof Array)) {\r\n        return Object.keys(item as object).length > 0;\r\n      }\r\n      return true;\r\n    });\r\n    // remove all empty arrays\r\n    truthy = truthy.filter((item) => {\r\n      if (Array.isArray(item)) {\r\n        return (item as []).length > 0;\r\n      }\r\n      return true;\r\n    });\r\n  }\r\n  return truthy;\r\n};\r\n\r\nexport default compact;\r\n",
@@ -181,6 +121,66 @@
     }
   },
   {
+    "name": "unique",
+    "code": {
+      "ts": "/**\r\n * Returns an array with unique elements from the input array.\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} arr - The input array.\r\n * @returns {T[]} - An array with unique elements.\r\n */\r\nconst unique = <T>(arr: T[]): T[] => {\r\n  //@ts-ignore\r\n  return [...new Set(arr)];\r\n};\r\n\r\nexport default unique;\r\n",
+      "js": "/**\n * Returns an array with unique elements from the input array.\n *\n * @template T - The type of elements in the array.\n * @param {T[]} arr - The input array.\n * @returns {T[]} - An array with unique elements.\n */\nconst unique = (arr) => {\n    //@ts-ignore\n    return [...new Set(arr)];\n};\nexport default unique;\n"
+    },
+    "category": "arrays",
+    "type": "functions",
+    "examples": [
+      "import unique from \".\";\r\n\r\nconst arr = [1, 2, 3, 3, 4, 5, 5, 6, 7, 8, 8, 9, 10];\r\nconst result = unique(arr);\r\nconsole.log(result);\r\n// Expected Output: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]\r\n"
+    ],
+    "createdAt": {
+      "date": "2024-04-13T18:45:24.667Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-13T18:45:24.668Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "timeout",
+    "code": {
+      "ts": "/**\r\n * Wraps a function with a timeout.\r\n * If the function does not complete within the specified time, the promise will be rejected.\r\n *\r\n * @template Return - The return type of the wrapped function.\r\n * @template Err - The error type that can be thrown by the wrapped function or the error callback.\r\n * @param {(...args: any[]) => Return} fn - The function to be wrapped.\r\n * @param {number} time - The timeout duration in milliseconds.\r\n * @param {(...args: any[]) => Err} [errCb] - Optional error callback function to handle timeout errors.\r\n * @returns {(...args: any[]) => Promise<Return>} - A wrapped function that returns a promise.\r\n */\r\nconst timeout = <Return, Err>(\r\n  fn: (...args: any[]) => Return,\r\n  time: number,\r\n  errCb?: (...args: any[]) => Err\r\n): ((...args: any[]) => Promise<Return>) => {\r\n  return (...args: any[]) => {\r\n    return new Promise<any>((resolve, reject) => {\r\n      const timer = setTimeout(() => {\r\n        if (errCb) reject(errCb(...args));\r\n        else {\r\n          reject(new Error(\"Function timed out\"));\r\n        }\r\n      }, time);\r\n\r\n      // Wrap fn call in Promise.resolve to handle both sync and async functions\r\n      Promise.resolve(fn(...args))\r\n        .then((result: Return) => {\r\n          clearTimeout(timer);\r\n          resolve(result);\r\n        })\r\n        .catch((err: Err) => {\r\n          clearTimeout(timer);\r\n          reject(err);\r\n        });\r\n    });\r\n  };\r\n};\r\n\r\nexport default timeout;\r\n",
+      "js": "/**\n * Wraps a function with a timeout.\n * If the function does not complete within the specified time, the promise will be rejected.\n *\n * @template Return - The return type of the wrapped function.\n * @template Err - The error type that can be thrown by the wrapped function or the error callback.\n * @param {(...args: any[]) => Return} fn - The function to be wrapped.\n * @param {number} time - The timeout duration in milliseconds.\n * @param {(...args: any[]) => Err} [errCb] - Optional error callback function to handle timeout errors.\n * @returns {(...args: any[]) => Promise<Return>} - A wrapped function that returns a promise.\n */\nconst timeout = (fn, time, errCb) => {\n    return (...args) => {\n        return new Promise((resolve, reject) => {\n            const timer = setTimeout(() => {\n                if (errCb)\n                    reject(errCb(...args));\n                else {\n                    reject(new Error(\"Function timed out\"));\n                }\n            }, time);\n            // Wrap fn call in Promise.resolve to handle both sync and async functions\n            Promise.resolve(fn(...args))\n                .then((result) => {\n                clearTimeout(timer);\n                resolve(result);\n            })\n                .catch((err) => {\n                clearTimeout(timer);\n                reject(err);\n            });\n        });\n    };\n};\nexport default timeout;\n"
+    },
+    "category": "functional",
+    "type": "functions",
+    "examples": [
+      "import timeout from \".\";\r\n\r\ntimeout(() => \"Hello, World!\", 1000);\r\n// Expected Output: \"Hello, World!\"\r\n\r\ntimeout(() => new Promise((resolve) => setTimeout(resolve, 2000)), 1000);\r\n// Expected Output: Error: Function timed out\r\n\r\ntimeout(\r\n  () => new Promise((resolve) => setTimeout(resolve, 2000)),\r\n  1000,\r\n  () => console.log(\"I failed\")\r\n);\r\n// Expected Output: I failed\r\n"
+    ],
+    "createdAt": {
+      "date": "2024-04-13T19:42:32.421Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-13T19:42:32.423Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "and",
+    "code": {
+      "ts": "/**\r\n * Performs a logical AND operation on the given boolean values.\r\n * Returns true if all arguments are true, otherwise returns false.\r\n *\r\n * @param args - The boolean values to perform the AND operation on.\r\n * @returns The result of the logical AND operation.\r\n */\r\nconst and = (...args: any[]) => {\r\n  if (args.length === 0) return false;\r\n  return args.every((arg) => Boolean(arg));\r\n};\r\n\r\nexport default and;\r\n",
+      "js": "/**\n * Performs a logical AND operation on the given boolean values.\n * Returns true if all arguments are true, otherwise returns false.\n *\n * @param args - The boolean values to perform the AND operation on.\n * @returns The result of the logical AND operation.\n */\nconst and = (...args) => {\n    if (args.length === 0)\n        return false;\n    return args.every((arg) => Boolean(arg));\n};\nexport default and;\n"
+    },
+    "category": "gates",
+    "type": "functions",
+    "examples": [
+      "import and from \".\";\r\n\r\nconsole.log(and(true, true));\r\n// Expected Output: true\r\n\r\nconsole.log(and(true, false));\r\n// Expected Output: false\r\n\r\nconsole.log(and());\r\n// Expected Output: true\r\n\r\nconsole.log(and(1, \"lazykit\"));\r\n// Expected Output: true\r\n"
+    ],
+    "createdAt": {
+      "date": "2024-04-13T14:39:39.237Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-13T14:39:39.237Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
     "name": "nand",
     "code": {
       "ts": "/**\r\n * Performs a NAND (NOT AND) operation on the given arguments.\r\n * Returns `false` if no arguments are provided or if all arguments are truthy.\r\n * Returns `true` if any argument is falsy.\r\n *\r\n * @param args - The arguments to perform the NAND operation on.\r\n * @returns The result of the NAND operation.\r\n */\r\nconst nand = (...args: any[]) => {\r\n  if (args.length === 0) return false;\r\n  const and = args.every((arg) => Boolean(arg));\r\n  return !and;\r\n};\r\n\r\nexport default nand;\r\n",
@@ -237,6 +237,26 @@
     },
     "lastUpdated": {
       "date": "2024-04-13T14:39:39.259Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "mapObj",
+    "code": {
+      "ts": "/**\r\n * Maps over the properties of an object and applies a callback function to each property.\r\n *\r\n * @template T - The type of the values in the input object.\r\n * @template U - The type of the values in the output object.\r\n * @param {Record<string, T>} obj - The input object.\r\n * @param {(value: T, key: string, obj: Record<string, T>) => U} callback - The callback function to apply to each property.\r\n * @returns {Record<string, U>} - The resulting object with the mapped properties.\r\n */\r\n\r\nconst mapObj = <T, U>(\r\n  obj: Record<string, T>,\r\n  callback: (value: T, key: string, obj: Record<string, T>) => U\r\n): Record<string, U> => {\r\n  const result: Record<string, U> = {};\r\n\r\n  // loop through each key in the object\r\n  for (const key in obj) {\r\n    // check if the key is a property of the object\r\n    if (Object.prototype.hasOwnProperty.call(obj, key)) {\r\n      result[key] = callback(obj[key], key, obj);\r\n    }\r\n  }\r\n\r\n  return result;\r\n};\r\n\r\nexport default mapObj;\r\n",
+      "js": "/**\n * Maps over the properties of an object and applies a callback function to each property.\n *\n * @template T - The type of the values in the input object.\n * @template U - The type of the values in the output object.\n * @param {Record<string, T>} obj - The input object.\n * @param {(value: T, key: string, obj: Record<string, T>) => U} callback - The callback function to apply to each property.\n * @returns {Record<string, U>} - The resulting object with the mapped properties.\n */\nconst mapObj = (obj, callback) => {\n    const result = {};\n    // loop through each key in the object\n    for (const key in obj) {\n        // check if the key is a property of the object\n        if (Object.prototype.hasOwnProperty.call(obj, key)) {\n            result[key] = callback(obj[key], key, obj);\n        }\n    }\n    return result;\n};\nexport default mapObj;\n"
+    },
+    "category": "objects",
+    "type": "functions",
+    "examples": [
+      "import mapObj from \".\";\r\n\r\nconst obj1 = { a: 1, b: 2, c: 3 };\r\nconst result1 = mapObj(obj1, (value: number) => value * 2);\r\nconsole.log(result1);\r\n// Expected output:  { a: 2, b: 4, c: 6 }\r\n\r\nconst obj2 = {};\r\nconst result2 = mapObj(obj2, (value: any) => value);\r\nconsole.log(result2);\r\n// Expected output:  {}\r\n\r\nconst obj3 = { 1: \"one\", 2: \"two\", 3: \"three\" };\r\nconst result = mapObj(obj3, (value: string, i) => value.toUpperCase() + i);\r\nconsole.log(result);\r\n// Expected output: { 1: 'ONE1', 2: 'TWO2', 3: 'THREE3' }\r\n"
+    ],
+    "createdAt": {
+      "date": "2024-04-13T14:39:39.287Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-13T14:39:39.287Z",
       "packageVersion": "0.1.0"
     }
   }

@@ -28,10 +28,6 @@
     "url": "/docs/functions/arrays/chunk"
   },
   {
-    "label": "unique",
-    "url": "/docs/functions/arrays/unique"
-  },
-  {
     "label": "compact",
     "url": "/docs/functions/arrays/compact"
   },
@@ -50,6 +46,14 @@
   {
     "label": "shuffleArr",
     "url": "/docs/functions/arrays/shuffleArr"
+  },
+  {
+    "label": "unique",
+    "url": "/docs/functions/arrays/unique"
+  },
+  {
+    "label": "timeout",
+    "url": "/docs/functions/functional/timeout"
   },
   {
     "label": "and",
