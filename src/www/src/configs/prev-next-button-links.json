@@ -24,23 +24,27 @@
     "url": "/docs/functions"
   },
   {
-    "label": "compact",
-    "url": "/docs/functions/arrays/compact"
-  },
-  {
     "label": "chunk",
     "url": "/docs/functions/arrays/chunk"
+  },
+  {
+    "label": "compact",
+    "url": "/docs/functions/arrays/compact"
   },
   {
     "label": "search",
     "url": "/docs/functions/arrays/search"
   },
   {
-    "label": "mapObj",
-    "url": "/docs/functions/objects/mapObj"
+    "label": "and",
+    "url": "/docs/functions/gates/and"
   },
   {
     "label": "or",
     "url": "/docs/functions/gates/or"
+  },
+  {
+    "label": "mapObj",
+    "url": "/docs/functions/objects/mapObj"
   }
 ]
