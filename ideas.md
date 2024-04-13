@@ -12,13 +12,13 @@
   //output => [1,2,0,3,4,0,5,6,0]
   //when index is negative, it will start inserting from the end
   ```
-- [ ] remove: remove an element at a specified index
+- [ ] remove: remove an element at a specified index (if the index is negative, it will remove from the end) index can be array of indexes
 - [x] unique: remove duplicates from an array
 - [ ] rotate: rotate an array by a specified number of steps ie ([1,2,3,4,5], 2) => [3,4,5,1,2]
 - [ ] partition: partition an array into two arrays based on a condition
 - [ ] difference: find the difference between two arrays
 
-## For Objects
+## For Objects 
 
 - [ ] sampleObj: generate a random object with specified keys and values
 - [ ] invertObj: invert the keys and values of an object
