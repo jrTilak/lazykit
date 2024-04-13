@@ -40,6 +40,10 @@
             "url": "/docs/functions/arrays/compact"
           },
           {
+            "label": "sampleArr",
+            "url": "/docs/functions/arrays/sampleArr"
+          },
+          {
             "label": "search",
             "url": "/docs/functions/arrays/search"
           }

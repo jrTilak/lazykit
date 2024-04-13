@@ -1,25 +1,5 @@
 [
   {
-    "name": "chunk",
-    "code": {
-      "ts": "/**\r\n * Splits an array into chunks of a specified size.\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} array - The array to be chunked.\r\n * @param {number} [size=1] - The size of each chunk.\r\n * @param {boolean} [strict=false] - Whether to remove the last chunk if it is not equal to the size.\r\n * @returns {T[][]} - An array of chunks.\r\n */\r\nconst chunk = <T>(\r\n  array: T[],\r\n  size: number = 1,\r\n  strict: boolean = false\r\n  //remove the last chunk if it is not equal to the size\r\n): T[][] => {\r\n  const result: T[][] = [];\r\n\r\n  //push the chunks into the result array\r\n  for (let i = 0; i < array.length; i += size) {\r\n    result.push(array.slice(i, i + size));\r\n  }\r\n\r\n  //remove the last chunk if it is not equal to the size\r\n  if (strict && result[result.length - 1].length !== size) {\r\n    result.pop();\r\n  }\r\n  return result;\r\n};\r\n\r\nexport default chunk;\r\n",
-      "js": "/**\n * Splits an array into chunks of a specified size.\n *\n * @template T - The type of elements in the array.\n * @param {T[]} array - The array to be chunked.\n * @param {number} [size=1] - The size of each chunk.\n * @param {boolean} [strict=false] - Whether to remove the last chunk if it is not equal to the size.\n * @returns {T[][]} - An array of chunks.\n */\nconst chunk = (array, size = 1, strict = false\n//remove the last chunk if it is not equal to the size\n) => {\n    const result = [];\n    //push the chunks into the result array\n    for (let i = 0; i < array.length; i += size) {\n        result.push(array.slice(i, i + size));\n    }\n    //remove the last chunk if it is not equal to the size\n    if (strict && result[result.length - 1].length !== size) {\n        result.pop();\n    }\n    return result;\n};\nexport default chunk;\n"
-    },
-    "category": "arrays",
-    "type": "functions",
-    "examples": [
-      "import chunk from \".\";\r\n\r\nconst arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];\r\n\r\n// No size provided, default size is 1\r\nconsole.log(chunk(arr));\r\n// Expected output: [[1], [2], [3], [4], [5], [6], [7], [8], [9], [10]];\r\n\r\n// Providing size as 2\r\nconsole.log(chunk(arr, 2));\r\n// Expected output: [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ], [ 7, 8 ], [ 9, 10 ] ]\r\n\r\n// Providing size as 3 and strict as true\r\nconsole.log(chunk(arr, 3, true));\r\n// Expected output: [ [ 1, 2, 3 ], [ 4, 5, 6 ], [ 7, 8, 9 ] ]\r\n\r\n// Providing size as 4 and strict as true\r\nconsole.log(chunk(arr, 4, true));\r\n// Expected output: [ [ 1, 2, 3, 4 ], [ 5, 6, 7, 8 ] ]\r\n"
-    ],
-    "createdAt": {
-      "date": "2024-04-13T14:39:39.130Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-13T14:39:39.132Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
     "name": "nand",
     "code": {
       "ts": "/**\r\n * Performs a NAND (NOT AND) operation on the given arguments.\r\n * Returns `false` if no arguments are provided or if all arguments are truthy.\r\n * Returns `true` if any argument is falsy.\r\n *\r\n * @param args - The arguments to perform the NAND operation on.\r\n * @returns The result of the NAND operation.\r\n */\r\nconst nand = (...args: any[]) => {\r\n  if (args.length === 0) return false;\r\n  const and = args.every((arg) => Boolean(arg));\r\n  return !and;\r\n};\r\n\r\nexport default nand;\r\n",
@@ -40,6 +20,26 @@
     }
   },
   {
+    "name": "chunk",
+    "code": {
+      "ts": "/**\r\n * Splits an array into chunks of a specified size.\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} array - The array to be chunked.\r\n * @param {number} [size=1] - The size of each chunk.\r\n * @param {boolean} [strict=false] - Whether to remove the last chunk if it is not equal to the size.\r\n * @returns {T[][]} - An array of chunks.\r\n */\r\nconst chunk = <T>(\r\n  array: T[],\r\n  size: number = 1,\r\n  strict: boolean = false\r\n  //remove the last chunk if it is not equal to the size\r\n): T[][] => {\r\n  const result: T[][] = [];\r\n\r\n  //push the chunks into the result array\r\n  for (let i = 0; i < array.length; i += size) {\r\n    result.push(array.slice(i, i + size));\r\n  }\r\n\r\n  //remove the last chunk if it is not equal to the size\r\n  if (strict && result[result.length - 1].length !== size) {\r\n    result.pop();\r\n  }\r\n  return result;\r\n};\r\n\r\nexport default chunk;\r\n",
+      "js": "/**\n * Splits an array into chunks of a specified size.\n *\n * @template T - The type of elements in the array.\n * @param {T[]} array - The array to be chunked.\n * @param {number} [size=1] - The size of each chunk.\n * @param {boolean} [strict=false] - Whether to remove the last chunk if it is not equal to the size.\n * @returns {T[][]} - An array of chunks.\n */\nconst chunk = (array, size = 1, strict = false\n//remove the last chunk if it is not equal to the size\n) => {\n    const result = [];\n    //push the chunks into the result array\n    for (let i = 0; i < array.length; i += size) {\n        result.push(array.slice(i, i + size));\n    }\n    //remove the last chunk if it is not equal to the size\n    if (strict && result[result.length - 1].length !== size) {\n        result.pop();\n    }\n    return result;\n};\nexport default chunk;\n"
+    },
+    "category": "arrays",
+    "type": "functions",
+    "examples": [
+      "import chunk from \".\";\r\n\r\nconst arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];\r\n\r\n// No size provided, default size is 1\r\nconsole.log(chunk(arr));\r\n// Expected output: [[1], [2], [3], [4], [5], [6], [7], [8], [9], [10]];\r\n\r\n// Providing size as 2\r\nconsole.log(chunk(arr, 2));\r\n// Expected output: [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ], [ 7, 8 ], [ 9, 10 ] ]\r\n\r\n// Providing size as 3 and strict as true\r\nconsole.log(chunk(arr, 3, true));\r\n// Expected output: [ [ 1, 2, 3 ], [ 4, 5, 6 ], [ 7, 8, 9 ] ]\r\n\r\n// Providing size as 4 and strict as true\r\nconsole.log(chunk(arr, 4, true));\r\n// Expected output: [ [ 1, 2, 3, 4 ], [ 5, 6, 7, 8 ] ]\r\n"
+    ],
+    "createdAt": {
+      "date": "2024-04-13T14:39:39.130Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-13T14:39:39.132Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
     "name": "compact",
     "code": {
       "ts": "/**\r\n * Removes falsy values\r\n * Also removes empty objects and arrays if strict is true\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} array - The array to compact.\r\n * @param {boolean} [strict=false] - If true, also removes empty objects and arrays.\r\n * @returns {T[]} - The compacted array.\r\n */\r\nconst compact = <T>(array: T[], strict: boolean = false): T[] => {\r\n  let truthy = array.filter((item) => {\r\n    // remove all falsy values and excluded values\r\n    return Boolean(item);\r\n  });\r\n\r\n  if (strict) {\r\n    // remove all empty objects\r\n    truthy = truthy.filter((item) => {\r\n      if (typeof item === \"object\" && !(item instanceof Array)) {\r\n        return Object.keys(item as object).length > 0;\r\n      }\r\n      return true;\r\n    });\r\n    // remove all empty arrays\r\n    truthy = truthy.filter((item) => {\r\n      if (Array.isArray(item)) {\r\n        return (item as []).length > 0;\r\n      }\r\n      return true;\r\n    });\r\n  }\r\n  return truthy;\r\n};\r\n\r\nexport default compact;\r\n",
@@ -56,6 +56,26 @@
     },
     "lastUpdated": {
       "date": "2024-04-13T14:39:39.185Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "sampleArr",
+    "code": {
+      "ts": "/**\r\n * Generates an array of random numbers.\r\n *\r\n * @param size - The size of the array to generate.\r\n * @returns An array of random numbers.\r\n * @throws {Error} If the size is a negative number.\r\n */\r\nconst sampleArr = (size: number) => {\r\n  if (size < 0) throw new Error(\"Size must be a positive number\");\r\n  return Array.from({ length: size }, (_, i) => Math.floor(Math.random() * i));\r\n};\r\n\r\nexport default sampleArr;\r\n",
+      "js": "/**\n * Generates an array of random numbers.\n *\n * @param size - The size of the array to generate.\n * @returns An array of random numbers.\n * @throws {Error} If the size is a negative number.\n */\nconst sampleArr = (size) => {\n    if (size < 0)\n        throw new Error(\"Size must be a positive number\");\n    return Array.from({ length: size }, (_, i) => Math.floor(Math.random() * i));\n};\nexport default sampleArr;\n"
+    },
+    "category": "arrays",
+    "type": "functions",
+    "examples": [
+      "import sampleArr from \".\";\r\n\r\nconst arr = sampleArr(5);\r\nconsole.log(arr);\r\n// Expected output: an array of 5 random numbers\r\n\r\n// const negativeArr = sampleArr(-1);\r\n// Expected output: Throws an error\r\n"
+    ],
+    "createdAt": {
+      "date": "2024-04-13T15:41:54.551Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-13T15:41:54.553Z",
       "packageVersion": "0.1.0"
     }
   },
