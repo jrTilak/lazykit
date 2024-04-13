@@ -28,6 +28,10 @@
     "url": "/docs/functions/arrays/chunk"
   },
   {
+    "label": "compact",
+    "url": "/docs/functions/arrays/compact"
+  },
+  {
     "label": "search",
     "url": "/docs/functions/arrays/search"
   },

@@ -20,6 +20,26 @@
     }
   },
   {
+    "name": "compact",
+    "code": {
+      "ts": "/**\r\n * Removes falsy values\r\n * Also removes empty objects and arrays if strict is true\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} array - The array to compact.\r\n * @param {boolean} [strict=false] - If true, also removes empty objects and arrays.\r\n * @returns {T[]} - The compacted array.\r\n */\r\nconst compact = <T>(array: T[], strict: boolean = false): T[] => {\r\n  let truthy = array.filter((item) => {\r\n    // remove all falsy values and excluded values\r\n    return Boolean(item);\r\n  });\r\n\r\n  if (strict) {\r\n    // remove all empty objects\r\n    truthy = truthy.filter((item) => {\r\n      if (typeof item === \"object\" && !(item instanceof Array)) {\r\n        return Object.keys(item as object).length > 0;\r\n      }\r\n      return true;\r\n    });\r\n    // remove all empty arrays\r\n    truthy = truthy.filter((item) => {\r\n      if (Array.isArray(item)) {\r\n        return (item as []).length > 0;\r\n      }\r\n      return true;\r\n    });\r\n  }\r\n  return truthy;\r\n};\r\n\r\nexport default compact;\r\n",
+      "js": "/**\n * Removes falsy values\n * Also removes empty objects and arrays if strict is true\n *\n * @template T - The type of elements in the array.\n * @param {T[]} array - The array to compact.\n * @param {boolean} [strict=false] - If true, also removes empty objects and arrays.\n * @returns {T[]} - The compacted array.\n */\nconst compact = (array, strict = false) => {\n    let truthy = array.filter((item) => {\n        // remove all falsy values and excluded values\n        return Boolean(item);\n    });\n    if (strict) {\n        // remove all empty objects\n        truthy = truthy.filter((item) => {\n            if (typeof item === \"object\" && !(item instanceof Array)) {\n                return Object.keys(item).length > 0;\n            }\n            return true;\n        });\n        // remove all empty arrays\n        truthy = truthy.filter((item) => {\n            if (Array.isArray(item)) {\n                return item.length > 0;\n            }\n            return true;\n        });\n    }\n    return truthy;\n};\nexport default compact;\n"
+    },
+    "category": "arrays",
+    "type": "functions",
+    "examples": [
+      "import compact from \".\";\r\n\r\nconst input = [0, false, \"\", null, undefined, NaN, {}, [], 1, \"hello\"];\r\n\r\n// no strict mode\r\nconst result = compact(input);\r\nconsole.log(result);\r\n// Expected output: [{}, [], 1, \"hello\"]\r\n\r\n// strict mode\r\nconst resultStrict = compact(input, true);\r\nconsole.log(resultStrict);\r\n// Expected output: [1, \"hello\"]\r\n"
+    ],
+    "createdAt": {
+      "date": "2024-04-13T10:05:40.350Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-13T10:05:40.351Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
     "name": "search",
     "code": {
       "ts": "/**\r\n * Searches an array of objects based on a query string and specified keys.\r\n *\r\n * @template T - The type of objects in the array.\r\n * @param {T[]} array - The array of objects to search.\r\n * @param {string} queryString - The query string to search for.\r\n * @param {(keyof T)[] | string[]} keys - The keys to search within each object.\r\n * @returns {T[]} - The filtered array of objects that match the search criteria.\r\n */\r\nconst search = <T extends Record<string, unknown>>(\r\n  array: T[],\r\n  queryString: string,\r\n  keys: (keyof T)[] | string[]\r\n): T[] => {\r\n  // Check if the query string or keys are empty, return empty array if true\r\n  try {\r\n    if (keys.length === 0) {\r\n      return []; // Return empty array if no keys are provided\r\n    }\r\n\r\n    if (!queryString.trim()) {\r\n      return array; // Return the original array if the query string is empty\r\n    }\r\n\r\n    // Loop through the array to filter objects\r\n    const filteredArray = array.filter((obj) => {\r\n      // Loop through the keys of each object\r\n      for (let key of keys) {\r\n        // Convert the value to string only for the comparison\r\n\r\n        let value = obj[key] as any;\r\n\r\n        if (typeof value !== \"string\" && typeof value !== \"number\") {\r\n          continue; // Skip the key if it is not a string or number\r\n        }\r\n        if (typeof value === \"number\") {\r\n          value = value.toString();\r\n        }\r\n        value = value.toLowerCase();\r\n        if (value.includes(queryString.toLowerCase()?.trim())) {\r\n          return true;\r\n        }\r\n      }\r\n      // Return false if none of the keys contain the query string\r\n      return false;\r\n    });\r\n\r\n    // Return the filtered array\r\n    return filteredArray;\r\n  } catch (error) {\r\n    return [];\r\n  }\r\n};\r\n\r\nexport default search;\r\n",
