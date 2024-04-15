@@ -24,12 +24,12 @@
     "url": "/docs/functions"
   },
   {
-    "label": "chunk",
-    "url": "/docs/functions/arrays/chunk"
-  },
-  {
     "label": "compact",
     "url": "/docs/functions/arrays/compact"
+  },
+  {
+    "label": "chunk",
+    "url": "/docs/functions/arrays/chunk"
   },
   {
     "label": "insert",
@@ -50,6 +50,10 @@
   {
     "label": "unique",
     "url": "/docs/functions/arrays/unique"
+  },
+  {
+    "label": "retry",
+    "url": "/docs/functions/functional/retry"
   },
   {
     "label": "timeout",

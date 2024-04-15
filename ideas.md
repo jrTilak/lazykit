@@ -41,7 +41,7 @@
 - [ ] times: call a function n times
 - [ ] delay: delay the execution of a function
 - [ ] sleep: sleep for a specified amount of time
-- [ ] retry: retry a function n times
-- [ ] timeout: timeout a function after a specified amount of time ie timeout(f, 1000)(args) which will call f(args) and if it takes more than 1 second, it will return a timeout error
+- [x] retry: retry a function n times
+- [x] timeout: timeout a function after a specified amount of time ie timeout(f, 1000)(args) which will call f(args) and if it takes more than 1 second, it will return a timeout error
 
 ## Date

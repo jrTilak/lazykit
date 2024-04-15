@@ -1,25 +1,5 @@
 [
   {
-    "name": "chunk",
-    "code": {
-      "ts": "/**\r\n * Splits an array into chunks of a specified size.\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} array - The array to be chunked.\r\n * @param {number} [size=1] - The size of each chunk.\r\n * @param {boolean} [strict=false] - Whether to remove the last chunk if it is not equal to the size.\r\n * @returns {T[][]} - An array of chunks.\r\n */\r\nconst chunk = <T>(\r\n  array: T[],\r\n  size: number = 1,\r\n  strict: boolean = false\r\n  //remove the last chunk if it is not equal to the size\r\n): T[][] => {\r\n  const result: T[][] = [];\r\n\r\n  //push the chunks into the result array\r\n  for (let i = 0; i < array.length; i += size) {\r\n    result.push(array.slice(i, i + size));\r\n  }\r\n\r\n  //remove the last chunk if it is not equal to the size\r\n  if (strict && result[result.length - 1].length !== size) {\r\n    result.pop();\r\n  }\r\n  return result;\r\n};\r\n\r\nexport default chunk;\r\n",
-      "js": "/**\n * Splits an array into chunks of a specified size.\n *\n * @template T - The type of elements in the array.\n * @param {T[]} array - The array to be chunked.\n * @param {number} [size=1] - The size of each chunk.\n * @param {boolean} [strict=false] - Whether to remove the last chunk if it is not equal to the size.\n * @returns {T[][]} - An array of chunks.\n */\nconst chunk = (array, size = 1, strict = false\n//remove the last chunk if it is not equal to the size\n) => {\n    const result = [];\n    //push the chunks into the result array\n    for (let i = 0; i < array.length; i += size) {\n        result.push(array.slice(i, i + size));\n    }\n    //remove the last chunk if it is not equal to the size\n    if (strict && result[result.length - 1].length !== size) {\n        result.pop();\n    }\n    return result;\n};\nexport default chunk;\n"
-    },
-    "category": "arrays",
-    "type": "functions",
-    "examples": [
-      "import chunk from \".\";\r\n\r\nconst arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];\r\n\r\n// No size provided, default size is 1\r\nconsole.log(chunk(arr));\r\n// Expected output: [[1], [2], [3], [4], [5], [6], [7], [8], [9], [10]];\r\n\r\n// Providing size as 2\r\nconsole.log(chunk(arr, 2));\r\n// Expected output: [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ], [ 7, 8 ], [ 9, 10 ] ]\r\n\r\n// Providing size as 3 and strict as true\r\nconsole.log(chunk(arr, 3, true));\r\n// Expected output: [ [ 1, 2, 3 ], [ 4, 5, 6 ], [ 7, 8, 9 ] ]\r\n\r\n// Providing size as 4 and strict as true\r\nconsole.log(chunk(arr, 4, true));\r\n// Expected output: [ [ 1, 2, 3, 4 ], [ 5, 6, 7, 8 ] ]\r\n"
-    ],
-    "createdAt": {
-      "date": "2024-04-13T14:39:39.130Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-13T14:39:39.132Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
     "name": "compact",
     "code": {
       "ts": "/**\r\n * Removes falsy values\r\n * Also removes empty objects and arrays if strict is true\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} array - The array to compact.\r\n * @param {boolean} [strict=false] - If true, also removes empty objects and arrays.\r\n * @returns {T[]} - The compacted array.\r\n */\r\nconst compact = <T>(array: T[], strict: boolean = false): T[] => {\r\n  let truthy = array.filter((item) => {\r\n    // remove all falsy values and excluded values\r\n    return Boolean(item);\r\n  });\r\n\r\n  if (strict) {\r\n    // remove all empty objects\r\n    truthy = truthy.filter((item) => {\r\n      if (typeof item === \"object\" && !(item instanceof Array)) {\r\n        return Object.keys(item as object).length > 0;\r\n      }\r\n      return true;\r\n    });\r\n    // remove all empty arrays\r\n    truthy = truthy.filter((item) => {\r\n      if (Array.isArray(item)) {\r\n        return (item as []).length > 0;\r\n      }\r\n      return true;\r\n    });\r\n  }\r\n  return truthy;\r\n};\r\n\r\nexport default compact;\r\n",
@@ -36,6 +16,26 @@
     },
     "lastUpdated": {
       "date": "2024-04-13T14:39:39.185Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "chunk",
+    "code": {
+      "ts": "/**\r\n * Splits an array into chunks of a specified size.\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} array - The array to be chunked.\r\n * @param {number} [size=1] - The size of each chunk.\r\n * @param {boolean} [strict=false] - Whether to remove the last chunk if it is not equal to the size.\r\n * @returns {T[][]} - An array of chunks.\r\n */\r\nconst chunk = <T>(\r\n  array: T[],\r\n  size: number = 1,\r\n  strict: boolean = false\r\n  //remove the last chunk if it is not equal to the size\r\n): T[][] => {\r\n  const result: T[][] = [];\r\n\r\n  //push the chunks into the result array\r\n  for (let i = 0; i < array.length; i += size) {\r\n    result.push(array.slice(i, i + size));\r\n  }\r\n\r\n  //remove the last chunk if it is not equal to the size\r\n  if (strict && result[result.length - 1].length !== size) {\r\n    result.pop();\r\n  }\r\n  return result;\r\n};\r\n\r\nexport default chunk;\r\n",
+      "js": "/**\n * Splits an array into chunks of a specified size.\n *\n * @template T - The type of elements in the array.\n * @param {T[]} array - The array to be chunked.\n * @param {number} [size=1] - The size of each chunk.\n * @param {boolean} [strict=false] - Whether to remove the last chunk if it is not equal to the size.\n * @returns {T[][]} - An array of chunks.\n */\nconst chunk = (array, size = 1, strict = false\n//remove the last chunk if it is not equal to the size\n) => {\n    const result = [];\n    //push the chunks into the result array\n    for (let i = 0; i < array.length; i += size) {\n        result.push(array.slice(i, i + size));\n    }\n    //remove the last chunk if it is not equal to the size\n    if (strict && result[result.length - 1].length !== size) {\n        result.pop();\n    }\n    return result;\n};\nexport default chunk;\n"
+    },
+    "category": "arrays",
+    "type": "functions",
+    "examples": [
+      "import chunk from \".\";\r\n\r\nconst arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];\r\n\r\n// No size provided, default size is 1\r\nconsole.log(chunk(arr));\r\n// Expected output: [[1], [2], [3], [4], [5], [6], [7], [8], [9], [10]];\r\n\r\n// Providing size as 2\r\nconsole.log(chunk(arr, 2));\r\n// Expected output: [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ], [ 7, 8 ], [ 9, 10 ] ]\r\n\r\n// Providing size as 3 and strict as true\r\nconsole.log(chunk(arr, 3, true));\r\n// Expected output: [ [ 1, 2, 3 ], [ 4, 5, 6 ], [ 7, 8, 9 ] ]\r\n\r\n// Providing size as 4 and strict as true\r\nconsole.log(chunk(arr, 4, true));\r\n// Expected output: [ [ 1, 2, 3, 4 ], [ 5, 6, 7, 8 ] ]\r\n"
+    ],
+    "createdAt": {
+      "date": "2024-04-13T14:39:39.130Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-13T14:39:39.132Z",
       "packageVersion": "0.1.0"
     }
   },
@@ -137,6 +137,26 @@
     },
     "lastUpdated": {
       "date": "2024-04-13T18:45:24.668Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "retry",
+    "code": {
+      "ts": "/**\r\n * Retries the given function a specified number of times with a delay between each retry.\r\n * @param fn The function to retry.\r\n * @param retries The number of times to retry the function. Default is 3.\r\n * @param delay The delay in milliseconds between each retry. Default is 1000ms (1 second).\r\n * @returns A Promise that resolves to the result of the function if it succeeds, or rejects with the last error if all retries fail.\r\n */\r\nconst retry = async <T>(\r\n  fn: Function,\r\n  retries: number = 3,\r\n  delay: number = 1000\r\n): Promise<T> => {\r\n  try {\r\n    return await fn();\r\n  } catch (error) {\r\n    if (retries > 0) {\r\n      await new Promise((resolve) => setTimeout(resolve, delay));\r\n      return retry(fn, retries - 1, delay);\r\n    }\r\n    throw error;\r\n  }\r\n};\r\n\r\nexport default retry;\r\n",
+      "js": "/**\n * Retries the given function a specified number of times with a delay between each retry.\n * @param fn The function to retry.\n * @param retries The number of times to retry the function. Default is 3.\n * @param delay The delay in milliseconds between each retry. Default is 1000ms (1 second).\n * @returns A Promise that resolves to the result of the function if it succeeds, or rejects with the last error if all retries fail.\n */\nconst retry = async (fn, retries = 3, delay = 1000) => {\n    try {\n        return await fn();\n    }\n    catch (error) {\n        if (retries > 0) {\n            await new Promise((resolve) => setTimeout(resolve, delay));\n            return retry(fn, retries - 1, delay);\n        }\n        throw error;\n    }\n};\nexport default retry;\n"
+    },
+    "category": "functional",
+    "type": "functions",
+    "examples": [
+      "import retry from \".\";\r\n\r\nconst fn = async () => {\r\n  Promise.reject(new Error(\"failed\"));\r\n};\r\n\r\nretry(fn, 2, 1000).catch((error) => {\r\n  console.log(error.message);\r\n});\r\n// Expected output: \"failed\" after retrying twice but It will call the function 3 times.\r\n"
+    ],
+    "createdAt": {
+      "date": "2024-04-15T12:21:49.769Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-15T12:21:49.770Z",
       "packageVersion": "0.1.0"
     }
   },

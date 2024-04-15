@@ -32,12 +32,12 @@
         "url": "/docs/functions/arrays",
         "methods": [
           {
-            "label": "chunk",
-            "url": "/docs/functions/arrays/chunk"
-          },
-          {
             "label": "compact",
             "url": "/docs/functions/arrays/compact"
+          },
+          {
+            "label": "chunk",
+            "url": "/docs/functions/arrays/chunk"
           },
           {
             "label": "insert",
@@ -65,6 +65,10 @@
         "label": "Functional",
         "url": "/docs/functions/functional",
         "methods": [
+          {
+            "label": "retry",
+            "url": "/docs/functions/functional/retry"
+          },
           {
             "label": "timeout",
             "url": "/docs/functions/functional/timeout"
