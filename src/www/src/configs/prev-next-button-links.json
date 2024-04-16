@@ -24,12 +24,12 @@
     "url": "/docs/functions"
   },
   {
-    "label": "compact",
-    "url": "/docs/functions/arrays/compact"
-  },
-  {
     "label": "chunk",
     "url": "/docs/functions/arrays/chunk"
+  },
+  {
+    "label": "compact",
+    "url": "/docs/functions/arrays/compact"
   },
   {
     "label": "insert",
@@ -54,6 +54,10 @@
   {
     "label": "retry",
     "url": "/docs/functions/functional/retry"
+  },
+  {
+    "label": "sleep",
+    "url": "/docs/functions/functional/sleep"
   },
   {
     "label": "timeout",

@@ -18,7 +18,7 @@
 - [ ] partition: partition an array into two arrays based on a condition
 - [ ] difference: find the difference between two arrays
 
-## For Objects 
+## For Objects
 
 - [ ] sampleObj: generate a random object with specified keys and values
 - [ ] invertObj: invert the keys and values of an object
@@ -38,9 +38,10 @@
 - [ ] once: return a function that can only be called once
 - [ ] after: return a function that can only be called after being called n times
 - [ ] before: return a function that can only be called before being called n times
-- [ ] times: call a function n times
+- [ ] times: call a function n times and return array of results
+- [ ] count: count the number of times a function is called
 - [ ] delay: delay the execution of a function
-- [ ] sleep: sleep for a specified amount of time
+- [x] sleep: sleep for a specified amount of time
 - [x] retry: retry a function n times
 - [x] timeout: timeout a function after a specified amount of time ie timeout(f, 1000)(args) which will call f(args) and if it takes more than 1 second, it will return a timeout error
 

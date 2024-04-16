@@ -1,25 +1,5 @@
 [
   {
-    "name": "compact",
-    "code": {
-      "ts": "/**\r\n * Removes falsy values\r\n * Also removes empty objects and arrays if strict is true\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} array - The array to compact.\r\n * @param {boolean} [strict=false] - If true, also removes empty objects and arrays.\r\n * @returns {T[]} - The compacted array.\r\n */\r\nconst compact = <T>(array: T[], strict: boolean = false): T[] => {\r\n  let truthy = array.filter((item) => {\r\n    // remove all falsy values and excluded values\r\n    return Boolean(item);\r\n  });\r\n\r\n  if (strict) {\r\n    // remove all empty objects\r\n    truthy = truthy.filter((item) => {\r\n      if (typeof item === \"object\" && !(item instanceof Array)) {\r\n        return Object.keys(item as object).length > 0;\r\n      }\r\n      return true;\r\n    });\r\n    // remove all empty arrays\r\n    truthy = truthy.filter((item) => {\r\n      if (Array.isArray(item)) {\r\n        return (item as []).length > 0;\r\n      }\r\n      return true;\r\n    });\r\n  }\r\n  return truthy;\r\n};\r\n\r\nexport default compact;\r\n",
-      "js": "/**\n * Removes falsy values\n * Also removes empty objects and arrays if strict is true\n *\n * @template T - The type of elements in the array.\n * @param {T[]} array - The array to compact.\n * @param {boolean} [strict=false] - If true, also removes empty objects and arrays.\n * @returns {T[]} - The compacted array.\n */\nconst compact = (array, strict = false) => {\n    let truthy = array.filter((item) => {\n        // remove all falsy values and excluded values\n        return Boolean(item);\n    });\n    if (strict) {\n        // remove all empty objects\n        truthy = truthy.filter((item) => {\n            if (typeof item === \"object\" && !(item instanceof Array)) {\n                return Object.keys(item).length > 0;\n            }\n            return true;\n        });\n        // remove all empty arrays\n        truthy = truthy.filter((item) => {\n            if (Array.isArray(item)) {\n                return item.length > 0;\n            }\n            return true;\n        });\n    }\n    return truthy;\n};\nexport default compact;\n"
-    },
-    "category": "arrays",
-    "type": "functions",
-    "examples": [
-      "import compact from \".\";\r\n\r\nconst input = [0, false, \"\", null, undefined, NaN, {}, [], 1, \"hello\"];\r\n\r\n// no strict mode\r\nconst result = compact(input);\r\nconsole.log(result);\r\n// Expected output: [{}, [], 1, \"hello\"]\r\n\r\n// strict mode\r\nconst resultStrict = compact(input, true);\r\nconsole.log(resultStrict);\r\n// Expected output: [1, \"hello\"]\r\n"
-    ],
-    "createdAt": {
-      "date": "2024-04-13T14:39:39.185Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-13T14:39:39.185Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
     "name": "chunk",
     "code": {
       "ts": "/**\r\n * Splits an array into chunks of a specified size.\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} array - The array to be chunked.\r\n * @param {number} [size=1] - The size of each chunk.\r\n * @param {boolean} [strict=false] - Whether to remove the last chunk if it is not equal to the size.\r\n * @returns {T[][]} - An array of chunks.\r\n */\r\nconst chunk = <T>(\r\n  array: T[],\r\n  size: number = 1,\r\n  strict: boolean = false\r\n  //remove the last chunk if it is not equal to the size\r\n): T[][] => {\r\n  const result: T[][] = [];\r\n\r\n  //push the chunks into the result array\r\n  for (let i = 0; i < array.length; i += size) {\r\n    result.push(array.slice(i, i + size));\r\n  }\r\n\r\n  //remove the last chunk if it is not equal to the size\r\n  if (strict && result[result.length - 1].length !== size) {\r\n    result.pop();\r\n  }\r\n  return result;\r\n};\r\n\r\nexport default chunk;\r\n",
@@ -36,6 +16,26 @@
     },
     "lastUpdated": {
       "date": "2024-04-13T14:39:39.132Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "compact",
+    "code": {
+      "ts": "/**\r\n * Removes falsy values\r\n * Also removes empty objects and arrays if strict is true\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} array - The array to compact.\r\n * @param {boolean} [strict=false] - If true, also removes empty objects and arrays.\r\n * @returns {T[]} - The compacted array.\r\n */\r\nconst compact = <T>(array: T[], strict: boolean = false): T[] => {\r\n  let truthy = array.filter((item) => {\r\n    // remove all falsy values and excluded values\r\n    return Boolean(item);\r\n  });\r\n\r\n  if (strict) {\r\n    // remove all empty objects\r\n    truthy = truthy.filter((item) => {\r\n      if (typeof item === \"object\" && !(item instanceof Array)) {\r\n        return Object.keys(item as object).length > 0;\r\n      }\r\n      return true;\r\n    });\r\n    // remove all empty arrays\r\n    truthy = truthy.filter((item) => {\r\n      if (Array.isArray(item)) {\r\n        return (item as []).length > 0;\r\n      }\r\n      return true;\r\n    });\r\n  }\r\n  return truthy;\r\n};\r\n\r\nexport default compact;\r\n",
+      "js": "/**\n * Removes falsy values\n * Also removes empty objects and arrays if strict is true\n *\n * @template T - The type of elements in the array.\n * @param {T[]} array - The array to compact.\n * @param {boolean} [strict=false] - If true, also removes empty objects and arrays.\n * @returns {T[]} - The compacted array.\n */\nconst compact = (array, strict = false) => {\n    let truthy = array.filter((item) => {\n        // remove all falsy values and excluded values\n        return Boolean(item);\n    });\n    if (strict) {\n        // remove all empty objects\n        truthy = truthy.filter((item) => {\n            if (typeof item === \"object\" && !(item instanceof Array)) {\n                return Object.keys(item).length > 0;\n            }\n            return true;\n        });\n        // remove all empty arrays\n        truthy = truthy.filter((item) => {\n            if (Array.isArray(item)) {\n                return item.length > 0;\n            }\n            return true;\n        });\n    }\n    return truthy;\n};\nexport default compact;\n"
+    },
+    "category": "arrays",
+    "type": "functions",
+    "examples": [
+      "import compact from \".\";\r\n\r\nconst input = [0, false, \"\", null, undefined, NaN, {}, [], 1, \"hello\"];\r\n\r\n// no strict mode\r\nconst result = compact(input);\r\nconsole.log(result);\r\n// Expected output: [{}, [], 1, \"hello\"]\r\n\r\n// strict mode\r\nconst resultStrict = compact(input, true);\r\nconsole.log(resultStrict);\r\n// Expected output: [1, \"hello\"]\r\n"
+    ],
+    "createdAt": {
+      "date": "2024-04-13T14:39:39.185Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-13T14:39:39.185Z",
       "packageVersion": "0.1.0"
     }
   },
@@ -157,6 +157,26 @@
     },
     "lastUpdated": {
       "date": "2024-04-15T12:21:49.770Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "sleep",
+    "code": {
+      "ts": "/**\r\n * Pauses the execution for the specified number of milliseconds.\r\n * @param ms - The number of milliseconds to sleep.\r\n * @returns A promise that resolves after the specified number of milliseconds.\r\n */\r\nconst sleep = (ms: number): Promise<true> => {\r\n  return new Promise((resolve) => {\r\n    setTimeout(() => {\r\n      resolve(true);\r\n    }, ms);\r\n  });\r\n};\r\n\r\nexport default sleep;\r\n",
+      "js": "/**\n * Pauses the execution for the specified number of milliseconds.\n * @param ms - The number of milliseconds to sleep.\n * @returns A promise that resolves after the specified number of milliseconds.\n */\nconst sleep = (ms) => {\n    return new Promise((resolve) => {\n        setTimeout(() => {\n            resolve(true);\n        }, ms);\n    });\n};\nexport default sleep;\n"
+    },
+    "category": "functional",
+    "type": "functions",
+    "examples": [
+      "import sleep from \".\";\r\n\r\n//iife\r\n(async () => {\r\n  console.log(\"sleeping for 1 second\");\r\n  await sleep(1000);\r\n  console.log(\"done sleeping\"); // This will be printed after 1 second\r\n})();\r\n"
+    ],
+    "createdAt": {
+      "date": "2024-04-16T18:42:14.398Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-16T18:42:14.399Z",
       "packageVersion": "0.1.0"
     }
   },
