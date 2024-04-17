@@ -28,18 +28,6 @@
     "url": "/docs/functions/arrays/chunk"
   },
   {
-    "label": "compact",
-    "url": "/docs/functions/arrays/compact"
-  },
-  {
-    "label": "insert",
-    "url": "/docs/functions/arrays/insert"
-  },
-  {
-    "label": "sampleArr",
-    "url": "/docs/functions/arrays/sampleArr"
-  },
-  {
     "label": "search",
     "url": "/docs/functions/arrays/search"
   },
@@ -50,6 +38,18 @@
   {
     "label": "unique",
     "url": "/docs/functions/arrays/unique"
+  },
+  {
+    "label": "sampleArr",
+    "url": "/docs/functions/arrays/sampleArr"
+  },
+  {
+    "label": "compact",
+    "url": "/docs/functions/arrays/compact"
+  },
+  {
+    "label": "insert",
+    "url": "/docs/functions/arrays/insert"
   },
   {
     "label": "retry",
@@ -64,20 +64,20 @@
     "url": "/docs/functions/functional/timeout"
   },
   {
-    "label": "and",
-    "url": "/docs/functions/gates/and"
-  },
-  {
-    "label": "nand",
-    "url": "/docs/functions/gates/nand"
-  },
-  {
     "label": "nor",
     "url": "/docs/functions/gates/nor"
   },
   {
     "label": "or",
     "url": "/docs/functions/gates/or"
+  },
+  {
+    "label": "and",
+    "url": "/docs/functions/gates/and"
+  },
+  {
+    "label": "nand",
+    "url": "/docs/functions/gates/nand"
   },
   {
     "label": "mapObj",

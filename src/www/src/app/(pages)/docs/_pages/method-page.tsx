@@ -1,6 +1,5 @@
 import NotFound from "@/components/pages/not-found";
 import registry from "@/configs/registry.json";
-import { IDoc } from "@/types/registry.types";
 import CodeTabs from "../_components/code-tabs";
 import CodeLine from "../_components/code-line";
 import Link from "next/link";
@@ -8,7 +7,9 @@ import { Badge } from "@/components/ui/badge";
 import { SquareArrowOutUpRight } from "lucide-react";
 import PropsTable from "../_components/props-table";
 import CodeBlock from "../_components/code-block";
-
+import matter from "gray-matter";
+import { IDoc, IRegistryFunctionPropTable } from "@/types/registry.types";
+import { marked } from "marked";
 const MethodPage = async ({ slug }: { slug: string[] }) => {
   if (!registry) return <NotFound />;
 
@@ -21,11 +22,9 @@ const MethodPage = async ({ slug }: { slug: string[] }) => {
   );
   if (!methodData) return <NotFound />;
 
-  const MethodComp = await import(
-    `@/registry/${slug[0]}/${slug[1]}/${methodData.name}/docs.tsx`
-  );
-
-  const methodInfo: IDoc = MethodComp.Info;
+  const dataFromMd = matter(methodData.docsMd);
+  const data = dataFromMd.data as IDoc;
+  const htmlContent = marked(dataFromMd.content);
 
   return (
     <div className="flex flex-col gap-4 lg:gap-8 2xl:gap-12">
@@ -34,11 +33,11 @@ const MethodPage = async ({ slug }: { slug: string[] }) => {
           {methodData.name}
         </h1>
         <p className="text-sm sm:text-base md:text-lg text-muted-foreground">
-          {methodInfo.description}
+          {data?.desc as string}
         </p>
-        {methodInfo.externalLinks && (
+        {data.externalLinks && (
           <div className="flex gap-3">
-            {methodInfo.externalLinks.map((link, i) => (
+            {data.externalLinks.map((link, i) => (
               <Link href={link.url} key={i} target="_blank">
                 <Badge
                   variant="secondary"
@@ -52,66 +51,67 @@ const MethodPage = async ({ slug }: { slug: string[] }) => {
           </div>
         )}
       </div>
-      <div className="flex flex-col gap-3">
-        <h3
-          className="text-lg sm:text-xl lg:text-2xl font-semibold flex gap-2"
-          id="code"
-        >
-          <span>1. Code</span>
-          <hr />
-        </h3>
-        <CodeTabs code={methodData.code} />
-      </div>
-      <div className="flex flex-col gap-3">
-        <h3
-          className="text-lg sm:text-xl lg:text-2xl font-semibold flex gap-2"
-          id="installation"
-        >
-          <span>2. Installation</span>
-          <hr />
-        </h3>
-        <CodeLine
-          code={`npx @jrtilak/lazykit@latest add ${methodData.name}`}
-          language="bash"
-        />
-      </div>
-      <div className="flex flex-col gap-3">
-        <h3
-          className="text-lg sm:text-xl lg:text-2xl font-semibold flex gap-2"
-          id="description"
-        >
-          <span>3. Description</span>
-          <hr />
-        </h3>
-
-        <MethodComp.default />
-      </div>
-      <div className="flex flex-col gap-3 overflow-hidden">
-        <h3
-          className="text-lg sm:text-xl lg:text-2xl font-semibold flex gap-2"
-          id="props"
-        >
-          <span>4. Props</span>
-          <hr />
-        </h3>
-        <div className="overflow-x-auto">
-          <PropsTable data={MethodComp.Props} />
+      {[
+        {
+          title: "Code",
+          toRender: <CodeTabs code={methodData.code} />,
+        },
+        {
+          title: "Installation",
+          toRender: (
+            <CodeLine
+              code={`npx @jrtilak/lazykit@latest add ${methodData.name}`}
+              language="bash"
+            />
+          ),
+        },
+        {
+          title: "Description",
+          toRender: (
+            <div className="prose prose-p:mb-0 prose-p:mt-0 prose-p:w-full w-full min-w-fit">
+              <div
+                className="flex flex-col gap-2 w-full"
+                dangerouslySetInnerHTML={{
+                  __html: htmlContent,
+                }}
+              />
+            </div>
+          ),
+        },
+        {
+          title: "Props",
+          toRender: (
+            <div className="overflow-x-auto">
+              <PropsTable
+                data={methodData.props as IRegistryFunctionPropTable[]}
+              />
+            </div>
+          ),
+        },
+        {
+          title: "Examples",
+          toRender: (
+            <div className="flex flex-col gap-3 sm:gap-4">
+              {methodData.examples?.map((example, index) => (
+                <CodeBlock code={example} key={index} language="typescript" />
+              ))}
+            </div>
+          ),
+        },
+      ].map((section, i) => (
+        <div key={i} className="flex flex-col gap-3">
+          <h3
+            className="text-lg sm:text-xl lg:text-2xl font-semibold flex gap-2"
+            id={section.title.toLowerCase()}
+          >
+            <span>
+              {i + 1}. {section.title}
+            </span>
+            <hr />
+          </h3>
+          {section.toRender}
         </div>
-      </div>
-      <div className="flex flex-col gap-3">
-        <h3
-          className="text-lg sm:text-xl lg:text-2xl font-semibold flex gap-2"
-          id="examples"
-        >
-          <span>5. Examples</span>
-          <hr />
-        </h3>
-        <div className="flex flex-col gap-3 sm:gap-4">
-          {methodData.examples?.map((example, index) => (
-            <CodeBlock code={example} key={index} language="typescript" />
-          ))}
-        </div>
-      </div>
+      ))}
     </div>
   );
 };
