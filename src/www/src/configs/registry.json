@@ -10,7 +10,12 @@
     "examples": [
       "import chunk from \".\";\r\n\r\nconst arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];\r\n\r\n// No size provided, default size is 1\r\nconsole.log(chunk(arr));\r\n// Expected output: [[1], [2], [3], [4], [5], [6], [7], [8], [9], [10]];\r\n\r\n// Providing size as 2\r\nconsole.log(chunk(arr, 2));\r\n// Expected output: [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ], [ 7, 8 ], [ 9, 10 ] ]\r\n\r\n// Providing size as 3 and strict as true\r\nconsole.log(chunk(arr, 3, true));\r\n// Expected output: [ [ 1, 2, 3 ], [ 4, 5, 6 ], [ 7, 8, 9 ] ]\r\n\r\n// Providing size as 4 and strict as true\r\nconsole.log(chunk(arr, 4, true));\r\n// Expected output: [ [ 1, 2, 3, 4 ], [ 5, 6, 7, 8 ] ]\r\n"
     ],
-    "docsMd": "---\r\ndesc: Chunks an array into smaller arrays of a specified size.\r\n---\r\n\r\nThe chunk function is a utility function in JavaScript that takes an\r\narray and divides it into smaller sub-arrays, or &quot;chunks&quot;, each with a\r\nmaximum length equal to a specified size. This function is particularly\r\nuseful when you need to process a large array in smaller, more\r\nmanageable pieces.\r\n\r\nThe function accepts three parameters: the original array to be chunked,\r\nthe size of each chunk, and a boolean value indicating whether the\r\nfunction should strictly adhere to the chunk size. If the &quot;strict&quot;\r\nparameter is set to true, and the last chunk does not meet the specified\r\nsize, it will be removed from the final result.\r\n",
+    "docs": {
+      "metaData": {
+        "desc": "Chunks an array into smaller arrays of a specified size."
+      },
+      "md": "\r\nThe chunk function is a utility function in JavaScript that takes an\r\narray and divides it into smaller sub-arrays, or &quot;chunks&quot;, each with a\r\nmaximum length equal to a specified size. This function is particularly\r\nuseful when you need to process a large array in smaller, more\r\nmanageable pieces.\r\n\r\nThe function accepts three parameters: the original array to be chunked,\r\nthe size of each chunk, and a boolean value indicating whether the\r\nfunction should strictly adhere to the chunk size. If the &quot;strict&quot;\r\nparameter is set to true, and the last chunk does not meet the specified\r\nsize, it will be removed from the final result.\r\n"
+    },
     "props": [
       {
         "title": "array",
@@ -34,11 +39,45 @@
       }
     ],
     "createdAt": {
-      "date": "2024-04-17T08:58:57.991Z",
+      "date": "2024-04-17T09:52:17.963Z",
       "packageVersion": "0.1.0"
     },
     "lastUpdated": {
-      "date": "2024-04-17T08:58:57.992Z",
+      "date": "2024-04-17T09:52:17.964Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "and",
+    "code": {
+      "ts": "/**\r\n * Performs a logical AND operation on the given boolean values.\r\n * Returns true if all arguments are true, otherwise returns false.\r\n *\r\n * @param args - The boolean values to perform the AND operation on.\r\n * @returns The result of the logical AND operation.\r\n */\r\nconst and = (...args: any[]) => {\r\n  if (args.length === 0) return false;\r\n  return args.every((arg) => Boolean(arg));\r\n};\r\n\r\nexport default and;\r\n",
+      "js": "/**\n * Performs a logical AND operation on the given boolean values.\n * Returns true if all arguments are true, otherwise returns false.\n *\n * @param args - The boolean values to perform the AND operation on.\n * @returns The result of the logical AND operation.\n */\nconst and = (...args) => {\n    if (args.length === 0)\n        return false;\n    return args.every((arg) => Boolean(arg));\n};\nexport default and;\n"
+    },
+    "category": "gates",
+    "type": "functions",
+    "examples": [
+      "import and from \".\";\r\n\r\nconsole.log(and(true, true));\r\n// Expected Output: true\r\n\r\nconsole.log(and(true, false));\r\n// Expected Output: false\r\n\r\nconsole.log(and());\r\n// Expected Output: true\r\n\r\nconsole.log(and(1, \"lazykit\"));\r\n// Expected Output: true\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Performs a logical AND operation on the given arguments."
+      },
+      "md": "\r\nThe and function is a utility function in TypeScript that performs a\r\nlogical AND operation on the given arguments.\r\n"
+    },
+    "props": [
+      {
+        "title": "args",
+        "required": true,
+        "propDesc": "The arguments to perform the AND operation on.",
+        "type": "any[]"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-17T09:52:18.061Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-17T09:52:18.061Z",
       "packageVersion": "0.1.0"
     }
   },
@@ -53,7 +92,12 @@
     "examples": [
       "import search from \".\";\r\n\r\nconst array = [\r\n  { name: \"John\", age: 25 },\r\n  { name: \"Jane\", age: 30 },\r\n  { name: \"John Doe\", age: 35 },\r\n];\r\n\r\n// No keys provided\r\nconsole.log(search(array, \"John\", []));\r\n// Expected output: []\r\n\r\n// Query string is empty\r\nconsole.log(search(array, \"\", [\"name\"]));\r\n// Expected output: [ { name: 'John', age: 25 }, { name: 'Jane', age: 30 }, { name: 'John Doe', age: 35 } ]\r\n\r\n// Filtered array of objects matching the query\r\nconsole.log(search(array, \"John\", [\"name\"]));\r\n// Expected output: [ { name: 'John', age: 25 }, { name: 'John Doe', age: 35 } ]\r\n\r\n// None of the keys contain the query string\r\nconsole.log(search(array, \"Doe\", [\"name\"]));\r\n// Expected output: []\r\n\r\n// Keys does not exist in the object\r\nconsole.log(search(array, \"John\", [\"email\"]));\r\n// Expected output: []\r\n"
     ],
-    "docsMd": "---\r\ndesc: Search objects in an array based on provided keys and query string. It only works with string and number values.\r\n---\r\n\r\nThe search function is a utility function in JavaScript that performs a\r\nsearch operation on an array of objects based on a provided query string\r\nand keys. This function is particularly useful when you need to filter\r\nan array of objects based on certain criteria.\r\n\r\nThe function accepts three parameters: the original array to be\r\nsearched, the query string, and an array of keys. The array should\r\nconsist of objects, the query string is the value to be searched for,\r\nand the keys are the properties of the objects to be searched.\r\n\r\nThe function iterates over each object in the array, and for each\r\nobject, it checks if any of the specified keys contain the query string.\r\nIf a match is found, the object is included in the returned array. If no\r\nkeys are provided, the function returns an empty array. If the query\r\nstring is empty, the function returns the original array. This allows\r\nfor flexible and powerful search functionality within your JavaScript\r\napplications.\r\n",
+    "docs": {
+      "metaData": {
+        "desc": "Search objects in an array based on provided keys and query string. It only works with string and number values."
+      },
+      "md": "\r\nThe search function is a utility function in JavaScript that performs a\r\nsearch operation on an array of objects based on a provided query string\r\nand keys. This function is particularly useful when you need to filter\r\nan array of objects based on certain criteria.\r\n\r\nThe function accepts three parameters: the original array to be\r\nsearched, the query string, and an array of keys. The array should\r\nconsist of objects, the query string is the value to be searched for,\r\nand the keys are the properties of the objects to be searched.\r\n\r\nThe function iterates over each object in the array, and for each\r\nobject, it checks if any of the specified keys contain the query string.\r\nIf a match is found, the object is included in the returned array. If no\r\nkeys are provided, the function returns an empty array. If the query\r\nstring is empty, the function returns the original array. This allows\r\nfor flexible and powerful search functionality within your JavaScript\r\napplications.\r\n"
+    },
     "props": [
       {
         "title": "array",
@@ -75,11 +119,11 @@
       }
     ],
     "createdAt": {
-      "date": "2024-04-17T08:58:58.030Z",
+      "date": "2024-04-17T09:52:18.081Z",
       "packageVersion": "0.1.0"
     },
     "lastUpdated": {
-      "date": "2024-04-17T08:58:58.030Z",
+      "date": "2024-04-17T09:52:18.081Z",
       "packageVersion": "0.1.0"
     }
   },
@@ -94,7 +138,12 @@
     "examples": [
       "import shuffleArr from \".\";\r\n\r\nconst arr = [1, 2, 3, 4, 5];\r\nconst shuffledArr = shuffleArr(arr);\r\nconsole.log(shuffledArr);\r\n// Expected output: shuffled array of given array\r\n"
     ],
-    "docsMd": "---\r\ndesc: Shuffles the elements of an array.\r\n---\r\n\r\nThe shuffleArr function is a utility function in JavaScript that takes\r\nan array and shuffles it. The function uses the Fisher-Yates algorithm\r\nto shuffle the array. The Fisher-Yates algorithm is an efficient\r\nalgorithm for generating a random permutation of a finite sequence. The\r\nfunction returns a new array with the elements of the original array\r\nshuffled.\r\n\r\nThe shuffleArr function does not modify the original array, it returns a\r\nnew array with the elements shuffled.\r\n",
+    "docs": {
+      "metaData": {
+        "desc": "Shuffles the elements of an array."
+      },
+      "md": "\r\nThe shuffleArr function is a utility function in JavaScript that takes\r\nan array and shuffles it. The function uses the Fisher-Yates algorithm\r\nto shuffle the array. The Fisher-Yates algorithm is an efficient\r\nalgorithm for generating a random permutation of a finite sequence. The\r\nfunction returns a new array with the elements of the original array\r\nshuffled.\r\n\r\nThe shuffleArr function does not modify the original array, it returns a\r\nnew array with the elements shuffled.\r\n"
+    },
     "props": [
       {
         "title": "arr",
@@ -104,11 +153,11 @@
       }
     ],
     "createdAt": {
-      "date": "2024-04-17T08:58:58.043Z",
+      "date": "2024-04-17T09:52:18.092Z",
       "packageVersion": "0.1.0"
     },
     "lastUpdated": {
-      "date": "2024-04-17T08:58:58.043Z",
+      "date": "2024-04-17T09:52:18.092Z",
       "packageVersion": "0.1.0"
     }
   },
@@ -123,7 +172,12 @@
     "examples": [
       "import unique from \".\";\r\n\r\nconst arr = [1, 2, 3, 3, 4, 5, 5, 6, 7, 8, 8, 9, 10];\r\nconst result = unique(arr);\r\nconsole.log(result);\r\n// Expected Output: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]\r\n"
     ],
-    "docsMd": "---\r\ndesc: Creates a unique array from the input array.\r\n---\r\n\r\nThe unique function is a utility function in JavaScript that takes an\r\narray and returns a new array with all duplicate values removed. The\r\nfunction uses set to remove duplicate values from the array.\r\n",
+    "docs": {
+      "metaData": {
+        "desc": "Creates a unique array from the input array."
+      },
+      "md": "\r\nThe unique function is a utility function in JavaScript that takes an\r\narray and returns a new array with all duplicate values removed. The\r\nfunction uses set to remove duplicate values from the array.\r\n"
+    },
     "props": [
       {
         "title": "arr",
@@ -133,11 +187,11 @@
       }
     ],
     "createdAt": {
-      "date": "2024-04-17T08:58:58.048Z",
+      "date": "2024-04-17T09:52:18.099Z",
       "packageVersion": "0.1.0"
     },
     "lastUpdated": {
-      "date": "2024-04-17T08:58:58.048Z",
+      "date": "2024-04-17T09:52:18.099Z",
       "packageVersion": "0.1.0"
     }
   },
@@ -152,7 +206,12 @@
     "examples": [
       "import retry from \".\";\r\n\r\nconst fn = async () => {\r\n  Promise.reject(new Error(\"failed\"));\r\n};\r\n\r\nretry(fn, 2, 1000).catch((error) => {\r\n  console.log(error.message);\r\n});\r\n// Expected output: \"failed\" after retrying twice but It will call the function 3 times.\r\n"
     ],
-    "docsMd": "---\r\ndesc: Retries the given function a specified number of times with a delay between each retry.\r\n---\r\n\r\nThe retry function retries the given function a specified number of\r\ntimes with a delay between each retry. If the function succeeds within\r\nthe specified number of retries, the Promise will resolve with the\r\nresult of the function. If the function fails on all retries, the\r\nPromise will be rejected with the last error. The retry function is\r\ndesigned to handle both synchronous and asynchronous functions, as it\r\nwraps the call to fn with Promise.resolve. This ensures that fn is\r\nalways treated as a Promise, allowing the use of .then and .catch to\r\nhandle the result or any errors.\r\n\r\nThe function retries the given function a specified number of times. The\r\ntotal number of times a function is called is retries + 1.\r\n",
+    "docs": {
+      "metaData": {
+        "desc": "Retries the given function a specified number of times with a delay between each retry."
+      },
+      "md": "\r\nThe retry function retries the given function a specified number of\r\ntimes with a delay between each retry. If the function succeeds within\r\nthe specified number of retries, the Promise will resolve with the\r\nresult of the function. If the function fails on all retries, the\r\nPromise will be rejected with the last error. The retry function is\r\ndesigned to handle both synchronous and asynchronous functions, as it\r\nwraps the call to fn with Promise.resolve. This ensures that fn is\r\nalways treated as a Promise, allowing the use of .then and .catch to\r\nhandle the result or any errors.\r\n\r\nThe function retries the given function a specified number of times. The\r\ntotal number of times a function is called is retries + 1.\r\n"
+    },
     "props": [
       {
         "title": "function",
@@ -176,11 +235,11 @@
       }
     ],
     "createdAt": {
-      "date": "2024-04-17T08:58:58.059Z",
+      "date": "2024-04-17T09:52:18.110Z",
       "packageVersion": "0.1.0"
     },
     "lastUpdated": {
-      "date": "2024-04-17T08:58:58.059Z",
+      "date": "2024-04-17T09:52:18.110Z",
       "packageVersion": "0.1.0"
     }
   },
@@ -195,7 +254,12 @@
     "examples": [
       "import sleep from \".\";\r\n\r\n//iife\r\n(async () => {\r\n  console.log(\"sleeping for 1 second\");\r\n  await sleep(1000);\r\n  console.log(\"done sleeping\"); // This will be printed after 1 second\r\n})();\r\n"
     ],
-    "docsMd": "---\r\ndesc: Sleeps the execution for the specified number of milliseconds.\r\n---\r\n\r\nThe sleep function sleeps the execution for the specified number of\r\nmilliseconds.\r\n\r\nIt utilizes the setTimeout and Promise APIs to pause the execution for\r\nthe specified number of milliseconds.\r\n",
+    "docs": {
+      "metaData": {
+        "desc": "Sleeps the execution for the specified number of milliseconds."
+      },
+      "md": "\r\nThe sleep function sleeps the execution for the specified number of\r\nmilliseconds.\r\n\r\nIt utilizes the setTimeout and Promise APIs to pause the execution for\r\nthe specified number of milliseconds.\r\n"
+    },
     "props": [
       {
         "title": "ms",
@@ -205,11 +269,11 @@
       }
     ],
     "createdAt": {
-      "date": "2024-04-17T08:58:58.067Z",
+      "date": "2024-04-17T09:52:18.115Z",
       "packageVersion": "0.1.0"
     },
     "lastUpdated": {
-      "date": "2024-04-17T08:58:58.067Z",
+      "date": "2024-04-17T09:52:18.115Z",
       "packageVersion": "0.1.0"
     }
   },
@@ -224,7 +288,12 @@
     "examples": [
       "import timeout from \".\";\r\n\r\ntimeout(() => \"Hello, World!\", 1000);\r\n// Expected Output: \"Hello, World!\"\r\n\r\ntimeout(() => new Promise((resolve) => setTimeout(resolve, 2000)), 1000);\r\n// Expected Output: Error: Function timed out\r\n\r\ntimeout(\r\n  () => new Promise((resolve) => setTimeout(resolve, 2000)),\r\n  1000,\r\n  () => console.log(\"I failed\")\r\n);\r\n// Expected Output: I failed\r\n"
     ],
-    "docsMd": "---\r\ndesc: The timeout function wraps a function with a timeout. If the function does not complete within the specified time, the promise will be rejected.\r\n---\r\n\r\nThe timeout function is a higher-order function that takes a function\r\nfn, a timeout duration time, and an optional error callback errCb as\r\narguments. It returns a new function that, when called, returns a\r\nPromise. This Promise will resolve with the result of the fn function if\r\nfn completes within the specified time. If fn does not complete within\r\nthe time, the Promise will be rejected. If an errCb function is\r\nprovided, it will be called with the arguments passed to the wrapped\r\nfunction, and the Promise will be rejected with the result of errCb. If\r\nno errCb is provided, the Promise will be rejected with a new Error\r\nstating &apos;Function timed out&apos;. The timeout function is designed\r\nto handle both synchronous and asynchronous functions, as it wraps the\r\ncall to fn with Promise.resolve. This ensures that fn is always treated\r\nas a Promise, allowing the use of .then and .catch to handle the result\r\nor any errors.\r\n",
+    "docs": {
+      "metaData": {
+        "desc": "The timeout function wraps a function with a timeout. If the function does not complete within the specified time, the promise will be rejected."
+      },
+      "md": "\r\nThe timeout function is a higher-order function that takes a function\r\nfn, a timeout duration time, and an optional error callback errCb as\r\narguments. It returns a new function that, when called, returns a\r\nPromise. This Promise will resolve with the result of the fn function if\r\nfn completes within the specified time. If fn does not complete within\r\nthe time, the Promise will be rejected. If an errCb function is\r\nprovided, it will be called with the arguments passed to the wrapped\r\nfunction, and the Promise will be rejected with the result of errCb. If\r\nno errCb is provided, the Promise will be rejected with a new Error\r\nstating &apos;Function timed out&apos;. The timeout function is designed\r\nto handle both synchronous and asynchronous functions, as it wraps the\r\ncall to fn with Promise.resolve. This ensures that fn is always treated\r\nas a Promise, allowing the use of .then and .catch to handle the result\r\nor any errors.\r\n"
+    },
     "props": [
       {
         "title": "function",
@@ -246,98 +315,11 @@
       }
     ],
     "createdAt": {
-      "date": "2024-04-17T08:58:58.080Z",
+      "date": "2024-04-17T09:52:18.126Z",
       "packageVersion": "0.1.0"
     },
     "lastUpdated": {
-      "date": "2024-04-17T08:58:58.080Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
-    "name": "sampleArr",
-    "code": {
-      "ts": "/**\r\n * Generates an array of random numbers.\r\n *\r\n * @param size - The size of the array to generate.\r\n * @returns An array of random numbers.\r\n * @throws {Error} If the size is a negative number.\r\n */\r\nconst sampleArr = (size: number) => {\r\n  if (size < 0) throw new Error(\"Size must be a positive number\");\r\n  return Array.from({ length: size }, (_, i) => Math.floor(Math.random() * i));\r\n};\r\n\r\nexport default sampleArr;\r\n",
-      "js": "/**\n * Generates an array of random numbers.\n *\n * @param size - The size of the array to generate.\n * @returns An array of random numbers.\n * @throws {Error} If the size is a negative number.\n */\nconst sampleArr = (size) => {\n    if (size < 0)\n        throw new Error(\"Size must be a positive number\");\n    return Array.from({ length: size }, (_, i) => Math.floor(Math.random() * i));\n};\nexport default sampleArr;\n"
-    },
-    "category": "arrays",
-    "type": "functions",
-    "examples": [
-      "import sampleArr from \".\";\r\n\r\nconst arr = sampleArr(5);\r\nconsole.log(arr);\r\n// Expected output: an array of 5 random numbers\r\n\r\n// const negativeArr = sampleArr(-1);\r\n// Expected output: Throws an error\r\n"
-    ],
-    "docsMd": "---\r\ndesc: Generates an array of random numbers.\r\n---\r\n\r\nThis sampleArr function is a utility function in JavaScript that takes a\r\nsize parameter and generates an array of random numbers. The size\r\nparameter specifies the length of the array to generate. The function\r\nuses the Math.random() method to generate random numbers between 0 and\r\nthe specified size. The function returns an array of random numbers with\r\nthe specified length.\r\n\r\nThe function throws an error if the size parameter is a negative number.\r\n",
-    "props": [
-      {
-        "title": "size",
-        "required": true,
-        "propDesc": "The size of the array to generate, must be a positive number.",
-        "type": "number"
-      }
-    ],
-    "createdAt": {
-      "date": "2024-04-17T08:58:58.088Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-17T08:58:58.088Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
-    "name": "nor",
-    "code": {
-      "ts": "/**\r\n * Performs a logical NOR operation on the given arguments.\r\n * Returns true if none of the arguments are truthy, otherwise returns false.\r\n *\r\n * @param args - The arguments to perform the NOR operation on.\r\n * @returns The result of the NOR operation.\r\n */\r\nconst nor = (...args: any[]) => {\r\n  if (args.length === 0) return false;\r\n  const or = args.some((arg) => Boolean(arg));\r\n  return !or;\r\n};\r\n\r\nexport default nor;\r\n",
-      "js": "/**\n * Performs a logical NOR operation on the given arguments.\n * Returns true if none of the arguments are truthy, otherwise returns false.\n *\n * @param args - The arguments to perform the NOR operation on.\n * @returns The result of the NOR operation.\n */\nconst nor = (...args) => {\n    if (args.length === 0)\n        return false;\n    const or = args.some((arg) => Boolean(arg));\n    return !or;\n};\nexport default nor;\n"
-    },
-    "category": "gates",
-    "type": "functions",
-    "examples": [
-      "import or from \".\";\r\n\r\nconsole.log(or(true, true));\r\n// Expected Output: false\r\n\r\nconsole.log(or(false, true));\r\n// Expected Output: false\r\n\r\nconsole.log(or(false, false));\r\n// Expected Output: true\r\n\r\nconsole.log(or());\r\n// Expected Output: true\r\n\r\nconsole.log(or(1, \"lazykit\"));\r\n// Expected Output: false\r\n"
-    ],
-    "docsMd": "---\r\ndesc: Performs a logical NOR operation on the given arguments.\r\n---\r\n\r\nThe nor function is a utility function in TypeScript that performs a\r\nlogical NOR operation on the given arguments.\r\n",
-    "props": [
-      {
-        "title": "args",
-        "required": true,
-        "propDesc": "The arguments to perform the NOR operation on.",
-        "type": "any[]"
-      }
-    ],
-    "createdAt": {
-      "date": "2024-04-17T08:58:58.096Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-17T08:58:58.096Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
-    "name": "or",
-    "code": {
-      "ts": "/**\r\n * Performs a logical OR operation on the given arguments.\r\n *\r\n * @param args - The arguments to perform the OR operation on.\r\n * @returns The result of the OR operation.\r\n */\r\nconst or = (...args: any[]) => {\r\n  return args.some((arg) => Boolean(arg));\r\n};\r\n\r\nexport default or;\r\n",
-      "js": "/**\n * Performs a logical OR operation on the given arguments.\n *\n * @param args - The arguments to perform the OR operation on.\n * @returns The result of the OR operation.\n */\nconst or = (...args) => {\n    return args.some((arg) => Boolean(arg));\n};\nexport default or;\n"
-    },
-    "category": "gates",
-    "type": "functions",
-    "examples": [
-      "import or from \".\";\r\n\r\nconsole.log(or(true, true));\r\n// Expected Output: true\r\n\r\nconsole.log(or(false, true));\r\n// Expected Output: true\r\n\r\nconsole.log(or(false, false));\r\n// Expected Output: false\r\n\r\nconsole.log(or());\r\n// Expected Output: false\r\n\r\nconsole.log(or(1, \"lazykit\"));\r\n// Expected Output: true\r\n"
-    ],
-    "docsMd": "---\r\ndesc: Performs a logical OR operation on the given arguments.\r\n---\r\n\r\nThe or function is a utility function in TypeScript that performs a\r\nlogical OR operation on the given arguments.\r\n",
-    "props": [
-      {
-        "title": "args",
-        "required": true,
-        "propDesc": "The arguments to perform the OR operation on.",
-        "type": "any[]"
-      }
-    ],
-    "createdAt": {
-      "date": "2024-04-17T08:58:58.101Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-17T08:58:58.101Z",
+      "date": "2024-04-17T09:52:18.126Z",
       "packageVersion": "0.1.0"
     }
   },
@@ -352,7 +334,12 @@
     "examples": [
       "import compact from \".\";\r\n\r\nconst input = [0, false, \"\", null, undefined, NaN, {}, [], 1, \"hello\"];\r\n\r\n// no strict mode\r\nconst result = compact(input);\r\nconsole.log(result);\r\n// Expected output: [{}, [], 1, \"hello\"]\r\n\r\n// strict mode\r\nconst resultStrict = compact(input, true);\r\nconsole.log(resultStrict);\r\n// Expected output: [1, \"hello\"]\r\n"
     ],
-    "docsMd": "---\r\ndesc: Removes falsy values from an array, If strict is true, also removes empty objects and arrays.\r\n---\r\n\r\nThe compact function is a utility function in TypeScript that removes\r\n&apos;falsy&apos; values from an array.\r\n\r\nFalsy values in JavaScript are values that are considered false when\r\nencountered in a Boolean context. These include false, 0, &apos;&apos;\r\n(empty string), null, undefined, and NaN.\r\n\r\nThe function takes two parameters: an array of any type (array) and a\r\nboolean (strict). If the strict parameter is set to true, the function\r\nalso removes empty objects and arrays from the array. An empty object is\r\nan object without any properties, and an empty array is an array without\r\nany elements. The function returns a new array that contains only\r\n&apos;truthy&apos; values, and if strict is true, it also doesn&apos;t\r\ncontain any empty objects or arrays.\r\n",
+    "docs": {
+      "metaData": {
+        "desc": "Removes falsy values from an array, If strict is true, also removes empty objects and arrays."
+      },
+      "md": "\r\nThe compact function is a utility function in TypeScript that removes\r\n&apos;falsy&apos; values from an array.\r\n\r\nFalsy values in JavaScript are values that are considered false when\r\nencountered in a Boolean context. These include false, 0, &apos;&apos;\r\n(empty string), null, undefined, and NaN.\r\n\r\nThe function takes two parameters: an array of any type (array) and a\r\nboolean (strict). If the strict parameter is set to true, the function\r\nalso removes empty objects and arrays from the array. An empty object is\r\nan object without any properties, and an empty array is an array without\r\nany elements. The function returns a new array that contains only\r\n&apos;truthy&apos; values, and if strict is true, it also doesn&apos;t\r\ncontain any empty objects or arrays.\r\n"
+    },
     "props": [
       {
         "title": "array",
@@ -369,11 +356,11 @@
       }
     ],
     "createdAt": {
-      "date": "2024-04-17T08:58:58.111Z",
+      "date": "2024-04-17T09:52:18.137Z",
       "packageVersion": "0.1.0"
     },
     "lastUpdated": {
-      "date": "2024-04-17T08:58:58.111Z",
+      "date": "2024-04-17T09:52:18.137Z",
       "packageVersion": "0.1.0"
     }
   },
@@ -389,7 +376,12 @@
       "import insert from \".\";\r\n\r\nconst arr = [1, 2, 3];\r\nconst index = 1;\r\nconst items = [4, 5];\r\n\r\nconst result = insert(arr, index, items);\r\nconsole.log(result);\r\n// Expected Output: [1, 4, 5, 2, 3]\r\n\r\nconst arr2 = [1, 2, 3, 4, 5];\r\nconst index2 = 2;\r\nconst items2 = [6, 7];\r\n\r\nconst result2 = insert(arr2, index2, items2);\r\nconsole.log(result2);\r\n// Expected Output: [1, 2, 6, 7, 3, 4, 5 ]\r\n\r\n// negative index\r\nconst arr3 = [1, 2, 3];\r\nconst index3 = -1;\r\nconst items3 = [4, 5];\r\n\r\nconst result3 = insert(arr3, index3, items3);\r\nconsole.log(result3);\r\n// Expected Output: [1, 2, 4, 5, 3]\r\n",
       "//recursive examples\r\n\r\nimport insert from \".\";\r\n\r\nconst arr = [1, 2, 3];\r\nconst index = 1;\r\nconst items = [4, 5];\r\n\r\nconst result = insert(arr, index, items, true);\r\nconsole.log(result);\r\n// Expected Output: [1, 4, 5, 2, 4, 5, 3, 4, 5]\r\n\r\nconst arr2 = [1, 2, 3, 4, 5];\r\nconst index2 = 2;\r\nconst items2 = [6, 7];\r\n\r\nconst result2 = insert(arr2, index2, items2, true);\r\nconsole.log(result2);\r\n// Expected Output: [1, 2, 6, 7, 3, 4, 6, 7, 5]\r\n\r\n//negative index\r\n\r\nconst arr3 = [1, 2, 3];\r\nconst index3 = -1;\r\nconst items3 = [4, 5];\r\n\r\nconst result3 = insert(arr3, index3, items3, true);\r\nconsole.log(result3);\r\n// Expected Output: [4, 5, 1, 4, 5, 2, 4, 5, 3]\r\n"
     ],
-    "docsMd": "---\r\ndesc: Inserts elements into an array at a specified index.\r\n---\r\n\r\nThe insert function is a generic function in TypeScript that is designed\r\nto insert elements into an array at a specified index. The function\r\ntakes four parameters: an array arr of type T[], an index of type\r\nnumber, a spread parameter items of type T[], and an optional recursive\r\nparameter of type boolean which defaults to false.\r\n\r\nIt returns a new array with the elements inserted at the specified index\r\nwithout modifying the original array.\r\n\r\nIf the index is negative, the function treats it as an index from the\r\nend of the array. In this case, it converts the index to a positive\r\nnumber and reverses the array and the items to be inserted for easier\r\ninsertion.\r\n\r\nIf the recursive parameter is false, the function simply inserts the\r\nitems at the specified index in the array. If the recursive parameter is\r\ntrue, the function inserts the items at every nth index, where n is the\r\nabsolute value of the provided index. The function calculates the number\r\nof insertions to be made by dividing the length of the array by the\r\nindex.\r\n",
+    "docs": {
+      "metaData": {
+        "desc": "Inserts elements into an array at a specified index."
+      },
+      "md": "\r\nThe insert function is a generic function in TypeScript that is designed\r\nto insert elements into an array at a specified index. The function\r\ntakes four parameters: an array arr of type T[], an index of type\r\nnumber, a spread parameter items of type T[], and an optional recursive\r\nparameter of type boolean which defaults to false.\r\n\r\nIt returns a new array with the elements inserted at the specified index\r\nwithout modifying the original array.\r\n\r\nIf the index is negative, the function treats it as an index from the\r\nend of the array. In this case, it converts the index to a positive\r\nnumber and reverses the array and the items to be inserted for easier\r\ninsertion.\r\n\r\nIf the recursive parameter is false, the function simply inserts the\r\nitems at the specified index in the array. If the recursive parameter is\r\ntrue, the function inserts the items at every nth index, where n is the\r\nabsolute value of the provided index. The function calculates the number\r\nof insertions to be made by dividing the length of the array by the\r\nindex.\r\n"
+    },
     "props": [
       {
         "title": "array",
@@ -418,40 +410,45 @@
       }
     ],
     "createdAt": {
-      "date": "2024-04-17T08:58:58.128Z",
+      "date": "2024-04-17T09:52:18.149Z",
       "packageVersion": "0.1.0"
     },
     "lastUpdated": {
-      "date": "2024-04-17T08:58:58.128Z",
+      "date": "2024-04-17T09:52:18.149Z",
       "packageVersion": "0.1.0"
     }
   },
   {
-    "name": "and",
+    "name": "sampleArr",
     "code": {
-      "ts": "/**\r\n * Performs a logical AND operation on the given boolean values.\r\n * Returns true if all arguments are true, otherwise returns false.\r\n *\r\n * @param args - The boolean values to perform the AND operation on.\r\n * @returns The result of the logical AND operation.\r\n */\r\nconst and = (...args: any[]) => {\r\n  if (args.length === 0) return false;\r\n  return args.every((arg) => Boolean(arg));\r\n};\r\n\r\nexport default and;\r\n",
-      "js": "/**\n * Performs a logical AND operation on the given boolean values.\n * Returns true if all arguments are true, otherwise returns false.\n *\n * @param args - The boolean values to perform the AND operation on.\n * @returns The result of the logical AND operation.\n */\nconst and = (...args) => {\n    if (args.length === 0)\n        return false;\n    return args.every((arg) => Boolean(arg));\n};\nexport default and;\n"
+      "ts": "/**\r\n * Generates an array of random numbers.\r\n *\r\n * @param size - The size of the array to generate.\r\n * @returns An array of random numbers.\r\n * @throws {Error} If the size is a negative number.\r\n */\r\nconst sampleArr = (size: number) => {\r\n  if (size < 0) throw new Error(\"Size must be a positive number\");\r\n  return Array.from({ length: size }, (_, i) => Math.floor(Math.random() * i));\r\n};\r\n\r\nexport default sampleArr;\r\n",
+      "js": "/**\n * Generates an array of random numbers.\n *\n * @param size - The size of the array to generate.\n * @returns An array of random numbers.\n * @throws {Error} If the size is a negative number.\n */\nconst sampleArr = (size) => {\n    if (size < 0)\n        throw new Error(\"Size must be a positive number\");\n    return Array.from({ length: size }, (_, i) => Math.floor(Math.random() * i));\n};\nexport default sampleArr;\n"
     },
-    "category": "gates",
+    "category": "arrays",
     "type": "functions",
     "examples": [
-      "import and from \".\";\r\n\r\nconsole.log(and(true, true));\r\n// Expected Output: true\r\n\r\nconsole.log(and(true, false));\r\n// Expected Output: false\r\n\r\nconsole.log(and());\r\n// Expected Output: true\r\n\r\nconsole.log(and(1, \"lazykit\"));\r\n// Expected Output: true\r\n"
+      "import sampleArr from \".\";\r\n\r\nconst arr = sampleArr(5);\r\nconsole.log(arr);\r\n// Expected output: an array of 5 random numbers\r\n\r\n// const negativeArr = sampleArr(-1);\r\n// Expected output: Throws an error\r\n"
     ],
-    "docsMd": "---\r\ndesc: Performs a logical AND operation on the given arguments.\r\n---\r\n\r\nThe and function is a utility function in TypeScript that performs a\r\nlogical AND operation on the given arguments.\r\n",
+    "docs": {
+      "metaData": {
+        "desc": "Generates an array of random numbers."
+      },
+      "md": "\r\nThis sampleArr function is a utility function in JavaScript that takes a\r\nsize parameter and generates an array of random numbers. The size\r\nparameter specifies the length of the array to generate. The function\r\nuses the Math.random() method to generate random numbers between 0 and\r\nthe specified size. The function returns an array of random numbers with\r\nthe specified length.\r\n\r\nThe function throws an error if the size parameter is a negative number.\r\n"
+    },
     "props": [
       {
-        "title": "args",
+        "title": "size",
         "required": true,
-        "propDesc": "The arguments to perform the AND operation on.",
-        "type": "any[]"
+        "propDesc": "The size of the array to generate, must be a positive number.",
+        "type": "number"
       }
     ],
     "createdAt": {
-      "date": "2024-04-17T08:58:58.135Z",
+      "date": "2024-04-17T09:52:18.156Z",
       "packageVersion": "0.1.0"
     },
     "lastUpdated": {
-      "date": "2024-04-17T08:58:58.135Z",
+      "date": "2024-04-17T09:52:18.156Z",
       "packageVersion": "0.1.0"
     }
   },
@@ -466,7 +463,12 @@
     "examples": [
       "import nand from \".\";\r\n\r\nconsole.log(nand(true, true));\r\n// Expected Output: false\r\n\r\nconsole.log(nand(true, false));\r\n// Expected Output: true\r\n\r\nconsole.log(nand());\r\n// Expected Output: false\r\n\r\nconsole.log(nand(1, \"lazykit\"));\r\n// Expected Output: false\r\n"
     ],
-    "docsMd": "---\r\ndesc: Performs a logical NAND operation on the given arguments.\r\n---\r\n\r\nThe and function is a utility function in TypeScript that performs a\r\nlogical NAND operation on the given arguments.\r\n",
+    "docs": {
+      "metaData": {
+        "desc": "Performs a logical NAND operation on the given arguments."
+      },
+      "md": "\r\nThe and function is a utility function in TypeScript that performs a\r\nlogical NAND operation on the given arguments.\r\n"
+    },
     "props": [
       {
         "title": "args",
@@ -476,11 +478,79 @@
       }
     ],
     "createdAt": {
-      "date": "2024-04-17T08:58:58.141Z",
+      "date": "2024-04-17T09:52:18.162Z",
       "packageVersion": "0.1.0"
     },
     "lastUpdated": {
-      "date": "2024-04-17T08:58:58.141Z",
+      "date": "2024-04-17T09:52:18.162Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "nor",
+    "code": {
+      "ts": "/**\r\n * Performs a logical NOR operation on the given arguments.\r\n * Returns true if none of the arguments are truthy, otherwise returns false.\r\n *\r\n * @param args - The arguments to perform the NOR operation on.\r\n * @returns The result of the NOR operation.\r\n */\r\nconst nor = (...args: any[]) => {\r\n  if (args.length === 0) return false;\r\n  const or = args.some((arg) => Boolean(arg));\r\n  return !or;\r\n};\r\n\r\nexport default nor;\r\n",
+      "js": "/**\n * Performs a logical NOR operation on the given arguments.\n * Returns true if none of the arguments are truthy, otherwise returns false.\n *\n * @param args - The arguments to perform the NOR operation on.\n * @returns The result of the NOR operation.\n */\nconst nor = (...args) => {\n    if (args.length === 0)\n        return false;\n    const or = args.some((arg) => Boolean(arg));\n    return !or;\n};\nexport default nor;\n"
+    },
+    "category": "gates",
+    "type": "functions",
+    "examples": [
+      "import or from \".\";\r\n\r\nconsole.log(or(true, true));\r\n// Expected Output: false\r\n\r\nconsole.log(or(false, true));\r\n// Expected Output: false\r\n\r\nconsole.log(or(false, false));\r\n// Expected Output: true\r\n\r\nconsole.log(or());\r\n// Expected Output: true\r\n\r\nconsole.log(or(1, \"lazykit\"));\r\n// Expected Output: false\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Performs a logical NOR operation on the given arguments."
+      },
+      "md": "\r\nThe nor function is a utility function in TypeScript that performs a\r\nlogical NOR operation on the given arguments.\r\n"
+    },
+    "props": [
+      {
+        "title": "args",
+        "required": true,
+        "propDesc": "The arguments to perform the NOR operation on.",
+        "type": "any[]"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-17T09:52:18.167Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-17T09:52:18.167Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "or",
+    "code": {
+      "ts": "/**\r\n * Performs a logical OR operation on the given arguments.\r\n *\r\n * @param args - The arguments to perform the OR operation on.\r\n * @returns The result of the OR operation.\r\n */\r\nconst or = (...args: any[]) => {\r\n  return args.some((arg) => Boolean(arg));\r\n};\r\n\r\nexport default or;\r\n",
+      "js": "/**\n * Performs a logical OR operation on the given arguments.\n *\n * @param args - The arguments to perform the OR operation on.\n * @returns The result of the OR operation.\n */\nconst or = (...args) => {\n    return args.some((arg) => Boolean(arg));\n};\nexport default or;\n"
+    },
+    "category": "gates",
+    "type": "functions",
+    "examples": [
+      "import or from \".\";\r\n\r\nconsole.log(or(true, true));\r\n// Expected Output: true\r\n\r\nconsole.log(or(false, true));\r\n// Expected Output: true\r\n\r\nconsole.log(or(false, false));\r\n// Expected Output: false\r\n\r\nconsole.log(or());\r\n// Expected Output: false\r\n\r\nconsole.log(or(1, \"lazykit\"));\r\n// Expected Output: true\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Performs a logical OR operation on the given arguments."
+      },
+      "md": "\r\nThe or function is a utility function in TypeScript that performs a\r\nlogical OR operation on the given arguments.\r\n"
+    },
+    "props": [
+      {
+        "title": "args",
+        "required": true,
+        "propDesc": "The arguments to perform the OR operation on.",
+        "type": "any[]"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-17T09:52:18.172Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-17T09:52:18.172Z",
       "packageVersion": "0.1.0"
     }
   },
@@ -495,7 +565,12 @@
     "examples": [
       "import mapObj from \".\";\r\n\r\nconst obj1 = { a: 1, b: 2, c: 3 };\r\nconst result1 = mapObj(obj1, (value: number) => value * 2);\r\nconsole.log(result1);\r\n// Expected output:  { a: 2, b: 4, c: 6 }\r\n\r\nconst obj2 = {};\r\nconst result2 = mapObj(obj2, (value: any) => value);\r\nconsole.log(result2);\r\n// Expected output:  {}\r\n\r\nconst obj3 = { 1: \"one\", 2: \"two\", 3: \"three\" };\r\nconst result = mapObj(obj3, (value: string, i) => value.toUpperCase() + i);\r\nconsole.log(result);\r\n// Expected output: { 1: 'ONE1', 2: 'TWO2', 3: 'THREE3' }\r\n"
     ],
-    "docsMd": "---\r\ndesc: Same as Array.prototype.map, but for objects.\r\n---\r\n\r\nThe mapObj function is a utility function that applies a\r\ncallback function to each property of an input object and returns a new\r\nobject with the results. This function is similar to the\r\nArray.prototype.map method for arrays, but it works with objects.\r\n\r\nThe function is generic and can work with objects of any type. It takes\r\ntwo type parameters: T and U. T is the type of the values in the input\r\nobject, and U is the type of the values in the output object.\r\n\r\nThe function accepts two parameters: obj and callback. obj is the input\r\nobject, and callback is a function that gets applied to each property of\r\nobj. The callback function takes three parameters: value, key, and obj.\r\nvalue is the current property&apos;s value, key is the current property&apos;s\r\nkey, and obj is the original input object.\r\n",
+    "docs": {
+      "metaData": {
+        "desc": "Same as Array.prototype.map, but for objects."
+      },
+      "md": "\r\nThe mapObj function is a utility function that applies a\r\ncallback function to each property of an input object and returns a new\r\nobject with the results. This function is similar to the\r\nArray.prototype.map method for arrays, but it works with objects.\r\n\r\nThe function is generic and can work with objects of any type. It takes\r\ntwo type parameters: T and U. T is the type of the values in the input\r\nobject, and U is the type of the values in the output object.\r\n\r\nThe function accepts two parameters: obj and callback. obj is the input\r\nobject, and callback is a function that gets applied to each property of\r\nobj. The callback function takes three parameters: value, key, and obj.\r\nvalue is the current property&apos;s value, key is the current property&apos;s\r\nkey, and obj is the original input object.\r\n"
+    },
     "props": [
       {
         "title": "object",
@@ -511,11 +586,11 @@
       }
     ],
     "createdAt": {
-      "date": "2024-04-17T08:58:58.148Z",
+      "date": "2024-04-17T09:52:18.183Z",
       "packageVersion": "0.1.0"
     },
     "lastUpdated": {
-      "date": "2024-04-17T08:58:58.148Z",
+      "date": "2024-04-17T09:52:18.183Z",
       "packageVersion": "0.1.0"
     }
   }

@@ -8,7 +8,11 @@ import { SquareArrowOutUpRight } from "lucide-react";
 import PropsTable from "../_components/props-table";
 import CodeBlock from "../_components/code-block";
 import matter from "gray-matter";
-import { IDoc, IRegistryFunctionPropTable } from "@/types/registry.types";
+import {
+  IDoc,
+  IRegistryFunctionPropTable,
+  IRegistryJSON,
+} from "@/types/registry.types";
 import { marked } from "marked";
 const MethodPage = async ({ slug }: { slug: string[] }) => {
   if (!registry) return <NotFound />;
@@ -19,12 +23,10 @@ const MethodPage = async ({ slug }: { slug: string[] }) => {
       method.type === slug[0] &&
       method.category === slug[1] &&
       method.name === slug[2]
-  );
+  ) as IRegistryJSON;
   if (!methodData) return <NotFound />;
 
-  const dataFromMd = matter(methodData.docsMd);
-  const data = dataFromMd.data as IDoc;
-  const htmlContent = marked(dataFromMd.content);
+  const htmlContent = marked(methodData.docs.md);
 
   return (
     <div className="flex flex-col gap-4 lg:gap-8 2xl:gap-12">
@@ -33,11 +35,11 @@ const MethodPage = async ({ slug }: { slug: string[] }) => {
           {methodData.name}
         </h1>
         <p className="text-sm sm:text-base md:text-lg text-muted-foreground">
-          {data?.desc as string}
+          {methodData.docs?.metaData?.desc as string}
         </p>
-        {data.externalLinks && (
+        {methodData.docs?.metaData?.externalLinks && (
           <div className="flex gap-3">
-            {data.externalLinks.map((link, i) => (
+            {methodData.docs?.metaData?.externalLinks.map((link, i) => (
               <Link href={link.url} key={i} target="_blank">
                 <Badge
                   variant="secondary"

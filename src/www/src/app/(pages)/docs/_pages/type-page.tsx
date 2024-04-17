@@ -46,24 +46,17 @@ const TypePage = async ({ type }: { type: string }) => {
                       .map((method, index) => (
                         <li
                           key={index}
-                          className="text-base sm:text-lg text-muted-foreground hover:text-foreground flex max-w-full gap-2"
+                          className="text-base sm:text-lg text-muted-foreground flex max-w-full gap-2"
                         >
                           <Link
-                            className="underline"
+                            className="underline hover:text-foreground"
                             href={`/docs/${type}/${category.category}/${method.name}`}
                           >
                             {method.name}
                           </Link>
-                          {(async () => {
-                            const { Info } = await import(
-                              `@/registry/${type}/${category.category}/${method.name}/docs.tsx`
-                            );
-                            return (
-                              <p className="text-sm sm:text-base truncate self-end">
-                                : {Info.description}
-                              </p>
-                            );
-                          })()}
+                          <p className="text-sm sm:text-base truncate self-end">
+                            : {method.docs.metaData.desc}
+                          </p>
                         </li>
                       ))}
                   </ul>

@@ -15,7 +15,10 @@ export interface IRegistryJSON {
   category: string;
   type: string;
   examples: string[];
-  docsMd: string;
+  docs: {
+    metaData: IDoc;
+    md: string;
+  };
   props: IRegistryFunctionPropTable[];
 }
 

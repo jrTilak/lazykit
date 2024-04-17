@@ -6,8 +6,6 @@ import registry from "@/configs/registry.json";
 import types from "@/configs/types.json";
 import TypePage from "../_pages/type-page";
 import { PACKAGE_INFO } from "@/data/info";
-import matter from "gray-matter";
-import { IDoc } from "@/types/registry.types";
 
 const DocsPage = ({ params: { slug } }: { params: { slug: string[] } }) => {
   const predefinedPage = PAGES_CONFIG.find(
@@ -63,11 +61,10 @@ export const generateMetadata = async ({
         method.name === slug[2]
     );
     if (!methodData) return;
-    const dataFromMd = matter(methodData.docsMd);
-    const data = dataFromMd.data as IDoc;
+
     return {
       title: `${methodData?.name} | ${PACKAGE_INFO.name}`,
-      description: data?.desc as string,
+      description: methodData?.docs?.metaData?.desc as string,
     };
   }
 };

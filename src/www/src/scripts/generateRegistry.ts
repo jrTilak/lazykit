@@ -3,8 +3,9 @@ import { readFolders } from "../utils/readFolders";
 import { readFileAsString, readFiles } from "../utils/readFiles";
 import * as typescript from "typescript";
 import packageJSON from "../../package.json";
-import { IRegistryJSON } from "@/types/registry.types";
+import { IDoc, IRegistryJSON } from "@/types/registry.types";
 import { generateNavbar } from "./generateNavbar";
+import matter from "gray-matter";
 
 //eg:  registry/:type/:category/{index.ts, docs.tsx, *.examples.ts}
 const REGISTRY_DIR = "../registry";
@@ -139,6 +140,7 @@ async function main() {
                */
 
               const docsMd = readFileAsString(pathUptoMethod + "/docs.md");
+              const dataFromMd = matter(docsMd);
 
               // Check if default export is present
               if (!docsMd) {
@@ -208,7 +210,10 @@ async function main() {
                 category,
                 type,
                 examples,
-                docsMd,
+                docs: {
+                  metaData: dataFromMd.data as unknown as IDoc,
+                  md: dataFromMd.content,
+                },
                 props: props.default,
               };
 
@@ -273,7 +278,10 @@ async function main() {
                   }
 
                   //check if the docs have changed
-                  if (prevMethod.docsMd === updatedMethod.docsMd) {
+                  if (
+                    JSON.stringify(prevMethod.docs) ===
+                    JSON.stringify(updatedMethod.docs)
+                  ) {
                     console.log(
                       `No changes found in docs of ${type}/${category}/${method} 🚫`
                     );
