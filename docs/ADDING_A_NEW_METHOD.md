@@ -12,14 +12,22 @@ console.log(result);
 // Expected output: ...
 ```
 
-5. Create a file `docs.tsx` as the description of the method.
-   It needs to export the following:
+5. Create a file called `props.ts` as the description of props. It should export a default object as given in the files in the any of the existing methods. [here](../src/www/src/registry/)
 
-- `default`: The description for the method as a React component.
-- `Info`: The additional information for the method as object which contains:
-  - `description`: The description for the method.
-  - `externalLinks`: The array of external links for the method. (Optional)
-- `Props`: The props for the method as a React component.
+6. Create a file `docs.md` as the description of the method.
+
+```md
+---
+desc: Short description of the method
+externalLinks:
+  - label: Title of the link
+    url: URL of the link
+  - title: Title of the link
+    label: URL of the link etc
+---
+
+You can write a detailed description of the method here.
+```
 
 _You can see any of the existing methods for reference._ [here](../src/www/src/registry/)
 
