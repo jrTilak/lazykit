@@ -255,6 +255,7 @@ async function main() {
               } else {
                 //if the method already exists, check if the code has changed
                 if (prevMethod.code.ts === updatedMethod.code.ts) {
+                  let SHOULD_UPDATE = false;
                   //check if the examples have changed
                   if (
                     JSON.stringify(prevMethod.examples) ===
@@ -263,18 +264,12 @@ async function main() {
                     console.log(
                       `No changes found in example of ${type}/${category}/${method} 🚫`
                     );
-
-                    REGISTRY_JSON.push(prevMethod);
                   } else {
                     //if the examples have changed, update the lastUpdated field and push the method to the registry
                     console.log(
                       `Some changes found in example of ${type}/${category}/${method} 🔄`
                     );
-                    REGISTRY_JSON.push({
-                      ...updatedMethod,
-                      createdAt: prevMethod.createdAt,
-                      lastUpdated: prevMethod.lastUpdated,
-                    });
+                    SHOULD_UPDATE = true;
                   }
 
                   //check if the docs have changed
@@ -285,18 +280,12 @@ async function main() {
                     console.log(
                       `No changes found in docs of ${type}/${category}/${method} 🚫`
                     );
-
-                    REGISTRY_JSON.push(prevMethod);
                   } else {
                     //if the docs have changed, update the lastUpdated field and push the method to the registry
                     console.log(
                       `Some changes found in docs of ${type}/${category}/${method} 🔄`
                     );
-                    REGISTRY_JSON.push({
-                      ...updatedMethod,
-                      createdAt: prevMethod.createdAt,
-                      lastUpdated: prevMethod.lastUpdated,
-                    });
+                    SHOULD_UPDATE = true;
                   }
 
                   // check if the props have changed
@@ -307,17 +296,23 @@ async function main() {
                     console.log(
                       `No changes found in props of ${type}/${category}/${method} 🚫`
                     );
-
-                    REGISTRY_JSON.push(prevMethod);
                   } else {
                     //if the props have changed, update the lastUpdated field and push the method to the registry
                     console.log(
                       `Some changes found in props of ${type}/${category}/${method} 🔄`
                     );
+                    SHOULD_UPDATE = true;
+                  }
+                  if (!SHOULD_UPDATE) {
+                    REGISTRY_JSON.push(prevMethod);
+                  } else {
                     REGISTRY_JSON.push({
                       ...updatedMethod,
                       createdAt: prevMethod.createdAt,
-                      lastUpdated: prevMethod.lastUpdated,
+                      lastUpdated: {
+                        date: new Date().toISOString(),
+                        packageVersion: packageJSON.version,
+                      },
                     });
                   }
                 } else {
