@@ -7,7 +7,7 @@ import { Fragment } from "react";
 const ChangeLog = async () => {
   const getReleasePRs = async () => {
     const res = await fetch(
-      `https://api.github.com/repos/${GITHUB_INFO.user}/${GITHUB_INFO.repo}/pulls?label=release&state=closed`,
+      `https://api.github.com/repos/${GITHUB_INFO.user}/${GITHUB_INFO.repo}/pulls?&state=closed`,
       {
         next: {
           revalidate: 60 * 60 * 24, // 24 hours
@@ -16,7 +16,12 @@ const ChangeLog = async () => {
     );
     const data = await res.json();
     if (res.status !== 200) return [];
-    return data as {
+    const filteredData = data.filter(
+      (pr: any) =>
+        pr.labels.some((label: any) => label.name === "release") &&
+        pr.state === "closed"
+    );
+    return filteredData as {
       title: string;
       body: string;
       html_url: string;
