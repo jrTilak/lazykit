@@ -26,3 +26,9 @@ Visit [here](./docs/README.md) for contributing guidelines.
 ## License
 
 Visit [here](./LICENSE.md) for license information.
+
+## Some Useful Links
+
+- [NPM Package](https://www.npmjs.com/package/@jrtilak/lazykit)
+- [Develop Branch](https://lazykit-www-git-dev-tilak-thapas-projects.vercel.app/)
+- [Master Branch](https://lazykit.thapatilak.com.np/)
