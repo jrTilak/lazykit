@@ -1,7 +1,7 @@
 "use client";
 import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
-import { Check, Files, LucideIcon, WrapText, X } from "lucide-react";
+import { Check, Files, WrapText, X } from "lucide-react";
 import { useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";

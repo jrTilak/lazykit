@@ -15,10 +15,15 @@ export interface IRegistryJSON {
   category: string;
   type: string;
   examples: string[];
+  docs: {
+    metaData: IDoc;
+    md: string;
+  };
+  props: IRegistryFunctionPropTable[];
 }
 
 export interface IDoc {
-  description: string;
+  desc: string;
   externalLinks?: {
     label: string;
     url: string;
@@ -52,14 +57,14 @@ export type IRegistryFunctionPropTable =
       required: boolean;
       defaultValue: string | undefined;
       propDesc: string;
-      type: "string" | "number" | "boolean" | "object" | "array" | "function";
-      typeDesc?: string;
+      type: "enum";
+      enums: string[];
     }
   | {
       title: string;
       required: boolean;
       defaultValue: string | undefined;
       propDesc: string;
-      type: "enum";
-      enums: string[];
+      type: string;
+      typeDesc?: string;
     };

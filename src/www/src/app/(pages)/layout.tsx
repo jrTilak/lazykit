@@ -5,6 +5,8 @@ import { META_DATA } from "@/data/metadata";
 import { Toaster } from "@/components/ui/toaster";
 import Header from "@/components/reusable/top-header";
 import { ThemeProvider } from "@/providers/theme-provider";
+import React from "react";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,6 +32,7 @@ export default function RootLayout({
           </div>
           <Toaster />
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );

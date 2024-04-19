@@ -58,9 +58,12 @@ export const generateNavbar = () => {
      * Get all the types available in the registry
      * This will be used to generate the navbar
      */
-    const availableTypes = registry.map((method) => method.type);
-
+    const availableTypesArr = registry.map((method) => method.type);
+    //@ts-ignore
+    // Remove duplicates and sort alphabetically
+    const availableTypes = [...new Set(availableTypesArr)].sort();
     /**
+     *
      * Navbar links
      */
     const NAV_LINKS: INavLink[] = [
@@ -88,9 +91,12 @@ export const generateNavbar = () => {
         url: `/docs/${type}`,
       });
 
-      const categories = registry
+      const categoriesArr = registry
         .filter((method) => method.type === type)
         .map((method) => method.category);
+      //@ts-ignore
+      // Remove duplicates and sort alphabetically
+      const categories = [...new Set(categoriesArr)].sort();
       const link: INavLink = {
         heading: type[0].toUpperCase() + type.slice(1),
         categories: categories.map((category) => {

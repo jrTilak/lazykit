@@ -7,16 +7,16 @@
         "url": "/docs/introduction"
       },
       {
+        "label": "CLI",
+        "url": "/docs/cli"
+      },
+      {
         "label": "Installation",
         "url": "/docs/installation"
       },
       {
         "label": "lazykit.config.json",
         "url": "/docs/lazykit-config"
-      },
-      {
-        "label": "CLI",
-        "url": "/docs/cli"
       },
       {
         "label": "Changelog",
@@ -34,6 +34,80 @@
           {
             "label": "chunk",
             "url": "/docs/functions/arrays/chunk"
+          },
+          {
+            "label": "compact",
+            "url": "/docs/functions/arrays/compact"
+          },
+          {
+            "label": "insert",
+            "url": "/docs/functions/arrays/insert"
+          },
+          {
+            "label": "sampleArr",
+            "url": "/docs/functions/arrays/sampleArr"
+          },
+          {
+            "label": "search",
+            "url": "/docs/functions/arrays/search"
+          },
+          {
+            "label": "shuffleArr",
+            "url": "/docs/functions/arrays/shuffleArr"
+          },
+          {
+            "label": "unique",
+            "url": "/docs/functions/arrays/unique"
+          }
+        ]
+      },
+      {
+        "label": "Functional",
+        "url": "/docs/functions/functional",
+        "methods": [
+          {
+            "label": "retry",
+            "url": "/docs/functions/functional/retry"
+          },
+          {
+            "label": "sleep",
+            "url": "/docs/functions/functional/sleep"
+          },
+          {
+            "label": "timeout",
+            "url": "/docs/functions/functional/timeout"
+          }
+        ]
+      },
+      {
+        "label": "Gates",
+        "url": "/docs/functions/gates",
+        "methods": [
+          {
+            "label": "and",
+            "url": "/docs/functions/gates/and"
+          },
+          {
+            "label": "nand",
+            "url": "/docs/functions/gates/nand"
+          },
+          {
+            "label": "nor",
+            "url": "/docs/functions/gates/nor"
+          },
+          {
+            "label": "or",
+            "url": "/docs/functions/gates/or"
+          }
+        ]
+      },
+      {
+        "label": "Objects",
+        "url": "/docs/functions/objects",
+        "methods": [
+          {
+            "label": "mapObj",
+            "url": "/docs/functions/objects/mapObj"
           }
         ]
       }

@@ -3,7 +3,6 @@ import PAGES_CONFIG from "../_configs/_pages.config";
 import MethodPage from "../_pages/method-page";
 import prevNextBtnJson from "@/configs/prev-next-button-links.json";
 import registry from "@/configs/registry.json";
-import { Metadata } from "next";
 import types from "@/configs/types.json";
 import TypePage from "../_pages/type-page";
 import { PACKAGE_INFO } from "@/data/info";
@@ -61,12 +60,11 @@ export const generateMetadata = async ({
         method.category === slug[1] &&
         method.name === slug[2]
     );
-    const MethodComp = await import(
-      `@/registry/${slug[0]}/${slug[1]}/${methodData?.name}/docs.tsx`
-    );
+    if (!methodData) return;
+
     return {
       title: `${methodData?.name} | ${PACKAGE_INFO.name}`,
-      description: MethodComp?.Info?.description,
+      description: methodData?.docs?.metaData?.desc as string,
     };
   }
 };
