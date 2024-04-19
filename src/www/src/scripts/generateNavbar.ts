@@ -60,8 +60,10 @@ export const generateNavbar = () => {
      */
     const availableTypesArr = registry.map((method) => method.type);
     //@ts-ignore
-    const availableTypes = [...new Set(availableTypesArr)];
+    // Remove duplicates and sort alphabetically
+    const availableTypes = [...new Set(availableTypesArr)].sort();
     /**
+     *
      * Navbar links
      */
     const NAV_LINKS: INavLink[] = [
@@ -93,7 +95,8 @@ export const generateNavbar = () => {
         .filter((method) => method.type === type)
         .map((method) => method.category);
       //@ts-ignore
-      const categories = [...new Set(categoriesArr)];
+      // Remove duplicates and sort alphabetically
+      const categories = [...new Set(categoriesArr)].sort();
       const link: INavLink = {
         heading: type[0].toUpperCase() + type.slice(1),
         categories: categories.map((category) => {

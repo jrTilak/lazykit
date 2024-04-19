@@ -57,7 +57,7 @@ const PropsTable = ({ data }: Props) => {
                   <TooltipTrigger>
                     <Info className="h-4 w-4 text-muted-foreground" />
                   </TooltipTrigger>
-                  <TooltipContent>
+                  <TooltipContent className="max-w-[400px]">
                     <p>{prop.propDesc}</p>
                   </TooltipContent>
                 </Tooltip>

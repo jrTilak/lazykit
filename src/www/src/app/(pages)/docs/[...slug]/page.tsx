@@ -60,12 +60,11 @@ export const generateMetadata = async ({
         method.category === slug[1] &&
         method.name === slug[2]
     );
-    const MethodComp = await import(
-      `@/registry/${slug[0]}/${slug[1]}/${methodData?.name}/docs.tsx`
-    );
+    if (!methodData) return;
+
     return {
       title: `${methodData?.name} | ${PACKAGE_INFO.name}`,
-      description: MethodComp?.Info?.description,
+      description: methodData?.docs?.metaData?.desc as string,
     };
   }
 };

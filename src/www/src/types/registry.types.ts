@@ -15,10 +15,15 @@ export interface IRegistryJSON {
   category: string;
   type: string;
   examples: string[];
+  docs: {
+    metaData: IDoc;
+    md: string;
+  };
+  props: IRegistryFunctionPropTable[];
 }
 
 export interface IDoc {
-  description: string;
+  desc: string;
   externalLinks?: {
     label: string;
     url: string;

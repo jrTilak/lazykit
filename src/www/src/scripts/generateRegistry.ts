@@ -3,8 +3,9 @@ import { readFolders } from "../utils/readFolders";
 import { readFileAsString, readFiles } from "../utils/readFiles";
 import * as typescript from "typescript";
 import packageJSON from "../../package.json";
-import { IRegistryJSON } from "@/types/registry.types";
+import { IDoc, IRegistryJSON } from "@/types/registry.types";
 import { generateNavbar } from "./generateNavbar";
+import matter from "gray-matter";
 
 //eg:  registry/:type/:category/{index.ts, docs.tsx, *.examples.ts}
 const REGISTRY_DIR = "../registry";
@@ -13,7 +14,8 @@ const PATH_TO_REGISTRY_CONFIG = "../configs/registry.json";
 const NECESSARY_FILES = [
   "index.ts",
   "index.test.ts",
-  "docs.tsx",
+  "docs.md",
+  "props.ts",
   // "*.example.ts",
 ];
 
@@ -74,7 +76,7 @@ async function main() {
            * List all the folders in /:type/:category
            * Each folder is a method's content like index.ts, docs.tsx, etc
            */
-          const methods = readFolders(pathUptoCategory);
+          const methods = readFolders(pathUptoCategory).sort();
           console.log(`${methods.length} methods found in ${type}/${category}`);
 
           /**
@@ -137,52 +139,25 @@ async function main() {
                * See if that file exports a default object and another object named Info with  description as compulsory field and externalLinks as optional fields. If externalLinks is present, it should be an array of objects with label and url as compulsory fields.
                */
 
-              const docsData = await import(
-                `@/registry/${type}/${category}/${method}/docs.tsx`
-              );
+              const docsMd = readFileAsString(pathUptoMethod + "/docs.md");
+              const dataFromMd = matter(docsMd);
 
               // Check if default export is present
-              if (!docsData.default) {
+              if (!docsMd) {
                 console.error(
-                  `Error: Default export missing in ${type}/${category}/${method}/docs.tsx. 😐\nExiting...`
+                  `Error: docs.md file is missing in ${type}/${category}/${method}/. 😐\nExiting...`
                 );
                 process.exit(1);
-              }
-
-              // Check if Info export is present
-              if (!docsData.Info) {
-                console.error(
-                  `Error: Info export missing in ${type}/${category}/${method}/docs.tsx. 😐\nExiting...`
-                );
-                process.exit(1);
-              } else {
-                if (!docsData.Info.description) {
-                  console.error(
-                    `Error: Description field missing in Info export in ${type}/${category}/${method}/docs.tsx. 😐\nExiting...`
-                  );
-                  process.exit(1);
-                }
-                if (docsData.Info.externalLinks) {
-                  if (!Array.isArray(docsData.Info.externalLinks)) {
-                    console.error(
-                      `Error: externalLinks should be an array in Info export in ${type}/${category}/${method}/docs.tsx. 😐\nExiting...`
-                    );
-                    process.exit(1);
-                  }
-                  docsData.Info.externalLinks.forEach((link: any) => {
-                    if (!link.label || !link.url) {
-                      console.error(
-                        `Error: label and url are compulsory fields in externalLinks array in Info export in ${type}/${category}/${method}/docs.tsx. 😐\nExiting...`
-                      );
-                      process.exit(1);
-                    }
-                  });
-                }
               }
 
               // Check if Props export is present
-              if (docsData.Props) {
-                docsData.Props.forEach((prop: any) => {
+
+              const props = await import(
+                `@/registry/${type}/${category}/${method}/props.ts`
+              );
+
+              if (props.default) {
+                props.default.forEach((prop: any) => {
                   if (!prop.title || !prop.propDesc || !prop.type) {
                     console.error(
                       `Error: title, propDesc, type are missing in Props export in ${type}/${category}/${method}/docs.tsx. 😐\nExiting...`
@@ -192,7 +167,7 @@ async function main() {
                 });
               } else {
                 console.error(
-                  `Error: Props export missing in ${type}/${category}/${method}/docs.tsx. 😐\nExiting...`
+                  `Error: Default export is missing in ${type}/${category}/${method}/props.ts. 😐\nExiting...`
                 );
                 process.exit(1);
               }
@@ -235,6 +210,11 @@ async function main() {
                 category,
                 type,
                 examples,
+                docs: {
+                  metaData: dataFromMd.data as unknown as IDoc,
+                  md: dataFromMd.content,
+                },
+                props: props.default,
               };
 
               /**
@@ -275,6 +255,7 @@ async function main() {
               } else {
                 //if the method already exists, check if the code has changed
                 if (prevMethod.code.ts === updatedMethod.code.ts) {
+                  let SHOULD_UPDATE = false;
                   //check if the examples have changed
                   if (
                     JSON.stringify(prevMethod.examples) ===
@@ -283,17 +264,55 @@ async function main() {
                     console.log(
                       `No changes found in example of ${type}/${category}/${method} 🚫`
                     );
-
-                    REGISTRY_JSON.push(prevMethod);
                   } else {
                     //if the examples have changed, update the lastUpdated field and push the method to the registry
                     console.log(
                       `Some changes found in example of ${type}/${category}/${method} 🔄`
                     );
+                    SHOULD_UPDATE = true;
+                  }
+
+                  //check if the docs have changed
+                  if (
+                    JSON.stringify(prevMethod.docs) ===
+                    JSON.stringify(updatedMethod.docs)
+                  ) {
+                    console.log(
+                      `No changes found in docs of ${type}/${category}/${method} 🚫`
+                    );
+                  } else {
+                    //if the docs have changed, update the lastUpdated field and push the method to the registry
+                    console.log(
+                      `Some changes found in docs of ${type}/${category}/${method} 🔄`
+                    );
+                    SHOULD_UPDATE = true;
+                  }
+
+                  // check if the props have changed
+                  if (
+                    JSON.stringify(prevMethod.props) ===
+                    JSON.stringify(updatedMethod.props)
+                  ) {
+                    console.log(
+                      `No changes found in props of ${type}/${category}/${method} 🚫`
+                    );
+                  } else {
+                    //if the props have changed, update the lastUpdated field and push the method to the registry
+                    console.log(
+                      `Some changes found in props of ${type}/${category}/${method} 🔄`
+                    );
+                    SHOULD_UPDATE = true;
+                  }
+                  if (!SHOULD_UPDATE) {
+                    REGISTRY_JSON.push(prevMethod);
+                  } else {
                     REGISTRY_JSON.push({
                       ...updatedMethod,
                       createdAt: prevMethod.createdAt,
-                      lastUpdated: prevMethod.lastUpdated,
+                      lastUpdated: {
+                        date: new Date().toISOString(),
+                        packageVersion: packageJSON.version,
+                      },
                     });
                   }
                 } else {
@@ -312,10 +331,6 @@ async function main() {
                 }
               }
             })
-          );
-
-          console.log(
-            `Completed reading ${methods.length} methods in ${type}/${category} 🔥\n`
           );
         })
       );
