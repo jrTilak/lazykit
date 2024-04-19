@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <a href="https://lazykit.thapatilak.com.np/"><img src="./src/assets/logo.svg" alt="@jrtilak/lazykit" width="150"></a>
+  <a href="https://lazykit.thapatilak.com.np/"><img src="https://lazykit.thapatilak.com.np/logo.svg" alt="@jrtilak/lazykit" width="150"></a>
   <br>
   @jrtilak/lazykit
   <br>
