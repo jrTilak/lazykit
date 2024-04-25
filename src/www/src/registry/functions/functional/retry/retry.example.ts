@@ -1,7 +1,7 @@
 import retry from ".";
 
 const fn = async () => {
-  Promise.reject(new Error("failed"));
+  throw new Error("failed");
 };
 
 retry(fn, 2, 1000).catch((error) => {

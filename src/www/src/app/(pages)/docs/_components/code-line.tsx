@@ -24,10 +24,13 @@ const CodeLine = ({
     Icon: Files,
   });
   const { toast } = useToast();
+
+  const codeWithLangFlag = `${code} -${lang === "js" ? "js" : "ts"}`;
+
   const handleCopy = () => {
     setIsCopying((prev) => ({ ...prev, isCopying: true }));
     try {
-      navigator.clipboard.writeText(code);
+      navigator.clipboard.writeText(showLangFlag ? codeWithLangFlag : code);
       setIsCopying((prev) => ({ ...prev, Icon: Check }));
       toast({
         description: "Code copied to clipboard 🚀",
@@ -44,7 +47,7 @@ const CodeLine = ({
       }, 2000);
     }
   };
-  const codeWithLangFlag = `${code} -${lang === "js" ? "js" : "ts"}`;
+
   return (
     <div className={`relative overflow-y-scroll ${className}`}>
       <button
