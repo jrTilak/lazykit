@@ -48,88 +48,6 @@
     }
   },
   {
-    "name": "unique",
-    "code": {
-      "ts": "/**\r\n * Returns an array with unique elements from the input array.\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} arr - The input array.\r\n * @returns {T[]} - An array with unique elements.\r\n */\r\nconst unique = <T>(arr: T[]): T[] => {\r\n  //@ts-ignore\r\n  return [...new Set(arr)];\r\n};\r\n\r\nexport default unique;\r\n",
-      "js": "/**\n * Returns an array with unique elements from the input array.\n *\n * @template T - The type of elements in the array.\n * @param {T[]} arr - The input array.\n * @returns {T[]} - An array with unique elements.\n */\nconst unique = (arr) => {\n    //@ts-ignore\n    return [...new Set(arr)];\n};\nexport default unique;\n"
-    },
-    "category": "arrays",
-    "type": "functions",
-    "examples": [
-      "import unique from \".\";\r\n\r\nconst arr = [1, 2, 3, 3, 4, 5, 5, 6, 7, 8, 8, 9, 10];\r\nconst result = unique(arr);\r\nconsole.log(result);\r\n// Expected Output: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]\r\n"
-    ],
-    "docs": {
-      "metaData": {
-        "desc": "Creates a unique array from the input array."
-      },
-      "md": "\r\nThe unique function is a utility function in JavaScript that takes an\r\narray and returns a new array with all duplicate values removed. The\r\nfunction uses set to remove duplicate values from the array.\r\n"
-    },
-    "props": [
-      {
-        "title": "arr",
-        "required": true,
-        "propDesc": "The array to process",
-        "type": "any[]"
-      }
-    ],
-    "createdAt": {
-      "date": "2024-04-17T13:28:44.112Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-17T13:28:44.112Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
-    "name": "retry",
-    "code": {
-      "ts": "/**\r\n * Retries the given function a specified number of times with a delay between each retry.\r\n * @param fn The function to retry.\r\n * @param retries The number of times to retry the function. Default is 3.\r\n * @param delay The delay in milliseconds between each retry. Default is 1000ms (1 second).\r\n * @returns A Promise that resolves to the result of the function if it succeeds, or rejects with the last error if all retries fail.\r\n */\r\nconst retry = async <T>(\r\n  fn: Function,\r\n  retries: number = 3,\r\n  delay: number = 1000\r\n): Promise<T> => {\r\n  try {\r\n    return await fn();\r\n  } catch (error) {\r\n    if (retries > 0) {\r\n      await new Promise((resolve) => setTimeout(resolve, delay));\r\n      return retry(fn, retries - 1, delay);\r\n    }\r\n    throw error;\r\n  }\r\n};\r\n\r\nexport default retry;\r\n",
-      "js": "/**\n * Retries the given function a specified number of times with a delay between each retry.\n * @param fn The function to retry.\n * @param retries The number of times to retry the function. Default is 3.\n * @param delay The delay in milliseconds between each retry. Default is 1000ms (1 second).\n * @returns A Promise that resolves to the result of the function if it succeeds, or rejects with the last error if all retries fail.\n */\nconst retry = async (fn, retries = 3, delay = 1000) => {\n    try {\n        return await fn();\n    }\n    catch (error) {\n        if (retries > 0) {\n            await new Promise((resolve) => setTimeout(resolve, delay));\n            return retry(fn, retries - 1, delay);\n        }\n        throw error;\n    }\n};\nexport default retry;\n"
-    },
-    "category": "functional",
-    "type": "functions",
-    "examples": [
-      "import retry from \".\";\r\n\r\nconst fn = async () => {\r\n  throw new Error(\"failed\");\r\n};\r\n\r\nretry(fn, 2, 1000).catch((error) => {\r\n  console.log(error.message);\r\n});\r\n// Expected output: \"failed\" after retrying twice but It will call the function 3 times.\r\n"
-    ],
-    "docs": {
-      "metaData": {
-        "desc": "Retries the given function a specified number of times with a delay between each retry."
-      },
-      "md": "\r\nThe retry function retries the given function a specified number of\r\ntimes with a delay between each retry. If the function succeeds within\r\nthe specified number of retries, the Promise will resolve with the\r\nresult of the function. If the function fails on all retries, the\r\nPromise will be rejected with the last error. The retry function is\r\ndesigned to handle both synchronous and asynchronous functions, as it\r\nwraps the call to fn with Promise.resolve. This ensures that fn is\r\nalways treated as a Promise, allowing the use of .then and .catch to\r\nhandle the result or any errors.\r\n\r\nThe function retries the given function a specified number of times. The\r\ntotal number of times a function is called is retries + 1.\r\n"
-    },
-    "props": [
-      {
-        "title": "function",
-        "required": true,
-        "propDesc": "The function to retry.",
-        "type": "Function"
-      },
-      {
-        "title": "retries",
-        "required": false,
-        "defaultValue": "3",
-        "propDesc": "The number of times to retry the function.",
-        "type": "number"
-      },
-      {
-        "title": "delay",
-        "required": false,
-        "defaultValue": "1000",
-        "propDesc": "The delay in milliseconds between each retry.",
-        "type": "number"
-      }
-    ],
-    "createdAt": {
-      "date": "2024-04-17T13:28:44.122Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-26T06:19:26.171Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
     "name": "compact",
     "code": {
       "ts": "/**\r\n * Removes falsy values\r\n * Also removes empty objects and arrays if strict is true\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} array - The array to compact.\r\n * @param {boolean} [strict=false] - If true, also removes empty objects and arrays.\r\n * @returns {T[]} - The compacted array.\r\n */\r\nconst compact = <T>(array: T[], strict: boolean = false): T[] => {\r\n  let truthy = array.filter((item) => {\r\n    // remove all falsy values and excluded values\r\n    return Boolean(item);\r\n  });\r\n\r\n  if (strict) {\r\n    // remove all empty objects\r\n    truthy = truthy.filter((item) => {\r\n      if (typeof item === \"object\" && !(item instanceof Array)) {\r\n        return Object.keys(item as object).length > 0;\r\n      }\r\n      return true;\r\n    });\r\n    // remove all empty arrays\r\n    truthy = truthy.filter((item) => {\r\n      if (Array.isArray(item)) {\r\n        return (item as []).length > 0;\r\n      }\r\n      return true;\r\n    });\r\n  }\r\n  return truthy;\r\n};\r\n\r\nexport default compact;\r\n",
@@ -225,6 +143,80 @@
     }
   },
   {
+    "name": "remove",
+    "code": {
+      "ts": "/**\r\n * Removes element(s) from an array based on the given index(es).\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} array - The array from which elements will be removed.\r\n * @param {number | number[]} index - The index(es) of the element(s) to be removed.\r\n * @returns {T[]} - A new array with the specified element(s) removed.\r\n */\r\nconst remove = <T>(array: T[], index: number | number[]): T[] => {\r\n  const len = array.length;\r\n  if (Array.isArray(index)) {\r\n    // convert negative indices to their positive counterparts\r\n    const indices = index.map((i) => (i < 0 ? len + i : i));\r\n    return array.filter((_, i) => !indices.includes(i));\r\n  }\r\n  index = index < 0 ? len + index : index;\r\n  return array.filter((_, i) => i !== index);\r\n};\r\n\r\nexport default remove;\r\n",
+      "js": "/**\n * Removes element(s) from an array based on the given index(es).\n *\n * @template T - The type of elements in the array.\n * @param {T[]} array - The array from which elements will be removed.\n * @param {number | number[]} index - The index(es) of the element(s) to be removed.\n * @returns {T[]} - A new array with the specified element(s) removed.\n */\nconst remove = (array, index) => {\n    const len = array.length;\n    if (Array.isArray(index)) {\n        // convert negative indices to their positive counterparts\n        const indices = index.map((i) => (i < 0 ? len + i : i));\n        return array.filter((_, i) => !indices.includes(i));\n    }\n    index = index < 0 ? len + index : index;\n    return array.filter((_, i) => i !== index);\n};\nexport default remove;\n"
+    },
+    "category": "arrays",
+    "type": "functions",
+    "examples": [
+      "import remove from \".\";\r\n\r\n// for a index\r\nremove([1, 2, 3, 4, 5], 2);\r\n// Expected Output: [1, 2, 4, 5]\r\n\r\n// for array of indices\r\nremove([1, 2, 3, 4, 5], [1, 3]);\r\n// Expected Output: [1, 3, 5]\r\n\r\n// for negative index\r\nremove([1, 2, 3, 4, 5], -2);\r\n// Expected Output: [1, 2, 3, 5]\r\n\r\n// for mixed indices\r\nremove([1, 2, 3, 4, 5], [1, -3]);\r\n// Expected Output: [1, 4, 5]\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Removes elements from an array at a specified index."
+      },
+      "md": "\r\nThe remove function is a generic function in TypeScript that is designed to remove elements from an array at a specified index. The function takes two parameters: an array arr of type T[], an index or array of indices of type number.\r\n\r\nIt returns a new array with the elements removed at the specified index without modifying the original array. If the index is negative, the index is treated as an index from the end of the array.\r\n"
+    },
+    "props": [
+      {
+        "title": "array",
+        "required": true,
+        "propDesc": "The array to process.",
+        "type": "array"
+      },
+      {
+        "title": "index(s)",
+        "required": true,
+        "propDesc": "The index(es) of the array to be removed.",
+        "type": "number | number[]"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-26T11:24:18.446Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-26T11:24:18.447Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "sampleArr",
+    "code": {
+      "ts": "/**\r\n * Generates an array of random numbers.\r\n *\r\n * @param size - The size of the array to generate.\r\n * @returns An array of random numbers.\r\n * @throws {Error} If the size is a negative number.\r\n */\r\nconst sampleArr = (size: number) => {\r\n  if (size < 0) throw new Error(\"Size must be a positive number\");\r\n  return Array.from({ length: size }, (_, i) => Math.floor(Math.random() * i));\r\n};\r\n\r\nexport default sampleArr;\r\n",
+      "js": "/**\n * Generates an array of random numbers.\n *\n * @param size - The size of the array to generate.\n * @returns An array of random numbers.\n * @throws {Error} If the size is a negative number.\n */\nconst sampleArr = (size) => {\n    if (size < 0)\n        throw new Error(\"Size must be a positive number\");\n    return Array.from({ length: size }, (_, i) => Math.floor(Math.random() * i));\n};\nexport default sampleArr;\n"
+    },
+    "category": "arrays",
+    "type": "functions",
+    "examples": [
+      "import sampleArr from \".\";\r\n\r\nconst arr = sampleArr(5);\r\nconsole.log(arr);\r\n// Expected output: an array of 5 random numbers\r\n\r\n// const negativeArr = sampleArr(-1);\r\n// Expected output: Throws an error\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Generates an array of random numbers."
+      },
+      "md": "\r\nThis sampleArr function is a utility function in JavaScript that takes a\r\nsize parameter and generates an array of random numbers. The size\r\nparameter specifies the length of the array to generate. The function\r\nuses the Math.random() method to generate random numbers between 0 and\r\nthe specified size. The function returns an array of random numbers with\r\nthe specified length.\r\n\r\nThe function throws an error if the size parameter is a negative number.\r\n"
+    },
+    "props": [
+      {
+        "title": "size",
+        "required": true,
+        "propDesc": "The size of the array to generate, must be a positive number.",
+        "type": "number"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-17T13:28:44.080Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-17T13:28:44.080Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
     "name": "search",
     "code": {
       "ts": "/**\r\n * Searches an array of objects based on a query string and specified keys.\r\n *\r\n * @template T - The type of objects in the array.\r\n * @param {T[]} array - The array of objects to search.\r\n * @param {string} queryString - The query string to search for.\r\n * @param {(keyof T)[] | string[]} keys - The keys to search within each object.\r\n * @returns {T[]} - The filtered array of objects that match the search criteria.\r\n */\r\nconst search = <T extends Record<string, unknown>>(\r\n  array: T[],\r\n  queryString: string,\r\n  keys: (keyof T)[] | string[]\r\n): T[] => {\r\n  // Check if the query string or keys are empty, return empty array if true\r\n  try {\r\n    if (keys.length === 0) {\r\n      return []; // Return empty array if no keys are provided\r\n    }\r\n\r\n    if (!queryString.trim()) {\r\n      return array; // Return the original array if the query string is empty\r\n    }\r\n\r\n    // Loop through the array to filter objects\r\n    const filteredArray = array.filter((obj) => {\r\n      // Loop through the keys of each object\r\n      for (let key of keys) {\r\n        // Convert the value to string only for the comparison\r\n\r\n        let value = obj[key] as any;\r\n\r\n        if (typeof value !== \"string\" && typeof value !== \"number\") {\r\n          continue; // Skip the key if it is not a string or number\r\n        }\r\n        if (typeof value === \"number\") {\r\n          value = value.toString();\r\n        }\r\n        value = value.toLowerCase();\r\n        if (value.includes(queryString.toLowerCase()?.trim())) {\r\n          return true;\r\n        }\r\n      }\r\n      // Return false if none of the keys contain the query string\r\n      return false;\r\n    });\r\n\r\n    // Return the filtered array\r\n    return filteredArray;\r\n  } catch (error) {\r\n    return [];\r\n  }\r\n};\r\n\r\nexport default search;\r\n",
@@ -305,36 +297,84 @@
     }
   },
   {
-    "name": "sampleArr",
+    "name": "unique",
     "code": {
-      "ts": "/**\r\n * Generates an array of random numbers.\r\n *\r\n * @param size - The size of the array to generate.\r\n * @returns An array of random numbers.\r\n * @throws {Error} If the size is a negative number.\r\n */\r\nconst sampleArr = (size: number) => {\r\n  if (size < 0) throw new Error(\"Size must be a positive number\");\r\n  return Array.from({ length: size }, (_, i) => Math.floor(Math.random() * i));\r\n};\r\n\r\nexport default sampleArr;\r\n",
-      "js": "/**\n * Generates an array of random numbers.\n *\n * @param size - The size of the array to generate.\n * @returns An array of random numbers.\n * @throws {Error} If the size is a negative number.\n */\nconst sampleArr = (size) => {\n    if (size < 0)\n        throw new Error(\"Size must be a positive number\");\n    return Array.from({ length: size }, (_, i) => Math.floor(Math.random() * i));\n};\nexport default sampleArr;\n"
+      "ts": "/**\r\n * Returns an array with unique elements from the input array.\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} arr - The input array.\r\n * @returns {T[]} - An array with unique elements.\r\n */\r\nconst unique = <T>(arr: T[]): T[] => {\r\n  //@ts-ignore\r\n  return [...new Set(arr)];\r\n};\r\n\r\nexport default unique;\r\n",
+      "js": "/**\n * Returns an array with unique elements from the input array.\n *\n * @template T - The type of elements in the array.\n * @param {T[]} arr - The input array.\n * @returns {T[]} - An array with unique elements.\n */\nconst unique = (arr) => {\n    //@ts-ignore\n    return [...new Set(arr)];\n};\nexport default unique;\n"
     },
     "category": "arrays",
     "type": "functions",
     "examples": [
-      "import sampleArr from \".\";\r\n\r\nconst arr = sampleArr(5);\r\nconsole.log(arr);\r\n// Expected output: an array of 5 random numbers\r\n\r\n// const negativeArr = sampleArr(-1);\r\n// Expected output: Throws an error\r\n"
+      "import unique from \".\";\r\n\r\nconst arr = [1, 2, 3, 3, 4, 5, 5, 6, 7, 8, 8, 9, 10];\r\nconst result = unique(arr);\r\nconsole.log(result);\r\n// Expected Output: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]\r\n"
     ],
     "docs": {
       "metaData": {
-        "desc": "Generates an array of random numbers."
+        "desc": "Creates a unique array from the input array."
       },
-      "md": "\r\nThis sampleArr function is a utility function in JavaScript that takes a\r\nsize parameter and generates an array of random numbers. The size\r\nparameter specifies the length of the array to generate. The function\r\nuses the Math.random() method to generate random numbers between 0 and\r\nthe specified size. The function returns an array of random numbers with\r\nthe specified length.\r\n\r\nThe function throws an error if the size parameter is a negative number.\r\n"
+      "md": "\r\nThe unique function is a utility function in JavaScript that takes an\r\narray and returns a new array with all duplicate values removed. The\r\nfunction uses set to remove duplicate values from the array.\r\n"
     },
     "props": [
       {
-        "title": "size",
+        "title": "arr",
         "required": true,
-        "propDesc": "The size of the array to generate, must be a positive number.",
+        "propDesc": "The array to process",
+        "type": "any[]"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-17T13:28:44.112Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-17T13:28:44.112Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "retry",
+    "code": {
+      "ts": "/**\r\n * Retries the given function a specified number of times with a delay between each retry.\r\n * @param fn The function to retry.\r\n * @param retries The number of times to retry the function. Default is 3.\r\n * @param delay The delay in milliseconds between each retry. Default is 1000ms (1 second).\r\n * @returns A Promise that resolves to the result of the function if it succeeds, or rejects with the last error if all retries fail.\r\n */\r\nconst retry = async <T>(\r\n  fn: Function,\r\n  retries: number = 3,\r\n  delay: number = 1000\r\n): Promise<T> => {\r\n  try {\r\n    return await fn();\r\n  } catch (error) {\r\n    if (retries > 0) {\r\n      await new Promise((resolve) => setTimeout(resolve, delay));\r\n      return retry(fn, retries - 1, delay);\r\n    }\r\n    throw error;\r\n  }\r\n};\r\n\r\nexport default retry;\r\n",
+      "js": "/**\n * Retries the given function a specified number of times with a delay between each retry.\n * @param fn The function to retry.\n * @param retries The number of times to retry the function. Default is 3.\n * @param delay The delay in milliseconds between each retry. Default is 1000ms (1 second).\n * @returns A Promise that resolves to the result of the function if it succeeds, or rejects with the last error if all retries fail.\n */\nconst retry = async (fn, retries = 3, delay = 1000) => {\n    try {\n        return await fn();\n    }\n    catch (error) {\n        if (retries > 0) {\n            await new Promise((resolve) => setTimeout(resolve, delay));\n            return retry(fn, retries - 1, delay);\n        }\n        throw error;\n    }\n};\nexport default retry;\n"
+    },
+    "category": "functional",
+    "type": "functions",
+    "examples": [
+      "import retry from \".\";\r\n\r\nconst fn = async () => {\r\n  throw new Error(\"failed\");\r\n};\r\n\r\nretry(fn, 2, 1000).catch((error) => {\r\n  console.log(error.message);\r\n});\r\n// Expected output: \"failed\" after retrying twice but It will call the function 3 times.\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Retries the given function a specified number of times with a delay between each retry."
+      },
+      "md": "\r\nThe retry function retries the given function a specified number of\r\ntimes with a delay between each retry. If the function succeeds within\r\nthe specified number of retries, the Promise will resolve with the\r\nresult of the function. If the function fails on all retries, the\r\nPromise will be rejected with the last error. The retry function is\r\ndesigned to handle both synchronous and asynchronous functions, as it\r\nwraps the call to fn with Promise.resolve. This ensures that fn is\r\nalways treated as a Promise, allowing the use of .then and .catch to\r\nhandle the result or any errors.\r\n\r\nThe function retries the given function a specified number of times. The\r\ntotal number of times a function is called is retries + 1.\r\n"
+    },
+    "props": [
+      {
+        "title": "function",
+        "required": true,
+        "propDesc": "The function to retry.",
+        "type": "Function"
+      },
+      {
+        "title": "retries",
+        "required": false,
+        "defaultValue": "3",
+        "propDesc": "The number of times to retry the function.",
+        "type": "number"
+      },
+      {
+        "title": "delay",
+        "required": false,
+        "defaultValue": "1000",
+        "propDesc": "The delay in milliseconds between each retry.",
         "type": "number"
       }
     ],
     "createdAt": {
-      "date": "2024-04-17T13:28:44.080Z",
+      "date": "2024-04-17T13:28:44.122Z",
       "packageVersion": "0.1.0"
     },
     "lastUpdated": {
-      "date": "2024-04-17T13:28:44.080Z",
+      "date": "2024-04-26T06:19:26.171Z",
       "packageVersion": "0.1.0"
     }
   },
