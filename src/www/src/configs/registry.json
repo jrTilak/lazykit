@@ -422,6 +422,47 @@
     }
   },
   {
+    "name": "zip",
+    "code": {
+      "ts": "type Args = {\r\n  arr: any[][];\r\n  strict?: boolean;\r\n};\r\n\r\n/**\r\n * Zips multiple arrays into a single array of tuples.\r\n *\r\n * @template T - The type of elements in the arrays.\r\n * @param {Args<any>} options - The options for zipping the arrays.\r\n * @param {any[][]} options.arr - The arrays to be zipped.\r\n * @param {boolean} [options.strict=false] - Indicates whether to zip strictly based on the minimum length of the arrays.\r\n * @returns {any[][]} - The zipped array of tuples.\r\n */\r\nconst zip = ({ arr, strict = false }: Args): any[][] => {\r\n  const maxIndex = arr.map((a) => a.length).reduce((a, b) => Math.max(a, b), 0);\r\n  const minIndex = arr\r\n    .map((a) => a.length)\r\n    .reduce((a, b) => Math.min(a, b), maxIndex);\r\n\r\n  const result: any[][] = [];\r\n\r\n  const upto = strict ? minIndex : maxIndex;\r\n\r\n  for (let i = 0; i < upto; i++) {\r\n    const zip = arr.map((a) => a[i]);\r\n    result.push(zip);\r\n  }\r\n  return result;\r\n};\r\n\r\nexport default zip;\r\n",
+      "js": "/**\n * Zips multiple arrays into a single array of tuples.\n *\n * @template T - The type of elements in the arrays.\n * @param {Args<any>} options - The options for zipping the arrays.\n * @param {any[][]} options.arr - The arrays to be zipped.\n * @param {boolean} [options.strict=false] - Indicates whether to zip strictly based on the minimum length of the arrays.\n * @returns {any[][]} - The zipped array of tuples.\n */\nconst zip = ({ arr, strict = false }) => {\n    const maxIndex = arr.map((a) => a.length).reduce((a, b) => Math.max(a, b), 0);\n    const minIndex = arr\n        .map((a) => a.length)\n        .reduce((a, b) => Math.min(a, b), maxIndex);\n    const result = [];\n    const upto = strict ? minIndex : maxIndex;\n    for (let i = 0; i < upto; i++) {\n        const zip = arr.map((a) => a[i]);\n        result.push(zip);\n    }\n    return result;\n};\nexport default zip;\n"
+    },
+    "category": "arrays",
+    "type": "functions",
+    "examples": [
+      "import zip from \".\";\r\n\r\nconst arr = [\r\n  [1, 2, 3],\r\n  [\"a\", \"b\"],\r\n];\r\n\r\nconst result = zip({ arr });\r\nconsole.log(result);\r\n// Expected output: [[1, \"a\"], [2, \"b\"], [3, undefined]]\r\n\r\n// strict mode\r\nconst resultStrict = zip({ arr, strict: true });\r\nconsole.log(resultStrict);\r\n// Expected output: [[1, \"a\"], [2, \"b\"]]\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Zips arrays together in the form of an array of arrays."
+      },
+      "md": "\r\nThe `zip` function in the combines multiple arrays into a single array of tuples.\r\n\r\nThe function accepts an `object` as an argument, which has two properties: `arr` (an array of arrays) and `strict` (a boolean). The strict property is optional and defaults to false if not provided.\r\n\r\nIf the strict property is set to true, the function will only zip arrays of the same length. If the strict property is set to false, the function will zip arrays of different lengths by filling in the missing values with `undefined`.\r\n\r\nThis function is useful for combining multiple arrays into a single array of tuples.\r\n"
+    },
+    "props": [
+      {
+        "title": "arr",
+        "required": true,
+        "propDesc": "The arrays to be zipped.",
+        "type": "array[]"
+      },
+      {
+        "title": "strict",
+        "required": false,
+        "defaultValue": "false",
+        "propDesc": "If true, the zipping will be done strictly based on the minimum length of the arrays.",
+        "type": "boolean"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-26T13:18:20.715Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-26T13:19:43.461Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
     "name": "retry",
     "code": {
       "ts": "/**\r\n * Retries the given function a specified number of times with a delay between each retry.\r\n * @param fn The function to retry.\r\n * @param retries The number of times to retry the function. Default is 3.\r\n * @param delay The delay in milliseconds between each retry. Default is 1000ms (1 second).\r\n * @returns A Promise that resolves to the result of the function if it succeeds, or rejects with the last error if all retries fail.\r\n */\r\nconst retry = async <T>(\r\n  fn: Function,\r\n  retries: number = 3,\r\n  delay: number = 1000\r\n): Promise<T> => {\r\n  try {\r\n    return await fn();\r\n  } catch (error) {\r\n    if (retries > 0) {\r\n      await new Promise((resolve) => setTimeout(resolve, delay));\r\n      return retry(fn, retries - 1, delay);\r\n    }\r\n    throw error;\r\n  }\r\n};\r\n\r\nexport default retry;\r\n",

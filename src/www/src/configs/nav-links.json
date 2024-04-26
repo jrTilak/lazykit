@@ -70,6 +70,10 @@
           {
             "label": "unique",
             "url": "/docs/functions/arrays/unique"
+          },
+          {
+            "label": "zip",
+            "url": "/docs/functions/arrays/zip"
           }
         ]
       },

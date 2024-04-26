@@ -64,6 +64,10 @@
     "url": "/docs/functions/arrays/unique"
   },
   {
+    "label": "zip",
+    "url": "/docs/functions/arrays/zip"
+  },
+  {
     "label": "retry",
     "url": "/docs/functions/functional/retry"
   },
