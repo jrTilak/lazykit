@@ -14,7 +14,7 @@ import Image from "next/image";
 const Sidebar = () => {
   return (
     <aside className="shadow-lg h-full">
-      <ScrollArea className="h-full w-full p-6 pl-8">
+      <div className="h-[calc(100vh-100px)] w-full p-6 pl-8 scrollbar-sm overflow-x-hidden overflow-y-auto">
         <Link href="/" className="lg:hidden gap-3 items-center flex">
           <Image src="/logo.svg" alt="logo" width={60} height={24} />
           <h2 className="text-sm">{META_DATA.title as string}</h2>
@@ -66,7 +66,7 @@ const Sidebar = () => {
             </Accordion>
           );
         })}
-      </ScrollArea>
+      </div>
     </aside>
   );
 };
