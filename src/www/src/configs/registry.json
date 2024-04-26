@@ -143,6 +143,46 @@
     }
   },
   {
+    "name": "partition",
+    "code": {
+      "ts": "/**\r\n * Partitions an array into two separate arrays based on a given predicate.\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} arr - The array to be partitioned.\r\n * @param {(value: T, index: number, array: T[]) => boolean} predicate - The predicate function used to determine the partition.\r\n * @returns {[T[], T[]]} - An array containing two arrays: the first array contains elements that satisfy the predicate, and the second array contains elements that do not satisfy the predicate.\r\n */\r\nconst partition = <T>(\r\n  arr: T[],\r\n  predicate: (value: T, i: number, arr: T[]) => boolean\r\n): [T[], T[]] => {\r\n  const pass: T[] = [];\r\n  const fail: T[] = [];\r\n  arr.forEach((...args) => {\r\n    // run the predicate function on each element in the array\r\n    // and push the element to the appropriate array\r\n    (predicate(...args) ? pass : fail).push(args[0]);\r\n  });\r\n  return [pass, fail];\r\n};\r\n\r\nexport default partition;\r\n",
+      "js": "/**\n * Partitions an array into two separate arrays based on a given predicate.\n *\n * @template T - The type of elements in the array.\n * @param {T[]} arr - The array to be partitioned.\n * @param {(value: T, index: number, array: T[]) => boolean} predicate - The predicate function used to determine the partition.\n * @returns {[T[], T[]]} - An array containing two arrays: the first array contains elements that satisfy the predicate, and the second array contains elements that do not satisfy the predicate.\n */\nconst partition = (arr, predicate) => {\n    const pass = [];\n    const fail = [];\n    arr.forEach((...args) => {\n        // run the predicate function on each element in the array\n        // and push the element to the appropriate array\n        (predicate(...args) ? pass : fail).push(args[0]);\n    });\n    return [pass, fail];\n};\nexport default partition;\n"
+    },
+    "category": "arrays",
+    "type": "functions",
+    "examples": [
+      "import partition from \".\";\r\n\r\nconst arr = [1, 2, 3, 4, 5];\r\npartition(arr, (value) => value % 2 === 0);\r\n// Expected: [[2, 4], [1, 3, 5]]\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Partitions an array into two arrays based on a given callback ie predicate."
+      },
+      "md": "\r\nThe `partition` function takes an array and a predicate function as parameters and returns a tuple of two arrays. The first array contains all elements of the original array for which the predicate function returns `true`, and the second array contains all elements for which the predicate function returns `false`.\r\n\r\nThe predicate function is a callback function that you provide, which is called for each element in the array. It receives three arguments: the current element, its index, and the original array. The predicate function should return a `boolean` value.\r\n\r\nThe partition function creates two empty arrays, `pass` and `fail`, and then iterates over the original array using the forEach method. For each element, it calls the predicate function and pushes the element to the pass array if the predicate returns true, and to the fail array if the predicate returns false.\r\n\r\nFinally, the partition function returns a tuple containing the pass and fail arrays. This function does not modify the original array."
+    },
+    "props": [
+      {
+        "title": "array",
+        "required": true,
+        "propDesc": "The array from which to partition elements.",
+        "type": "array"
+      },
+      {
+        "title": "predicate",
+        "required": true,
+        "propDesc": "The function used to determine the partition. It should return a boolean value.",
+        "type": "function"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-26T12:13:16.372Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-26T12:13:16.373Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
     "name": "remove",
     "code": {
       "ts": "/**\r\n * Removes element(s) from an array based on the given index(es).\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} array - The array from which elements will be removed.\r\n * @param {number | number[]} index - The index(es) of the element(s) to be removed.\r\n * @returns {T[]} - A new array with the specified element(s) removed.\r\n */\r\nconst remove = <T>(array: T[], index: number | number[]): T[] => {\r\n  const len = array.length;\r\n  if (Array.isArray(index)) {\r\n    // convert negative indices to their positive counterparts\r\n    const indices = index.map((i) => (i < 0 ? len + i : i));\r\n    return array.filter((_, i) => !indices.includes(i));\r\n  }\r\n  index = index < 0 ? len + index : index;\r\n  return array.filter((_, i) => i !== index);\r\n};\r\n\r\nexport default remove;\r\n",

@@ -36,6 +36,10 @@
     "url": "/docs/functions/arrays/insert"
   },
   {
+    "label": "partition",
+    "url": "/docs/functions/arrays/partition"
+  },
+  {
     "label": "remove",
     "url": "/docs/functions/arrays/remove"
   },
