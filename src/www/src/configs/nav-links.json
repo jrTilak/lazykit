@@ -36,16 +36,28 @@
             "url": "/docs/functions/arrays/chunk"
           },
           {
-            "label": "unique",
-            "url": "/docs/functions/arrays/unique"
-          },
-          {
             "label": "compact",
             "url": "/docs/functions/arrays/compact"
           },
           {
             "label": "insert",
             "url": "/docs/functions/arrays/insert"
+          },
+          {
+            "label": "partition",
+            "url": "/docs/functions/arrays/partition"
+          },
+          {
+            "label": "remove",
+            "url": "/docs/functions/arrays/remove"
+          },
+          {
+            "label": "rotate",
+            "url": "/docs/functions/arrays/rotate"
+          },
+          {
+            "label": "sampleArr",
+            "url": "/docs/functions/arrays/sampleArr"
           },
           {
             "label": "search",
@@ -56,8 +68,12 @@
             "url": "/docs/functions/arrays/shuffleArr"
           },
           {
-            "label": "sampleArr",
-            "url": "/docs/functions/arrays/sampleArr"
+            "label": "unique",
+            "url": "/docs/functions/arrays/unique"
+          },
+          {
+            "label": "zip",
+            "url": "/docs/functions/arrays/zip"
           }
         ]
       },
