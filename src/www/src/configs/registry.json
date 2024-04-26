@@ -183,6 +183,57 @@
     }
   },
   {
+    "name": "rotate",
+    "code": {
+      "ts": "/**\r\n * Rotates an array in the specified direction by a given number of positions.\r\n *\r\n * @param arr - The array to rotate.\r\n * @param n - The number of positions to rotate the array by.\r\n * @param dir - The direction in which to rotate the array. Defaults to \"left\".\r\n * @returns The rotated array.\r\n * @template T - The type of elements in the array.\r\n */\r\nconst rotate = <T>(\r\n  arr: T[],\r\n  n: number,\r\n  dir: \"left\" | \"right\" = \"left\"\r\n): T[] => {\r\n  if (dir === \"left\") {\r\n    return arr.slice(n, arr.length).concat(arr.slice(0, n));\r\n  } else {\r\n    return arr\r\n      .slice(arr.length - n, arr.length)\r\n      .concat(arr.slice(0, arr.length - n));\r\n  }\r\n};\r\n\r\nexport default rotate;\r\n",
+      "js": "/**\n * Rotates an array in the specified direction by a given number of positions.\n *\n * @param arr - The array to rotate.\n * @param n - The number of positions to rotate the array by.\n * @param dir - The direction in which to rotate the array. Defaults to \"left\".\n * @returns The rotated array.\n * @template T - The type of elements in the array.\n */\nconst rotate = (arr, n, dir = \"left\") => {\n    if (dir === \"left\") {\n        return arr.slice(n, arr.length).concat(arr.slice(0, n));\n    }\n    else {\n        return arr\n            .slice(arr.length - n, arr.length)\n            .concat(arr.slice(0, arr.length - n));\n    }\n};\nexport default rotate;\n"
+    },
+    "category": "arrays",
+    "type": "functions",
+    "examples": [
+      "import rotate from \".\";\r\n\r\nconst arr = [1, 2, 3, 4, 5];\r\nrotate(arr, 2);\r\n// Expected Output: [3, 4, 5, 1, 2]\r\n\r\nrotate(arr, 2, \"right\");\r\n// Expected Output: [4, 5, 1, 2, 3]\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Rotates the elements of an array by a given number of positions."
+      },
+      "md": "\r\nThe `rotate` function takes an array and a number as arguments, and returns a new array that is a rotated version of the original array. The rotation is performed by shifting the elements of the array to the left by the number of positions specified by the second argument."
+    },
+    "props": [
+      {
+        "title": "array",
+        "required": true,
+        "propDesc": "The array to rotate.",
+        "type": "array"
+      },
+      {
+        "title": "position",
+        "required": true,
+        "propDesc": "The number of positions to rotate the array by.",
+        "type": "number"
+      },
+      {
+        "title": "direction",
+        "required": false,
+        "defaultValue": "left",
+        "propDesc": "The direction in which to rotate the array.",
+        "type": "enum",
+        "enums": [
+          "left",
+          "right"
+        ]
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-26T11:46:19.176Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-26T11:52:00.143Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
     "name": "sampleArr",
     "code": {
       "ts": "/**\r\n * Generates an array of random numbers.\r\n *\r\n * @param size - The size of the array to generate.\r\n * @returns An array of random numbers.\r\n * @throws {Error} If the size is a negative number.\r\n */\r\nconst sampleArr = (size: number) => {\r\n  if (size < 0) throw new Error(\"Size must be a positive number\");\r\n  return Array.from({ length: size }, (_, i) => Math.floor(Math.random() * i));\r\n};\r\n\r\nexport default sampleArr;\r\n",

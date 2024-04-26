@@ -40,6 +40,10 @@
     "url": "/docs/functions/arrays/remove"
   },
   {
+    "label": "rotate",
+    "url": "/docs/functions/arrays/rotate"
+  },
+  {
     "label": "sampleArr",
     "url": "/docs/functions/arrays/sampleArr"
   },
