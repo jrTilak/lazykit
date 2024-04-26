@@ -59,15 +59,34 @@
     @apply bg-background text-foreground;
   }
 
-  /* Scrollbar Styles */
+  /* hide scrollbar */
   *::-webkit-scrollbar {
     display: none;
   }
 
   /* Hide scrollbar for IE, Edge and Firefox */
   * {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
+
+  /* decrease the width and style of default scrollbar */
+  .scrollbar-md::-webkit-scrollbar {
+    @apply !w-2;
+  }
+
+  .scrollbar-md::-webkit-scrollbar-thumb {
+    @apply bg-neutral-200 dark:bg-neutral-600;
+  }
+  /* decrease the width and style of default scrollbar */
+  .scrollbar-sm::-webkit-scrollbar {
+    @apply !w-1 !rounded-md;
+  }
+
+  .scrollbar-sm::-webkit-scrollbar-thumb {
+    @apply bg-neutral-200 dark:bg-neutral-600;
   }
 
   /* default font */

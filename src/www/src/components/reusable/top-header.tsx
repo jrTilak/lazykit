@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ToggleSidebarButton from "./toggle-sidebar-button";
 import types from "@/configs/types.json";
-import SearchPopup from "./SearchPopup";
+import SearchPopup from "./search-popup";
 import { GITHUB_INFO, TWITTER_INFO } from "@/data/info";
 import githubIcon from "@/assets/icons/github-142-svgrepo-com.svg";
 import X from "@/assets/icons/x.svg";
