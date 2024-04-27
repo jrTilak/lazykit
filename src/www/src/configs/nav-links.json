@@ -86,6 +86,10 @@
             "url": "/docs/functions/functional/timeout"
           },
           {
+            "label": "nTimes",
+            "url": "/docs/functions/functional/nTimes"
+          },
+          {
             "label": "retry",
             "url": "/docs/functions/functional/retry"
           },

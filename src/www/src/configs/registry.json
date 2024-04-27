@@ -89,52 +89,6 @@
     }
   },
   {
-    "name": "timeout",
-    "code": {
-      "ts": "/**\r\n * Wraps a function with a timeout.\r\n * If the function does not complete within the specified time, the promise will be rejected.\r\n *\r\n * @template Return - The return type of the wrapped function.\r\n * @template Err - The error type that can be thrown by the wrapped function or the error callback.\r\n * @param {(...args: any[]) => Return} fn - The function to be wrapped.\r\n * @param {number} time - The timeout duration in milliseconds.\r\n * @param {(...args: any[]) => Err} [errCb] - Optional error callback function to handle timeout errors.\r\n * @returns {(...args: any[]) => Promise<Return>} - A wrapped function that returns a promise.\r\n */\r\nconst timeout = <Return, Err>(\r\n  fn: (...args: any[]) => Return,\r\n  time: number,\r\n  errCb?: (...args: any[]) => Err\r\n): ((...args: any[]) => Promise<Return>) => {\r\n  return (...args: any[]) => {\r\n    return new Promise<any>((resolve, reject) => {\r\n      const timer = setTimeout(() => {\r\n        if (errCb) reject(errCb(...args));\r\n        else {\r\n          reject(new Error(\"Function timed out\"));\r\n        }\r\n      }, time);\r\n\r\n      // Wrap fn call in Promise.resolve to handle both sync and async functions\r\n      Promise.resolve(fn(...args))\r\n        .then((result: Return) => {\r\n          clearTimeout(timer);\r\n          resolve(result);\r\n        })\r\n        .catch((err: Err) => {\r\n          clearTimeout(timer);\r\n          reject(err);\r\n        });\r\n    });\r\n  };\r\n};\r\n\r\nexport default timeout;\r\n",
-      "js": "/**\n * Wraps a function with a timeout.\n * If the function does not complete within the specified time, the promise will be rejected.\n *\n * @template Return - The return type of the wrapped function.\n * @template Err - The error type that can be thrown by the wrapped function or the error callback.\n * @param {(...args: any[]) => Return} fn - The function to be wrapped.\n * @param {number} time - The timeout duration in milliseconds.\n * @param {(...args: any[]) => Err} [errCb] - Optional error callback function to handle timeout errors.\n * @returns {(...args: any[]) => Promise<Return>} - A wrapped function that returns a promise.\n */\nconst timeout = (fn, time, errCb) => {\n    return (...args) => {\n        return new Promise((resolve, reject) => {\n            const timer = setTimeout(() => {\n                if (errCb)\n                    reject(errCb(...args));\n                else {\n                    reject(new Error(\"Function timed out\"));\n                }\n            }, time);\n            // Wrap fn call in Promise.resolve to handle both sync and async functions\n            Promise.resolve(fn(...args))\n                .then((result) => {\n                clearTimeout(timer);\n                resolve(result);\n            })\n                .catch((err) => {\n                clearTimeout(timer);\n                reject(err);\n            });\n        });\n    };\n};\nexport default timeout;\n"
-    },
-    "category": "functional",
-    "type": "functions",
-    "examples": [
-      "import timeout from \".\";\r\n\r\ntimeout(() => \"Hello, World!\", 1000);\r\n// Expected Output: \"Hello, World!\"\r\n\r\ntimeout(() => new Promise((resolve) => setTimeout(resolve, 2000)), 1000);\r\n// Expected Output: Error: Function timed out\r\n\r\ntimeout(\r\n  () => new Promise((resolve) => setTimeout(resolve, 2000)),\r\n  1000,\r\n  () => console.log(\"I failed\")\r\n);\r\n// Expected Output: I failed\r\n"
-    ],
-    "docs": {
-      "metaData": {
-        "desc": "The timeout function wraps a function with a timeout. If the function does not complete within the specified time, the promise will be rejected."
-      },
-      "md": "\r\nThe timeout function is a higher-order function that takes a function\r\nfn, a timeout duration time, and an optional error callback errCb as\r\narguments. It returns a new function that, when called, returns a\r\nPromise. This Promise will resolve with the result of the fn function if\r\nfn completes within the specified time. If fn does not complete within\r\nthe time, the Promise will be rejected. If an errCb function is\r\nprovided, it will be called with the arguments passed to the wrapped\r\nfunction, and the Promise will be rejected with the result of errCb. If\r\nno errCb is provided, the Promise will be rejected with a new Error\r\nstating &apos;Function timed out&apos;. The timeout function is designed\r\nto handle both synchronous and asynchronous functions, as it wraps the\r\ncall to fn with Promise.resolve. This ensures that fn is always treated\r\nas a Promise, allowing the use of .then and .catch to handle the result\r\nor any errors.\r\n"
-    },
-    "props": [
-      {
-        "title": "function",
-        "required": true,
-        "propDesc": "The function to be wrapped with a timeout.",
-        "type": "Function"
-      },
-      {
-        "title": "time",
-        "required": true,
-        "propDesc": "The timeout duration in milliseconds.",
-        "type": "number"
-      },
-      {
-        "title": "errCb",
-        "required": false,
-        "propDesc": "Optional error callback function to handle timeout errors. If not provided, the promise will be rejected with an error message.",
-        "type": "Function"
-      }
-    ],
-    "createdAt": {
-      "date": "2024-04-17T13:28:44.158Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-17T13:28:44.159Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
     "name": "insert",
     "code": {
       "ts": "/**\r\n * Inserts elements into an array at a specified index.\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} arr - The array to insert elements into.\r\n * @param {number} index - The index at which to insert the elements.\r\n * @param {boolean} [recursive=false] - Indicates whether to insert elements recursively. If true, the elements will be inserted at every nth index.\r\n * @param {...T[]} items - The elements to insert into the array.\r\n * @returns {T[]} - The modified array with the inserted elements.\r\n */\r\nconst insert = <T>(\r\n  arr: T[],\r\n  index: number,\r\n  [...items]: T[],\r\n  recursive: boolean = false\r\n): T[] => {\r\n  const isNegativeIndex = index < 0;\r\n  // if index is negative, convert it to positive and reverse the array for easier insertion\r\n  if (isNegativeIndex) {\r\n    index = Math.abs(index);\r\n    arr = arr.reverse();\r\n    items = items.reverse();\r\n  }\r\n\r\n  if (!recursive) {\r\n    const newArr = [...arr.slice(0, index), ...items, ...arr.slice(index)];\r\n    return isNegativeIndex ? newArr.reverse() : newArr;\r\n  } else {\r\n    const shouldInsert = Math.floor(arr.length / index);\r\n    let newArr = [...arr];\r\n    for (let i = 0; i < shouldInsert; i++) {\r\n      const insertIndex = (i + 1) * index + i * items.length;\r\n      newArr = [\r\n        ...newArr.slice(0, insertIndex),\r\n        ...items,\r\n        ...newArr.slice(insertIndex),\r\n      ];\r\n    }\r\n    return isNegativeIndex ? newArr.reverse() : newArr;\r\n  }\r\n};\r\n\r\nexport default insert;\r\n",
@@ -185,6 +139,52 @@
     },
     "lastUpdated": {
       "date": "2024-04-17T13:28:44.070Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "timeout",
+    "code": {
+      "ts": "/**\r\n * Wraps a function with a timeout.\r\n * If the function does not complete within the specified time, the promise will be rejected.\r\n *\r\n * @template Return - The return type of the wrapped function.\r\n * @template Err - The error type that can be thrown by the wrapped function or the error callback.\r\n * @param {(...args: any[]) => Return} fn - The function to be wrapped.\r\n * @param {number} time - The timeout duration in milliseconds.\r\n * @param {(...args: any[]) => Err} [errCb] - Optional error callback function to handle timeout errors.\r\n * @returns {(...args: any[]) => Promise<Return>} - A wrapped function that returns a promise.\r\n */\r\nconst timeout = <Return, Err>(\r\n  fn: (...args: any[]) => Return,\r\n  time: number,\r\n  errCb?: (...args: any[]) => Err\r\n): ((...args: any[]) => Promise<Return>) => {\r\n  return (...args: any[]) => {\r\n    return new Promise<any>((resolve, reject) => {\r\n      const timer = setTimeout(() => {\r\n        if (errCb) reject(errCb(...args));\r\n        else {\r\n          reject(new Error(\"Function timed out\"));\r\n        }\r\n      }, time);\r\n\r\n      // Wrap fn call in Promise.resolve to handle both sync and async functions\r\n      Promise.resolve(fn(...args))\r\n        .then((result: Return) => {\r\n          clearTimeout(timer);\r\n          resolve(result);\r\n        })\r\n        .catch((err: Err) => {\r\n          clearTimeout(timer);\r\n          reject(err);\r\n        });\r\n    });\r\n  };\r\n};\r\n\r\nexport default timeout;\r\n",
+      "js": "/**\n * Wraps a function with a timeout.\n * If the function does not complete within the specified time, the promise will be rejected.\n *\n * @template Return - The return type of the wrapped function.\n * @template Err - The error type that can be thrown by the wrapped function or the error callback.\n * @param {(...args: any[]) => Return} fn - The function to be wrapped.\n * @param {number} time - The timeout duration in milliseconds.\n * @param {(...args: any[]) => Err} [errCb] - Optional error callback function to handle timeout errors.\n * @returns {(...args: any[]) => Promise<Return>} - A wrapped function that returns a promise.\n */\nconst timeout = (fn, time, errCb) => {\n    return (...args) => {\n        return new Promise((resolve, reject) => {\n            const timer = setTimeout(() => {\n                if (errCb)\n                    reject(errCb(...args));\n                else {\n                    reject(new Error(\"Function timed out\"));\n                }\n            }, time);\n            // Wrap fn call in Promise.resolve to handle both sync and async functions\n            Promise.resolve(fn(...args))\n                .then((result) => {\n                clearTimeout(timer);\n                resolve(result);\n            })\n                .catch((err) => {\n                clearTimeout(timer);\n                reject(err);\n            });\n        });\n    };\n};\nexport default timeout;\n"
+    },
+    "category": "functional",
+    "type": "functions",
+    "examples": [
+      "import timeout from \".\";\r\n\r\ntimeout(() => \"Hello, World!\", 1000);\r\n// Expected Output: \"Hello, World!\"\r\n\r\ntimeout(() => new Promise((resolve) => setTimeout(resolve, 2000)), 1000);\r\n// Expected Output: Error: Function timed out\r\n\r\ntimeout(\r\n  () => new Promise((resolve) => setTimeout(resolve, 2000)),\r\n  1000,\r\n  () => console.log(\"I failed\")\r\n);\r\n// Expected Output: I failed\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "The timeout function wraps a function with a timeout. If the function does not complete within the specified time, the promise will be rejected."
+      },
+      "md": "\r\nThe timeout function is a higher-order function that takes a function\r\nfn, a timeout duration time, and an optional error callback errCb as\r\narguments. It returns a new function that, when called, returns a\r\nPromise. This Promise will resolve with the result of the fn function if\r\nfn completes within the specified time. If fn does not complete within\r\nthe time, the Promise will be rejected. If an errCb function is\r\nprovided, it will be called with the arguments passed to the wrapped\r\nfunction, and the Promise will be rejected with the result of errCb. If\r\nno errCb is provided, the Promise will be rejected with a new Error\r\nstating &apos;Function timed out&apos;. The timeout function is designed\r\nto handle both synchronous and asynchronous functions, as it wraps the\r\ncall to fn with Promise.resolve. This ensures that fn is always treated\r\nas a Promise, allowing the use of .then and .catch to handle the result\r\nor any errors.\r\n"
+    },
+    "props": [
+      {
+        "title": "function",
+        "required": true,
+        "propDesc": "The function to be wrapped with a timeout.",
+        "type": "Function"
+      },
+      {
+        "title": "time",
+        "required": true,
+        "propDesc": "The timeout duration in milliseconds.",
+        "type": "number"
+      },
+      {
+        "title": "errCb",
+        "required": false,
+        "propDesc": "Optional error callback function to handle timeout errors. If not provided, the promise will be rejected with an error message.",
+        "type": "Function"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-17T13:28:44.158Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-17T13:28:44.159Z",
       "packageVersion": "0.1.0"
     }
   },
@@ -505,6 +505,47 @@
     },
     "lastUpdated": {
       "date": "2024-04-26T13:19:43.461Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "nTimes",
+    "code": {
+      "ts": "/**\r\n * Executes a given function `n` times and returns an array of the results.\r\n *\r\n * @template T - The type of the result returned by the function.\r\n * @param {Function} fn - The function to be executed `n` times.\r\n * @param {number} [n=1] - The number of times the function should be executed. Defaults to 1.\r\n * @returns {T[]} - An array of the results returned by the function.\r\n * @throws {Error} - If `n` is less than 0.\r\n */\r\nconst nTimes = <T>(fn: (i: number) => T, n: number = 1): T[] => {\r\n  if (n < 0) {\r\n    throw new Error(\"n must be greater than 0\");\r\n  }\r\n  let result: T[] = [];\r\n  for (let i = 0; i < n; i++) {\r\n    result.push(fn(i));\r\n  }\r\n  return result;\r\n};\r\n\r\nexport default nTimes;\r\n",
+      "js": "/**\n * Executes a given function `n` times and returns an array of the results.\n *\n * @template T - The type of the result returned by the function.\n * @param {Function} fn - The function to be executed `n` times.\n * @param {number} [n=1] - The number of times the function should be executed. Defaults to 1.\n * @returns {T[]} - An array of the results returned by the function.\n * @throws {Error} - If `n` is less than 0.\n */\nconst nTimes = (fn, n = 1) => {\n    if (n < 0) {\n        throw new Error(\"n must be greater than 0\");\n    }\n    let result = [];\n    for (let i = 0; i < n; i++) {\n        result.push(fn(i));\n    }\n    return result;\n};\nexport default nTimes;\n"
+    },
+    "category": "functional",
+    "type": "functions",
+    "examples": [
+      "import nTimes from \".\";\r\n\r\nconst result = nTimes(() => \"result\", 3);\r\n// Expected: [\"result\", \"result\", \"result\"]\r\n\r\n// You can also use the index of the iteration.\r\nconst result2 = nTimes((i) => i, 3);\r\n// Expected: [0, 1, 2]\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Calls a function n times and returns an array of the results."
+      },
+      "md": "\r\nThe `nTimes` function calls a function `n` times and returns an array of the results. The function is called with the index of the iteration as the first argument.\r\n"
+    },
+    "props": [
+      {
+        "title": "function",
+        "required": true,
+        "propDesc": "The function called `n` times. The function receives the current iteration index as an argument.",
+        "type": "Function"
+      },
+      {
+        "title": "n",
+        "required": false,
+        "defaultValue": "1",
+        "propDesc": "The number of times to call the function.",
+        "type": "number"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-27T16:24:24.979Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-27T16:24:24.980Z",
       "packageVersion": "0.1.0"
     }
   },
