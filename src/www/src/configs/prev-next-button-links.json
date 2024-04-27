@@ -108,6 +108,10 @@
     "url": "/docs/functions/objects/pick"
   },
   {
+    "label": "renameKey",
+    "url": "/docs/functions/objects/renameKey"
+  },
+  {
     "label": "sampleObj",
     "url": "/docs/functions/objects/sampleObj"
   }
