@@ -24,36 +24,20 @@
     "url": "/docs/functions"
   },
   {
-    "label": "chunk",
-    "url": "/docs/functions/arrays/chunk"
-  },
-  {
-    "label": "compact",
-    "url": "/docs/functions/arrays/compact"
-  },
-  {
     "label": "insert",
     "url": "/docs/functions/arrays/insert"
-  },
-  {
-    "label": "partition",
-    "url": "/docs/functions/arrays/partition"
-  },
-  {
-    "label": "remove",
-    "url": "/docs/functions/arrays/remove"
   },
   {
     "label": "rotate",
     "url": "/docs/functions/arrays/rotate"
   },
   {
-    "label": "sampleArr",
-    "url": "/docs/functions/arrays/sampleArr"
+    "label": "zip",
+    "url": "/docs/functions/arrays/zip"
   },
   {
-    "label": "search",
-    "url": "/docs/functions/arrays/search"
+    "label": "sampleArr",
+    "url": "/docs/functions/arrays/sampleArr"
   },
   {
     "label": "shuffleArr",
@@ -64,8 +48,24 @@
     "url": "/docs/functions/arrays/unique"
   },
   {
-    "label": "zip",
-    "url": "/docs/functions/arrays/zip"
+    "label": "search",
+    "url": "/docs/functions/arrays/search"
+  },
+  {
+    "label": "partition",
+    "url": "/docs/functions/arrays/partition"
+  },
+  {
+    "label": "chunk",
+    "url": "/docs/functions/arrays/chunk"
+  },
+  {
+    "label": "compact",
+    "url": "/docs/functions/arrays/compact"
+  },
+  {
+    "label": "remove",
+    "url": "/docs/functions/arrays/remove"
   },
   {
     "label": "retry",
@@ -80,14 +80,6 @@
     "url": "/docs/functions/functional/timeout"
   },
   {
-    "label": "and",
-    "url": "/docs/functions/gates/and"
-  },
-  {
-    "label": "nand",
-    "url": "/docs/functions/gates/nand"
-  },
-  {
     "label": "nor",
     "url": "/docs/functions/gates/nor"
   },
@@ -96,7 +88,19 @@
     "url": "/docs/functions/gates/or"
   },
   {
+    "label": "and",
+    "url": "/docs/functions/gates/and"
+  },
+  {
+    "label": "nand",
+    "url": "/docs/functions/gates/nand"
+  },
+  {
     "label": "mapObj",
     "url": "/docs/functions/objects/mapObj"
+  },
+  {
+    "label": "sampleObj",
+    "url": "/docs/functions/objects/sampleObj"
   }
 ]
