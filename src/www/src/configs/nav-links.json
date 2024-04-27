@@ -82,16 +82,16 @@
         "url": "/docs/functions/functional",
         "methods": [
           {
+            "label": "timeout",
+            "url": "/docs/functions/functional/timeout"
+          },
+          {
             "label": "retry",
             "url": "/docs/functions/functional/retry"
           },
           {
             "label": "sleep",
             "url": "/docs/functions/functional/sleep"
-          },
-          {
-            "label": "timeout",
-            "url": "/docs/functions/functional/timeout"
           }
         ]
       },
@@ -124,6 +124,22 @@
           {
             "label": "mapObj",
             "url": "/docs/functions/objects/mapObj"
+          },
+          {
+            "label": "omit",
+            "url": "/docs/functions/objects/omit"
+          },
+          {
+            "label": "pick",
+            "url": "/docs/functions/objects/pick"
+          },
+          {
+            "label": "renameKey",
+            "url": "/docs/functions/objects/renameKey"
+          },
+          {
+            "label": "sampleObj",
+            "url": "/docs/functions/objects/sampleObj"
           }
         ]
       }

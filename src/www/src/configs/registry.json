@@ -89,6 +89,52 @@
     }
   },
   {
+    "name": "timeout",
+    "code": {
+      "ts": "/**\r\n * Wraps a function with a timeout.\r\n * If the function does not complete within the specified time, the promise will be rejected.\r\n *\r\n * @template Return - The return type of the wrapped function.\r\n * @template Err - The error type that can be thrown by the wrapped function or the error callback.\r\n * @param {(...args: any[]) => Return} fn - The function to be wrapped.\r\n * @param {number} time - The timeout duration in milliseconds.\r\n * @param {(...args: any[]) => Err} [errCb] - Optional error callback function to handle timeout errors.\r\n * @returns {(...args: any[]) => Promise<Return>} - A wrapped function that returns a promise.\r\n */\r\nconst timeout = <Return, Err>(\r\n  fn: (...args: any[]) => Return,\r\n  time: number,\r\n  errCb?: (...args: any[]) => Err\r\n): ((...args: any[]) => Promise<Return>) => {\r\n  return (...args: any[]) => {\r\n    return new Promise<any>((resolve, reject) => {\r\n      const timer = setTimeout(() => {\r\n        if (errCb) reject(errCb(...args));\r\n        else {\r\n          reject(new Error(\"Function timed out\"));\r\n        }\r\n      }, time);\r\n\r\n      // Wrap fn call in Promise.resolve to handle both sync and async functions\r\n      Promise.resolve(fn(...args))\r\n        .then((result: Return) => {\r\n          clearTimeout(timer);\r\n          resolve(result);\r\n        })\r\n        .catch((err: Err) => {\r\n          clearTimeout(timer);\r\n          reject(err);\r\n        });\r\n    });\r\n  };\r\n};\r\n\r\nexport default timeout;\r\n",
+      "js": "/**\n * Wraps a function with a timeout.\n * If the function does not complete within the specified time, the promise will be rejected.\n *\n * @template Return - The return type of the wrapped function.\n * @template Err - The error type that can be thrown by the wrapped function or the error callback.\n * @param {(...args: any[]) => Return} fn - The function to be wrapped.\n * @param {number} time - The timeout duration in milliseconds.\n * @param {(...args: any[]) => Err} [errCb] - Optional error callback function to handle timeout errors.\n * @returns {(...args: any[]) => Promise<Return>} - A wrapped function that returns a promise.\n */\nconst timeout = (fn, time, errCb) => {\n    return (...args) => {\n        return new Promise((resolve, reject) => {\n            const timer = setTimeout(() => {\n                if (errCb)\n                    reject(errCb(...args));\n                else {\n                    reject(new Error(\"Function timed out\"));\n                }\n            }, time);\n            // Wrap fn call in Promise.resolve to handle both sync and async functions\n            Promise.resolve(fn(...args))\n                .then((result) => {\n                clearTimeout(timer);\n                resolve(result);\n            })\n                .catch((err) => {\n                clearTimeout(timer);\n                reject(err);\n            });\n        });\n    };\n};\nexport default timeout;\n"
+    },
+    "category": "functional",
+    "type": "functions",
+    "examples": [
+      "import timeout from \".\";\r\n\r\ntimeout(() => \"Hello, World!\", 1000);\r\n// Expected Output: \"Hello, World!\"\r\n\r\ntimeout(() => new Promise((resolve) => setTimeout(resolve, 2000)), 1000);\r\n// Expected Output: Error: Function timed out\r\n\r\ntimeout(\r\n  () => new Promise((resolve) => setTimeout(resolve, 2000)),\r\n  1000,\r\n  () => console.log(\"I failed\")\r\n);\r\n// Expected Output: I failed\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "The timeout function wraps a function with a timeout. If the function does not complete within the specified time, the promise will be rejected."
+      },
+      "md": "\r\nThe timeout function is a higher-order function that takes a function\r\nfn, a timeout duration time, and an optional error callback errCb as\r\narguments. It returns a new function that, when called, returns a\r\nPromise. This Promise will resolve with the result of the fn function if\r\nfn completes within the specified time. If fn does not complete within\r\nthe time, the Promise will be rejected. If an errCb function is\r\nprovided, it will be called with the arguments passed to the wrapped\r\nfunction, and the Promise will be rejected with the result of errCb. If\r\nno errCb is provided, the Promise will be rejected with a new Error\r\nstating &apos;Function timed out&apos;. The timeout function is designed\r\nto handle both synchronous and asynchronous functions, as it wraps the\r\ncall to fn with Promise.resolve. This ensures that fn is always treated\r\nas a Promise, allowing the use of .then and .catch to handle the result\r\nor any errors.\r\n"
+    },
+    "props": [
+      {
+        "title": "function",
+        "required": true,
+        "propDesc": "The function to be wrapped with a timeout.",
+        "type": "Function"
+      },
+      {
+        "title": "time",
+        "required": true,
+        "propDesc": "The timeout duration in milliseconds.",
+        "type": "number"
+      },
+      {
+        "title": "errCb",
+        "required": false,
+        "propDesc": "Optional error callback function to handle timeout errors. If not provided, the promise will be rejected with an error message.",
+        "type": "Function"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-17T13:28:44.158Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-17T13:28:44.159Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
     "name": "insert",
     "code": {
       "ts": "/**\r\n * Inserts elements into an array at a specified index.\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} arr - The array to insert elements into.\r\n * @param {number} index - The index at which to insert the elements.\r\n * @param {boolean} [recursive=false] - Indicates whether to insert elements recursively. If true, the elements will be inserted at every nth index.\r\n * @param {...T[]} items - The elements to insert into the array.\r\n * @returns {T[]} - The modified array with the inserted elements.\r\n */\r\nconst insert = <T>(\r\n  arr: T[],\r\n  index: number,\r\n  [...items]: T[],\r\n  recursive: boolean = false\r\n): T[] => {\r\n  const isNegativeIndex = index < 0;\r\n  // if index is negative, convert it to positive and reverse the array for easier insertion\r\n  if (isNegativeIndex) {\r\n    index = Math.abs(index);\r\n    arr = arr.reverse();\r\n    items = items.reverse();\r\n  }\r\n\r\n  if (!recursive) {\r\n    const newArr = [...arr.slice(0, index), ...items, ...arr.slice(index)];\r\n    return isNegativeIndex ? newArr.reverse() : newArr;\r\n  } else {\r\n    const shouldInsert = Math.floor(arr.length / index);\r\n    let newArr = [...arr];\r\n    for (let i = 0; i < shouldInsert; i++) {\r\n      const insertIndex = (i + 1) * index + i * items.length;\r\n      newArr = [\r\n        ...newArr.slice(0, insertIndex),\r\n        ...items,\r\n        ...newArr.slice(insertIndex),\r\n      ];\r\n    }\r\n    return isNegativeIndex ? newArr.reverse() : newArr;\r\n  }\r\n};\r\n\r\nexport default insert;\r\n",
@@ -545,52 +591,6 @@
     }
   },
   {
-    "name": "timeout",
-    "code": {
-      "ts": "/**\r\n * Wraps a function with a timeout.\r\n * If the function does not complete within the specified time, the promise will be rejected.\r\n *\r\n * @template Return - The return type of the wrapped function.\r\n * @template Err - The error type that can be thrown by the wrapped function or the error callback.\r\n * @param {(...args: any[]) => Return} fn - The function to be wrapped.\r\n * @param {number} time - The timeout duration in milliseconds.\r\n * @param {(...args: any[]) => Err} [errCb] - Optional error callback function to handle timeout errors.\r\n * @returns {(...args: any[]) => Promise<Return>} - A wrapped function that returns a promise.\r\n */\r\nconst timeout = <Return, Err>(\r\n  fn: (...args: any[]) => Return,\r\n  time: number,\r\n  errCb?: (...args: any[]) => Err\r\n): ((...args: any[]) => Promise<Return>) => {\r\n  return (...args: any[]) => {\r\n    return new Promise<any>((resolve, reject) => {\r\n      const timer = setTimeout(() => {\r\n        if (errCb) reject(errCb(...args));\r\n        else {\r\n          reject(new Error(\"Function timed out\"));\r\n        }\r\n      }, time);\r\n\r\n      // Wrap fn call in Promise.resolve to handle both sync and async functions\r\n      Promise.resolve(fn(...args))\r\n        .then((result: Return) => {\r\n          clearTimeout(timer);\r\n          resolve(result);\r\n        })\r\n        .catch((err: Err) => {\r\n          clearTimeout(timer);\r\n          reject(err);\r\n        });\r\n    });\r\n  };\r\n};\r\n\r\nexport default timeout;\r\n",
-      "js": "/**\n * Wraps a function with a timeout.\n * If the function does not complete within the specified time, the promise will be rejected.\n *\n * @template Return - The return type of the wrapped function.\n * @template Err - The error type that can be thrown by the wrapped function or the error callback.\n * @param {(...args: any[]) => Return} fn - The function to be wrapped.\n * @param {number} time - The timeout duration in milliseconds.\n * @param {(...args: any[]) => Err} [errCb] - Optional error callback function to handle timeout errors.\n * @returns {(...args: any[]) => Promise<Return>} - A wrapped function that returns a promise.\n */\nconst timeout = (fn, time, errCb) => {\n    return (...args) => {\n        return new Promise((resolve, reject) => {\n            const timer = setTimeout(() => {\n                if (errCb)\n                    reject(errCb(...args));\n                else {\n                    reject(new Error(\"Function timed out\"));\n                }\n            }, time);\n            // Wrap fn call in Promise.resolve to handle both sync and async functions\n            Promise.resolve(fn(...args))\n                .then((result) => {\n                clearTimeout(timer);\n                resolve(result);\n            })\n                .catch((err) => {\n                clearTimeout(timer);\n                reject(err);\n            });\n        });\n    };\n};\nexport default timeout;\n"
-    },
-    "category": "functional",
-    "type": "functions",
-    "examples": [
-      "import timeout from \".\";\r\n\r\ntimeout(() => \"Hello, World!\", 1000);\r\n// Expected Output: \"Hello, World!\"\r\n\r\ntimeout(() => new Promise((resolve) => setTimeout(resolve, 2000)), 1000);\r\n// Expected Output: Error: Function timed out\r\n\r\ntimeout(\r\n  () => new Promise((resolve) => setTimeout(resolve, 2000)),\r\n  1000,\r\n  () => console.log(\"I failed\")\r\n);\r\n// Expected Output: I failed\r\n"
-    ],
-    "docs": {
-      "metaData": {
-        "desc": "The timeout function wraps a function with a timeout. If the function does not complete within the specified time, the promise will be rejected."
-      },
-      "md": "\r\nThe timeout function is a higher-order function that takes a function\r\nfn, a timeout duration time, and an optional error callback errCb as\r\narguments. It returns a new function that, when called, returns a\r\nPromise. This Promise will resolve with the result of the fn function if\r\nfn completes within the specified time. If fn does not complete within\r\nthe time, the Promise will be rejected. If an errCb function is\r\nprovided, it will be called with the arguments passed to the wrapped\r\nfunction, and the Promise will be rejected with the result of errCb. If\r\nno errCb is provided, the Promise will be rejected with a new Error\r\nstating &apos;Function timed out&apos;. The timeout function is designed\r\nto handle both synchronous and asynchronous functions, as it wraps the\r\ncall to fn with Promise.resolve. This ensures that fn is always treated\r\nas a Promise, allowing the use of .then and .catch to handle the result\r\nor any errors.\r\n"
-    },
-    "props": [
-      {
-        "title": "function",
-        "required": true,
-        "propDesc": "The function to be wrapped with a timeout.",
-        "type": "Function"
-      },
-      {
-        "title": "time",
-        "required": true,
-        "propDesc": "The timeout duration in milliseconds.",
-        "type": "number"
-      },
-      {
-        "title": "errCb",
-        "required": false,
-        "propDesc": "Optional error callback function to handle timeout errors. If not provided, the promise will be rejected with an error message.",
-        "type": "Function"
-      }
-    ],
-    "createdAt": {
-      "date": "2024-04-17T13:28:44.158Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-17T13:28:44.159Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
     "name": "and",
     "code": {
       "ts": "/**\r\n * Performs a logical AND operation on the given boolean values.\r\n * Returns true if all arguments are true, otherwise returns false.\r\n *\r\n * @param args - The boolean values to perform the AND operation on.\r\n * @returns The result of the logical AND operation.\r\n */\r\nconst and = (...args: any[]) => {\r\n  if (args.length === 0) return false;\r\n  return args.every((arg) => Boolean(arg));\r\n};\r\n\r\nexport default and;\r\n",
@@ -763,6 +763,166 @@
     },
     "lastUpdated": {
       "date": "2024-04-17T13:28:44.190Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "omit",
+    "code": {
+      "ts": "/**\r\n * Creates a new object with the specified keys omitted.\r\n *\r\n * @param obj - The object from which to omit keys.\r\n * @param keys - An array of keys to omit from the object.\r\n * @returns A new object with the specified keys omitted.\r\n */\r\nconst omit = <T, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> => {\r\n  const newObj = { ...obj };\r\n  keys.forEach((key) => delete newObj[key]);\r\n  return newObj as Omit<T, K>;\r\n};\r\n\r\nexport default omit;\r\n",
+      "js": "/**\n * Creates a new object with the specified keys omitted.\n *\n * @param obj - The object from which to omit keys.\n * @param keys - An array of keys to omit from the object.\n * @returns A new object with the specified keys omitted.\n */\nconst omit = (obj, keys) => {\n    const newObj = { ...obj };\n    keys.forEach((key) => delete newObj[key]);\n    return newObj;\n};\nexport default omit;\n"
+    },
+    "category": "objects",
+    "type": "functions",
+    "examples": [
+      "import omit from \".\";\r\n\r\nconst obj = { a: 1, b: 2, c: 3 };\r\nconst keys = [\"a\", \"c\"] as Array<keyof typeof obj>;\r\n// You have to specify the keys as an array of keyof typeof obj to ensure that the keys are valid, If you are defining the keys separately.\r\n\r\nconst omitted = omit(obj, keys);\r\nconsole.log(omitted);\r\n// Expected output: { b: 2 }\r\n\r\n//OR\r\nconst omitted2 = omit(obj, [\"a\", \"c\"]);\r\nconsole.log(omitted2);\r\n// Expected output: { b: 2 }\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Returns a new object with the specified keys omitted."
+      },
+      "md": "\r\nThe `omit` function returns a new object with the specified keys omitted. It does not modify the original object.\r\n"
+    },
+    "props": [
+      {
+        "title": "object",
+        "required": true,
+        "propDesc": "The object to omit keys from.",
+        "type": "object"
+      },
+      {
+        "title": "keys",
+        "required": true,
+        "propDesc": "An array of keys to omit from the object. The keys must be of the same type as the keys of the input object.",
+        "type": "array"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-27T06:37:01.586Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-27T06:37:01.588Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "pick",
+    "code": {
+      "ts": "/**\r\n * Creates a new object with only the specified keys from the original object.\r\n *\r\n * @param obj - The original object.\r\n * @param keys - An array of keys to pick from the original object.\r\n * @returns A new object with only the specified keys.\r\n * @typeParam T - The type of the original object.\r\n * @typeParam K - The type of the keys to pick.\r\n */\r\nconst pick = <T, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> => {\r\n  const newObj: any = {};\r\n  keys.forEach((key) => {\r\n    newObj[key] = obj[key];\r\n  });\r\n  return newObj as Pick<T, K>;\r\n};\r\n\r\nexport default pick;\r\n",
+      "js": "/**\n * Creates a new object with only the specified keys from the original object.\n *\n * @param obj - The original object.\n * @param keys - An array of keys to pick from the original object.\n * @returns A new object with only the specified keys.\n * @typeParam T - The type of the original object.\n * @typeParam K - The type of the keys to pick.\n */\nconst pick = (obj, keys) => {\n    const newObj = {};\n    keys.forEach((key) => {\n        newObj[key] = obj[key];\n    });\n    return newObj;\n};\nexport default pick;\n"
+    },
+    "category": "objects",
+    "type": "functions",
+    "examples": [
+      "import pick from \".\";\r\n\r\nconst obj = { a: 1, b: 2, c: 3 };\r\nconst result = pick(obj, [\"a\", \"c\"]);\r\nconsole.log(result);\r\n// Expected output: { a: 1, c: 3 }\r\n\r\nconst emptyResult = pick(obj, []);\r\nconsole.log(emptyResult);\r\n// Expected output: {}\r\n\r\nconst keys = [\"a\", \"b\"] as Array<keyof typeof obj>;\r\n// You have to specify the keys as an array of keyof typeof obj to ensure that the keys are valid, If you are defining the keys separately.\r\nconst resultWithKeys = pick(obj, keys);\r\nconsole.log(resultWithKeys);\r\n// Expected output: { a: 1, b: 2 }\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Picks the specified keys from an object."
+      },
+      "md": "\r\nThe `pick` function picks the specified keys from an object and returns a new object with only those keys.\r\n"
+    },
+    "props": [
+      {
+        "title": "object",
+        "required": true,
+        "propDesc": "The object to pick keys from.",
+        "type": "object"
+      },
+      {
+        "title": "keys",
+        "required": true,
+        "propDesc": "An array of keys to pick from the object. The keys must be of the same type as the keys of the input object.",
+        "type": "array"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-27T06:37:01.597Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-27T06:37:01.597Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "renameKey",
+    "code": {
+      "ts": "/**\r\n * Renames a key in an object.\r\n *\r\n * @template T - The type of the object.\r\n * @template K - The type of the key to be renamed.\r\n * @template N - The type of the new key.\r\n * @param {T} obj - The object to modify.\r\n * @param {K} key - The key to be renamed.\r\n * @param {N} newKey - The new key name.\r\n * @returns {Omit<T, K> & { [P in N]: T[K] }} - The modified object with the renamed key.\r\n */\r\nconst renameKey = <T extends object, K extends keyof T, N extends string>(\r\n  obj: T,\r\n  key: K,\r\n  newKey: N\r\n): Omit<T, K> & {\r\n  [P in N]: T[K];\r\n} => {\r\n  const newObj: any = { ...obj };\r\n  newObj[newKey] = newObj[key];\r\n  delete newObj[key];\r\n  return newObj as Omit<T, K> & { [P in N]: T[K] };\r\n};\r\n\r\nexport default renameKey;\r\n",
+      "js": "/**\n * Renames a key in an object.\n *\n * @template T - The type of the object.\n * @template K - The type of the key to be renamed.\n * @template N - The type of the new key.\n * @param {T} obj - The object to modify.\n * @param {K} key - The key to be renamed.\n * @param {N} newKey - The new key name.\n * @returns {Omit<T, K> & { [P in N]: T[K] }} - The modified object with the renamed key.\n */\nconst renameKey = (obj, key, newKey) => {\n    const newObj = { ...obj };\n    newObj[newKey] = newObj[key];\n    delete newObj[key];\n    return newObj;\n};\nexport default renameKey;\n"
+    },
+    "category": "objects",
+    "type": "functions",
+    "examples": [
+      "import rename from \".\";\r\n\r\nconst obj = { a: 1, b: 2, c: 3 };\r\nconst result = rename(obj, \"a\", \"d\");\r\nconsole.log(result);\r\n// Expected output: { b: 2, c: 3, d: 1 }\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Renames a key in an object."
+      },
+      "md": "\r\nThe `renameKey` function renames a key in an object and returns a new object with the renamed key.\r\n"
+    },
+    "props": [
+      {
+        "title": "object",
+        "required": true,
+        "propDesc": "The object from which to rename a key.",
+        "type": "object"
+      },
+      {
+        "title": "key",
+        "required": true,
+        "propDesc": "The key to rename. The key must be of the same type as the keys of the input object.",
+        "type": "string"
+      },
+      {
+        "title": "newKey",
+        "required": true,
+        "propDesc": "The name of the new key.",
+        "type": "string"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-27T06:57:09.852Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-27T06:57:09.853Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "sampleObj",
+    "code": {
+      "ts": "/**\r\n * Creates an object with random number values for the given keys.\r\n * @param keys - The keys for the object.\r\n * @returns An object with random number values for the given keys.\r\n */\r\nconst sampleObj = (...keys: string[]) => {\r\n  const obj: any = {};\r\n  keys.forEach((key) => {\r\n    obj[key] = Math.random();\r\n  });\r\n  return obj as Record<string, number>;\r\n};\r\n\r\nexport default sampleObj;\r\n",
+      "js": "/**\n * Creates an object with random number values for the given keys.\n * @param keys - The keys for the object.\n * @returns An object with random number values for the given keys.\n */\nconst sampleObj = (...keys) => {\n    const obj = {};\n    keys.forEach((key) => {\n        obj[key] = Math.random();\n    });\n    return obj;\n};\nexport default sampleObj;\n"
+    },
+    "category": "objects",
+    "type": "functions",
+    "examples": [
+      "import sampleObj from \".\";\r\n\r\nconst keys = [\"key1\", \"key2\", \"key3\"];\r\nconst obj = sampleObj(...keys);\r\nconsole.log(obj);\r\n// Expected output: { key1: Number, key2: Number, key3: Number }\r\n// Where Number is a random number between 0 and 1.\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Returns a sample object with the specified keys and values as random numbers."
+      },
+      "md": "\r\nThe `sampleObj` function takes any number of string arguments, treats each argument as a key, and creates an object where each key is associated with a random number value. The function then returns this object.\r\n"
+    },
+    "props": [
+      {
+        "title": "keys",
+        "required": true,
+        "propDesc": "The keys for the object.",
+        "type": "string[]"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-27T05:59:48.776Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-27T05:59:48.778Z",
       "packageVersion": "0.1.0"
     }
   }
