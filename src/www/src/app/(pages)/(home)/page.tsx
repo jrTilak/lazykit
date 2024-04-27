@@ -14,7 +14,7 @@ export default async function Home() {
   const getGithubStars = async () => {
     const res = await fetch(GITHUB_INFO.api, {
       next: {
-        revalidate: 60 * 60 * 24, // 24 hours
+        revalidate: 60 * 60, // 1 hour
       },
     });
     const data = await res.json();
@@ -26,7 +26,7 @@ export default async function Home() {
       `https://api.npmjs.org/downloads/point/last-week/${PACKAGE_INFO.name}`,
       {
         next: {
-          revalidate: 60 * 60 * 24, // 24 hours
+          revalidate: 60 * 60, // 1 hour
         },
       }
     );
