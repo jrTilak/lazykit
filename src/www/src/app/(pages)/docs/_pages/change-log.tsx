@@ -10,7 +10,7 @@ const ChangeLog = async () => {
       `https://api.github.com/repos/${GITHUB_INFO.user}/${GITHUB_INFO.repo}/pulls?&state=closed`,
       {
         next: {
-          revalidate: 60 * 60 * 24, // 24 hours
+          revalidate: 60 * 60, // 1 hour
         },
       }
     );

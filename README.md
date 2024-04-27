@@ -25,7 +25,7 @@ Visit [here](./docs/README.md) for contributing guidelines.
 
 ## License
 
-Visit [here](./LICENSE.md) for license information.
+Visit [here](./LICENSE) for license information.
 
 ## Some Useful Links
 
