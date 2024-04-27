@@ -32,20 +32,36 @@
         "url": "/docs/functions/arrays",
         "methods": [
           {
+            "label": "chunk",
+            "url": "/docs/functions/arrays/chunk"
+          },
+          {
+            "label": "compact",
+            "url": "/docs/functions/arrays/compact"
+          },
+          {
             "label": "insert",
             "url": "/docs/functions/arrays/insert"
+          },
+          {
+            "label": "partition",
+            "url": "/docs/functions/arrays/partition"
+          },
+          {
+            "label": "remove",
+            "url": "/docs/functions/arrays/remove"
           },
           {
             "label": "rotate",
             "url": "/docs/functions/arrays/rotate"
           },
           {
-            "label": "zip",
-            "url": "/docs/functions/arrays/zip"
-          },
-          {
             "label": "sampleArr",
             "url": "/docs/functions/arrays/sampleArr"
+          },
+          {
+            "label": "search",
+            "url": "/docs/functions/arrays/search"
           },
           {
             "label": "shuffleArr",
@@ -56,24 +72,8 @@
             "url": "/docs/functions/arrays/unique"
           },
           {
-            "label": "search",
-            "url": "/docs/functions/arrays/search"
-          },
-          {
-            "label": "partition",
-            "url": "/docs/functions/arrays/partition"
-          },
-          {
-            "label": "chunk",
-            "url": "/docs/functions/arrays/chunk"
-          },
-          {
-            "label": "compact",
-            "url": "/docs/functions/arrays/compact"
-          },
-          {
-            "label": "remove",
-            "url": "/docs/functions/arrays/remove"
+            "label": "zip",
+            "url": "/docs/functions/arrays/zip"
           }
         ]
       },
@@ -82,16 +82,16 @@
         "url": "/docs/functions/functional",
         "methods": [
           {
+            "label": "timeout",
+            "url": "/docs/functions/functional/timeout"
+          },
+          {
             "label": "retry",
             "url": "/docs/functions/functional/retry"
           },
           {
             "label": "sleep",
             "url": "/docs/functions/functional/sleep"
-          },
-          {
-            "label": "timeout",
-            "url": "/docs/functions/functional/timeout"
           }
         ]
       },
@@ -100,20 +100,20 @@
         "url": "/docs/functions/gates",
         "methods": [
           {
-            "label": "nor",
-            "url": "/docs/functions/gates/nor"
-          },
-          {
-            "label": "or",
-            "url": "/docs/functions/gates/or"
-          },
-          {
             "label": "and",
             "url": "/docs/functions/gates/and"
           },
           {
             "label": "nand",
             "url": "/docs/functions/gates/nand"
+          },
+          {
+            "label": "nor",
+            "url": "/docs/functions/gates/nor"
+          },
+          {
+            "label": "or",
+            "url": "/docs/functions/gates/or"
           }
         ]
       },
@@ -124,6 +124,14 @@
           {
             "label": "mapObj",
             "url": "/docs/functions/objects/mapObj"
+          },
+          {
+            "label": "omit",
+            "url": "/docs/functions/objects/omit"
+          },
+          {
+            "label": "pick",
+            "url": "/docs/functions/objects/pick"
           },
           {
             "label": "sampleObj",

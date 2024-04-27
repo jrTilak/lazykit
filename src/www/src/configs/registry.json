@@ -1,677 +1,5 @@
 [
   {
-    "name": "insert",
-    "code": {
-      "ts": "/**\r\n * Inserts elements into an array at a specified index.\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} arr - The array to insert elements into.\r\n * @param {number} index - The index at which to insert the elements.\r\n * @param {boolean} [recursive=false] - Indicates whether to insert elements recursively. If true, the elements will be inserted at every nth index.\r\n * @param {...T[]} items - The elements to insert into the array.\r\n * @returns {T[]} - The modified array with the inserted elements.\r\n */\r\nconst insert = <T>(\r\n  arr: T[],\r\n  index: number,\r\n  [...items]: T[],\r\n  recursive: boolean = false\r\n): T[] => {\r\n  const isNegativeIndex = index < 0;\r\n  // if index is negative, convert it to positive and reverse the array for easier insertion\r\n  if (isNegativeIndex) {\r\n    index = Math.abs(index);\r\n    arr = arr.reverse();\r\n    items = items.reverse();\r\n  }\r\n\r\n  if (!recursive) {\r\n    const newArr = [...arr.slice(0, index), ...items, ...arr.slice(index)];\r\n    return isNegativeIndex ? newArr.reverse() : newArr;\r\n  } else {\r\n    const shouldInsert = Math.floor(arr.length / index);\r\n    let newArr = [...arr];\r\n    for (let i = 0; i < shouldInsert; i++) {\r\n      const insertIndex = (i + 1) * index + i * items.length;\r\n      newArr = [\r\n        ...newArr.slice(0, insertIndex),\r\n        ...items,\r\n        ...newArr.slice(insertIndex),\r\n      ];\r\n    }\r\n    return isNegativeIndex ? newArr.reverse() : newArr;\r\n  }\r\n};\r\n\r\nexport default insert;\r\n",
-      "js": "/**\n * Inserts elements into an array at a specified index.\n *\n * @template T - The type of elements in the array.\n * @param {T[]} arr - The array to insert elements into.\n * @param {number} index - The index at which to insert the elements.\n * @param {boolean} [recursive=false] - Indicates whether to insert elements recursively. If true, the elements will be inserted at every nth index.\n * @param {...T[]} items - The elements to insert into the array.\n * @returns {T[]} - The modified array with the inserted elements.\n */\nconst insert = (arr, index, [...items], recursive = false) => {\n    const isNegativeIndex = index < 0;\n    // if index is negative, convert it to positive and reverse the array for easier insertion\n    if (isNegativeIndex) {\n        index = Math.abs(index);\n        arr = arr.reverse();\n        items = items.reverse();\n    }\n    if (!recursive) {\n        const newArr = [...arr.slice(0, index), ...items, ...arr.slice(index)];\n        return isNegativeIndex ? newArr.reverse() : newArr;\n    }\n    else {\n        const shouldInsert = Math.floor(arr.length / index);\n        let newArr = [...arr];\n        for (let i = 0; i < shouldInsert; i++) {\n            const insertIndex = (i + 1) * index + i * items.length;\n            newArr = [\n                ...newArr.slice(0, insertIndex),\n                ...items,\n                ...newArr.slice(insertIndex),\n            ];\n        }\n        return isNegativeIndex ? newArr.reverse() : newArr;\n    }\n};\nexport default insert;\n"
-    },
-    "category": "arrays",
-    "type": "functions",
-    "examples": [
-      "import insert from \".\";\r\n\r\nconst arr = [1, 2, 3];\r\nconst index = 1;\r\nconst items = [4, 5];\r\n\r\nconst result = insert(arr, index, items);\r\nconsole.log(result);\r\n// Expected Output: [1, 4, 5, 2, 3]\r\n\r\nconst arr2 = [1, 2, 3, 4, 5];\r\nconst index2 = 2;\r\nconst items2 = [6, 7];\r\n\r\nconst result2 = insert(arr2, index2, items2);\r\nconsole.log(result2);\r\n// Expected Output: [1, 2, 6, 7, 3, 4, 5 ]\r\n\r\n// negative index\r\nconst arr3 = [1, 2, 3];\r\nconst index3 = -1;\r\nconst items3 = [4, 5];\r\n\r\nconst result3 = insert(arr3, index3, items3);\r\nconsole.log(result3);\r\n// Expected Output: [1, 2, 4, 5, 3]\r\n",
-      "//recursive examples\r\n\r\nimport insert from \".\";\r\n\r\nconst arr = [1, 2, 3];\r\nconst index = 1;\r\nconst items = [4, 5];\r\n\r\nconst result = insert(arr, index, items, true);\r\nconsole.log(result);\r\n// Expected Output: [1, 4, 5, 2, 4, 5, 3, 4, 5]\r\n\r\nconst arr2 = [1, 2, 3, 4, 5];\r\nconst index2 = 2;\r\nconst items2 = [6, 7];\r\n\r\nconst result2 = insert(arr2, index2, items2, true);\r\nconsole.log(result2);\r\n// Expected Output: [1, 2, 6, 7, 3, 4, 6, 7, 5]\r\n\r\n//negative index\r\n\r\nconst arr3 = [1, 2, 3];\r\nconst index3 = -1;\r\nconst items3 = [4, 5];\r\n\r\nconst result3 = insert(arr3, index3, items3, true);\r\nconsole.log(result3);\r\n// Expected Output: [4, 5, 1, 4, 5, 2, 4, 5, 3]\r\n"
-    ],
-    "docs": {
-      "metaData": {
-        "desc": "Inserts elements into an array at a specified index."
-      },
-      "md": "\r\nThe insert function is a generic function in TypeScript that is designed\r\nto insert elements into an array at a specified index. The function\r\ntakes four parameters: an array arr of type T[], an index of type\r\nnumber, a spread parameter items of type T[], and an optional recursive\r\nparameter of type boolean which defaults to false.\r\n\r\nIt returns a new array with the elements inserted at the specified index\r\nwithout modifying the original array.\r\n\r\nIf the index is negative, the function treats it as an index from the\r\nend of the array. In this case, it converts the index to a positive\r\nnumber and reverses the array and the items to be inserted for easier\r\ninsertion.\r\n\r\nIf the recursive parameter is false, the function simply inserts the\r\nitems at the specified index in the array. If the recursive parameter is\r\ntrue, the function inserts the items at every nth index, where n is the\r\nabsolute value of the provided index. The function calculates the number\r\nof insertions to be made by dividing the length of the array by the\r\nindex.\r\n"
-    },
-    "props": [
-      {
-        "title": "array",
-        "required": true,
-        "propDesc": "The array to process.",
-        "type": "array"
-      },
-      {
-        "title": "index",
-        "required": true,
-        "propDesc": "The index at which to insert the elements, If negative, the index will start from the end of the array.",
-        "type": "number"
-      },
-      {
-        "title": "items",
-        "required": true,
-        "propDesc": "The elements to insert into the array.",
-        "type": "array"
-      },
-      {
-        "title": "strict",
-        "required": false,
-        "defaultValue": "false",
-        "propDesc": "Indicates whether to insert elements recursively. If true, the elements will be inserted at every nth index.",
-        "type": "boolean"
-      }
-    ],
-    "createdAt": {
-      "date": "2024-04-17T13:28:44.070Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-17T13:28:44.070Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
-    "name": "rotate",
-    "code": {
-      "ts": "/**\r\n * Rotates an array in the specified direction by a given number of positions.\r\n *\r\n * @param arr - The array to rotate.\r\n * @param n - The number of positions to rotate the array by.\r\n * @param dir - The direction in which to rotate the array. Defaults to \"left\".\r\n * @returns The rotated array.\r\n * @template T - The type of elements in the array.\r\n */\r\nconst rotate = <T>(\r\n  arr: T[],\r\n  n: number,\r\n  dir: \"left\" | \"right\" = \"left\"\r\n): T[] => {\r\n  if (dir === \"left\") {\r\n    return arr.slice(n, arr.length).concat(arr.slice(0, n));\r\n  } else {\r\n    return arr\r\n      .slice(arr.length - n, arr.length)\r\n      .concat(arr.slice(0, arr.length - n));\r\n  }\r\n};\r\n\r\nexport default rotate;\r\n",
-      "js": "/**\n * Rotates an array in the specified direction by a given number of positions.\n *\n * @param arr - The array to rotate.\n * @param n - The number of positions to rotate the array by.\n * @param dir - The direction in which to rotate the array. Defaults to \"left\".\n * @returns The rotated array.\n * @template T - The type of elements in the array.\n */\nconst rotate = (arr, n, dir = \"left\") => {\n    if (dir === \"left\") {\n        return arr.slice(n, arr.length).concat(arr.slice(0, n));\n    }\n    else {\n        return arr\n            .slice(arr.length - n, arr.length)\n            .concat(arr.slice(0, arr.length - n));\n    }\n};\nexport default rotate;\n"
-    },
-    "category": "arrays",
-    "type": "functions",
-    "examples": [
-      "import rotate from \".\";\r\n\r\nconst arr = [1, 2, 3, 4, 5];\r\nrotate(arr, 2);\r\n// Expected Output: [3, 4, 5, 1, 2]\r\n\r\nrotate(arr, 2, \"right\");\r\n// Expected Output: [4, 5, 1, 2, 3]\r\n"
-    ],
-    "docs": {
-      "metaData": {
-        "desc": "Rotates the elements of an array by a given number of positions."
-      },
-      "md": "\r\nThe `rotate` function takes an array and a number as arguments, and returns a new array that is a rotated version of the original array. The rotation is performed by shifting the elements of the array to the left by the number of positions specified by the second argument."
-    },
-    "props": [
-      {
-        "title": "array",
-        "required": true,
-        "propDesc": "The array to rotate.",
-        "type": "array"
-      },
-      {
-        "title": "position",
-        "required": true,
-        "propDesc": "The number of positions to rotate the array by.",
-        "type": "number"
-      },
-      {
-        "title": "direction",
-        "required": false,
-        "defaultValue": "left",
-        "propDesc": "The direction in which to rotate the array.",
-        "type": "enum",
-        "enums": [
-          "left",
-          "right"
-        ]
-      }
-    ],
-    "createdAt": {
-      "date": "2024-04-26T11:46:19.176Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-26T11:52:00.143Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
-    "name": "zip",
-    "code": {
-      "ts": "type Args = {\r\n  arr: any[][];\r\n  strict?: boolean;\r\n};\r\n\r\n/**\r\n * Zips multiple arrays into a single array of tuples.\r\n *\r\n * @template T - The type of elements in the arrays.\r\n * @param {Args<any>} options - The options for zipping the arrays.\r\n * @param {any[][]} options.arr - The arrays to be zipped.\r\n * @param {boolean} [options.strict=false] - Indicates whether to zip strictly based on the minimum length of the arrays.\r\n * @returns {any[][]} - The zipped array of tuples.\r\n */\r\nconst zip = ({ arr, strict = false }: Args): any[][] => {\r\n  const maxIndex = arr.map((a) => a.length).reduce((a, b) => Math.max(a, b), 0);\r\n  const minIndex = arr\r\n    .map((a) => a.length)\r\n    .reduce((a, b) => Math.min(a, b), maxIndex);\r\n\r\n  const result: any[][] = [];\r\n\r\n  const upto = strict ? minIndex : maxIndex;\r\n\r\n  for (let i = 0; i < upto; i++) {\r\n    const zip = arr.map((a) => a[i]);\r\n    result.push(zip);\r\n  }\r\n  return result;\r\n};\r\n\r\nexport default zip;\r\n",
-      "js": "/**\n * Zips multiple arrays into a single array of tuples.\n *\n * @template T - The type of elements in the arrays.\n * @param {Args<any>} options - The options for zipping the arrays.\n * @param {any[][]} options.arr - The arrays to be zipped.\n * @param {boolean} [options.strict=false] - Indicates whether to zip strictly based on the minimum length of the arrays.\n * @returns {any[][]} - The zipped array of tuples.\n */\nconst zip = ({ arr, strict = false }) => {\n    const maxIndex = arr.map((a) => a.length).reduce((a, b) => Math.max(a, b), 0);\n    const minIndex = arr\n        .map((a) => a.length)\n        .reduce((a, b) => Math.min(a, b), maxIndex);\n    const result = [];\n    const upto = strict ? minIndex : maxIndex;\n    for (let i = 0; i < upto; i++) {\n        const zip = arr.map((a) => a[i]);\n        result.push(zip);\n    }\n    return result;\n};\nexport default zip;\n"
-    },
-    "category": "arrays",
-    "type": "functions",
-    "examples": [
-      "import zip from \".\";\r\n\r\nconst arr = [\r\n  [1, 2, 3],\r\n  [\"a\", \"b\"],\r\n];\r\n\r\nconst result = zip({ arr });\r\nconsole.log(result);\r\n// Expected output: [[1, \"a\"], [2, \"b\"], [3, undefined]]\r\n\r\n// strict mode\r\nconst resultStrict = zip({ arr, strict: true });\r\nconsole.log(resultStrict);\r\n// Expected output: [[1, \"a\"], [2, \"b\"]]\r\n"
-    ],
-    "docs": {
-      "metaData": {
-        "desc": "Zips arrays together in the form of an array of arrays."
-      },
-      "md": "\r\nThe `zip` function in the combines multiple arrays into a single array of tuples.\r\n\r\nThe function accepts an `object` as an argument, which has two properties: `arr` (an array of arrays) and `strict` (a boolean). The strict property is optional and defaults to false if not provided.\r\n\r\nIf the strict property is set to true, the function will only zip arrays of the same length. If the strict property is set to false, the function will zip arrays of different lengths by filling in the missing values with `undefined`.\r\n\r\nThis function is useful for combining multiple arrays into a single array of tuples.\r\n"
-    },
-    "props": [
-      {
-        "title": "arr",
-        "required": true,
-        "propDesc": "The arrays to be zipped.",
-        "type": "array[]"
-      },
-      {
-        "title": "strict",
-        "required": false,
-        "defaultValue": "false",
-        "propDesc": "If true, the zipping will be done strictly based on the minimum length of the arrays.",
-        "type": "boolean"
-      }
-    ],
-    "createdAt": {
-      "date": "2024-04-26T13:18:20.715Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-26T13:19:43.461Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
-    "name": "nor",
-    "code": {
-      "ts": "/**\r\n * Performs a logical NOR operation on the given arguments.\r\n * Returns true if none of the arguments are truthy, otherwise returns false.\r\n *\r\n * @param args - The arguments to perform the NOR operation on.\r\n * @returns The result of the NOR operation.\r\n */\r\nconst nor = (...args: any[]) => {\r\n  if (args.length === 0) return false;\r\n  const or = args.some((arg) => Boolean(arg));\r\n  return !or;\r\n};\r\n\r\nexport default nor;\r\n",
-      "js": "/**\n * Performs a logical NOR operation on the given arguments.\n * Returns true if none of the arguments are truthy, otherwise returns false.\n *\n * @param args - The arguments to perform the NOR operation on.\n * @returns The result of the NOR operation.\n */\nconst nor = (...args) => {\n    if (args.length === 0)\n        return false;\n    const or = args.some((arg) => Boolean(arg));\n    return !or;\n};\nexport default nor;\n"
-    },
-    "category": "gates",
-    "type": "functions",
-    "examples": [
-      "import or from \".\";\r\n\r\nconsole.log(or(true, true));\r\n// Expected Output: false\r\n\r\nconsole.log(or(false, true));\r\n// Expected Output: false\r\n\r\nconsole.log(or(false, false));\r\n// Expected Output: true\r\n\r\nconsole.log(or());\r\n// Expected Output: true\r\n\r\nconsole.log(or(1, \"lazykit\"));\r\n// Expected Output: false\r\n"
-    ],
-    "docs": {
-      "metaData": {
-        "desc": "Performs a logical NOR operation on the given arguments."
-      },
-      "md": "\r\nThe nor function is a utility function in TypeScript that performs a\r\nlogical NOR operation on the given arguments.\r\n"
-    },
-    "props": [
-      {
-        "title": "args",
-        "required": true,
-        "propDesc": "The arguments to perform the NOR operation on.",
-        "type": "any[]"
-      }
-    ],
-    "createdAt": {
-      "date": "2024-04-17T13:28:44.176Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-17T13:28:44.176Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
-    "name": "or",
-    "code": {
-      "ts": "/**\r\n * Performs a logical OR operation on the given arguments.\r\n *\r\n * @param args - The arguments to perform the OR operation on.\r\n * @returns The result of the OR operation.\r\n */\r\nconst or = (...args: any[]) => {\r\n  return args.some((arg) => Boolean(arg));\r\n};\r\n\r\nexport default or;\r\n",
-      "js": "/**\n * Performs a logical OR operation on the given arguments.\n *\n * @param args - The arguments to perform the OR operation on.\n * @returns The result of the OR operation.\n */\nconst or = (...args) => {\n    return args.some((arg) => Boolean(arg));\n};\nexport default or;\n"
-    },
-    "category": "gates",
-    "type": "functions",
-    "examples": [
-      "import or from \".\";\r\n\r\nconsole.log(or(true, true));\r\n// Expected Output: true\r\n\r\nconsole.log(or(false, true));\r\n// Expected Output: true\r\n\r\nconsole.log(or(false, false));\r\n// Expected Output: false\r\n\r\nconsole.log(or());\r\n// Expected Output: false\r\n\r\nconsole.log(or(1, \"lazykit\"));\r\n// Expected Output: true\r\n"
-    ],
-    "docs": {
-      "metaData": {
-        "desc": "Performs a logical OR operation on the given arguments."
-      },
-      "md": "\r\nThe or function is a utility function in TypeScript that performs a\r\nlogical OR operation on the given arguments.\r\n"
-    },
-    "props": [
-      {
-        "title": "args",
-        "required": true,
-        "propDesc": "The arguments to perform the OR operation on.",
-        "type": "any[]"
-      }
-    ],
-    "createdAt": {
-      "date": "2024-04-17T13:28:44.181Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-17T13:28:44.181Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
-    "name": "retry",
-    "code": {
-      "ts": "/**\r\n * Retries the given function a specified number of times with a delay between each retry.\r\n * @param fn The function to retry.\r\n * @param retries The number of times to retry the function. Default is 3.\r\n * @param delay The delay in milliseconds between each retry. Default is 1000ms (1 second).\r\n * @returns A Promise that resolves to the result of the function if it succeeds, or rejects with the last error if all retries fail.\r\n */\r\nconst retry = async <T>(\r\n  fn: Function,\r\n  retries: number = 3,\r\n  delay: number = 1000\r\n): Promise<T> => {\r\n  try {\r\n    return await fn();\r\n  } catch (error) {\r\n    if (retries > 0) {\r\n      await new Promise((resolve) => setTimeout(resolve, delay));\r\n      return retry(fn, retries - 1, delay);\r\n    }\r\n    throw error;\r\n  }\r\n};\r\n\r\nexport default retry;\r\n",
-      "js": "/**\n * Retries the given function a specified number of times with a delay between each retry.\n * @param fn The function to retry.\n * @param retries The number of times to retry the function. Default is 3.\n * @param delay The delay in milliseconds between each retry. Default is 1000ms (1 second).\n * @returns A Promise that resolves to the result of the function if it succeeds, or rejects with the last error if all retries fail.\n */\nconst retry = async (fn, retries = 3, delay = 1000) => {\n    try {\n        return await fn();\n    }\n    catch (error) {\n        if (retries > 0) {\n            await new Promise((resolve) => setTimeout(resolve, delay));\n            return retry(fn, retries - 1, delay);\n        }\n        throw error;\n    }\n};\nexport default retry;\n"
-    },
-    "category": "functional",
-    "type": "functions",
-    "examples": [
-      "import retry from \".\";\r\n\r\nconst fn = async () => {\r\n  throw new Error(\"failed\");\r\n};\r\n\r\nretry(fn, 2, 1000).catch((error) => {\r\n  console.log(error.message);\r\n});\r\n// Expected output: \"failed\" after retrying twice but It will call the function 3 times.\r\n"
-    ],
-    "docs": {
-      "metaData": {
-        "desc": "Retries the given function a specified number of times with a delay between each retry."
-      },
-      "md": "\r\nThe retry function retries the given function a specified number of\r\ntimes with a delay between each retry. If the function succeeds within\r\nthe specified number of retries, the Promise will resolve with the\r\nresult of the function. If the function fails on all retries, the\r\nPromise will be rejected with the last error. The retry function is\r\ndesigned to handle both synchronous and asynchronous functions, as it\r\nwraps the call to fn with Promise.resolve. This ensures that fn is\r\nalways treated as a Promise, allowing the use of .then and .catch to\r\nhandle the result or any errors.\r\n\r\nThe function retries the given function a specified number of times. The\r\ntotal number of times a function is called is retries + 1.\r\n"
-    },
-    "props": [
-      {
-        "title": "function",
-        "required": true,
-        "propDesc": "The function to retry.",
-        "type": "Function"
-      },
-      {
-        "title": "retries",
-        "required": false,
-        "defaultValue": "3",
-        "propDesc": "The number of times to retry the function.",
-        "type": "number"
-      },
-      {
-        "title": "delay",
-        "required": false,
-        "defaultValue": "1000",
-        "propDesc": "The delay in milliseconds between each retry.",
-        "type": "number"
-      }
-    ],
-    "createdAt": {
-      "date": "2024-04-17T13:28:44.122Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-26T06:19:26.171Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
-    "name": "sampleArr",
-    "code": {
-      "ts": "/**\r\n * Generates an array of random numbers.\r\n *\r\n * @param size - The size of the array to generate.\r\n * @returns An array of random numbers.\r\n * @throws {Error} If the size is a negative number.\r\n */\r\nconst sampleArr = (size: number) => {\r\n  if (size < 0) throw new Error(\"Size must be a positive number\");\r\n  return Array.from({ length: size }, (_, i) => Math.floor(Math.random() * i));\r\n};\r\n\r\nexport default sampleArr;\r\n",
-      "js": "/**\n * Generates an array of random numbers.\n *\n * @param size - The size of the array to generate.\n * @returns An array of random numbers.\n * @throws {Error} If the size is a negative number.\n */\nconst sampleArr = (size) => {\n    if (size < 0)\n        throw new Error(\"Size must be a positive number\");\n    return Array.from({ length: size }, (_, i) => Math.floor(Math.random() * i));\n};\nexport default sampleArr;\n"
-    },
-    "category": "arrays",
-    "type": "functions",
-    "examples": [
-      "import sampleArr from \".\";\r\n\r\nconst arr = sampleArr(5);\r\nconsole.log(arr);\r\n// Expected output: an array of 5 random numbers\r\n\r\n// const negativeArr = sampleArr(-1);\r\n// Expected output: Throws an error\r\n"
-    ],
-    "docs": {
-      "metaData": {
-        "desc": "Generates an array of random numbers."
-      },
-      "md": "\r\nThis sampleArr function is a utility function in JavaScript that takes a\r\nsize parameter and generates an array of random numbers. The size\r\nparameter specifies the length of the array to generate. The function\r\nuses the Math.random() method to generate random numbers between 0 and\r\nthe specified size. The function returns an array of random numbers with\r\nthe specified length.\r\n\r\nThe function throws an error if the size parameter is a negative number.\r\n"
-    },
-    "props": [
-      {
-        "title": "size",
-        "required": true,
-        "propDesc": "The size of the array to generate, must be a positive number.",
-        "type": "number"
-      }
-    ],
-    "createdAt": {
-      "date": "2024-04-17T13:28:44.080Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-17T13:28:44.080Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
-    "name": "shuffleArr",
-    "code": {
-      "ts": "const shuffleArr = <T>(arr: T[]) => {\r\n  const copy = [...arr];\r\n  for (let i = copy.length - 1; i > 0; i--) {\r\n    const j = Math.floor(Math.random() * (i + 1));\r\n    [copy[i], copy[j]] = [copy[j], copy[i]];\r\n  }\r\n  \r\n  return copy;\r\n};\r\n\r\nexport default shuffleArr;\r\n",
-      "js": "const shuffleArr = (arr) => {\n    const copy = [...arr];\n    for (let i = copy.length - 1; i > 0; i--) {\n        const j = Math.floor(Math.random() * (i + 1));\n        [copy[i], copy[j]] = [copy[j], copy[i]];\n    }\n    return copy;\n};\nexport default shuffleArr;\n"
-    },
-    "category": "arrays",
-    "type": "functions",
-    "examples": [
-      "import shuffleArr from \".\";\r\n\r\nconst arr = [1, 2, 3, 4, 5];\r\nconst shuffledArr = shuffleArr(arr);\r\nconsole.log(shuffledArr);\r\n// Expected output: shuffled array of given array\r\n"
-    ],
-    "docs": {
-      "metaData": {
-        "desc": "Shuffles the elements of an array."
-      },
-      "md": "\r\nThe shuffleArr function is a utility function in JavaScript that takes\r\nan array and shuffles it. The function uses the Fisher-Yates algorithm\r\nto shuffle the array. The Fisher-Yates algorithm is an efficient\r\nalgorithm for generating a random permutation of a finite sequence. The\r\nfunction returns a new array with the elements of the original array\r\nshuffled.\r\n\r\nThe shuffleArr function does not modify the original array, it returns a\r\nnew array with the elements shuffled.\r\n"
-    },
-    "props": [
-      {
-        "title": "arr",
-        "required": true,
-        "propDesc": "The array to shuffle.",
-        "type": "any[]"
-      }
-    ],
-    "createdAt": {
-      "date": "2024-04-17T13:28:44.107Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-17T13:28:44.107Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
-    "name": "unique",
-    "code": {
-      "ts": "/**\r\n * Returns an array with unique elements from the input array.\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} arr - The input array.\r\n * @returns {T[]} - An array with unique elements.\r\n */\r\nconst unique = <T>(arr: T[]): T[] => {\r\n  //@ts-ignore\r\n  return [...new Set(arr)];\r\n};\r\n\r\nexport default unique;\r\n",
-      "js": "/**\n * Returns an array with unique elements from the input array.\n *\n * @template T - The type of elements in the array.\n * @param {T[]} arr - The input array.\n * @returns {T[]} - An array with unique elements.\n */\nconst unique = (arr) => {\n    //@ts-ignore\n    return [...new Set(arr)];\n};\nexport default unique;\n"
-    },
-    "category": "arrays",
-    "type": "functions",
-    "examples": [
-      "import unique from \".\";\r\n\r\nconst arr = [1, 2, 3, 3, 4, 5, 5, 6, 7, 8, 8, 9, 10];\r\nconst result = unique(arr);\r\nconsole.log(result);\r\n// Expected Output: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]\r\n"
-    ],
-    "docs": {
-      "metaData": {
-        "desc": "Creates a unique array from the input array."
-      },
-      "md": "\r\nThe unique function is a utility function in JavaScript that takes an\r\narray and returns a new array with all duplicate values removed. The\r\nfunction uses set to remove duplicate values from the array.\r\n"
-    },
-    "props": [
-      {
-        "title": "arr",
-        "required": true,
-        "propDesc": "The array to process",
-        "type": "any[]"
-      }
-    ],
-    "createdAt": {
-      "date": "2024-04-17T13:28:44.112Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-17T13:28:44.112Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
-    "name": "search",
-    "code": {
-      "ts": "/**\r\n * Searches an array of objects based on a query string and specified keys.\r\n *\r\n * @template T - The type of objects in the array.\r\n * @param {T[]} array - The array of objects to search.\r\n * @param {string} queryString - The query string to search for.\r\n * @param {(keyof T)[] | string[]} keys - The keys to search within each object.\r\n * @returns {T[]} - The filtered array of objects that match the search criteria.\r\n */\r\nconst search = <T extends Record<string, unknown>>(\r\n  array: T[],\r\n  queryString: string,\r\n  keys: (keyof T)[] | string[]\r\n): T[] => {\r\n  // Check if the query string or keys are empty, return empty array if true\r\n  try {\r\n    if (keys.length === 0) {\r\n      return []; // Return empty array if no keys are provided\r\n    }\r\n\r\n    if (!queryString.trim()) {\r\n      return array; // Return the original array if the query string is empty\r\n    }\r\n\r\n    // Loop through the array to filter objects\r\n    const filteredArray = array.filter((obj) => {\r\n      // Loop through the keys of each object\r\n      for (let key of keys) {\r\n        // Convert the value to string only for the comparison\r\n\r\n        let value = obj[key] as any;\r\n\r\n        if (typeof value !== \"string\" && typeof value !== \"number\") {\r\n          continue; // Skip the key if it is not a string or number\r\n        }\r\n        if (typeof value === \"number\") {\r\n          value = value.toString();\r\n        }\r\n        value = value.toLowerCase();\r\n        if (value.includes(queryString.toLowerCase()?.trim())) {\r\n          return true;\r\n        }\r\n      }\r\n      // Return false if none of the keys contain the query string\r\n      return false;\r\n    });\r\n\r\n    // Return the filtered array\r\n    return filteredArray;\r\n  } catch (error) {\r\n    return [];\r\n  }\r\n};\r\n\r\nexport default search;\r\n",
-      "js": "/**\n * Searches an array of objects based on a query string and specified keys.\n *\n * @template T - The type of objects in the array.\n * @param {T[]} array - The array of objects to search.\n * @param {string} queryString - The query string to search for.\n * @param {(keyof T)[] | string[]} keys - The keys to search within each object.\n * @returns {T[]} - The filtered array of objects that match the search criteria.\n */\nconst search = (array, queryString, keys) => {\n    // Check if the query string or keys are empty, return empty array if true\n    try {\n        if (keys.length === 0) {\n            return []; // Return empty array if no keys are provided\n        }\n        if (!queryString.trim()) {\n            return array; // Return the original array if the query string is empty\n        }\n        // Loop through the array to filter objects\n        const filteredArray = array.filter((obj) => {\n            // Loop through the keys of each object\n            for (let key of keys) {\n                // Convert the value to string only for the comparison\n                let value = obj[key];\n                if (typeof value !== \"string\" && typeof value !== \"number\") {\n                    continue; // Skip the key if it is not a string or number\n                }\n                if (typeof value === \"number\") {\n                    value = value.toString();\n                }\n                value = value.toLowerCase();\n                if (value.includes(queryString.toLowerCase()?.trim())) {\n                    return true;\n                }\n            }\n            // Return false if none of the keys contain the query string\n            return false;\n        });\n        // Return the filtered array\n        return filteredArray;\n    }\n    catch (error) {\n        return [];\n    }\n};\nexport default search;\n"
-    },
-    "category": "arrays",
-    "type": "functions",
-    "examples": [
-      "import search from \".\";\r\n\r\nconst array = [\r\n  { name: \"John\", age: 25 },\r\n  { name: \"Jane\", age: 30 },\r\n  { name: \"John Doe\", age: 35 },\r\n];\r\n\r\n// No keys provided\r\nconsole.log(search(array, \"John\", []));\r\n// Expected output: []\r\n\r\n// Query string is empty\r\nconsole.log(search(array, \"\", [\"name\"]));\r\n// Expected output: [ { name: 'John', age: 25 }, { name: 'Jane', age: 30 }, { name: 'John Doe', age: 35 } ]\r\n\r\n// Filtered array of objects matching the query\r\nconsole.log(search(array, \"John\", [\"name\"]));\r\n// Expected output: [ { name: 'John', age: 25 }, { name: 'John Doe', age: 35 } ]\r\n\r\n// None of the keys contain the query string\r\nconsole.log(search(array, \"Doe\", [\"name\"]));\r\n// Expected output: []\r\n\r\n// Keys does not exist in the object\r\nconsole.log(search(array, \"John\", [\"email\"]));\r\n// Expected output: []\r\n"
-    ],
-    "docs": {
-      "metaData": {
-        "desc": "Search objects in an array based on provided keys and query string. It only works with string and number values."
-      },
-      "md": "\r\nThe search function is a utility function in JavaScript that performs a\r\nsearch operation on an array of objects based on a provided query string\r\nand keys. This function is particularly useful when you need to filter\r\nan array of objects based on certain criteria.\r\n\r\nThe function accepts three parameters: the original array to be\r\nsearched, the query string, and an array of keys. The array should\r\nconsist of objects, the query string is the value to be searched for,\r\nand the keys are the properties of the objects to be searched.\r\n\r\nThe function iterates over each object in the array, and for each\r\nobject, it checks if any of the specified keys contain the query string.\r\nIf a match is found, the object is included in the returned array. If no\r\nkeys are provided, the function returns an empty array. If the query\r\nstring is empty, the function returns the original array. This allows\r\nfor flexible and powerful search functionality within your JavaScript\r\napplications.\r\n"
-    },
-    "props": [
-      {
-        "title": "array",
-        "required": true,
-        "propDesc": "The array of objects to process.",
-        "type": "object[]"
-      },
-      {
-        "title": "queryString",
-        "required": true,
-        "propDesc": "The query string to search for.",
-        "type": "string"
-      },
-      {
-        "title": "keys",
-        "required": true,
-        "propDesc": "Keys of the object to search within.",
-        "type": "string[]"
-      }
-    ],
-    "createdAt": {
-      "date": "2024-04-17T13:28:44.096Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-17T13:28:44.096Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
-    "name": "sleep",
-    "code": {
-      "ts": "/**\r\n * Pauses the execution for the specified number of milliseconds.\r\n * @param ms - The number of milliseconds to sleep.\r\n * @returns A promise that resolves after the specified number of milliseconds.\r\n */\r\nconst sleep = (ms: number): Promise<true> => {\r\n  return new Promise((resolve) => {\r\n    setTimeout(() => {\r\n      resolve(true);\r\n    }, ms);\r\n  });\r\n};\r\n\r\nexport default sleep;\r\n",
-      "js": "/**\n * Pauses the execution for the specified number of milliseconds.\n * @param ms - The number of milliseconds to sleep.\n * @returns A promise that resolves after the specified number of milliseconds.\n */\nconst sleep = (ms) => {\n    return new Promise((resolve) => {\n        setTimeout(() => {\n            resolve(true);\n        }, ms);\n    });\n};\nexport default sleep;\n"
-    },
-    "category": "functional",
-    "type": "functions",
-    "examples": [
-      "import sleep from \".\";\r\n\r\n//iife\r\n(async () => {\r\n  console.log(\"sleeping for 1 second\");\r\n  await sleep(1000);\r\n  console.log(\"done sleeping\"); // This will be printed after 1 second\r\n})();\r\n"
-    ],
-    "docs": {
-      "metaData": {
-        "desc": "Sleeps the execution for the specified number of milliseconds."
-      },
-      "md": "\r\nThe sleep function sleeps the execution for the specified number of\r\nmilliseconds.\r\n\r\nIt utilizes the setTimeout and Promise APIs to pause the execution for\r\nthe specified number of milliseconds.\r\n"
-    },
-    "props": [
-      {
-        "title": "ms",
-        "required": true,
-        "propDesc": "The number of milliseconds to sleep.",
-        "type": "number"
-      }
-    ],
-    "createdAt": {
-      "date": "2024-04-17T13:28:44.145Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-17T13:28:44.145Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
-    "name": "timeout",
-    "code": {
-      "ts": "/**\r\n * Wraps a function with a timeout.\r\n * If the function does not complete within the specified time, the promise will be rejected.\r\n *\r\n * @template Return - The return type of the wrapped function.\r\n * @template Err - The error type that can be thrown by the wrapped function or the error callback.\r\n * @param {(...args: any[]) => Return} fn - The function to be wrapped.\r\n * @param {number} time - The timeout duration in milliseconds.\r\n * @param {(...args: any[]) => Err} [errCb] - Optional error callback function to handle timeout errors.\r\n * @returns {(...args: any[]) => Promise<Return>} - A wrapped function that returns a promise.\r\n */\r\nconst timeout = <Return, Err>(\r\n  fn: (...args: any[]) => Return,\r\n  time: number,\r\n  errCb?: (...args: any[]) => Err\r\n): ((...args: any[]) => Promise<Return>) => {\r\n  return (...args: any[]) => {\r\n    return new Promise<any>((resolve, reject) => {\r\n      const timer = setTimeout(() => {\r\n        if (errCb) reject(errCb(...args));\r\n        else {\r\n          reject(new Error(\"Function timed out\"));\r\n        }\r\n      }, time);\r\n\r\n      // Wrap fn call in Promise.resolve to handle both sync and async functions\r\n      Promise.resolve(fn(...args))\r\n        .then((result: Return) => {\r\n          clearTimeout(timer);\r\n          resolve(result);\r\n        })\r\n        .catch((err: Err) => {\r\n          clearTimeout(timer);\r\n          reject(err);\r\n        });\r\n    });\r\n  };\r\n};\r\n\r\nexport default timeout;\r\n",
-      "js": "/**\n * Wraps a function with a timeout.\n * If the function does not complete within the specified time, the promise will be rejected.\n *\n * @template Return - The return type of the wrapped function.\n * @template Err - The error type that can be thrown by the wrapped function or the error callback.\n * @param {(...args: any[]) => Return} fn - The function to be wrapped.\n * @param {number} time - The timeout duration in milliseconds.\n * @param {(...args: any[]) => Err} [errCb] - Optional error callback function to handle timeout errors.\n * @returns {(...args: any[]) => Promise<Return>} - A wrapped function that returns a promise.\n */\nconst timeout = (fn, time, errCb) => {\n    return (...args) => {\n        return new Promise((resolve, reject) => {\n            const timer = setTimeout(() => {\n                if (errCb)\n                    reject(errCb(...args));\n                else {\n                    reject(new Error(\"Function timed out\"));\n                }\n            }, time);\n            // Wrap fn call in Promise.resolve to handle both sync and async functions\n            Promise.resolve(fn(...args))\n                .then((result) => {\n                clearTimeout(timer);\n                resolve(result);\n            })\n                .catch((err) => {\n                clearTimeout(timer);\n                reject(err);\n            });\n        });\n    };\n};\nexport default timeout;\n"
-    },
-    "category": "functional",
-    "type": "functions",
-    "examples": [
-      "import timeout from \".\";\r\n\r\ntimeout(() => \"Hello, World!\", 1000);\r\n// Expected Output: \"Hello, World!\"\r\n\r\ntimeout(() => new Promise((resolve) => setTimeout(resolve, 2000)), 1000);\r\n// Expected Output: Error: Function timed out\r\n\r\ntimeout(\r\n  () => new Promise((resolve) => setTimeout(resolve, 2000)),\r\n  1000,\r\n  () => console.log(\"I failed\")\r\n);\r\n// Expected Output: I failed\r\n"
-    ],
-    "docs": {
-      "metaData": {
-        "desc": "The timeout function wraps a function with a timeout. If the function does not complete within the specified time, the promise will be rejected."
-      },
-      "md": "\r\nThe timeout function is a higher-order function that takes a function\r\nfn, a timeout duration time, and an optional error callback errCb as\r\narguments. It returns a new function that, when called, returns a\r\nPromise. This Promise will resolve with the result of the fn function if\r\nfn completes within the specified time. If fn does not complete within\r\nthe time, the Promise will be rejected. If an errCb function is\r\nprovided, it will be called with the arguments passed to the wrapped\r\nfunction, and the Promise will be rejected with the result of errCb. If\r\nno errCb is provided, the Promise will be rejected with a new Error\r\nstating &apos;Function timed out&apos;. The timeout function is designed\r\nto handle both synchronous and asynchronous functions, as it wraps the\r\ncall to fn with Promise.resolve. This ensures that fn is always treated\r\nas a Promise, allowing the use of .then and .catch to handle the result\r\nor any errors.\r\n"
-    },
-    "props": [
-      {
-        "title": "function",
-        "required": true,
-        "propDesc": "The function to be wrapped with a timeout.",
-        "type": "Function"
-      },
-      {
-        "title": "time",
-        "required": true,
-        "propDesc": "The timeout duration in milliseconds.",
-        "type": "number"
-      },
-      {
-        "title": "errCb",
-        "required": false,
-        "propDesc": "Optional error callback function to handle timeout errors. If not provided, the promise will be rejected with an error message.",
-        "type": "Function"
-      }
-    ],
-    "createdAt": {
-      "date": "2024-04-17T13:28:44.158Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-17T13:28:44.159Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
-    "name": "mapObj",
-    "code": {
-      "ts": "/**\r\n * Maps over the properties of an object and applies a callback function to each property.\r\n *\r\n * @template T - The type of the values in the input object.\r\n * @template U - The type of the values in the output object.\r\n * @param {Record<string, T>} obj - The input object.\r\n * @param {(value: T, key: string, obj: Record<string, T>) => U} callback - The callback function to apply to each property.\r\n * @returns {Record<string, U>} - The resulting object with the mapped properties.\r\n */\r\n\r\nconst mapObj = <T, U>(\r\n  obj: Record<string, T>,\r\n  callback: (value: T, key: string, obj: Record<string, T>) => U\r\n): Record<string, U> => {\r\n  const result: Record<string, U> = {};\r\n\r\n  // loop through each key in the object\r\n  for (const key in obj) {\r\n    // check if the key is a property of the object\r\n    if (Object.prototype.hasOwnProperty.call(obj, key)) {\r\n      result[key] = callback(obj[key], key, obj);\r\n    }\r\n  }\r\n\r\n  return result;\r\n};\r\n\r\nexport default mapObj;\r\n",
-      "js": "/**\n * Maps over the properties of an object and applies a callback function to each property.\n *\n * @template T - The type of the values in the input object.\n * @template U - The type of the values in the output object.\n * @param {Record<string, T>} obj - The input object.\n * @param {(value: T, key: string, obj: Record<string, T>) => U} callback - The callback function to apply to each property.\n * @returns {Record<string, U>} - The resulting object with the mapped properties.\n */\nconst mapObj = (obj, callback) => {\n    const result = {};\n    // loop through each key in the object\n    for (const key in obj) {\n        // check if the key is a property of the object\n        if (Object.prototype.hasOwnProperty.call(obj, key)) {\n            result[key] = callback(obj[key], key, obj);\n        }\n    }\n    return result;\n};\nexport default mapObj;\n"
-    },
-    "category": "objects",
-    "type": "functions",
-    "examples": [
-      "import mapObj from \".\";\r\n\r\nconst obj1 = { a: 1, b: 2, c: 3 };\r\nconst result1 = mapObj(obj1, (value: number) => value * 2);\r\nconsole.log(result1);\r\n// Expected output:  { a: 2, b: 4, c: 6 }\r\n\r\nconst obj2 = {};\r\nconst result2 = mapObj(obj2, (value: any) => value);\r\nconsole.log(result2);\r\n// Expected output:  {}\r\n\r\nconst obj3 = { 1: \"one\", 2: \"two\", 3: \"three\" };\r\nconst result = mapObj(obj3, (value: string, i) => value.toUpperCase() + i);\r\nconsole.log(result);\r\n// Expected output: { 1: 'ONE1', 2: 'TWO2', 3: 'THREE3' }\r\n"
-    ],
-    "docs": {
-      "metaData": {
-        "desc": "Same as Array.prototype.map, but for objects."
-      },
-      "md": "\r\nThe mapObj function is a utility function that applies a\r\ncallback function to each property of an input object and returns a new\r\nobject with the results. This function is similar to the\r\nArray.prototype.map method for arrays, but it works with objects.\r\n\r\nThe function is generic and can work with objects of any type. It takes\r\ntwo type parameters: T and U. T is the type of the values in the input\r\nobject, and U is the type of the values in the output object.\r\n\r\nThe function accepts two parameters: obj and callback. obj is the input\r\nobject, and callback is a function that gets applied to each property of\r\nobj. The callback function takes three parameters: value, key, and obj.\r\nvalue is the current property&apos;s value, key is the current property&apos;s\r\nkey, and obj is the original input object.\r\n"
-    },
-    "props": [
-      {
-        "title": "object",
-        "required": true,
-        "propDesc": "The object to process.",
-        "type": "object"
-      },
-      {
-        "title": "callback",
-        "required": true,
-        "propDesc": "The callback function to apply to each property. It receives the value, key, and object as arguments.",
-        "type": "function"
-      }
-    ],
-    "createdAt": {
-      "date": "2024-04-17T13:28:44.190Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-17T13:28:44.190Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
-    "name": "sampleObj",
-    "code": {
-      "ts": "/**\r\n * Creates an object with random number values for the given keys.\r\n * @param keys - The keys for the object.\r\n * @returns An object with random number values for the given keys.\r\n */\r\nconst sampleObj = (...keys: string[]) => {\r\n  const obj: any = {};\r\n  keys.forEach((key) => {\r\n    obj[key] = Math.random();\r\n  });\r\n  return obj as Record<string, number>;\r\n};\r\n\r\nexport default sampleObj;\r\n",
-      "js": "/**\n * Creates an object with random number values for the given keys.\n * @param keys - The keys for the object.\n * @returns An object with random number values for the given keys.\n */\nconst sampleObj = (...keys) => {\n    const obj = {};\n    keys.forEach((key) => {\n        obj[key] = Math.random();\n    });\n    return obj;\n};\nexport default sampleObj;\n"
-    },
-    "category": "objects",
-    "type": "functions",
-    "examples": [
-      "import sampleObj from \".\";\r\n\r\nconst keys = [\"key1\", \"key2\", \"key3\"];\r\nconst obj = sampleObj(...keys);\r\nconsole.log(obj);\r\n// Expected output: { key1: Number, key2: Number, key3: Number }\r\n// Where Number is a random number between 0 and 1.\r\n"
-    ],
-    "docs": {
-      "metaData": {
-        "desc": "Returns a sample object with the specified keys and values as random numbers."
-      },
-      "md": "\r\nThe `sampleObj` function takes any number of string arguments, treats each argument as a key, and creates an object where each key is associated with a random number value. The function then returns this object.\r\n"
-    },
-    "props": [
-      {
-        "title": "keys",
-        "required": true,
-        "propDesc": "The keys for the object.",
-        "type": "string[]"
-      }
-    ],
-    "createdAt": {
-      "date": "2024-04-27T05:59:48.776Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-27T05:59:48.778Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
-    "name": "and",
-    "code": {
-      "ts": "/**\r\n * Performs a logical AND operation on the given boolean values.\r\n * Returns true if all arguments are true, otherwise returns false.\r\n *\r\n * @param args - The boolean values to perform the AND operation on.\r\n * @returns The result of the logical AND operation.\r\n */\r\nconst and = (...args: any[]) => {\r\n  if (args.length === 0) return false;\r\n  return args.every((arg) => Boolean(arg));\r\n};\r\n\r\nexport default and;\r\n",
-      "js": "/**\n * Performs a logical AND operation on the given boolean values.\n * Returns true if all arguments are true, otherwise returns false.\n *\n * @param args - The boolean values to perform the AND operation on.\n * @returns The result of the logical AND operation.\n */\nconst and = (...args) => {\n    if (args.length === 0)\n        return false;\n    return args.every((arg) => Boolean(arg));\n};\nexport default and;\n"
-    },
-    "category": "gates",
-    "type": "functions",
-    "examples": [
-      "import and from \".\";\r\n\r\nconsole.log(and(true, true));\r\n// Expected Output: true\r\n\r\nconsole.log(and(true, false));\r\n// Expected Output: false\r\n\r\nconsole.log(and());\r\n// Expected Output: true\r\n\r\nconsole.log(and(1, \"lazykit\"));\r\n// Expected Output: true\r\n"
-    ],
-    "docs": {
-      "metaData": {
-        "desc": "Performs a logical AND operation on the given arguments."
-      },
-      "md": "\r\nThe and function is a utility function in TypeScript that performs a\r\nlogical AND operation on the given arguments.\r\n"
-    },
-    "props": [
-      {
-        "title": "args",
-        "required": true,
-        "propDesc": "The arguments to perform the AND operation on.",
-        "type": "any[]"
-      }
-    ],
-    "createdAt": {
-      "date": "2024-04-17T13:28:44.163Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-17T13:28:44.163Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
-    "name": "nand",
-    "code": {
-      "ts": "/**\r\n * Performs a NAND (NOT AND) operation on the given arguments.\r\n * Returns `false` if no arguments are provided or if all arguments are truthy.\r\n * Returns `true` if any argument is falsy.\r\n *\r\n * @param args - The arguments to perform the NAND operation on.\r\n * @returns The result of the NAND operation.\r\n */\r\nconst nand = (...args: any[]) => {\r\n  if (args.length === 0) return false;\r\n  const and = args.every((arg) => Boolean(arg));\r\n  return !and;\r\n};\r\n\r\nexport default nand;\r\n",
-      "js": "/**\n * Performs a NAND (NOT AND) operation on the given arguments.\n * Returns `false` if no arguments are provided or if all arguments are truthy.\n * Returns `true` if any argument is falsy.\n *\n * @param args - The arguments to perform the NAND operation on.\n * @returns The result of the NAND operation.\n */\nconst nand = (...args) => {\n    if (args.length === 0)\n        return false;\n    const and = args.every((arg) => Boolean(arg));\n    return !and;\n};\nexport default nand;\n"
-    },
-    "category": "gates",
-    "type": "functions",
-    "examples": [
-      "import nand from \".\";\r\n\r\nconsole.log(nand(true, true));\r\n// Expected Output: false\r\n\r\nconsole.log(nand(true, false));\r\n// Expected Output: true\r\n\r\nconsole.log(nand());\r\n// Expected Output: false\r\n\r\nconsole.log(nand(1, \"lazykit\"));\r\n// Expected Output: false\r\n"
-    ],
-    "docs": {
-      "metaData": {
-        "desc": "Performs a logical NAND operation on the given arguments."
-      },
-      "md": "\r\nThe and function is a utility function in TypeScript that performs a\r\nlogical NAND operation on the given arguments.\r\n"
-    },
-    "props": [
-      {
-        "title": "args",
-        "required": true,
-        "propDesc": "The arguments to perform the NAND operation on.",
-        "type": "any[]"
-      }
-    ],
-    "createdAt": {
-      "date": "2024-04-17T13:28:44.170Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-17T13:28:44.170Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
-    "name": "partition",
-    "code": {
-      "ts": "/**\r\n * Partitions an array into two separate arrays based on a given predicate.\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} arr - The array to be partitioned.\r\n * @param {(value: T, index: number, array: T[]) => boolean} predicate - The predicate function used to determine the partition.\r\n * @returns {[T[], T[]]} - An array containing two arrays: the first array contains elements that satisfy the predicate, and the second array contains elements that do not satisfy the predicate.\r\n */\r\nconst partition = <T>(\r\n  arr: T[],\r\n  predicate: (value: T, i: number, arr: T[]) => boolean\r\n): [T[], T[]] => {\r\n  const pass: T[] = [];\r\n  const fail: T[] = [];\r\n  arr.forEach((...args) => {\r\n    // run the predicate function on each element in the array\r\n    // and push the element to the appropriate array\r\n    (predicate(...args) ? pass : fail).push(args[0]);\r\n  });\r\n  return [pass, fail];\r\n};\r\n\r\nexport default partition;\r\n",
-      "js": "/**\n * Partitions an array into two separate arrays based on a given predicate.\n *\n * @template T - The type of elements in the array.\n * @param {T[]} arr - The array to be partitioned.\n * @param {(value: T, index: number, array: T[]) => boolean} predicate - The predicate function used to determine the partition.\n * @returns {[T[], T[]]} - An array containing two arrays: the first array contains elements that satisfy the predicate, and the second array contains elements that do not satisfy the predicate.\n */\nconst partition = (arr, predicate) => {\n    const pass = [];\n    const fail = [];\n    arr.forEach((...args) => {\n        // run the predicate function on each element in the array\n        // and push the element to the appropriate array\n        (predicate(...args) ? pass : fail).push(args[0]);\n    });\n    return [pass, fail];\n};\nexport default partition;\n"
-    },
-    "category": "arrays",
-    "type": "functions",
-    "examples": [
-      "import partition from \".\";\r\n\r\nconst arr = [1, 2, 3, 4, 5];\r\npartition(arr, (value) => value % 2 === 0);\r\n// Expected: [[2, 4], [1, 3, 5]]\r\n"
-    ],
-    "docs": {
-      "metaData": {
-        "desc": "Partitions an array into two arrays based on a given callback ie predicate."
-      },
-      "md": "\r\nThe `partition` function takes an array and a predicate function as parameters and returns a tuple of two arrays. The first array contains all elements of the original array for which the predicate function returns `true`, and the second array contains all elements for which the predicate function returns `false`.\r\n\r\nThe predicate function is a callback function that you provide, which is called for each element in the array. It receives three arguments: the current element, its index, and the original array. The predicate function should return a `boolean` value.\r\n\r\nThe partition function creates two empty arrays, `pass` and `fail`, and then iterates over the original array using the forEach method. For each element, it calls the predicate function and pushes the element to the pass array if the predicate returns true, and to the fail array if the predicate returns false.\r\n\r\nFinally, the partition function returns a tuple containing the pass and fail arrays. This function does not modify the original array."
-    },
-    "props": [
-      {
-        "title": "array",
-        "required": true,
-        "propDesc": "The array from which to partition elements.",
-        "type": "array"
-      },
-      {
-        "title": "predicate",
-        "required": true,
-        "propDesc": "The function used to determine the partition. It should return a boolean value.",
-        "type": "function"
-      }
-    ],
-    "createdAt": {
-      "date": "2024-04-26T12:13:16.372Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-26T12:13:16.373Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
     "name": "chunk",
     "code": {
       "ts": "/**\r\n * Splits an array into chunks of a specified size.\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} array - The array to be chunked.\r\n * @param {number} [size=1] - The size of each chunk.\r\n * @param {boolean} [strict=false] - Whether to remove the last chunk if it is not equal to the size.\r\n * @returns {T[][]} - An array of chunks.\r\n */\r\nconst chunk = <T>(\r\n  array: T[],\r\n  size: number = 1,\r\n  strict: boolean = false\r\n  //remove the last chunk if it is not equal to the size\r\n): T[][] => {\r\n  const result: T[][] = [];\r\n\r\n  //push the chunks into the result array\r\n  for (let i = 0; i < array.length; i += size) {\r\n    result.push(array.slice(i, i + size));\r\n  }\r\n\r\n  //remove the last chunk if it is not equal to the size\r\n  if (strict && result[result.length - 1].length !== size) {\r\n    result.pop();\r\n  }\r\n  return result;\r\n};\r\n\r\nexport default chunk;\r\n",
@@ -761,6 +89,146 @@
     }
   },
   {
+    "name": "timeout",
+    "code": {
+      "ts": "/**\r\n * Wraps a function with a timeout.\r\n * If the function does not complete within the specified time, the promise will be rejected.\r\n *\r\n * @template Return - The return type of the wrapped function.\r\n * @template Err - The error type that can be thrown by the wrapped function or the error callback.\r\n * @param {(...args: any[]) => Return} fn - The function to be wrapped.\r\n * @param {number} time - The timeout duration in milliseconds.\r\n * @param {(...args: any[]) => Err} [errCb] - Optional error callback function to handle timeout errors.\r\n * @returns {(...args: any[]) => Promise<Return>} - A wrapped function that returns a promise.\r\n */\r\nconst timeout = <Return, Err>(\r\n  fn: (...args: any[]) => Return,\r\n  time: number,\r\n  errCb?: (...args: any[]) => Err\r\n): ((...args: any[]) => Promise<Return>) => {\r\n  return (...args: any[]) => {\r\n    return new Promise<any>((resolve, reject) => {\r\n      const timer = setTimeout(() => {\r\n        if (errCb) reject(errCb(...args));\r\n        else {\r\n          reject(new Error(\"Function timed out\"));\r\n        }\r\n      }, time);\r\n\r\n      // Wrap fn call in Promise.resolve to handle both sync and async functions\r\n      Promise.resolve(fn(...args))\r\n        .then((result: Return) => {\r\n          clearTimeout(timer);\r\n          resolve(result);\r\n        })\r\n        .catch((err: Err) => {\r\n          clearTimeout(timer);\r\n          reject(err);\r\n        });\r\n    });\r\n  };\r\n};\r\n\r\nexport default timeout;\r\n",
+      "js": "/**\n * Wraps a function with a timeout.\n * If the function does not complete within the specified time, the promise will be rejected.\n *\n * @template Return - The return type of the wrapped function.\n * @template Err - The error type that can be thrown by the wrapped function or the error callback.\n * @param {(...args: any[]) => Return} fn - The function to be wrapped.\n * @param {number} time - The timeout duration in milliseconds.\n * @param {(...args: any[]) => Err} [errCb] - Optional error callback function to handle timeout errors.\n * @returns {(...args: any[]) => Promise<Return>} - A wrapped function that returns a promise.\n */\nconst timeout = (fn, time, errCb) => {\n    return (...args) => {\n        return new Promise((resolve, reject) => {\n            const timer = setTimeout(() => {\n                if (errCb)\n                    reject(errCb(...args));\n                else {\n                    reject(new Error(\"Function timed out\"));\n                }\n            }, time);\n            // Wrap fn call in Promise.resolve to handle both sync and async functions\n            Promise.resolve(fn(...args))\n                .then((result) => {\n                clearTimeout(timer);\n                resolve(result);\n            })\n                .catch((err) => {\n                clearTimeout(timer);\n                reject(err);\n            });\n        });\n    };\n};\nexport default timeout;\n"
+    },
+    "category": "functional",
+    "type": "functions",
+    "examples": [
+      "import timeout from \".\";\r\n\r\ntimeout(() => \"Hello, World!\", 1000);\r\n// Expected Output: \"Hello, World!\"\r\n\r\ntimeout(() => new Promise((resolve) => setTimeout(resolve, 2000)), 1000);\r\n// Expected Output: Error: Function timed out\r\n\r\ntimeout(\r\n  () => new Promise((resolve) => setTimeout(resolve, 2000)),\r\n  1000,\r\n  () => console.log(\"I failed\")\r\n);\r\n// Expected Output: I failed\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "The timeout function wraps a function with a timeout. If the function does not complete within the specified time, the promise will be rejected."
+      },
+      "md": "\r\nThe timeout function is a higher-order function that takes a function\r\nfn, a timeout duration time, and an optional error callback errCb as\r\narguments. It returns a new function that, when called, returns a\r\nPromise. This Promise will resolve with the result of the fn function if\r\nfn completes within the specified time. If fn does not complete within\r\nthe time, the Promise will be rejected. If an errCb function is\r\nprovided, it will be called with the arguments passed to the wrapped\r\nfunction, and the Promise will be rejected with the result of errCb. If\r\nno errCb is provided, the Promise will be rejected with a new Error\r\nstating &apos;Function timed out&apos;. The timeout function is designed\r\nto handle both synchronous and asynchronous functions, as it wraps the\r\ncall to fn with Promise.resolve. This ensures that fn is always treated\r\nas a Promise, allowing the use of .then and .catch to handle the result\r\nor any errors.\r\n"
+    },
+    "props": [
+      {
+        "title": "function",
+        "required": true,
+        "propDesc": "The function to be wrapped with a timeout.",
+        "type": "Function"
+      },
+      {
+        "title": "time",
+        "required": true,
+        "propDesc": "The timeout duration in milliseconds.",
+        "type": "number"
+      },
+      {
+        "title": "errCb",
+        "required": false,
+        "propDesc": "Optional error callback function to handle timeout errors. If not provided, the promise will be rejected with an error message.",
+        "type": "Function"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-17T13:28:44.158Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-17T13:28:44.159Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "insert",
+    "code": {
+      "ts": "/**\r\n * Inserts elements into an array at a specified index.\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} arr - The array to insert elements into.\r\n * @param {number} index - The index at which to insert the elements.\r\n * @param {boolean} [recursive=false] - Indicates whether to insert elements recursively. If true, the elements will be inserted at every nth index.\r\n * @param {...T[]} items - The elements to insert into the array.\r\n * @returns {T[]} - The modified array with the inserted elements.\r\n */\r\nconst insert = <T>(\r\n  arr: T[],\r\n  index: number,\r\n  [...items]: T[],\r\n  recursive: boolean = false\r\n): T[] => {\r\n  const isNegativeIndex = index < 0;\r\n  // if index is negative, convert it to positive and reverse the array for easier insertion\r\n  if (isNegativeIndex) {\r\n    index = Math.abs(index);\r\n    arr = arr.reverse();\r\n    items = items.reverse();\r\n  }\r\n\r\n  if (!recursive) {\r\n    const newArr = [...arr.slice(0, index), ...items, ...arr.slice(index)];\r\n    return isNegativeIndex ? newArr.reverse() : newArr;\r\n  } else {\r\n    const shouldInsert = Math.floor(arr.length / index);\r\n    let newArr = [...arr];\r\n    for (let i = 0; i < shouldInsert; i++) {\r\n      const insertIndex = (i + 1) * index + i * items.length;\r\n      newArr = [\r\n        ...newArr.slice(0, insertIndex),\r\n        ...items,\r\n        ...newArr.slice(insertIndex),\r\n      ];\r\n    }\r\n    return isNegativeIndex ? newArr.reverse() : newArr;\r\n  }\r\n};\r\n\r\nexport default insert;\r\n",
+      "js": "/**\n * Inserts elements into an array at a specified index.\n *\n * @template T - The type of elements in the array.\n * @param {T[]} arr - The array to insert elements into.\n * @param {number} index - The index at which to insert the elements.\n * @param {boolean} [recursive=false] - Indicates whether to insert elements recursively. If true, the elements will be inserted at every nth index.\n * @param {...T[]} items - The elements to insert into the array.\n * @returns {T[]} - The modified array with the inserted elements.\n */\nconst insert = (arr, index, [...items], recursive = false) => {\n    const isNegativeIndex = index < 0;\n    // if index is negative, convert it to positive and reverse the array for easier insertion\n    if (isNegativeIndex) {\n        index = Math.abs(index);\n        arr = arr.reverse();\n        items = items.reverse();\n    }\n    if (!recursive) {\n        const newArr = [...arr.slice(0, index), ...items, ...arr.slice(index)];\n        return isNegativeIndex ? newArr.reverse() : newArr;\n    }\n    else {\n        const shouldInsert = Math.floor(arr.length / index);\n        let newArr = [...arr];\n        for (let i = 0; i < shouldInsert; i++) {\n            const insertIndex = (i + 1) * index + i * items.length;\n            newArr = [\n                ...newArr.slice(0, insertIndex),\n                ...items,\n                ...newArr.slice(insertIndex),\n            ];\n        }\n        return isNegativeIndex ? newArr.reverse() : newArr;\n    }\n};\nexport default insert;\n"
+    },
+    "category": "arrays",
+    "type": "functions",
+    "examples": [
+      "import insert from \".\";\r\n\r\nconst arr = [1, 2, 3];\r\nconst index = 1;\r\nconst items = [4, 5];\r\n\r\nconst result = insert(arr, index, items);\r\nconsole.log(result);\r\n// Expected Output: [1, 4, 5, 2, 3]\r\n\r\nconst arr2 = [1, 2, 3, 4, 5];\r\nconst index2 = 2;\r\nconst items2 = [6, 7];\r\n\r\nconst result2 = insert(arr2, index2, items2);\r\nconsole.log(result2);\r\n// Expected Output: [1, 2, 6, 7, 3, 4, 5 ]\r\n\r\n// negative index\r\nconst arr3 = [1, 2, 3];\r\nconst index3 = -1;\r\nconst items3 = [4, 5];\r\n\r\nconst result3 = insert(arr3, index3, items3);\r\nconsole.log(result3);\r\n// Expected Output: [1, 2, 4, 5, 3]\r\n",
+      "//recursive examples\r\n\r\nimport insert from \".\";\r\n\r\nconst arr = [1, 2, 3];\r\nconst index = 1;\r\nconst items = [4, 5];\r\n\r\nconst result = insert(arr, index, items, true);\r\nconsole.log(result);\r\n// Expected Output: [1, 4, 5, 2, 4, 5, 3, 4, 5]\r\n\r\nconst arr2 = [1, 2, 3, 4, 5];\r\nconst index2 = 2;\r\nconst items2 = [6, 7];\r\n\r\nconst result2 = insert(arr2, index2, items2, true);\r\nconsole.log(result2);\r\n// Expected Output: [1, 2, 6, 7, 3, 4, 6, 7, 5]\r\n\r\n//negative index\r\n\r\nconst arr3 = [1, 2, 3];\r\nconst index3 = -1;\r\nconst items3 = [4, 5];\r\n\r\nconst result3 = insert(arr3, index3, items3, true);\r\nconsole.log(result3);\r\n// Expected Output: [4, 5, 1, 4, 5, 2, 4, 5, 3]\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Inserts elements into an array at a specified index."
+      },
+      "md": "\r\nThe insert function is a generic function in TypeScript that is designed\r\nto insert elements into an array at a specified index. The function\r\ntakes four parameters: an array arr of type T[], an index of type\r\nnumber, a spread parameter items of type T[], and an optional recursive\r\nparameter of type boolean which defaults to false.\r\n\r\nIt returns a new array with the elements inserted at the specified index\r\nwithout modifying the original array.\r\n\r\nIf the index is negative, the function treats it as an index from the\r\nend of the array. In this case, it converts the index to a positive\r\nnumber and reverses the array and the items to be inserted for easier\r\ninsertion.\r\n\r\nIf the recursive parameter is false, the function simply inserts the\r\nitems at the specified index in the array. If the recursive parameter is\r\ntrue, the function inserts the items at every nth index, where n is the\r\nabsolute value of the provided index. The function calculates the number\r\nof insertions to be made by dividing the length of the array by the\r\nindex.\r\n"
+    },
+    "props": [
+      {
+        "title": "array",
+        "required": true,
+        "propDesc": "The array to process.",
+        "type": "array"
+      },
+      {
+        "title": "index",
+        "required": true,
+        "propDesc": "The index at which to insert the elements, If negative, the index will start from the end of the array.",
+        "type": "number"
+      },
+      {
+        "title": "items",
+        "required": true,
+        "propDesc": "The elements to insert into the array.",
+        "type": "array"
+      },
+      {
+        "title": "strict",
+        "required": false,
+        "defaultValue": "false",
+        "propDesc": "Indicates whether to insert elements recursively. If true, the elements will be inserted at every nth index.",
+        "type": "boolean"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-17T13:28:44.070Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-17T13:28:44.070Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "partition",
+    "code": {
+      "ts": "/**\r\n * Partitions an array into two separate arrays based on a given predicate.\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} arr - The array to be partitioned.\r\n * @param {(value: T, index: number, array: T[]) => boolean} predicate - The predicate function used to determine the partition.\r\n * @returns {[T[], T[]]} - An array containing two arrays: the first array contains elements that satisfy the predicate, and the second array contains elements that do not satisfy the predicate.\r\n */\r\nconst partition = <T>(\r\n  arr: T[],\r\n  predicate: (value: T, i: number, arr: T[]) => boolean\r\n): [T[], T[]] => {\r\n  const pass: T[] = [];\r\n  const fail: T[] = [];\r\n  arr.forEach((...args) => {\r\n    // run the predicate function on each element in the array\r\n    // and push the element to the appropriate array\r\n    (predicate(...args) ? pass : fail).push(args[0]);\r\n  });\r\n  return [pass, fail];\r\n};\r\n\r\nexport default partition;\r\n",
+      "js": "/**\n * Partitions an array into two separate arrays based on a given predicate.\n *\n * @template T - The type of elements in the array.\n * @param {T[]} arr - The array to be partitioned.\n * @param {(value: T, index: number, array: T[]) => boolean} predicate - The predicate function used to determine the partition.\n * @returns {[T[], T[]]} - An array containing two arrays: the first array contains elements that satisfy the predicate, and the second array contains elements that do not satisfy the predicate.\n */\nconst partition = (arr, predicate) => {\n    const pass = [];\n    const fail = [];\n    arr.forEach((...args) => {\n        // run the predicate function on each element in the array\n        // and push the element to the appropriate array\n        (predicate(...args) ? pass : fail).push(args[0]);\n    });\n    return [pass, fail];\n};\nexport default partition;\n"
+    },
+    "category": "arrays",
+    "type": "functions",
+    "examples": [
+      "import partition from \".\";\r\n\r\nconst arr = [1, 2, 3, 4, 5];\r\npartition(arr, (value) => value % 2 === 0);\r\n// Expected: [[2, 4], [1, 3, 5]]\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Partitions an array into two arrays based on a given callback ie predicate."
+      },
+      "md": "\r\nThe `partition` function takes an array and a predicate function as parameters and returns a tuple of two arrays. The first array contains all elements of the original array for which the predicate function returns `true`, and the second array contains all elements for which the predicate function returns `false`.\r\n\r\nThe predicate function is a callback function that you provide, which is called for each element in the array. It receives three arguments: the current element, its index, and the original array. The predicate function should return a `boolean` value.\r\n\r\nThe partition function creates two empty arrays, `pass` and `fail`, and then iterates over the original array using the forEach method. For each element, it calls the predicate function and pushes the element to the pass array if the predicate returns true, and to the fail array if the predicate returns false.\r\n\r\nFinally, the partition function returns a tuple containing the pass and fail arrays. This function does not modify the original array."
+    },
+    "props": [
+      {
+        "title": "array",
+        "required": true,
+        "propDesc": "The array from which to partition elements.",
+        "type": "array"
+      },
+      {
+        "title": "predicate",
+        "required": true,
+        "propDesc": "The function used to determine the partition. It should return a boolean value.",
+        "type": "function"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-26T12:13:16.372Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-26T12:13:16.373Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
     "name": "remove",
     "code": {
       "ts": "/**\r\n * Removes element(s) from an array based on the given index(es).\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} array - The array from which elements will be removed.\r\n * @param {number | number[]} index - The index(es) of the element(s) to be removed.\r\n * @returns {T[]} - A new array with the specified element(s) removed.\r\n */\r\nconst remove = <T>(array: T[], index: number | number[]): T[] => {\r\n  const len = array.length;\r\n  if (Array.isArray(index)) {\r\n    // convert negative indices to their positive counterparts\r\n    const indices = index.map((i) => (i < 0 ? len + i : i));\r\n    return array.filter((_, i) => !indices.includes(i));\r\n  }\r\n  index = index < 0 ? len + index : index;\r\n  return array.filter((_, i) => i !== index);\r\n};\r\n\r\nexport default remove;\r\n",
@@ -797,6 +265,618 @@
     },
     "lastUpdated": {
       "date": "2024-04-26T11:24:18.447Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "rotate",
+    "code": {
+      "ts": "/**\r\n * Rotates an array in the specified direction by a given number of positions.\r\n *\r\n * @param arr - The array to rotate.\r\n * @param n - The number of positions to rotate the array by.\r\n * @param dir - The direction in which to rotate the array. Defaults to \"left\".\r\n * @returns The rotated array.\r\n * @template T - The type of elements in the array.\r\n */\r\nconst rotate = <T>(\r\n  arr: T[],\r\n  n: number,\r\n  dir: \"left\" | \"right\" = \"left\"\r\n): T[] => {\r\n  if (dir === \"left\") {\r\n    return arr.slice(n, arr.length).concat(arr.slice(0, n));\r\n  } else {\r\n    return arr\r\n      .slice(arr.length - n, arr.length)\r\n      .concat(arr.slice(0, arr.length - n));\r\n  }\r\n};\r\n\r\nexport default rotate;\r\n",
+      "js": "/**\n * Rotates an array in the specified direction by a given number of positions.\n *\n * @param arr - The array to rotate.\n * @param n - The number of positions to rotate the array by.\n * @param dir - The direction in which to rotate the array. Defaults to \"left\".\n * @returns The rotated array.\n * @template T - The type of elements in the array.\n */\nconst rotate = (arr, n, dir = \"left\") => {\n    if (dir === \"left\") {\n        return arr.slice(n, arr.length).concat(arr.slice(0, n));\n    }\n    else {\n        return arr\n            .slice(arr.length - n, arr.length)\n            .concat(arr.slice(0, arr.length - n));\n    }\n};\nexport default rotate;\n"
+    },
+    "category": "arrays",
+    "type": "functions",
+    "examples": [
+      "import rotate from \".\";\r\n\r\nconst arr = [1, 2, 3, 4, 5];\r\nrotate(arr, 2);\r\n// Expected Output: [3, 4, 5, 1, 2]\r\n\r\nrotate(arr, 2, \"right\");\r\n// Expected Output: [4, 5, 1, 2, 3]\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Rotates the elements of an array by a given number of positions."
+      },
+      "md": "\r\nThe `rotate` function takes an array and a number as arguments, and returns a new array that is a rotated version of the original array. The rotation is performed by shifting the elements of the array to the left by the number of positions specified by the second argument."
+    },
+    "props": [
+      {
+        "title": "array",
+        "required": true,
+        "propDesc": "The array to rotate.",
+        "type": "array"
+      },
+      {
+        "title": "position",
+        "required": true,
+        "propDesc": "The number of positions to rotate the array by.",
+        "type": "number"
+      },
+      {
+        "title": "direction",
+        "required": false,
+        "defaultValue": "left",
+        "propDesc": "The direction in which to rotate the array.",
+        "type": "enum",
+        "enums": [
+          "left",
+          "right"
+        ]
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-26T11:46:19.176Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-26T11:52:00.143Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "sampleArr",
+    "code": {
+      "ts": "/**\r\n * Generates an array of random numbers.\r\n *\r\n * @param size - The size of the array to generate.\r\n * @returns An array of random numbers.\r\n * @throws {Error} If the size is a negative number.\r\n */\r\nconst sampleArr = (size: number) => {\r\n  if (size < 0) throw new Error(\"Size must be a positive number\");\r\n  return Array.from({ length: size }, (_, i) => Math.floor(Math.random() * i));\r\n};\r\n\r\nexport default sampleArr;\r\n",
+      "js": "/**\n * Generates an array of random numbers.\n *\n * @param size - The size of the array to generate.\n * @returns An array of random numbers.\n * @throws {Error} If the size is a negative number.\n */\nconst sampleArr = (size) => {\n    if (size < 0)\n        throw new Error(\"Size must be a positive number\");\n    return Array.from({ length: size }, (_, i) => Math.floor(Math.random() * i));\n};\nexport default sampleArr;\n"
+    },
+    "category": "arrays",
+    "type": "functions",
+    "examples": [
+      "import sampleArr from \".\";\r\n\r\nconst arr = sampleArr(5);\r\nconsole.log(arr);\r\n// Expected output: an array of 5 random numbers\r\n\r\n// const negativeArr = sampleArr(-1);\r\n// Expected output: Throws an error\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Generates an array of random numbers."
+      },
+      "md": "\r\nThis sampleArr function is a utility function in JavaScript that takes a\r\nsize parameter and generates an array of random numbers. The size\r\nparameter specifies the length of the array to generate. The function\r\nuses the Math.random() method to generate random numbers between 0 and\r\nthe specified size. The function returns an array of random numbers with\r\nthe specified length.\r\n\r\nThe function throws an error if the size parameter is a negative number.\r\n"
+    },
+    "props": [
+      {
+        "title": "size",
+        "required": true,
+        "propDesc": "The size of the array to generate, must be a positive number.",
+        "type": "number"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-17T13:28:44.080Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-17T13:28:44.080Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "search",
+    "code": {
+      "ts": "/**\r\n * Searches an array of objects based on a query string and specified keys.\r\n *\r\n * @template T - The type of objects in the array.\r\n * @param {T[]} array - The array of objects to search.\r\n * @param {string} queryString - The query string to search for.\r\n * @param {(keyof T)[] | string[]} keys - The keys to search within each object.\r\n * @returns {T[]} - The filtered array of objects that match the search criteria.\r\n */\r\nconst search = <T extends Record<string, unknown>>(\r\n  array: T[],\r\n  queryString: string,\r\n  keys: (keyof T)[] | string[]\r\n): T[] => {\r\n  // Check if the query string or keys are empty, return empty array if true\r\n  try {\r\n    if (keys.length === 0) {\r\n      return []; // Return empty array if no keys are provided\r\n    }\r\n\r\n    if (!queryString.trim()) {\r\n      return array; // Return the original array if the query string is empty\r\n    }\r\n\r\n    // Loop through the array to filter objects\r\n    const filteredArray = array.filter((obj) => {\r\n      // Loop through the keys of each object\r\n      for (let key of keys) {\r\n        // Convert the value to string only for the comparison\r\n\r\n        let value = obj[key] as any;\r\n\r\n        if (typeof value !== \"string\" && typeof value !== \"number\") {\r\n          continue; // Skip the key if it is not a string or number\r\n        }\r\n        if (typeof value === \"number\") {\r\n          value = value.toString();\r\n        }\r\n        value = value.toLowerCase();\r\n        if (value.includes(queryString.toLowerCase()?.trim())) {\r\n          return true;\r\n        }\r\n      }\r\n      // Return false if none of the keys contain the query string\r\n      return false;\r\n    });\r\n\r\n    // Return the filtered array\r\n    return filteredArray;\r\n  } catch (error) {\r\n    return [];\r\n  }\r\n};\r\n\r\nexport default search;\r\n",
+      "js": "/**\n * Searches an array of objects based on a query string and specified keys.\n *\n * @template T - The type of objects in the array.\n * @param {T[]} array - The array of objects to search.\n * @param {string} queryString - The query string to search for.\n * @param {(keyof T)[] | string[]} keys - The keys to search within each object.\n * @returns {T[]} - The filtered array of objects that match the search criteria.\n */\nconst search = (array, queryString, keys) => {\n    // Check if the query string or keys are empty, return empty array if true\n    try {\n        if (keys.length === 0) {\n            return []; // Return empty array if no keys are provided\n        }\n        if (!queryString.trim()) {\n            return array; // Return the original array if the query string is empty\n        }\n        // Loop through the array to filter objects\n        const filteredArray = array.filter((obj) => {\n            // Loop through the keys of each object\n            for (let key of keys) {\n                // Convert the value to string only for the comparison\n                let value = obj[key];\n                if (typeof value !== \"string\" && typeof value !== \"number\") {\n                    continue; // Skip the key if it is not a string or number\n                }\n                if (typeof value === \"number\") {\n                    value = value.toString();\n                }\n                value = value.toLowerCase();\n                if (value.includes(queryString.toLowerCase()?.trim())) {\n                    return true;\n                }\n            }\n            // Return false if none of the keys contain the query string\n            return false;\n        });\n        // Return the filtered array\n        return filteredArray;\n    }\n    catch (error) {\n        return [];\n    }\n};\nexport default search;\n"
+    },
+    "category": "arrays",
+    "type": "functions",
+    "examples": [
+      "import search from \".\";\r\n\r\nconst array = [\r\n  { name: \"John\", age: 25 },\r\n  { name: \"Jane\", age: 30 },\r\n  { name: \"John Doe\", age: 35 },\r\n];\r\n\r\n// No keys provided\r\nconsole.log(search(array, \"John\", []));\r\n// Expected output: []\r\n\r\n// Query string is empty\r\nconsole.log(search(array, \"\", [\"name\"]));\r\n// Expected output: [ { name: 'John', age: 25 }, { name: 'Jane', age: 30 }, { name: 'John Doe', age: 35 } ]\r\n\r\n// Filtered array of objects matching the query\r\nconsole.log(search(array, \"John\", [\"name\"]));\r\n// Expected output: [ { name: 'John', age: 25 }, { name: 'John Doe', age: 35 } ]\r\n\r\n// None of the keys contain the query string\r\nconsole.log(search(array, \"Doe\", [\"name\"]));\r\n// Expected output: []\r\n\r\n// Keys does not exist in the object\r\nconsole.log(search(array, \"John\", [\"email\"]));\r\n// Expected output: []\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Search objects in an array based on provided keys and query string. It only works with string and number values."
+      },
+      "md": "\r\nThe search function is a utility function in JavaScript that performs a\r\nsearch operation on an array of objects based on a provided query string\r\nand keys. This function is particularly useful when you need to filter\r\nan array of objects based on certain criteria.\r\n\r\nThe function accepts three parameters: the original array to be\r\nsearched, the query string, and an array of keys. The array should\r\nconsist of objects, the query string is the value to be searched for,\r\nand the keys are the properties of the objects to be searched.\r\n\r\nThe function iterates over each object in the array, and for each\r\nobject, it checks if any of the specified keys contain the query string.\r\nIf a match is found, the object is included in the returned array. If no\r\nkeys are provided, the function returns an empty array. If the query\r\nstring is empty, the function returns the original array. This allows\r\nfor flexible and powerful search functionality within your JavaScript\r\napplications.\r\n"
+    },
+    "props": [
+      {
+        "title": "array",
+        "required": true,
+        "propDesc": "The array of objects to process.",
+        "type": "object[]"
+      },
+      {
+        "title": "queryString",
+        "required": true,
+        "propDesc": "The query string to search for.",
+        "type": "string"
+      },
+      {
+        "title": "keys",
+        "required": true,
+        "propDesc": "Keys of the object to search within.",
+        "type": "string[]"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-17T13:28:44.096Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-17T13:28:44.096Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "shuffleArr",
+    "code": {
+      "ts": "const shuffleArr = <T>(arr: T[]) => {\r\n  const copy = [...arr];\r\n  for (let i = copy.length - 1; i > 0; i--) {\r\n    const j = Math.floor(Math.random() * (i + 1));\r\n    [copy[i], copy[j]] = [copy[j], copy[i]];\r\n  }\r\n  \r\n  return copy;\r\n};\r\n\r\nexport default shuffleArr;\r\n",
+      "js": "const shuffleArr = (arr) => {\n    const copy = [...arr];\n    for (let i = copy.length - 1; i > 0; i--) {\n        const j = Math.floor(Math.random() * (i + 1));\n        [copy[i], copy[j]] = [copy[j], copy[i]];\n    }\n    return copy;\n};\nexport default shuffleArr;\n"
+    },
+    "category": "arrays",
+    "type": "functions",
+    "examples": [
+      "import shuffleArr from \".\";\r\n\r\nconst arr = [1, 2, 3, 4, 5];\r\nconst shuffledArr = shuffleArr(arr);\r\nconsole.log(shuffledArr);\r\n// Expected output: shuffled array of given array\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Shuffles the elements of an array."
+      },
+      "md": "\r\nThe shuffleArr function is a utility function in JavaScript that takes\r\nan array and shuffles it. The function uses the Fisher-Yates algorithm\r\nto shuffle the array. The Fisher-Yates algorithm is an efficient\r\nalgorithm for generating a random permutation of a finite sequence. The\r\nfunction returns a new array with the elements of the original array\r\nshuffled.\r\n\r\nThe shuffleArr function does not modify the original array, it returns a\r\nnew array with the elements shuffled.\r\n"
+    },
+    "props": [
+      {
+        "title": "arr",
+        "required": true,
+        "propDesc": "The array to shuffle.",
+        "type": "any[]"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-17T13:28:44.107Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-17T13:28:44.107Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "unique",
+    "code": {
+      "ts": "/**\r\n * Returns an array with unique elements from the input array.\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} arr - The input array.\r\n * @returns {T[]} - An array with unique elements.\r\n */\r\nconst unique = <T>(arr: T[]): T[] => {\r\n  //@ts-ignore\r\n  return [...new Set(arr)];\r\n};\r\n\r\nexport default unique;\r\n",
+      "js": "/**\n * Returns an array with unique elements from the input array.\n *\n * @template T - The type of elements in the array.\n * @param {T[]} arr - The input array.\n * @returns {T[]} - An array with unique elements.\n */\nconst unique = (arr) => {\n    //@ts-ignore\n    return [...new Set(arr)];\n};\nexport default unique;\n"
+    },
+    "category": "arrays",
+    "type": "functions",
+    "examples": [
+      "import unique from \".\";\r\n\r\nconst arr = [1, 2, 3, 3, 4, 5, 5, 6, 7, 8, 8, 9, 10];\r\nconst result = unique(arr);\r\nconsole.log(result);\r\n// Expected Output: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Creates a unique array from the input array."
+      },
+      "md": "\r\nThe unique function is a utility function in JavaScript that takes an\r\narray and returns a new array with all duplicate values removed. The\r\nfunction uses set to remove duplicate values from the array.\r\n"
+    },
+    "props": [
+      {
+        "title": "arr",
+        "required": true,
+        "propDesc": "The array to process",
+        "type": "any[]"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-17T13:28:44.112Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-17T13:28:44.112Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "zip",
+    "code": {
+      "ts": "type Args = {\r\n  arr: any[][];\r\n  strict?: boolean;\r\n};\r\n\r\n/**\r\n * Zips multiple arrays into a single array of tuples.\r\n *\r\n * @template T - The type of elements in the arrays.\r\n * @param {Args<any>} options - The options for zipping the arrays.\r\n * @param {any[][]} options.arr - The arrays to be zipped.\r\n * @param {boolean} [options.strict=false] - Indicates whether to zip strictly based on the minimum length of the arrays.\r\n * @returns {any[][]} - The zipped array of tuples.\r\n */\r\nconst zip = ({ arr, strict = false }: Args): any[][] => {\r\n  const maxIndex = arr.map((a) => a.length).reduce((a, b) => Math.max(a, b), 0);\r\n  const minIndex = arr\r\n    .map((a) => a.length)\r\n    .reduce((a, b) => Math.min(a, b), maxIndex);\r\n\r\n  const result: any[][] = [];\r\n\r\n  const upto = strict ? minIndex : maxIndex;\r\n\r\n  for (let i = 0; i < upto; i++) {\r\n    const zip = arr.map((a) => a[i]);\r\n    result.push(zip);\r\n  }\r\n  return result;\r\n};\r\n\r\nexport default zip;\r\n",
+      "js": "/**\n * Zips multiple arrays into a single array of tuples.\n *\n * @template T - The type of elements in the arrays.\n * @param {Args<any>} options - The options for zipping the arrays.\n * @param {any[][]} options.arr - The arrays to be zipped.\n * @param {boolean} [options.strict=false] - Indicates whether to zip strictly based on the minimum length of the arrays.\n * @returns {any[][]} - The zipped array of tuples.\n */\nconst zip = ({ arr, strict = false }) => {\n    const maxIndex = arr.map((a) => a.length).reduce((a, b) => Math.max(a, b), 0);\n    const minIndex = arr\n        .map((a) => a.length)\n        .reduce((a, b) => Math.min(a, b), maxIndex);\n    const result = [];\n    const upto = strict ? minIndex : maxIndex;\n    for (let i = 0; i < upto; i++) {\n        const zip = arr.map((a) => a[i]);\n        result.push(zip);\n    }\n    return result;\n};\nexport default zip;\n"
+    },
+    "category": "arrays",
+    "type": "functions",
+    "examples": [
+      "import zip from \".\";\r\n\r\nconst arr = [\r\n  [1, 2, 3],\r\n  [\"a\", \"b\"],\r\n];\r\n\r\nconst result = zip({ arr });\r\nconsole.log(result);\r\n// Expected output: [[1, \"a\"], [2, \"b\"], [3, undefined]]\r\n\r\n// strict mode\r\nconst resultStrict = zip({ arr, strict: true });\r\nconsole.log(resultStrict);\r\n// Expected output: [[1, \"a\"], [2, \"b\"]]\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Zips arrays together in the form of an array of arrays."
+      },
+      "md": "\r\nThe `zip` function in the combines multiple arrays into a single array of tuples.\r\n\r\nThe function accepts an `object` as an argument, which has two properties: `arr` (an array of arrays) and `strict` (a boolean). The strict property is optional and defaults to false if not provided.\r\n\r\nIf the strict property is set to true, the function will only zip arrays of the same length. If the strict property is set to false, the function will zip arrays of different lengths by filling in the missing values with `undefined`.\r\n\r\nThis function is useful for combining multiple arrays into a single array of tuples.\r\n"
+    },
+    "props": [
+      {
+        "title": "arr",
+        "required": true,
+        "propDesc": "The arrays to be zipped.",
+        "type": "array[]"
+      },
+      {
+        "title": "strict",
+        "required": false,
+        "defaultValue": "false",
+        "propDesc": "If true, the zipping will be done strictly based on the minimum length of the arrays.",
+        "type": "boolean"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-26T13:18:20.715Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-26T13:19:43.461Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "retry",
+    "code": {
+      "ts": "/**\r\n * Retries the given function a specified number of times with a delay between each retry.\r\n * @param fn The function to retry.\r\n * @param retries The number of times to retry the function. Default is 3.\r\n * @param delay The delay in milliseconds between each retry. Default is 1000ms (1 second).\r\n * @returns A Promise that resolves to the result of the function if it succeeds, or rejects with the last error if all retries fail.\r\n */\r\nconst retry = async <T>(\r\n  fn: Function,\r\n  retries: number = 3,\r\n  delay: number = 1000\r\n): Promise<T> => {\r\n  try {\r\n    return await fn();\r\n  } catch (error) {\r\n    if (retries > 0) {\r\n      await new Promise((resolve) => setTimeout(resolve, delay));\r\n      return retry(fn, retries - 1, delay);\r\n    }\r\n    throw error;\r\n  }\r\n};\r\n\r\nexport default retry;\r\n",
+      "js": "/**\n * Retries the given function a specified number of times with a delay between each retry.\n * @param fn The function to retry.\n * @param retries The number of times to retry the function. Default is 3.\n * @param delay The delay in milliseconds between each retry. Default is 1000ms (1 second).\n * @returns A Promise that resolves to the result of the function if it succeeds, or rejects with the last error if all retries fail.\n */\nconst retry = async (fn, retries = 3, delay = 1000) => {\n    try {\n        return await fn();\n    }\n    catch (error) {\n        if (retries > 0) {\n            await new Promise((resolve) => setTimeout(resolve, delay));\n            return retry(fn, retries - 1, delay);\n        }\n        throw error;\n    }\n};\nexport default retry;\n"
+    },
+    "category": "functional",
+    "type": "functions",
+    "examples": [
+      "import retry from \".\";\r\n\r\nconst fn = async () => {\r\n  throw new Error(\"failed\");\r\n};\r\n\r\nretry(fn, 2, 1000).catch((error) => {\r\n  console.log(error.message);\r\n});\r\n// Expected output: \"failed\" after retrying twice but It will call the function 3 times.\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Retries the given function a specified number of times with a delay between each retry."
+      },
+      "md": "\r\nThe retry function retries the given function a specified number of\r\ntimes with a delay between each retry. If the function succeeds within\r\nthe specified number of retries, the Promise will resolve with the\r\nresult of the function. If the function fails on all retries, the\r\nPromise will be rejected with the last error. The retry function is\r\ndesigned to handle both synchronous and asynchronous functions, as it\r\nwraps the call to fn with Promise.resolve. This ensures that fn is\r\nalways treated as a Promise, allowing the use of .then and .catch to\r\nhandle the result or any errors.\r\n\r\nThe function retries the given function a specified number of times. The\r\ntotal number of times a function is called is retries + 1.\r\n"
+    },
+    "props": [
+      {
+        "title": "function",
+        "required": true,
+        "propDesc": "The function to retry.",
+        "type": "Function"
+      },
+      {
+        "title": "retries",
+        "required": false,
+        "defaultValue": "3",
+        "propDesc": "The number of times to retry the function.",
+        "type": "number"
+      },
+      {
+        "title": "delay",
+        "required": false,
+        "defaultValue": "1000",
+        "propDesc": "The delay in milliseconds between each retry.",
+        "type": "number"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-17T13:28:44.122Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-26T06:19:26.171Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "sleep",
+    "code": {
+      "ts": "/**\r\n * Pauses the execution for the specified number of milliseconds.\r\n * @param ms - The number of milliseconds to sleep.\r\n * @returns A promise that resolves after the specified number of milliseconds.\r\n */\r\nconst sleep = (ms: number): Promise<true> => {\r\n  return new Promise((resolve) => {\r\n    setTimeout(() => {\r\n      resolve(true);\r\n    }, ms);\r\n  });\r\n};\r\n\r\nexport default sleep;\r\n",
+      "js": "/**\n * Pauses the execution for the specified number of milliseconds.\n * @param ms - The number of milliseconds to sleep.\n * @returns A promise that resolves after the specified number of milliseconds.\n */\nconst sleep = (ms) => {\n    return new Promise((resolve) => {\n        setTimeout(() => {\n            resolve(true);\n        }, ms);\n    });\n};\nexport default sleep;\n"
+    },
+    "category": "functional",
+    "type": "functions",
+    "examples": [
+      "import sleep from \".\";\r\n\r\n//iife\r\n(async () => {\r\n  console.log(\"sleeping for 1 second\");\r\n  await sleep(1000);\r\n  console.log(\"done sleeping\"); // This will be printed after 1 second\r\n})();\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Sleeps the execution for the specified number of milliseconds."
+      },
+      "md": "\r\nThe sleep function sleeps the execution for the specified number of\r\nmilliseconds.\r\n\r\nIt utilizes the setTimeout and Promise APIs to pause the execution for\r\nthe specified number of milliseconds.\r\n"
+    },
+    "props": [
+      {
+        "title": "ms",
+        "required": true,
+        "propDesc": "The number of milliseconds to sleep.",
+        "type": "number"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-17T13:28:44.145Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-17T13:28:44.145Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "and",
+    "code": {
+      "ts": "/**\r\n * Performs a logical AND operation on the given boolean values.\r\n * Returns true if all arguments are true, otherwise returns false.\r\n *\r\n * @param args - The boolean values to perform the AND operation on.\r\n * @returns The result of the logical AND operation.\r\n */\r\nconst and = (...args: any[]) => {\r\n  if (args.length === 0) return false;\r\n  return args.every((arg) => Boolean(arg));\r\n};\r\n\r\nexport default and;\r\n",
+      "js": "/**\n * Performs a logical AND operation on the given boolean values.\n * Returns true if all arguments are true, otherwise returns false.\n *\n * @param args - The boolean values to perform the AND operation on.\n * @returns The result of the logical AND operation.\n */\nconst and = (...args) => {\n    if (args.length === 0)\n        return false;\n    return args.every((arg) => Boolean(arg));\n};\nexport default and;\n"
+    },
+    "category": "gates",
+    "type": "functions",
+    "examples": [
+      "import and from \".\";\r\n\r\nconsole.log(and(true, true));\r\n// Expected Output: true\r\n\r\nconsole.log(and(true, false));\r\n// Expected Output: false\r\n\r\nconsole.log(and());\r\n// Expected Output: true\r\n\r\nconsole.log(and(1, \"lazykit\"));\r\n// Expected Output: true\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Performs a logical AND operation on the given arguments."
+      },
+      "md": "\r\nThe and function is a utility function in TypeScript that performs a\r\nlogical AND operation on the given arguments.\r\n"
+    },
+    "props": [
+      {
+        "title": "args",
+        "required": true,
+        "propDesc": "The arguments to perform the AND operation on.",
+        "type": "any[]"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-17T13:28:44.163Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-17T13:28:44.163Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "nand",
+    "code": {
+      "ts": "/**\r\n * Performs a NAND (NOT AND) operation on the given arguments.\r\n * Returns `false` if no arguments are provided or if all arguments are truthy.\r\n * Returns `true` if any argument is falsy.\r\n *\r\n * @param args - The arguments to perform the NAND operation on.\r\n * @returns The result of the NAND operation.\r\n */\r\nconst nand = (...args: any[]) => {\r\n  if (args.length === 0) return false;\r\n  const and = args.every((arg) => Boolean(arg));\r\n  return !and;\r\n};\r\n\r\nexport default nand;\r\n",
+      "js": "/**\n * Performs a NAND (NOT AND) operation on the given arguments.\n * Returns `false` if no arguments are provided or if all arguments are truthy.\n * Returns `true` if any argument is falsy.\n *\n * @param args - The arguments to perform the NAND operation on.\n * @returns The result of the NAND operation.\n */\nconst nand = (...args) => {\n    if (args.length === 0)\n        return false;\n    const and = args.every((arg) => Boolean(arg));\n    return !and;\n};\nexport default nand;\n"
+    },
+    "category": "gates",
+    "type": "functions",
+    "examples": [
+      "import nand from \".\";\r\n\r\nconsole.log(nand(true, true));\r\n// Expected Output: false\r\n\r\nconsole.log(nand(true, false));\r\n// Expected Output: true\r\n\r\nconsole.log(nand());\r\n// Expected Output: false\r\n\r\nconsole.log(nand(1, \"lazykit\"));\r\n// Expected Output: false\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Performs a logical NAND operation on the given arguments."
+      },
+      "md": "\r\nThe and function is a utility function in TypeScript that performs a\r\nlogical NAND operation on the given arguments.\r\n"
+    },
+    "props": [
+      {
+        "title": "args",
+        "required": true,
+        "propDesc": "The arguments to perform the NAND operation on.",
+        "type": "any[]"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-17T13:28:44.170Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-17T13:28:44.170Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "nor",
+    "code": {
+      "ts": "/**\r\n * Performs a logical NOR operation on the given arguments.\r\n * Returns true if none of the arguments are truthy, otherwise returns false.\r\n *\r\n * @param args - The arguments to perform the NOR operation on.\r\n * @returns The result of the NOR operation.\r\n */\r\nconst nor = (...args: any[]) => {\r\n  if (args.length === 0) return false;\r\n  const or = args.some((arg) => Boolean(arg));\r\n  return !or;\r\n};\r\n\r\nexport default nor;\r\n",
+      "js": "/**\n * Performs a logical NOR operation on the given arguments.\n * Returns true if none of the arguments are truthy, otherwise returns false.\n *\n * @param args - The arguments to perform the NOR operation on.\n * @returns The result of the NOR operation.\n */\nconst nor = (...args) => {\n    if (args.length === 0)\n        return false;\n    const or = args.some((arg) => Boolean(arg));\n    return !or;\n};\nexport default nor;\n"
+    },
+    "category": "gates",
+    "type": "functions",
+    "examples": [
+      "import or from \".\";\r\n\r\nconsole.log(or(true, true));\r\n// Expected Output: false\r\n\r\nconsole.log(or(false, true));\r\n// Expected Output: false\r\n\r\nconsole.log(or(false, false));\r\n// Expected Output: true\r\n\r\nconsole.log(or());\r\n// Expected Output: true\r\n\r\nconsole.log(or(1, \"lazykit\"));\r\n// Expected Output: false\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Performs a logical NOR operation on the given arguments."
+      },
+      "md": "\r\nThe nor function is a utility function in TypeScript that performs a\r\nlogical NOR operation on the given arguments.\r\n"
+    },
+    "props": [
+      {
+        "title": "args",
+        "required": true,
+        "propDesc": "The arguments to perform the NOR operation on.",
+        "type": "any[]"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-17T13:28:44.176Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-17T13:28:44.176Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "or",
+    "code": {
+      "ts": "/**\r\n * Performs a logical OR operation on the given arguments.\r\n *\r\n * @param args - The arguments to perform the OR operation on.\r\n * @returns The result of the OR operation.\r\n */\r\nconst or = (...args: any[]) => {\r\n  return args.some((arg) => Boolean(arg));\r\n};\r\n\r\nexport default or;\r\n",
+      "js": "/**\n * Performs a logical OR operation on the given arguments.\n *\n * @param args - The arguments to perform the OR operation on.\n * @returns The result of the OR operation.\n */\nconst or = (...args) => {\n    return args.some((arg) => Boolean(arg));\n};\nexport default or;\n"
+    },
+    "category": "gates",
+    "type": "functions",
+    "examples": [
+      "import or from \".\";\r\n\r\nconsole.log(or(true, true));\r\n// Expected Output: true\r\n\r\nconsole.log(or(false, true));\r\n// Expected Output: true\r\n\r\nconsole.log(or(false, false));\r\n// Expected Output: false\r\n\r\nconsole.log(or());\r\n// Expected Output: false\r\n\r\nconsole.log(or(1, \"lazykit\"));\r\n// Expected Output: true\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Performs a logical OR operation on the given arguments."
+      },
+      "md": "\r\nThe or function is a utility function in TypeScript that performs a\r\nlogical OR operation on the given arguments.\r\n"
+    },
+    "props": [
+      {
+        "title": "args",
+        "required": true,
+        "propDesc": "The arguments to perform the OR operation on.",
+        "type": "any[]"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-17T13:28:44.181Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-17T13:28:44.181Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "mapObj",
+    "code": {
+      "ts": "/**\r\n * Maps over the properties of an object and applies a callback function to each property.\r\n *\r\n * @template T - The type of the values in the input object.\r\n * @template U - The type of the values in the output object.\r\n * @param {Record<string, T>} obj - The input object.\r\n * @param {(value: T, key: string, obj: Record<string, T>) => U} callback - The callback function to apply to each property.\r\n * @returns {Record<string, U>} - The resulting object with the mapped properties.\r\n */\r\n\r\nconst mapObj = <T, U>(\r\n  obj: Record<string, T>,\r\n  callback: (value: T, key: string, obj: Record<string, T>) => U\r\n): Record<string, U> => {\r\n  const result: Record<string, U> = {};\r\n\r\n  // loop through each key in the object\r\n  for (const key in obj) {\r\n    // check if the key is a property of the object\r\n    if (Object.prototype.hasOwnProperty.call(obj, key)) {\r\n      result[key] = callback(obj[key], key, obj);\r\n    }\r\n  }\r\n\r\n  return result;\r\n};\r\n\r\nexport default mapObj;\r\n",
+      "js": "/**\n * Maps over the properties of an object and applies a callback function to each property.\n *\n * @template T - The type of the values in the input object.\n * @template U - The type of the values in the output object.\n * @param {Record<string, T>} obj - The input object.\n * @param {(value: T, key: string, obj: Record<string, T>) => U} callback - The callback function to apply to each property.\n * @returns {Record<string, U>} - The resulting object with the mapped properties.\n */\nconst mapObj = (obj, callback) => {\n    const result = {};\n    // loop through each key in the object\n    for (const key in obj) {\n        // check if the key is a property of the object\n        if (Object.prototype.hasOwnProperty.call(obj, key)) {\n            result[key] = callback(obj[key], key, obj);\n        }\n    }\n    return result;\n};\nexport default mapObj;\n"
+    },
+    "category": "objects",
+    "type": "functions",
+    "examples": [
+      "import mapObj from \".\";\r\n\r\nconst obj1 = { a: 1, b: 2, c: 3 };\r\nconst result1 = mapObj(obj1, (value: number) => value * 2);\r\nconsole.log(result1);\r\n// Expected output:  { a: 2, b: 4, c: 6 }\r\n\r\nconst obj2 = {};\r\nconst result2 = mapObj(obj2, (value: any) => value);\r\nconsole.log(result2);\r\n// Expected output:  {}\r\n\r\nconst obj3 = { 1: \"one\", 2: \"two\", 3: \"three\" };\r\nconst result = mapObj(obj3, (value: string, i) => value.toUpperCase() + i);\r\nconsole.log(result);\r\n// Expected output: { 1: 'ONE1', 2: 'TWO2', 3: 'THREE3' }\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Same as Array.prototype.map, but for objects."
+      },
+      "md": "\r\nThe mapObj function is a utility function that applies a\r\ncallback function to each property of an input object and returns a new\r\nobject with the results. This function is similar to the\r\nArray.prototype.map method for arrays, but it works with objects.\r\n\r\nThe function is generic and can work with objects of any type. It takes\r\ntwo type parameters: T and U. T is the type of the values in the input\r\nobject, and U is the type of the values in the output object.\r\n\r\nThe function accepts two parameters: obj and callback. obj is the input\r\nobject, and callback is a function that gets applied to each property of\r\nobj. The callback function takes three parameters: value, key, and obj.\r\nvalue is the current property&apos;s value, key is the current property&apos;s\r\nkey, and obj is the original input object.\r\n"
+    },
+    "props": [
+      {
+        "title": "object",
+        "required": true,
+        "propDesc": "The object to process.",
+        "type": "object"
+      },
+      {
+        "title": "callback",
+        "required": true,
+        "propDesc": "The callback function to apply to each property. It receives the value, key, and object as arguments.",
+        "type": "function"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-17T13:28:44.190Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-17T13:28:44.190Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "omit",
+    "code": {
+      "ts": "/**\r\n * Creates a new object with the specified keys omitted.\r\n *\r\n * @param obj - The object from which to omit keys.\r\n * @param keys - An array of keys to omit from the object.\r\n * @returns A new object with the specified keys omitted.\r\n */\r\nconst omit = <T, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> => {\r\n  const newObj = { ...obj };\r\n  keys.forEach((key) => delete newObj[key]);\r\n  return newObj as Omit<T, K>;\r\n};\r\n\r\nexport default omit;\r\n",
+      "js": "/**\n * Creates a new object with the specified keys omitted.\n *\n * @param obj - The object from which to omit keys.\n * @param keys - An array of keys to omit from the object.\n * @returns A new object with the specified keys omitted.\n */\nconst omit = (obj, keys) => {\n    const newObj = { ...obj };\n    keys.forEach((key) => delete newObj[key]);\n    return newObj;\n};\nexport default omit;\n"
+    },
+    "category": "objects",
+    "type": "functions",
+    "examples": [
+      "import omit from \".\";\r\n\r\nconst obj = { a: 1, b: 2, c: 3 };\r\nconst keys = [\"a\", \"c\"] as Array<keyof typeof obj>;\r\n// You have to specify the keys as an array of keyof typeof obj to ensure that the keys are valid, If you are defining the keys separately.\r\n\r\nconst omitted = omit(obj, keys);\r\nconsole.log(omitted);\r\n// Expected output: { b: 2 }\r\n\r\n//OR\r\nconst omitted2 = omit(obj, [\"a\", \"c\"]);\r\nconsole.log(omitted2);\r\n// Expected output: { b: 2 }\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Returns a new object with the specified keys omitted."
+      },
+      "md": "\r\nThe `omit` function returns a new object with the specified keys omitted. It does not modify the original object.\r\n"
+    },
+    "props": [
+      {
+        "title": "object",
+        "required": true,
+        "propDesc": "The object to omit keys from.",
+        "type": "object"
+      },
+      {
+        "title": "keys",
+        "required": true,
+        "propDesc": "An array of keys to omit from the object. The keys must be of the same type as the keys of the input object.",
+        "type": "array"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-27T06:37:01.586Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-27T06:37:01.588Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "pick",
+    "code": {
+      "ts": "/**\r\n * Creates a new object with only the specified keys from the original object.\r\n *\r\n * @param obj - The original object.\r\n * @param keys - An array of keys to pick from the original object.\r\n * @returns A new object with only the specified keys.\r\n * @typeParam T - The type of the original object.\r\n * @typeParam K - The type of the keys to pick.\r\n */\r\nconst pick = <T, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> => {\r\n  const newObj: any = {};\r\n  keys.forEach((key) => {\r\n    newObj[key] = obj[key];\r\n  });\r\n  return newObj as Pick<T, K>;\r\n};\r\n\r\nexport default pick;\r\n",
+      "js": "/**\n * Creates a new object with only the specified keys from the original object.\n *\n * @param obj - The original object.\n * @param keys - An array of keys to pick from the original object.\n * @returns A new object with only the specified keys.\n * @typeParam T - The type of the original object.\n * @typeParam K - The type of the keys to pick.\n */\nconst pick = (obj, keys) => {\n    const newObj = {};\n    keys.forEach((key) => {\n        newObj[key] = obj[key];\n    });\n    return newObj;\n};\nexport default pick;\n"
+    },
+    "category": "objects",
+    "type": "functions",
+    "examples": [
+      "import pick from \".\";\r\n\r\nconst obj = { a: 1, b: 2, c: 3 };\r\nconst result = pick(obj, [\"a\", \"c\"]);\r\nconsole.log(result);\r\n// Expected output: { a: 1, c: 3 }\r\n\r\nconst emptyResult = pick(obj, []);\r\nconsole.log(emptyResult);\r\n// Expected output: {}\r\n\r\nconst keys = [\"a\", \"b\"] as Array<keyof typeof obj>;\r\n// You have to specify the keys as an array of keyof typeof obj to ensure that the keys are valid, If you are defining the keys separately.\r\nconst resultWithKeys = pick(obj, keys);\r\nconsole.log(resultWithKeys);\r\n// Expected output: { a: 1, b: 2 }\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Picks the specified keys from an object."
+      },
+      "md": "\r\nThe `pick` function picks the specified keys from an object and returns a new object with only those keys.\r\n"
+    },
+    "props": [
+      {
+        "title": "object",
+        "required": true,
+        "propDesc": "The object to pick keys from.",
+        "type": "object"
+      },
+      {
+        "title": "keys",
+        "required": true,
+        "propDesc": "An array of keys to pick from the object. The keys must be of the same type as the keys of the input object.",
+        "type": "array"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-27T06:37:01.597Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-27T06:37:01.597Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "sampleObj",
+    "code": {
+      "ts": "/**\r\n * Creates an object with random number values for the given keys.\r\n * @param keys - The keys for the object.\r\n * @returns An object with random number values for the given keys.\r\n */\r\nconst sampleObj = (...keys: string[]) => {\r\n  const obj: any = {};\r\n  keys.forEach((key) => {\r\n    obj[key] = Math.random();\r\n  });\r\n  return obj as Record<string, number>;\r\n};\r\n\r\nexport default sampleObj;\r\n",
+      "js": "/**\n * Creates an object with random number values for the given keys.\n * @param keys - The keys for the object.\n * @returns An object with random number values for the given keys.\n */\nconst sampleObj = (...keys) => {\n    const obj = {};\n    keys.forEach((key) => {\n        obj[key] = Math.random();\n    });\n    return obj;\n};\nexport default sampleObj;\n"
+    },
+    "category": "objects",
+    "type": "functions",
+    "examples": [
+      "import sampleObj from \".\";\r\n\r\nconst keys = [\"key1\", \"key2\", \"key3\"];\r\nconst obj = sampleObj(...keys);\r\nconsole.log(obj);\r\n// Expected output: { key1: Number, key2: Number, key3: Number }\r\n// Where Number is a random number between 0 and 1.\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Returns a sample object with the specified keys and values as random numbers."
+      },
+      "md": "\r\nThe `sampleObj` function takes any number of string arguments, treats each argument as a key, and creates an object where each key is associated with a random number value. The function then returns this object.\r\n"
+    },
+    "props": [
+      {
+        "title": "keys",
+        "required": true,
+        "propDesc": "The keys for the object.",
+        "type": "string[]"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-27T05:59:48.776Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-27T05:59:48.778Z",
       "packageVersion": "0.1.0"
     }
   }
