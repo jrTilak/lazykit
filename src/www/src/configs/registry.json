@@ -511,6 +511,46 @@
     }
   },
   {
+    "name": "callAfter",
+    "code": {
+      "ts": "const callAfter = <T, S extends any[]>(\r\n  fn: (...args: S) => T,\r\n  count: number\r\n): ((...args: S) => T | undefined) => {\r\n  let counter = 0;\r\n  return (...args: S): T | undefined => {\r\n    if (counter < count) {\r\n      counter++;\r\n      return undefined;\r\n    }\r\n    return fn(...args);\r\n  };\r\n};\r\n\r\nexport default callAfter;\r\n",
+      "js": "const callAfter = (fn, count) => {\n    let counter = 0;\n    return (...args) => {\n        if (counter < count) {\n            counter++;\n            return undefined;\n        }\n        return fn(...args);\n    };\n};\nexport default callAfter;\n"
+    },
+    "category": "functional",
+    "type": "functions",
+    "examples": [
+      "import callAfter from \".\";\r\n\r\nconst fn = (x: number) => x + 1;\r\n\r\nconst callAfterFn = callAfter(fn, 2);\r\n\r\nconst result1 = callAfterFn(1);\r\n// Expected Output: undefined\r\n\r\nconst result2 = callAfterFn(2);\r\n// Expected Output: undefined\r\n\r\nconst result3 = callAfterFn(3);\r\n// Expected Output: 4 : as the function `fn` has been called twice already.\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Returns a new function that can be called only after calling a specific number of times."
+      },
+      "md": "\r\nThe `callAfter` function is used to create a new function that can be called only after calling a specific number of times. Before the specified number of calls, the function will always return `undefined` without executing the original function.\r\n"
+    },
+    "props": [
+      {
+        "title": "function",
+        "required": true,
+        "propDesc": "The function to be called",
+        "type": "Function"
+      },
+      {
+        "title": "count",
+        "required": true,
+        "propDesc": "The number of times the function can be called.",
+        "type": "number"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-28T01:32:03.898Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-28T01:32:03.900Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
     "name": "callBefore",
     "code": {
       "ts": "/**\r\n * Calls the provided function `fn` only for the first `count` invocations,\r\n * and returns `undefined` for subsequent invocations.\r\n *\r\n * @template T - The return type of the function `fn`.\r\n * @template S - The argument types of the function `fn`.\r\n * @param {(...args: S) => T} fn - The function to be called.\r\n * @param {number} count - The number of times the function `fn` should be called.\r\n * @returns {(...args: S) => T | undefined} - A function that calls `fn` only for the first `count` invocations.\r\n */\r\nconst callBefore = <T, S extends any[]>(\r\n  fn: (...args: S) => T,\r\n  count: number\r\n): ((...args: S) => T | undefined) => {\r\n  let counter = 0;\r\n  return (...args: S): T | undefined => {\r\n    if (counter < count) {\r\n      counter++;\r\n      return fn(...args);\r\n    }\r\n    return undefined;\r\n  };\r\n};\r\n\r\nexport default callBefore;\r\n",

@@ -72,6 +72,10 @@
     "url": "/docs/functions/functional/retry"
   },
   {
+    "label": "callAfter",
+    "url": "/docs/functions/functional/callAfter"
+  },
+  {
     "label": "callBefore",
     "url": "/docs/functions/functional/callBefore"
   },
