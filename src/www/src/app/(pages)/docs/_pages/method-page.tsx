@@ -1,19 +1,18 @@
 import NotFound from "@/components/pages/not-found";
 import registry from "@/configs/registry.json";
 import CodeTabs from "../_components/code-tabs";
-import CodeLine from "../_components/code-line";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { SquareArrowOutUpRight } from "lucide-react";
 import PropsTable from "../_components/props-table";
 import {
-  IDoc,
   IRegistryFunctionPropTable,
   IRegistryJSON,
 } from "@/types/registry.types";
 import { marked } from "marked";
 import ExampleTabs from "../_components/example-tabs";
 import { LangProvider } from "@/providers/lang-provider";
+import CodeLineWithFlag from "../_components/code-line-with-flag";
 const MethodPage = async ({ slug }: { slug: string[] }) => {
   if (!registry) return <NotFound />;
 
@@ -62,7 +61,7 @@ const MethodPage = async ({ slug }: { slug: string[] }) => {
           {
             title: "Installation",
             toRender: (
-              <CodeLine
+              <CodeLineWithFlag
                 code={`npx @jrtilak/lazykit@latest add ${methodData.name}`}
                 language="bash"
               />
