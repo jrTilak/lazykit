@@ -13,7 +13,7 @@ const ExampleTabs = ({ code }: IExampleTabs) => {
   const { lang } = useLang();
 
   return (
-    <Tabs defaultValue={lang === "js" ? "js" : "ts"} value={lang}>
+    <Tabs defaultValue={lang || "ts"} value={lang}>
       <TabsContent value="ts">
         {code.map((item, index) => (
           <CodeBlock key={index} code={item.ts} language="typescript" />

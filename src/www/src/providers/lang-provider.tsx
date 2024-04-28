@@ -2,7 +2,7 @@
 import React from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 
-export type Lang = "js" | "ts";
+export type Lang = "js" | "ts" | undefined;
 
 const LangContext = createContext<
   | { lang: Lang; setLang: React.Dispatch<React.SetStateAction<Lang>> }
@@ -10,7 +10,7 @@ const LangContext = createContext<
 >(undefined);
 
 export const LangProvider = ({ children }: { children: React.ReactNode }) => {
-  const [lang, setLang] = useState<Lang>("ts");
+  const [lang, setLang] = useState<Lang>();
 
   useEffect(() => {
     const storedLang = localStorage.getItem("code-lang");
@@ -20,7 +20,9 @@ export const LangProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("code-lang", lang);
+    if (lang) {
+      localStorage.setItem("code-lang", lang);
+    }
   }, [lang]);
 
   return (

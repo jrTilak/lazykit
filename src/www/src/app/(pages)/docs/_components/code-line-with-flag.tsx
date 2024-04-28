@@ -26,7 +26,7 @@ const CodeLineWithFlag = ({
 
   const { toast } = useToast();
 
-  const codeWithLangFlag = `${code} -${lang === "js" ? "js" : "ts"}`;
+  const codeWithLangFlag = `${code} -${lang}`;
 
   const handleCopy = () => {
     setIsCopying((prev) => ({ ...prev, isCopying: true }));

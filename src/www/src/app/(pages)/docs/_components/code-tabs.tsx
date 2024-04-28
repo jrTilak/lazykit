@@ -16,8 +16,9 @@ const CodeTabs = ({ code }: ICodeTabs) => {
 
   return (
     <Tabs
-      defaultValue={lang === "js" ? "js" : "ts"}
+      defaultValue={lang || "ts"}
       onValueChange={(value) => setLang(value as Lang)}
+      value={lang}
     >
       <TabsList>
         <TabsTrigger value="ts">
