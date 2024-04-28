@@ -14,7 +14,10 @@ export interface IRegistryJSON {
   };
   category: string;
   type: string;
-  examples: string[];
+  examples: {
+    js: string;
+    ts: string;
+  }[];
   docs: {
     metaData: IDoc;
     md: string;
