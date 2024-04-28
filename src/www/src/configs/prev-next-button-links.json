@@ -68,14 +68,6 @@
     "url": "/docs/functions/arrays/zip"
   },
   {
-    "label": "callAfter",
-    "url": "/docs/functions/functional/callAfter"
-  },
-  {
-    "label": "callBefore",
-    "url": "/docs/functions/functional/callBefore"
-  },
-  {
     "label": "nTimes",
     "url": "/docs/functions/functional/nTimes"
   },
@@ -94,6 +86,14 @@
   {
     "label": "timeout",
     "url": "/docs/functions/functional/timeout"
+  },
+  {
+    "label": "callAfter",
+    "url": "/docs/functions/functional/callAfter"
+  },
+  {
+    "label": "callBefore",
+    "url": "/docs/functions/functional/callBefore"
   },
   {
     "label": "and",

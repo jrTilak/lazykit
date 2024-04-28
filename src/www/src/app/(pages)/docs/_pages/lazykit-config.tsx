@@ -1,6 +1,6 @@
 import { PACKAGE_INFO } from "@/data/info";
-import { Metadata } from "next";
 import Table from "../_components/table-comp";
+import type { Metadata } from "next";
 
 const LazykitConfig = () => {
   return (

@@ -1,17 +1,24 @@
 "use client";
 import { useToast } from "@/components/ui/use-toast";
+import { useLang } from "@/providers/lang-provider";
 import { Check, Files, X } from "lucide-react";
 import { useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
-interface ICodeLine {
+interface ICodeLineWithFlag {
   code: string;
   language: string;
   className?: string;
   showLangFlag?: boolean;
 }
 
-const CodeLine = ({ code, language, className }: ICodeLine) => {
+const CodeLineWithFlag = ({
+  code,
+  language,
+  className,
+  showLangFlag = true,
+}: ICodeLineWithFlag) => {
+  const { lang } = useLang();
   const [isCopying, setIsCopying] = useState({
     isCopying: false,
     Icon: Files,
@@ -19,10 +26,12 @@ const CodeLine = ({ code, language, className }: ICodeLine) => {
 
   const { toast } = useToast();
 
+  const codeWithLangFlag = `${code} -${lang}`;
+
   const handleCopy = () => {
     setIsCopying((prev) => ({ ...prev, isCopying: true }));
     try {
-      navigator.clipboard.writeText(code);
+      navigator.clipboard.writeText(showLangFlag ? codeWithLangFlag : code);
       setIsCopying((prev) => ({ ...prev, Icon: Check }));
       toast({
         description: "Code copied to clipboard 🚀",
@@ -64,9 +73,9 @@ const CodeLine = ({ code, language, className }: ICodeLine) => {
           },
         }}
       >
-        {code}
+        {showLangFlag ? codeWithLangFlag : code}
       </SyntaxHighlighter>
     </div>
   );
 };
-export default CodeLine;
+export default CodeLineWithFlag;

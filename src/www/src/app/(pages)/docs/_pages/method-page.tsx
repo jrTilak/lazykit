@@ -1,19 +1,18 @@
 import NotFound from "@/components/pages/not-found";
 import registry from "@/configs/registry.json";
 import CodeTabs from "../_components/code-tabs";
-import CodeLine from "../_components/code-line";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { SquareArrowOutUpRight } from "lucide-react";
 import PropsTable from "../_components/props-table";
-import CodeBlock from "../_components/code-block";
-import matter from "gray-matter";
 import {
-  IDoc,
   IRegistryFunctionPropTable,
   IRegistryJSON,
 } from "@/types/registry.types";
 import { marked } from "marked";
+import ExampleTabs from "../_components/example-tabs";
+import { LangProvider } from "@/providers/lang-provider";
+import CodeLineWithFlag from "../_components/code-line-with-flag";
 const MethodPage = async ({ slug }: { slug: string[] }) => {
   if (!registry) return <NotFound />;
 
@@ -53,67 +52,67 @@ const MethodPage = async ({ slug }: { slug: string[] }) => {
           </div>
         )}
       </div>
-      {[
-        {
-          title: "Code",
-          toRender: <CodeTabs code={methodData.code} />,
-        },
-        {
-          title: "Installation",
-          toRender: (
-            <CodeLine
-              code={`npx @jrtilak/lazykit@latest add ${methodData.name}`}
-              language="bash"
-            />
-          ),
-        },
-        {
-          title: "Description",
-          toRender: (
-            <div className="prose prose-p:mb-0 prose-p:mt-0 prose-p:w-full w-full min-w-fit">
-              <div
-                className="flex flex-col gap-2 w-full"
-                dangerouslySetInnerHTML={{
-                  __html: htmlContent,
-                }}
+      <LangProvider>
+        {[
+          {
+            title: "Code",
+            toRender: <CodeTabs code={methodData.code} />,
+          },
+          {
+            title: "Installation",
+            toRender: (
+              <CodeLineWithFlag
+                code={`npx @jrtilak/lazykit@latest add ${methodData.name}`}
+                language="bash"
               />
-            </div>
-          ),
-        },
-        {
-          title: "Props",
-          toRender: (
-            <div className="overflow-x-auto">
-              <PropsTable
-                data={methodData.props as IRegistryFunctionPropTable[]}
-              />
-            </div>
-          ),
-        },
-        {
-          title: "Examples",
-          toRender: (
-            <div className="flex flex-col gap-3 sm:gap-4">
-              {methodData.examples?.map((example, index) => (
-                <CodeBlock code={example} key={index} language="typescript" />
-              ))}
-            </div>
-          ),
-        },
-      ].map((section, i) => (
-        <div key={i} className="flex flex-col gap-3">
-          <h3
-            className="text-lg sm:text-xl lg:text-2xl font-semibold flex gap-2"
-            id={section.title.toLowerCase()}
-          >
-            <span>
-              {i + 1}. {section.title}
-            </span>
-            <hr />
-          </h3>
-          {section.toRender}
-        </div>
-      ))}
+            ),
+          },
+          {
+            title: "Description",
+            toRender: (
+              <div className="prose prose-p:mb-0 prose-p:mt-0 prose-p:w-full w-full min-w-fit">
+                <div
+                  className="flex flex-col gap-2 w-full"
+                  dangerouslySetInnerHTML={{
+                    __html: htmlContent,
+                  }}
+                />
+              </div>
+            ),
+          },
+          {
+            title: "Props",
+            toRender: (
+              <div className="overflow-x-auto">
+                <PropsTable
+                  data={methodData.props as IRegistryFunctionPropTable[]}
+                />
+              </div>
+            ),
+          },
+          {
+            title: "Examples",
+            toRender: (
+              <div className="flex flex-col gap-3 sm:gap-4">
+                <ExampleTabs code={methodData.examples} />
+              </div>
+            ),
+          },
+        ].map((section, i) => (
+          <div key={i} className="flex flex-col gap-3">
+            <h3
+              className="text-lg sm:text-xl lg:text-2xl font-semibold flex gap-2"
+              id={section.title.toLowerCase()}
+            >
+              <span>
+                {i + 1}. {section.title}
+              </span>
+              <hr />
+            </h3>
+            {section.toRender}
+          </div>
+        ))}
+      </LangProvider>
     </div>
   );
 };
