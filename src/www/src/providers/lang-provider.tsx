@@ -10,10 +10,14 @@ const LangContext = createContext<
 >(undefined);
 
 export const LangProvider = ({ children }: { children: React.ReactNode }) => {
-  const [lang, setLang] = useState<Lang>(() => {
-    const lang = localStorage.getItem("code-lang");
-    return lang === "js" ? "js" : "ts";
-  });
+  const [lang, setLang] = useState<Lang>();
+
+  useEffect(() => {
+    const storedLang = localStorage.getItem("code-lang");
+    if (storedLang) {
+      setLang(storedLang === "js" ? "js" : "ts");
+    }
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("code-lang", lang);
