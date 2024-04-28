@@ -2,6 +2,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CodeBlock from "./code-block";
 import { Lang, useLang } from "@/providers/lang-provider";
+import Image from "next/image";
 
 interface ICodeTabs {
   code: {
@@ -22,20 +23,24 @@ const CodeTabs = ({ code }: ICodeTabs) => {
         <TabsTrigger value="ts">
           <span>Typescript</span>
           {lang === "ts" && (
-            <img
+            <Image
               src="https://www.svgrepo.com/show/374146/typescript-official.svg"
               alt=""
               className="h-5 w-5 ml-3"
+              height={20}
+              width={20}
             />
           )}
         </TabsTrigger>
         <TabsTrigger value="js">
           <span>Javascript</span>
           {lang === "js" && (
-            <img
+            <Image
               src="https://www.svgrepo.com/show/349419/javascript.svg"
               alt=""
               className="h-5 w-5 ml-3"
+              height={20}
+              width={20}
             />
           )}
         </TabsTrigger>
