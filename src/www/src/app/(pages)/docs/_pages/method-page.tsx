@@ -14,6 +14,7 @@ import {
   IRegistryJSON,
 } from "@/types/registry.types";
 import { marked } from "marked";
+import ExampleTabs from "../_components/example-tabs";
 const MethodPage = async ({ slug }: { slug: string[] }) => {
   if (!registry) return <NotFound />;
 
@@ -94,9 +95,7 @@ const MethodPage = async ({ slug }: { slug: string[] }) => {
           title: "Examples",
           toRender: (
             <div className="flex flex-col gap-3 sm:gap-4">
-              {methodData.examples?.map((example, index) => (
-                <CodeBlock code={example} key={index} language="typescript" />
-              ))}
+              <ExampleTabs code={methodData.examples} />
             </div>
           ),
         },

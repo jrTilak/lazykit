@@ -209,7 +209,20 @@ async function main() {
                 },
                 category,
                 type,
-                examples,
+                /**
+                 * Support examples in both typescript and javascript
+                 */
+                examples: examples.map((ex) => {
+                  return {
+                    ts: ex,
+                    js: typescript.transpileModule(ex, {
+                      compilerOptions: {
+                        target: typescript.ScriptTarget.ESNext,
+                        module: typescript.ModuleKind.ESNext,
+                      },
+                    }).outputText,
+                  };
+                }),
                 docs: {
                   metaData: dataFromMd.data as unknown as IDoc,
                   md: dataFromMd.content,

@@ -1,10 +1,10 @@
 "use client";
 import { useToast } from "@/components/ui/use-toast";
+import useLang from "@/store/use-lang";
 import { Check, Files, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
-import useLocalStorage from "use-local-storage";
 interface ICodeLine {
   code: string;
   language: string;
@@ -18,11 +18,16 @@ const CodeLine = ({
   className,
   showLangFlag = true,
 }: ICodeLine) => {
-  const [lang] = useLocalStorage("code-lang", "ts");
+  const { lang } = useLang();
   const [isCopying, setIsCopying] = useState({
     isCopying: false,
     Icon: Files,
   });
+
+  useEffect(() => {
+    console.log(lang);
+  }, [lang]);
+
   const { toast } = useToast();
 
   const codeWithLangFlag = `${code} -${lang === "js" ? "js" : "ts"}`;
