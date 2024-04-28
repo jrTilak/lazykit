@@ -143,48 +143,50 @@
     }
   },
   {
-    "name": "timeout",
+    "name": "retry",
     "code": {
-      "ts": "/**\r\n * Wraps a function with a timeout.\r\n * If the function does not complete within the specified time, the promise will be rejected.\r\n *\r\n * @template Return - The return type of the wrapped function.\r\n * @template Err - The error type that can be thrown by the wrapped function or the error callback.\r\n * @param {(...args: any[]) => Return} fn - The function to be wrapped.\r\n * @param {number} time - The timeout duration in milliseconds.\r\n * @param {(...args: any[]) => Err} [errCb] - Optional error callback function to handle timeout errors.\r\n * @returns {(...args: any[]) => Promise<Return>} - A wrapped function that returns a promise.\r\n */\r\nconst timeout = <Return, Err>(\r\n  fn: (...args: any[]) => Return,\r\n  time: number,\r\n  errCb?: (...args: any[]) => Err\r\n): ((...args: any[]) => Promise<Return>) => {\r\n  return (...args: any[]) => {\r\n    return new Promise<any>((resolve, reject) => {\r\n      const timer = setTimeout(() => {\r\n        if (errCb) reject(errCb(...args));\r\n        else {\r\n          reject(new Error(\"Function timed out\"));\r\n        }\r\n      }, time);\r\n\r\n      // Wrap fn call in Promise.resolve to handle both sync and async functions\r\n      Promise.resolve(fn(...args))\r\n        .then((result: Return) => {\r\n          clearTimeout(timer);\r\n          resolve(result);\r\n        })\r\n        .catch((err: Err) => {\r\n          clearTimeout(timer);\r\n          reject(err);\r\n        });\r\n    });\r\n  };\r\n};\r\n\r\nexport default timeout;\r\n",
-      "js": "/**\n * Wraps a function with a timeout.\n * If the function does not complete within the specified time, the promise will be rejected.\n *\n * @template Return - The return type of the wrapped function.\n * @template Err - The error type that can be thrown by the wrapped function or the error callback.\n * @param {(...args: any[]) => Return} fn - The function to be wrapped.\n * @param {number} time - The timeout duration in milliseconds.\n * @param {(...args: any[]) => Err} [errCb] - Optional error callback function to handle timeout errors.\n * @returns {(...args: any[]) => Promise<Return>} - A wrapped function that returns a promise.\n */\nconst timeout = (fn, time, errCb) => {\n    return (...args) => {\n        return new Promise((resolve, reject) => {\n            const timer = setTimeout(() => {\n                if (errCb)\n                    reject(errCb(...args));\n                else {\n                    reject(new Error(\"Function timed out\"));\n                }\n            }, time);\n            // Wrap fn call in Promise.resolve to handle both sync and async functions\n            Promise.resolve(fn(...args))\n                .then((result) => {\n                clearTimeout(timer);\n                resolve(result);\n            })\n                .catch((err) => {\n                clearTimeout(timer);\n                reject(err);\n            });\n        });\n    };\n};\nexport default timeout;\n"
+      "ts": "/**\r\n * Retries the given function a specified number of times with a delay between each retry.\r\n * @param fn The function to retry.\r\n * @param retries The number of times to retry the function. Default is 3.\r\n * @param delay The delay in milliseconds between each retry. Default is 1000ms (1 second).\r\n * @returns A Promise that resolves to the result of the function if it succeeds, or rejects with the last error if all retries fail.\r\n */\r\nconst retry = async <T>(\r\n  fn: Function,\r\n  retries: number = 3,\r\n  delay: number = 1000\r\n): Promise<T> => {\r\n  try {\r\n    return await fn();\r\n  } catch (error) {\r\n    if (retries > 0) {\r\n      await new Promise((resolve) => setTimeout(resolve, delay));\r\n      return retry(fn, retries - 1, delay);\r\n    }\r\n    throw error;\r\n  }\r\n};\r\n\r\nexport default retry;\r\n",
+      "js": "/**\n * Retries the given function a specified number of times with a delay between each retry.\n * @param fn The function to retry.\n * @param retries The number of times to retry the function. Default is 3.\n * @param delay The delay in milliseconds between each retry. Default is 1000ms (1 second).\n * @returns A Promise that resolves to the result of the function if it succeeds, or rejects with the last error if all retries fail.\n */\nconst retry = async (fn, retries = 3, delay = 1000) => {\n    try {\n        return await fn();\n    }\n    catch (error) {\n        if (retries > 0) {\n            await new Promise((resolve) => setTimeout(resolve, delay));\n            return retry(fn, retries - 1, delay);\n        }\n        throw error;\n    }\n};\nexport default retry;\n"
     },
     "category": "functional",
     "type": "functions",
     "examples": [
-      "import timeout from \".\";\r\n\r\ntimeout(() => \"Hello, World!\", 1000);\r\n// Expected Output: \"Hello, World!\"\r\n\r\ntimeout(() => new Promise((resolve) => setTimeout(resolve, 2000)), 1000);\r\n// Expected Output: Error: Function timed out\r\n\r\ntimeout(\r\n  () => new Promise((resolve) => setTimeout(resolve, 2000)),\r\n  1000,\r\n  () => console.log(\"I failed\")\r\n);\r\n// Expected Output: I failed\r\n"
+      "import retry from \".\";\r\n\r\nconst fn = async () => {\r\n  throw new Error(\"failed\");\r\n};\r\n\r\nretry(fn, 2, 1000).catch((error) => {\r\n  console.log(error.message);\r\n});\r\n// Expected output: \"failed\" after retrying twice but It will call the function 3 times.\r\n"
     ],
     "docs": {
       "metaData": {
-        "desc": "The timeout function wraps a function with a timeout. If the function does not complete within the specified time, the promise will be rejected."
+        "desc": "Retries the given function a specified number of times with a delay between each retry."
       },
-      "md": "\r\nThe timeout function is a higher-order function that takes a function\r\nfn, a timeout duration time, and an optional error callback errCb as\r\narguments. It returns a new function that, when called, returns a\r\nPromise. This Promise will resolve with the result of the fn function if\r\nfn completes within the specified time. If fn does not complete within\r\nthe time, the Promise will be rejected. If an errCb function is\r\nprovided, it will be called with the arguments passed to the wrapped\r\nfunction, and the Promise will be rejected with the result of errCb. If\r\nno errCb is provided, the Promise will be rejected with a new Error\r\nstating &apos;Function timed out&apos;. The timeout function is designed\r\nto handle both synchronous and asynchronous functions, as it wraps the\r\ncall to fn with Promise.resolve. This ensures that fn is always treated\r\nas a Promise, allowing the use of .then and .catch to handle the result\r\nor any errors.\r\n"
+      "md": "\r\nThe retry function retries the given function a specified number of\r\ntimes with a delay between each retry. If the function succeeds within\r\nthe specified number of retries, the Promise will resolve with the\r\nresult of the function. If the function fails on all retries, the\r\nPromise will be rejected with the last error. The retry function is\r\ndesigned to handle both synchronous and asynchronous functions, as it\r\nwraps the call to fn with Promise.resolve. This ensures that fn is\r\nalways treated as a Promise, allowing the use of .then and .catch to\r\nhandle the result or any errors.\r\n\r\nThe function retries the given function a specified number of times. The\r\ntotal number of times a function is called is retries + 1.\r\n"
     },
     "props": [
       {
         "title": "function",
         "required": true,
-        "propDesc": "The function to be wrapped with a timeout.",
+        "propDesc": "The function to retry.",
         "type": "Function"
       },
       {
-        "title": "time",
-        "required": true,
-        "propDesc": "The timeout duration in milliseconds.",
+        "title": "retries",
+        "required": false,
+        "defaultValue": "3",
+        "propDesc": "The number of times to retry the function.",
         "type": "number"
       },
       {
-        "title": "errCb",
+        "title": "delay",
         "required": false,
-        "propDesc": "Optional error callback function to handle timeout errors. If not provided, the promise will be rejected with an error message.",
-        "type": "Function"
+        "defaultValue": "1000",
+        "propDesc": "The delay in milliseconds between each retry.",
+        "type": "number"
       }
     ],
     "createdAt": {
-      "date": "2024-04-17T13:28:44.158Z",
+      "date": "2024-04-17T13:28:44.122Z",
       "packageVersion": "0.1.0"
     },
     "lastUpdated": {
-      "date": "2024-04-17T13:28:44.159Z",
+      "date": "2024-04-26T06:19:26.171Z",
       "packageVersion": "0.1.0"
     }
   },
@@ -509,6 +511,46 @@
     }
   },
   {
+    "name": "callBefore",
+    "code": {
+      "ts": "/**\r\n * Calls the provided function `fn` only for the first `count` invocations,\r\n * and returns `undefined` for subsequent invocations.\r\n *\r\n * @template T - The return type of the function `fn`.\r\n * @template S - The argument types of the function `fn`.\r\n * @param {(...args: S) => T} fn - The function to be called.\r\n * @param {number} count - The number of times the function `fn` should be called.\r\n * @returns {(...args: S) => T | undefined} - A function that calls `fn` only for the first `count` invocations.\r\n */\r\nconst callBefore = <T, S extends any[]>(\r\n  fn: (...args: S) => T,\r\n  count: number\r\n): ((...args: S) => T | undefined) => {\r\n  let counter = 0;\r\n  return (...args: S): T | undefined => {\r\n    if (counter < count) {\r\n      counter++;\r\n      return fn(...args);\r\n    }\r\n    return undefined;\r\n  };\r\n};\r\n\r\nexport default callBefore;\r\n",
+      "js": "/**\n * Calls the provided function `fn` only for the first `count` invocations,\n * and returns `undefined` for subsequent invocations.\n *\n * @template T - The return type of the function `fn`.\n * @template S - The argument types of the function `fn`.\n * @param {(...args: S) => T} fn - The function to be called.\n * @param {number} count - The number of times the function `fn` should be called.\n * @returns {(...args: S) => T | undefined} - A function that calls `fn` only for the first `count` invocations.\n */\nconst callBefore = (fn, count) => {\n    let counter = 0;\n    return (...args) => {\n        if (counter < count) {\n            counter++;\n            return fn(...args);\n        }\n        return undefined;\n    };\n};\nexport default callBefore;\n"
+    },
+    "category": "functional",
+    "type": "functions",
+    "examples": [
+      "import callBefore from \".\";\r\n\r\nconst fn = (x: number) => x + 1;\r\n\r\nconst callBeforeFn = callBefore(fn, 2);\r\n\r\nconst result1 = callBeforeFn(1);\r\n// Expected Output: 2\r\n\r\nconst result2 = callBeforeFn(2);\r\n// Expected Output: 3\r\n\r\nconst result3 = callBeforeFn(3);\r\n// Expected Output: undefined : as the function `fn` has been called twice already.\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Returns a new function that can be called only for specific number of times."
+      },
+      "md": "\r\nThe `callBefore` function is used to create a new function that can be called only for a specific number of times. After the specified number of calls, the function will always return `undefined` without executing the original function.\r\n\r\nThis is useful in some scenarios like `rate limiting` or `trial period` where you want to allow a function to be called only for a specific number of times.\r\n"
+    },
+    "props": [
+      {
+        "title": "function",
+        "required": true,
+        "propDesc": "The function to be called",
+        "type": "Function"
+      },
+      {
+        "title": "count",
+        "required": true,
+        "propDesc": "The number of times the function can be called.",
+        "type": "number"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-28T01:06:22.893Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-28T01:06:22.894Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
     "name": "nTimes",
     "code": {
       "ts": "/**\r\n * Executes a given function `n` times and returns an array of the results.\r\n *\r\n * @template T - The type of the result returned by the function.\r\n * @param {Function} fn - The function to be executed `n` times.\r\n * @param {number} [n=1] - The number of times the function should be executed. Defaults to 1.\r\n * @returns {T[]} - An array of the results returned by the function.\r\n * @throws {Error} - If `n` is less than 0.\r\n */\r\nconst nTimes = <T>(fn: (i: number) => T, n: number = 1): T[] => {\r\n  if (n < 0) {\r\n    throw new Error(\"n must be greater than 0\");\r\n  }\r\n  let result: T[] = [];\r\n  for (let i = 0; i < n; i++) {\r\n    result.push(fn(i));\r\n  }\r\n  return result;\r\n};\r\n\r\nexport default nTimes;\r\n",
@@ -550,54 +592,6 @@
     }
   },
   {
-    "name": "retry",
-    "code": {
-      "ts": "/**\r\n * Retries the given function a specified number of times with a delay between each retry.\r\n * @param fn The function to retry.\r\n * @param retries The number of times to retry the function. Default is 3.\r\n * @param delay The delay in milliseconds between each retry. Default is 1000ms (1 second).\r\n * @returns A Promise that resolves to the result of the function if it succeeds, or rejects with the last error if all retries fail.\r\n */\r\nconst retry = async <T>(\r\n  fn: Function,\r\n  retries: number = 3,\r\n  delay: number = 1000\r\n): Promise<T> => {\r\n  try {\r\n    return await fn();\r\n  } catch (error) {\r\n    if (retries > 0) {\r\n      await new Promise((resolve) => setTimeout(resolve, delay));\r\n      return retry(fn, retries - 1, delay);\r\n    }\r\n    throw error;\r\n  }\r\n};\r\n\r\nexport default retry;\r\n",
-      "js": "/**\n * Retries the given function a specified number of times with a delay between each retry.\n * @param fn The function to retry.\n * @param retries The number of times to retry the function. Default is 3.\n * @param delay The delay in milliseconds between each retry. Default is 1000ms (1 second).\n * @returns A Promise that resolves to the result of the function if it succeeds, or rejects with the last error if all retries fail.\n */\nconst retry = async (fn, retries = 3, delay = 1000) => {\n    try {\n        return await fn();\n    }\n    catch (error) {\n        if (retries > 0) {\n            await new Promise((resolve) => setTimeout(resolve, delay));\n            return retry(fn, retries - 1, delay);\n        }\n        throw error;\n    }\n};\nexport default retry;\n"
-    },
-    "category": "functional",
-    "type": "functions",
-    "examples": [
-      "import retry from \".\";\r\n\r\nconst fn = async () => {\r\n  throw new Error(\"failed\");\r\n};\r\n\r\nretry(fn, 2, 1000).catch((error) => {\r\n  console.log(error.message);\r\n});\r\n// Expected output: \"failed\" after retrying twice but It will call the function 3 times.\r\n"
-    ],
-    "docs": {
-      "metaData": {
-        "desc": "Retries the given function a specified number of times with a delay between each retry."
-      },
-      "md": "\r\nThe retry function retries the given function a specified number of\r\ntimes with a delay between each retry. If the function succeeds within\r\nthe specified number of retries, the Promise will resolve with the\r\nresult of the function. If the function fails on all retries, the\r\nPromise will be rejected with the last error. The retry function is\r\ndesigned to handle both synchronous and asynchronous functions, as it\r\nwraps the call to fn with Promise.resolve. This ensures that fn is\r\nalways treated as a Promise, allowing the use of .then and .catch to\r\nhandle the result or any errors.\r\n\r\nThe function retries the given function a specified number of times. The\r\ntotal number of times a function is called is retries + 1.\r\n"
-    },
-    "props": [
-      {
-        "title": "function",
-        "required": true,
-        "propDesc": "The function to retry.",
-        "type": "Function"
-      },
-      {
-        "title": "retries",
-        "required": false,
-        "defaultValue": "3",
-        "propDesc": "The number of times to retry the function.",
-        "type": "number"
-      },
-      {
-        "title": "delay",
-        "required": false,
-        "defaultValue": "1000",
-        "propDesc": "The delay in milliseconds between each retry.",
-        "type": "number"
-      }
-    ],
-    "createdAt": {
-      "date": "2024-04-17T13:28:44.122Z",
-      "packageVersion": "0.1.0"
-    },
-    "lastUpdated": {
-      "date": "2024-04-26T06:19:26.171Z",
-      "packageVersion": "0.1.0"
-    }
-  },
-  {
     "name": "sleep",
     "code": {
       "ts": "/**\r\n * Pauses the execution for the specified number of milliseconds.\r\n * @param ms - The number of milliseconds to sleep.\r\n * @returns A promise that resolves after the specified number of milliseconds.\r\n */\r\nconst sleep = (ms: number): Promise<true> => {\r\n  return new Promise((resolve) => {\r\n    setTimeout(() => {\r\n      resolve(true);\r\n    }, ms);\r\n  });\r\n};\r\n\r\nexport default sleep;\r\n",
@@ -628,6 +622,52 @@
     },
     "lastUpdated": {
       "date": "2024-04-17T13:28:44.145Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "timeout",
+    "code": {
+      "ts": "/**\r\n * Wraps a function with a timeout.\r\n * If the function does not complete within the specified time, the promise will be rejected.\r\n *\r\n * @template Return - The return type of the wrapped function.\r\n * @template Err - The error type that can be thrown by the wrapped function or the error callback.\r\n * @param {(...args: any[]) => Return} fn - The function to be wrapped.\r\n * @param {number} time - The timeout duration in milliseconds.\r\n * @param {(...args: any[]) => Err} [errCb] - Optional error callback function to handle timeout errors.\r\n * @returns {(...args: any[]) => Promise<Return>} - A wrapped function that returns a promise.\r\n */\r\nconst timeout = <Return, Err>(\r\n  fn: (...args: any[]) => Return,\r\n  time: number,\r\n  errCb?: (...args: any[]) => Err\r\n): ((...args: any[]) => Promise<Return>) => {\r\n  return (...args: any[]) => {\r\n    return new Promise<any>((resolve, reject) => {\r\n      const timer = setTimeout(() => {\r\n        if (errCb) reject(errCb(...args));\r\n        else {\r\n          reject(new Error(\"Function timed out\"));\r\n        }\r\n      }, time);\r\n\r\n      // Wrap fn call in Promise.resolve to handle both sync and async functions\r\n      Promise.resolve(fn(...args))\r\n        .then((result: Return) => {\r\n          clearTimeout(timer);\r\n          resolve(result);\r\n        })\r\n        .catch((err: Err) => {\r\n          clearTimeout(timer);\r\n          reject(err);\r\n        });\r\n    });\r\n  };\r\n};\r\n\r\nexport default timeout;\r\n",
+      "js": "/**\n * Wraps a function with a timeout.\n * If the function does not complete within the specified time, the promise will be rejected.\n *\n * @template Return - The return type of the wrapped function.\n * @template Err - The error type that can be thrown by the wrapped function or the error callback.\n * @param {(...args: any[]) => Return} fn - The function to be wrapped.\n * @param {number} time - The timeout duration in milliseconds.\n * @param {(...args: any[]) => Err} [errCb] - Optional error callback function to handle timeout errors.\n * @returns {(...args: any[]) => Promise<Return>} - A wrapped function that returns a promise.\n */\nconst timeout = (fn, time, errCb) => {\n    return (...args) => {\n        return new Promise((resolve, reject) => {\n            const timer = setTimeout(() => {\n                if (errCb)\n                    reject(errCb(...args));\n                else {\n                    reject(new Error(\"Function timed out\"));\n                }\n            }, time);\n            // Wrap fn call in Promise.resolve to handle both sync and async functions\n            Promise.resolve(fn(...args))\n                .then((result) => {\n                clearTimeout(timer);\n                resolve(result);\n            })\n                .catch((err) => {\n                clearTimeout(timer);\n                reject(err);\n            });\n        });\n    };\n};\nexport default timeout;\n"
+    },
+    "category": "functional",
+    "type": "functions",
+    "examples": [
+      "import timeout from \".\";\r\n\r\ntimeout(() => \"Hello, World!\", 1000);\r\n// Expected Output: \"Hello, World!\"\r\n\r\ntimeout(() => new Promise((resolve) => setTimeout(resolve, 2000)), 1000);\r\n// Expected Output: Error: Function timed out\r\n\r\ntimeout(\r\n  () => new Promise((resolve) => setTimeout(resolve, 2000)),\r\n  1000,\r\n  () => console.log(\"I failed\")\r\n);\r\n// Expected Output: I failed\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "The timeout function wraps a function with a timeout. If the function does not complete within the specified time, the promise will be rejected."
+      },
+      "md": "\r\nThe timeout function is a higher-order function that takes a function\r\nfn, a timeout duration time, and an optional error callback errCb as\r\narguments. It returns a new function that, when called, returns a\r\nPromise. This Promise will resolve with the result of the fn function if\r\nfn completes within the specified time. If fn does not complete within\r\nthe time, the Promise will be rejected. If an errCb function is\r\nprovided, it will be called with the arguments passed to the wrapped\r\nfunction, and the Promise will be rejected with the result of errCb. If\r\nno errCb is provided, the Promise will be rejected with a new Error\r\nstating &apos;Function timed out&apos;. The timeout function is designed\r\nto handle both synchronous and asynchronous functions, as it wraps the\r\ncall to fn with Promise.resolve. This ensures that fn is always treated\r\nas a Promise, allowing the use of .then and .catch to handle the result\r\nor any errors.\r\n"
+    },
+    "props": [
+      {
+        "title": "function",
+        "required": true,
+        "propDesc": "The function to be wrapped with a timeout.",
+        "type": "Function"
+      },
+      {
+        "title": "time",
+        "required": true,
+        "propDesc": "The timeout duration in milliseconds.",
+        "type": "number"
+      },
+      {
+        "title": "errCb",
+        "required": false,
+        "propDesc": "Optional error callback function to handle timeout errors. If not provided, the promise will be rejected with an error message.",
+        "type": "Function"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-17T13:28:44.158Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-17T13:28:44.159Z",
       "packageVersion": "0.1.0"
     }
   },

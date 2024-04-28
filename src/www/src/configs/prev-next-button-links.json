@@ -68,20 +68,24 @@
     "url": "/docs/functions/arrays/zip"
   },
   {
-    "label": "timeout",
-    "url": "/docs/functions/functional/timeout"
+    "label": "retry",
+    "url": "/docs/functions/functional/retry"
+  },
+  {
+    "label": "callBefore",
+    "url": "/docs/functions/functional/callBefore"
   },
   {
     "label": "nTimes",
     "url": "/docs/functions/functional/nTimes"
   },
   {
-    "label": "retry",
-    "url": "/docs/functions/functional/retry"
-  },
-  {
     "label": "sleep",
     "url": "/docs/functions/functional/sleep"
+  },
+  {
+    "label": "timeout",
+    "url": "/docs/functions/functional/timeout"
   },
   {
     "label": "and",
