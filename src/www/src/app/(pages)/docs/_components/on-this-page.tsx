@@ -22,7 +22,6 @@ const OnThisPage = () => {
 
   useEffect(() => {
     const getAllH3 = () => {
-      console.log("getAllH3");
       const mainContent = document.querySelector("main#main-content");
       if (!mainContent) return;
       const h3s = mainContent.querySelectorAll("h3");

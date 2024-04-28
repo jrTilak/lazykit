@@ -24,10 +24,6 @@ const CodeLine = ({
     Icon: Files,
   });
 
-  useEffect(() => {
-    console.log(lang);
-  }, [lang]);
-
   const { toast } = useToast();
 
   const codeWithLangFlag = `${code} -${lang === "js" ? "js" : "ts"}`;

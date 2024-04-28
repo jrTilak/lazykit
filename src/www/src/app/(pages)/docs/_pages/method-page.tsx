@@ -29,31 +29,31 @@ const MethodPage = async ({ slug }: { slug: string[] }) => {
   const htmlContent = marked(methodData.docs.md);
 
   return (
-    <LangProvider>
-      <div className="flex flex-col gap-4 lg:gap-8 2xl:gap-12">
-        <div className="flex flex-col gap-2">
-          <h1 className=" text-2xl sm:text-3xl lg:text-4xl font-bold">
-            {methodData.name}
-          </h1>
-          <p className="text-sm sm:text-base md:text-lg text-muted-foreground">
-            {methodData.docs?.metaData?.desc as string}
-          </p>
-          {methodData.docs?.metaData?.externalLinks && (
-            <div className="flex gap-3">
-              {methodData.docs?.metaData?.externalLinks.map((link, i) => (
-                <Link href={link.url} key={i} target="_blank">
-                  <Badge
-                    variant="secondary"
-                    className="inline-flex gap-2 rounded"
-                  >
-                    <span>{link.label}</span>
-                    <SquareArrowOutUpRight className="h-3 w-3" />
-                  </Badge>
-                </Link>
-              ))}
-            </div>
-          )}
-        </div>
+    <div className="flex flex-col gap-4 lg:gap-8 2xl:gap-12">
+      <div className="flex flex-col gap-2">
+        <h1 className=" text-2xl sm:text-3xl lg:text-4xl font-bold">
+          {methodData.name}
+        </h1>
+        <p className="text-sm sm:text-base md:text-lg text-muted-foreground">
+          {methodData.docs?.metaData?.desc as string}
+        </p>
+        {methodData.docs?.metaData?.externalLinks && (
+          <div className="flex gap-3">
+            {methodData.docs?.metaData?.externalLinks.map((link, i) => (
+              <Link href={link.url} key={i} target="_blank">
+                <Badge
+                  variant="secondary"
+                  className="inline-flex gap-2 rounded"
+                >
+                  <span>{link.label}</span>
+                  <SquareArrowOutUpRight className="h-3 w-3" />
+                </Badge>
+              </Link>
+            ))}
+          </div>
+        )}
+      </div>
+      <LangProvider>
         {[
           {
             title: "Code",
@@ -113,8 +113,8 @@ const MethodPage = async ({ slug }: { slug: string[] }) => {
             {section.toRender}
           </div>
         ))}
-      </div>
-    </LangProvider>
+      </LangProvider>
+    </div>
   );
 };
 export default MethodPage;
