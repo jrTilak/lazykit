@@ -82,10 +82,6 @@
         "url": "/docs/functions/functional",
         "methods": [
           {
-            "label": "retry",
-            "url": "/docs/functions/functional/retry"
-          },
-          {
             "label": "callAfter",
             "url": "/docs/functions/functional/callAfter"
           },
@@ -96,6 +92,14 @@
           {
             "label": "nTimes",
             "url": "/docs/functions/functional/nTimes"
+          },
+          {
+            "label": "once",
+            "url": "/docs/functions/functional/once"
+          },
+          {
+            "label": "retry",
+            "url": "/docs/functions/functional/retry"
           },
           {
             "label": "sleep",
