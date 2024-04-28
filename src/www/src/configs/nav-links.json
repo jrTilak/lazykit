@@ -82,16 +82,28 @@
         "url": "/docs/functions/functional",
         "methods": [
           {
-            "label": "timeout",
-            "url": "/docs/functions/functional/timeout"
-          },
-          {
             "label": "retry",
             "url": "/docs/functions/functional/retry"
           },
           {
+            "label": "callAfter",
+            "url": "/docs/functions/functional/callAfter"
+          },
+          {
+            "label": "callBefore",
+            "url": "/docs/functions/functional/callBefore"
+          },
+          {
+            "label": "nTimes",
+            "url": "/docs/functions/functional/nTimes"
+          },
+          {
             "label": "sleep",
             "url": "/docs/functions/functional/sleep"
+          },
+          {
+            "label": "timeout",
+            "url": "/docs/functions/functional/timeout"
           }
         ]
       },
