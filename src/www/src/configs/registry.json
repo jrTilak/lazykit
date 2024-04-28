@@ -143,6 +143,86 @@
     }
   },
   {
+    "name": "callAfter",
+    "code": {
+      "ts": "/**\r\n * Creates a function that delays the execution of the provided function until it has been called a specified number of times.\r\n *\r\n * @param fn - The function to be called after a certain number of invocations.\r\n * @param count - The number of times the function needs to be called before it is executed.\r\n * @returns A new function that delays the execution of the provided function until it has been called a specified number of times.\r\n */\r\nconst callAfter = <T, S extends any[]>(\r\n  fn: (...args: S) => T,\r\n  count: number\r\n): ((...args: S) => T | undefined) => {\r\n  let counter = 0;\r\n  return (...args: S): T | undefined => {\r\n    if (counter < count) {\r\n      counter++;\r\n      return undefined;\r\n    }\r\n    return fn(...args);\r\n  };\r\n};\r\n\r\nexport default callAfter;\r\n",
+      "js": "/**\n * Creates a function that delays the execution of the provided function until it has been called a specified number of times.\n *\n * @param fn - The function to be called after a certain number of invocations.\n * @param count - The number of times the function needs to be called before it is executed.\n * @returns A new function that delays the execution of the provided function until it has been called a specified number of times.\n */\nconst callAfter = (fn, count) => {\n    let counter = 0;\n    return (...args) => {\n        if (counter < count) {\n            counter++;\n            return undefined;\n        }\n        return fn(...args);\n    };\n};\nexport default callAfter;\n"
+    },
+    "category": "functional",
+    "type": "functions",
+    "examples": [
+      "import callAfter from \".\";\r\n\r\nconst fn = (x: number) => x + 1;\r\n\r\nconst callAfterFn = callAfter(fn, 2);\r\n\r\nconst result1 = callAfterFn(1);\r\n// Expected Output: undefined\r\n\r\nconst result2 = callAfterFn(2);\r\n// Expected Output: undefined\r\n\r\nconst result3 = callAfterFn(3);\r\n// Expected Output: 4 : as the function `fn` has been called twice already.\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Returns a new function that can be called only after calling a specific number of times."
+      },
+      "md": "\r\nThe `callAfter` function is used to create a new function that can be called only after calling a specific number of times. Before the specified number of calls, the function will always return `undefined` without executing the original function.\r\n"
+    },
+    "props": [
+      {
+        "title": "function",
+        "required": true,
+        "propDesc": "The function to be called",
+        "type": "Function"
+      },
+      {
+        "title": "count",
+        "required": true,
+        "propDesc": "The number of times the function needs to be called before it is executed",
+        "type": "number"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-28T01:32:03.898Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-28T01:41:39.599Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "callBefore",
+    "code": {
+      "ts": "/**\r\n * Calls the provided function `fn` only for the first `count` invocations,\r\n * and returns `undefined` for subsequent invocations.\r\n *\r\n * @template T - The return type of the function `fn`.\r\n * @template S - The argument types of the function `fn`.\r\n * @param {(...args: S) => T} fn - The function to be called.\r\n * @param {number} count - The number of times the function `fn` should be called.\r\n * @returns {(...args: S) => T | undefined} - A function that calls `fn` only for the first `count` invocations.\r\n */\r\nconst callBefore = <T, S extends any[]>(\r\n  fn: (...args: S) => T,\r\n  count: number\r\n): ((...args: S) => T | undefined) => {\r\n  let counter = 0;\r\n  return (...args: S): T | undefined => {\r\n    if (counter < count) {\r\n      counter++;\r\n      return fn(...args);\r\n    }\r\n    return undefined;\r\n  };\r\n};\r\n\r\nexport default callBefore;\r\n",
+      "js": "/**\n * Calls the provided function `fn` only for the first `count` invocations,\n * and returns `undefined` for subsequent invocations.\n *\n * @template T - The return type of the function `fn`.\n * @template S - The argument types of the function `fn`.\n * @param {(...args: S) => T} fn - The function to be called.\n * @param {number} count - The number of times the function `fn` should be called.\n * @returns {(...args: S) => T | undefined} - A function that calls `fn` only for the first `count` invocations.\n */\nconst callBefore = (fn, count) => {\n    let counter = 0;\n    return (...args) => {\n        if (counter < count) {\n            counter++;\n            return fn(...args);\n        }\n        return undefined;\n    };\n};\nexport default callBefore;\n"
+    },
+    "category": "functional",
+    "type": "functions",
+    "examples": [
+      "import callBefore from \".\";\r\n\r\nconst fn = (x: number) => x + 1;\r\n\r\nconst callBeforeFn = callBefore(fn, 2);\r\n\r\nconst result1 = callBeforeFn(1);\r\n// Expected Output: 2\r\n\r\nconst result2 = callBeforeFn(2);\r\n// Expected Output: 3\r\n\r\nconst result3 = callBeforeFn(3);\r\n// Expected Output: undefined : as the function `fn` has been called twice already.\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Returns a new function that can be called only for specific number of times."
+      },
+      "md": "\r\nThe `callBefore` function is used to create a new function that can be called only for a specific number of times. After the specified number of calls, the function will always return `undefined` without executing the original function.\r\n\r\nThis is useful in some scenarios like `rate limiting` or `trial period` where you want to allow a function to be called only for a specific number of times.\r\n"
+    },
+    "props": [
+      {
+        "title": "function",
+        "required": true,
+        "propDesc": "The function to be called",
+        "type": "Function"
+      },
+      {
+        "title": "count",
+        "required": true,
+        "propDesc": "The number of times the function can be called.",
+        "type": "number"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-28T01:06:22.893Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-28T01:06:22.894Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
     "name": "partition",
     "code": {
       "ts": "/**\r\n * Partitions an array into two separate arrays based on a given predicate.\r\n *\r\n * @template T - The type of elements in the array.\r\n * @param {T[]} arr - The array to be partitioned.\r\n * @param {(value: T, index: number, array: T[]) => boolean} predicate - The predicate function used to determine the partition.\r\n * @returns {[T[], T[]]} - An array containing two arrays: the first array contains elements that satisfy the predicate, and the second array contains elements that do not satisfy the predicate.\r\n */\r\nconst partition = <T>(\r\n  arr: T[],\r\n  predicate: (value: T, i: number, arr: T[]) => boolean\r\n): [T[], T[]] => {\r\n  const pass: T[] = [];\r\n  const fail: T[] = [];\r\n  arr.forEach((...args) => {\r\n    // run the predicate function on each element in the array\r\n    // and push the element to the appropriate array\r\n    (predicate(...args) ? pass : fail).push(args[0]);\r\n  });\r\n  return [pass, fail];\r\n};\r\n\r\nexport default partition;\r\n",
@@ -463,6 +543,81 @@
     }
   },
   {
+    "name": "nTimes",
+    "code": {
+      "ts": "/**\r\n * Executes a given function `n` times and returns an array of the results.\r\n *\r\n * @template T - The type of the result returned by the function.\r\n * @param {Function} fn - The function to be executed `n` times.\r\n * @param {number} [n=1] - The number of times the function should be executed. Defaults to 1.\r\n * @returns {T[]} - An array of the results returned by the function.\r\n * @throws {Error} - If `n` is less than 0.\r\n */\r\nconst nTimes = <T>(fn: (i: number) => T, n: number = 1): T[] => {\r\n  if (n < 0) {\r\n    throw new Error(\"n must be greater than 0\");\r\n  }\r\n  let result: T[] = [];\r\n  for (let i = 0; i < n; i++) {\r\n    result.push(fn(i));\r\n  }\r\n  return result;\r\n};\r\n\r\nexport default nTimes;\r\n",
+      "js": "/**\n * Executes a given function `n` times and returns an array of the results.\n *\n * @template T - The type of the result returned by the function.\n * @param {Function} fn - The function to be executed `n` times.\n * @param {number} [n=1] - The number of times the function should be executed. Defaults to 1.\n * @returns {T[]} - An array of the results returned by the function.\n * @throws {Error} - If `n` is less than 0.\n */\nconst nTimes = (fn, n = 1) => {\n    if (n < 0) {\n        throw new Error(\"n must be greater than 0\");\n    }\n    let result = [];\n    for (let i = 0; i < n; i++) {\n        result.push(fn(i));\n    }\n    return result;\n};\nexport default nTimes;\n"
+    },
+    "category": "functional",
+    "type": "functions",
+    "examples": [
+      "import nTimes from \".\";\r\n\r\nconst result = nTimes(() => \"result\", 3);\r\n// Expected: [\"result\", \"result\", \"result\"]\r\n\r\n// You can also use the index of the iteration.\r\nconst result2 = nTimes((i) => i, 3);\r\n// Expected: [0, 1, 2]\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Calls a function n times and returns an array of the results."
+      },
+      "md": "\r\nThe `nTimes` function calls a function `n` times and returns an array of the results. The function is called with the index of the iteration as the first argument.\r\n"
+    },
+    "props": [
+      {
+        "title": "function",
+        "required": true,
+        "propDesc": "The function called `n` times. The function receives the current iteration index as an argument.",
+        "type": "Function"
+      },
+      {
+        "title": "n",
+        "required": false,
+        "defaultValue": "1",
+        "propDesc": "The number of times to call the function.",
+        "type": "number"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-27T16:24:24.979Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-27T16:24:24.980Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "once",
+    "code": {
+      "ts": "/**\r\n * Creates a function that can only be called once. Subsequent calls to the function will return undefined.\r\n *\r\n * @param fn - The function to be called once.\r\n * @returns A new function that can only be called once.\r\n */\r\nconst once = <T, S extends any[]>(\r\n  fn: (...args: S) => T\r\n): ((...args: S) => T | undefined) => {\r\n  let isCalled = false;\r\n  return (...args: S): T | undefined => {\r\n    if (!isCalled) {\r\n      isCalled = true;\r\n      return fn(...args);\r\n    }\r\n    return undefined;\r\n  };\r\n};\r\n\r\nexport default once;\r\n",
+      "js": "/**\n * Creates a function that can only be called once. Subsequent calls to the function will return undefined.\n *\n * @param fn - The function to be called once.\n * @returns A new function that can only be called once.\n */\nconst once = (fn) => {\n    let isCalled = false;\n    return (...args) => {\n        if (!isCalled) {\n            isCalled = true;\n            return fn(...args);\n        }\n        return undefined;\n    };\n};\nexport default once;\n"
+    },
+    "category": "functional",
+    "type": "functions",
+    "examples": [
+      "import once from \".\";\r\n\r\nconst subscribe = once(() => {\r\n  console.log(\"Subscribed\");\r\n});\r\n\r\nconst result = subscribe();\r\n// Expected Output: Subscribed\r\n\r\nconst result2 = subscribe();\r\n// Expected Output: undefined : as the function has been called once already.\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Returns a new function that can be called only once."
+      },
+      "md": "\r\nThe `once` function is used to create a new function that can be called only once. After the first call, the function will always return undefined without executing the original function.\r\n\r\nThis is useful when you want to ensure that a function is called only once, regardless of how many times it is called. For example, a subscribe button on a website should only be clicked once, and the function should not be executed again if the button is clicked multiple times.\r\n"
+    },
+    "props": [
+      {
+        "title": "function",
+        "required": true,
+        "propDesc": "The function to be called",
+        "type": "Function"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-28T01:41:39.718Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-28T01:41:39.718Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
     "name": "retry",
     "code": {
       "ts": "/**\r\n * Retries the given function a specified number of times with a delay between each retry.\r\n * @param fn The function to retry.\r\n * @param retries The number of times to retry the function. Default is 3.\r\n * @param delay The delay in milliseconds between each retry. Default is 1000ms (1 second).\r\n * @returns A Promise that resolves to the result of the function if it succeeds, or rejects with the last error if all retries fail.\r\n */\r\nconst retry = async <T>(\r\n  fn: Function,\r\n  retries: number = 3,\r\n  delay: number = 1000\r\n): Promise<T> => {\r\n  try {\r\n    return await fn();\r\n  } catch (error) {\r\n    if (retries > 0) {\r\n      await new Promise((resolve) => setTimeout(resolve, delay));\r\n      return retry(fn, retries - 1, delay);\r\n    }\r\n    throw error;\r\n  }\r\n};\r\n\r\nexport default retry;\r\n",
@@ -763,6 +918,166 @@
     },
     "lastUpdated": {
       "date": "2024-04-17T13:28:44.190Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "omit",
+    "code": {
+      "ts": "/**\r\n * Creates a new object with the specified keys omitted.\r\n *\r\n * @param obj - The object from which to omit keys.\r\n * @param keys - An array of keys to omit from the object.\r\n * @returns A new object with the specified keys omitted.\r\n */\r\nconst omit = <T, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> => {\r\n  const newObj = { ...obj };\r\n  keys.forEach((key) => delete newObj[key]);\r\n  return newObj as Omit<T, K>;\r\n};\r\n\r\nexport default omit;\r\n",
+      "js": "/**\n * Creates a new object with the specified keys omitted.\n *\n * @param obj - The object from which to omit keys.\n * @param keys - An array of keys to omit from the object.\n * @returns A new object with the specified keys omitted.\n */\nconst omit = (obj, keys) => {\n    const newObj = { ...obj };\n    keys.forEach((key) => delete newObj[key]);\n    return newObj;\n};\nexport default omit;\n"
+    },
+    "category": "objects",
+    "type": "functions",
+    "examples": [
+      "import omit from \".\";\r\n\r\nconst obj = { a: 1, b: 2, c: 3 };\r\nconst keys = [\"a\", \"c\"] as Array<keyof typeof obj>;\r\n// You have to specify the keys as an array of keyof typeof obj to ensure that the keys are valid, If you are defining the keys separately.\r\n\r\nconst omitted = omit(obj, keys);\r\nconsole.log(omitted);\r\n// Expected output: { b: 2 }\r\n\r\n//OR\r\nconst omitted2 = omit(obj, [\"a\", \"c\"]);\r\nconsole.log(omitted2);\r\n// Expected output: { b: 2 }\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Returns a new object with the specified keys omitted."
+      },
+      "md": "\r\nThe `omit` function returns a new object with the specified keys omitted. It does not modify the original object.\r\n"
+    },
+    "props": [
+      {
+        "title": "object",
+        "required": true,
+        "propDesc": "The object to omit keys from.",
+        "type": "object"
+      },
+      {
+        "title": "keys",
+        "required": true,
+        "propDesc": "An array of keys to omit from the object. The keys must be of the same type as the keys of the input object.",
+        "type": "array"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-27T06:37:01.586Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-27T06:37:01.588Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "pick",
+    "code": {
+      "ts": "/**\r\n * Creates a new object with only the specified keys from the original object.\r\n *\r\n * @param obj - The original object.\r\n * @param keys - An array of keys to pick from the original object.\r\n * @returns A new object with only the specified keys.\r\n * @typeParam T - The type of the original object.\r\n * @typeParam K - The type of the keys to pick.\r\n */\r\nconst pick = <T, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> => {\r\n  const newObj: any = {};\r\n  keys.forEach((key) => {\r\n    newObj[key] = obj[key];\r\n  });\r\n  return newObj as Pick<T, K>;\r\n};\r\n\r\nexport default pick;\r\n",
+      "js": "/**\n * Creates a new object with only the specified keys from the original object.\n *\n * @param obj - The original object.\n * @param keys - An array of keys to pick from the original object.\n * @returns A new object with only the specified keys.\n * @typeParam T - The type of the original object.\n * @typeParam K - The type of the keys to pick.\n */\nconst pick = (obj, keys) => {\n    const newObj = {};\n    keys.forEach((key) => {\n        newObj[key] = obj[key];\n    });\n    return newObj;\n};\nexport default pick;\n"
+    },
+    "category": "objects",
+    "type": "functions",
+    "examples": [
+      "import pick from \".\";\r\n\r\nconst obj = { a: 1, b: 2, c: 3 };\r\nconst result = pick(obj, [\"a\", \"c\"]);\r\nconsole.log(result);\r\n// Expected output: { a: 1, c: 3 }\r\n\r\nconst emptyResult = pick(obj, []);\r\nconsole.log(emptyResult);\r\n// Expected output: {}\r\n\r\nconst keys = [\"a\", \"b\"] as Array<keyof typeof obj>;\r\n// You have to specify the keys as an array of keyof typeof obj to ensure that the keys are valid, If you are defining the keys separately.\r\nconst resultWithKeys = pick(obj, keys);\r\nconsole.log(resultWithKeys);\r\n// Expected output: { a: 1, b: 2 }\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Picks the specified keys from an object."
+      },
+      "md": "\r\nThe `pick` function picks the specified keys from an object and returns a new object with only those keys.\r\n"
+    },
+    "props": [
+      {
+        "title": "object",
+        "required": true,
+        "propDesc": "The object to pick keys from.",
+        "type": "object"
+      },
+      {
+        "title": "keys",
+        "required": true,
+        "propDesc": "An array of keys to pick from the object. The keys must be of the same type as the keys of the input object.",
+        "type": "array"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-27T06:37:01.597Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-27T06:37:01.597Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "renameKey",
+    "code": {
+      "ts": "/**\r\n * Renames a key in an object.\r\n *\r\n * @template T - The type of the object.\r\n * @template K - The type of the key to be renamed.\r\n * @template N - The type of the new key.\r\n * @param {T} obj - The object to modify.\r\n * @param {K} key - The key to be renamed.\r\n * @param {N} newKey - The new key name.\r\n * @returns {Omit<T, K> & { [P in N]: T[K] }} - The modified object with the renamed key.\r\n */\r\nconst renameKey = <T extends object, K extends keyof T, N extends string>(\r\n  obj: T,\r\n  key: K,\r\n  newKey: N\r\n): Omit<T, K> & {\r\n  [P in N]: T[K];\r\n} => {\r\n  const newObj: any = { ...obj };\r\n  newObj[newKey] = newObj[key];\r\n  delete newObj[key];\r\n  return newObj as Omit<T, K> & { [P in N]: T[K] };\r\n};\r\n\r\nexport default renameKey;\r\n",
+      "js": "/**\n * Renames a key in an object.\n *\n * @template T - The type of the object.\n * @template K - The type of the key to be renamed.\n * @template N - The type of the new key.\n * @param {T} obj - The object to modify.\n * @param {K} key - The key to be renamed.\n * @param {N} newKey - The new key name.\n * @returns {Omit<T, K> & { [P in N]: T[K] }} - The modified object with the renamed key.\n */\nconst renameKey = (obj, key, newKey) => {\n    const newObj = { ...obj };\n    newObj[newKey] = newObj[key];\n    delete newObj[key];\n    return newObj;\n};\nexport default renameKey;\n"
+    },
+    "category": "objects",
+    "type": "functions",
+    "examples": [
+      "import rename from \".\";\r\n\r\nconst obj = { a: 1, b: 2, c: 3 };\r\nconst result = rename(obj, \"a\", \"d\");\r\nconsole.log(result);\r\n// Expected output: { b: 2, c: 3, d: 1 }\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Renames a key in an object."
+      },
+      "md": "\r\nThe `renameKey` function renames a key in an object and returns a new object with the renamed key.\r\n"
+    },
+    "props": [
+      {
+        "title": "object",
+        "required": true,
+        "propDesc": "The object from which to rename a key.",
+        "type": "object"
+      },
+      {
+        "title": "key",
+        "required": true,
+        "propDesc": "The key to rename. The key must be of the same type as the keys of the input object.",
+        "type": "string"
+      },
+      {
+        "title": "newKey",
+        "required": true,
+        "propDesc": "The name of the new key.",
+        "type": "string"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-27T06:57:09.852Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-27T06:57:09.853Z",
+      "packageVersion": "0.1.0"
+    }
+  },
+  {
+    "name": "sampleObj",
+    "code": {
+      "ts": "/**\r\n * Creates an object with random number values for the given keys.\r\n * @param keys - The keys for the object.\r\n * @returns An object with random number values for the given keys.\r\n */\r\nconst sampleObj = (...keys: string[]) => {\r\n  const obj: any = {};\r\n  keys.forEach((key) => {\r\n    obj[key] = Math.random();\r\n  });\r\n  return obj as Record<string, number>;\r\n};\r\n\r\nexport default sampleObj;\r\n",
+      "js": "/**\n * Creates an object with random number values for the given keys.\n * @param keys - The keys for the object.\n * @returns An object with random number values for the given keys.\n */\nconst sampleObj = (...keys) => {\n    const obj = {};\n    keys.forEach((key) => {\n        obj[key] = Math.random();\n    });\n    return obj;\n};\nexport default sampleObj;\n"
+    },
+    "category": "objects",
+    "type": "functions",
+    "examples": [
+      "import sampleObj from \".\";\r\n\r\nconst keys = [\"key1\", \"key2\", \"key3\"];\r\nconst obj = sampleObj(...keys);\r\nconsole.log(obj);\r\n// Expected output: { key1: Number, key2: Number, key3: Number }\r\n// Where Number is a random number between 0 and 1.\r\n"
+    ],
+    "docs": {
+      "metaData": {
+        "desc": "Returns a sample object with the specified keys and values as random numbers."
+      },
+      "md": "\r\nThe `sampleObj` function takes any number of string arguments, treats each argument as a key, and creates an object where each key is associated with a random number value. The function then returns this object.\r\n"
+    },
+    "props": [
+      {
+        "title": "keys",
+        "required": true,
+        "propDesc": "The keys for the object.",
+        "type": "string[]"
+      }
+    ],
+    "createdAt": {
+      "date": "2024-04-27T05:59:48.776Z",
+      "packageVersion": "0.1.0"
+    },
+    "lastUpdated": {
+      "date": "2024-04-27T05:59:48.778Z",
       "packageVersion": "0.1.0"
     }
   }
