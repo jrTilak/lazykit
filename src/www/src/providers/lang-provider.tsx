@@ -10,7 +10,7 @@ const LangContext = createContext<
 >(undefined);
 
 export const LangProvider = ({ children }: { children: React.ReactNode }) => {
-  const [lang, setLang] = useState<Lang>();
+  const [lang, setLang] = useState<Lang>("ts");
 
   useEffect(() => {
     const storedLang = localStorage.getItem("code-lang");
