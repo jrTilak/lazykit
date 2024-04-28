@@ -1,8 +1,7 @@
 "use client";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CodeBlock from "./code-block";
-import { useEffect } from "react";
-import useLang, { Lang } from "@/store/use-lang";
+import { Lang, useLang } from "@/providers/lang-provider";
 
 interface ICodeTabs {
   code: {

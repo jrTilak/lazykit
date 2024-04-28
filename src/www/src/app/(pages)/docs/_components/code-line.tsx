@@ -1,6 +1,6 @@
 "use client";
 import { useToast } from "@/components/ui/use-toast";
-import useLang from "@/store/use-lang";
+import { useLang } from "@/providers/lang-provider";
 import { Check, Files, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";

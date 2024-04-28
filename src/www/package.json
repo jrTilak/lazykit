@@ -34,8 +34,7 @@
     "react-syntax-highlighter": "^15.5.0",
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7",
-    "vitest": "^1.4.0",
-    "zustand": "^4.5.2"
+    "vitest": "^1.4.0"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.12",

@@ -1,7 +1,7 @@
 "use client";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import CodeBlock from "./code-block";
-import useLang from "@/store/use-lang";
+import { useLang } from "@/providers/lang-provider";
 interface IExampleTabs {
   code: {
     ts: string;
