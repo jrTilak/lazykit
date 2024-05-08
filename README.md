@@ -32,3 +32,5 @@ Visit [here](./LICENSE) for license information.
 - [NPM Package](https://www.npmjs.com/package/@jrtilak/lazykit)
 - [Develop Branch](https://lazykit-www-git-dev-tilak-thapas-projects.vercel.app/)
 - [Master Branch](https://lazykit.thapatilak.com.np/)
+
+Thank you for using Lazykit! <3
