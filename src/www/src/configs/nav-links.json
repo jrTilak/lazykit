@@ -32,18 +32,6 @@
         "url": "/docs/functions/arrays",
         "methods": [
           {
-            "label": "chunk",
-            "url": "/docs/functions/arrays/chunk"
-          },
-          {
-            "label": "compact",
-            "url": "/docs/functions/arrays/compact"
-          },
-          {
-            "label": "insert",
-            "url": "/docs/functions/arrays/insert"
-          },
-          {
             "label": "partition",
             "url": "/docs/functions/arrays/partition"
           },
@@ -74,6 +62,18 @@
           {
             "label": "zip",
             "url": "/docs/functions/arrays/zip"
+          },
+          {
+            "label": "chunk",
+            "url": "/docs/functions/arrays/chunk"
+          },
+          {
+            "label": "compact",
+            "url": "/docs/functions/arrays/compact"
+          },
+          {
+            "label": "insert",
+            "url": "/docs/functions/arrays/insert"
           }
         ]
       },

@@ -5,10 +5,9 @@ const Props: IRegistryFunctionPropTable[] = [
     title: "function",
     required: true,
     defaultValue: undefined,
-    propDesc:
-      "The function calculates count of exceution of func passed. The function receives a function as an argument.",
+    propDesc: "The function to count the number of times it is called.",
     type: "Function",
-  }
+  },
 ];
 
 export default Props;
