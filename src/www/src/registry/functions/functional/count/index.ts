@@ -1,23 +1,22 @@
 /**
- * Invokes the function passed with arguments and 
+ * Invokes the function passed with arguments and
  * counts how many times the function is executed.
- * 
+ *
  * @param {Function} fn - The function to be called.
  * @returns          - result: the result of the passed function invocation.
  *                    This function also has a getCount method attached.
- * @returns {Function} getCount - A method that returns the count of execution of the passed function. 
+ * @returns {Function} getCount - A method that returns the count of execution of the passed function.
  */
-const count = <T>(fn: (...args: any[]) => T) => {
+const count = <A extends any[], R>(fn: (...args: A) => R) => {
   let callCount = 0;
 
-  const wrapper = (...args: any[]): T => {
+  const wrapper = (...args: A): R => {
     callCount++;
     const result = fn(...args);
     return result;
   };
 
   const getCount: () => number = () => callCount;
-
   wrapper.getCount = getCount;
 
   return wrapper;
