@@ -24,18 +24,6 @@
     "url": "/docs/functions"
   },
   {
-    "label": "chunk",
-    "url": "/docs/functions/arrays/chunk"
-  },
-  {
-    "label": "compact",
-    "url": "/docs/functions/arrays/compact"
-  },
-  {
-    "label": "insert",
-    "url": "/docs/functions/arrays/insert"
-  },
-  {
     "label": "partition",
     "url": "/docs/functions/arrays/partition"
   },
@@ -68,6 +56,30 @@
     "url": "/docs/functions/arrays/zip"
   },
   {
+    "label": "chunk",
+    "url": "/docs/functions/arrays/chunk"
+  },
+  {
+    "label": "compact",
+    "url": "/docs/functions/arrays/compact"
+  },
+  {
+    "label": "insert",
+    "url": "/docs/functions/arrays/insert"
+  },
+  {
+    "label": "callAfter",
+    "url": "/docs/functions/functional/callAfter"
+  },
+  {
+    "label": "callBefore",
+    "url": "/docs/functions/functional/callBefore"
+  },
+  {
+    "label": "count",
+    "url": "/docs/functions/functional/count"
+  },
+  {
     "label": "nTimes",
     "url": "/docs/functions/functional/nTimes"
   },
@@ -86,14 +98,6 @@
   {
     "label": "timeout",
     "url": "/docs/functions/functional/timeout"
-  },
-  {
-    "label": "callAfter",
-    "url": "/docs/functions/functional/callAfter"
-  },
-  {
-    "label": "callBefore",
-    "url": "/docs/functions/functional/callBefore"
   },
   {
     "label": "and",
