@@ -12,7 +12,7 @@ import {
 import { marked } from "marked";
 import ExampleTabs from "../_components/example-tabs";
 import { LangProvider } from "@/providers/lang-provider";
-import CodeLineWithFlag from "../_components/code-line-with-flag";
+import CodeLine from "../_components/code-line";
 const MethodPage = async ({ slug }: { slug: string[] }) => {
   if (!registry) return <NotFound />;
 
@@ -61,7 +61,7 @@ const MethodPage = async ({ slug }: { slug: string[] }) => {
           {
             title: "Installation",
             toRender: (
-              <CodeLineWithFlag
+              <CodeLine
                 code={`npx @jrtilak/lazykit@latest add ${methodData.name}`}
                 language="bash"
               />

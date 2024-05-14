@@ -41,16 +41,17 @@ const ChangeLog = async () => {
             <div className="flex flex-col gap-3">
               <h3
                 className="text-lg sm:text-xl lg:text-2xl font-semibold flex gap-2"
-                id="introduction"
+                id={pr.title.replace(/ /g, "-")}
               >
-                <Link target="_blank" href={pr.html_url} className="min-w-max">
-                  <span className="hover:underline">
-                    {i + 1}. {pr.title.substring(0, 50)}
-                    {pr.title.length > 50 ? "..." : ""}
-                  </span>
+                <Link
+                  target="_blank"
+                  href={pr.html_url}
+                  className="min-w-max w-full hover:underline truncate"
+                >
+                  {i + 1}. {pr.title}
                 </Link>
               </h3>
-              <div className="prose overflow-x-hidden ml-3 lg:ml-6">
+              <div className="prose-sm overflow-x-hidden ml-3 lg:ml-6">
                 {(() => {
                   return (
                     <div
