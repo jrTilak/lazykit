@@ -51,7 +51,7 @@ const ChangeLog = async () => {
                   {i + 1}. {pr.title}
                 </Link>
               </h3>
-              <div className="prose overflow-x-hidden ml-3 lg:ml-6">
+              <div className="prose-sm overflow-x-hidden ml-3 lg:ml-6">
                 {(() => {
                   return (
                     <div
