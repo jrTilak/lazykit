@@ -49,11 +49,5 @@
     "eslint": "^8",
     "tsup": "^8.0.2",
     "typescript": "^5"
-  },
-  "lazykit": {
-    "language": "js",
-    "path": "src/utils",
-    "separate": false,
-    "v": "1.0.2"
   }
 }
