@@ -164,7 +164,6 @@ export default async function init(...args: any) {
   console.log(chalk.dim(JSON.stringify(DEFAULT_CONFIG, null, 2)));
   console.log(chalk.green("\nProject initialized successfully ⭐"));
   console.log("Enjoy using lazykit 🚀\n");
-  console.log(chalk.dim(packageJson.name + " v" + packageJson.version));
 
   exitProcess(0);
 }
