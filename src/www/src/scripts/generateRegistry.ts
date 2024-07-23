@@ -20,17 +20,6 @@ const NECESSARY_FILES = [
 ];
 
 let REGISTRY_JSON: IRegistryJSON[] = [];
-let prevRegistry: IRegistryJSON[] | undefined;
-
-console.log("Reading previous registry... 📖");
-
-try {
-  const prev = fs.readFileSync(PATH_TO_REGISTRY_CONFIG, "utf-8");
-  prevRegistry = JSON.parse(prev);
-  console.log("Previous registry found, Starting incremental build... 🏗️\n");
-} catch (e) {
-  console.log("No previous registry found, Starting fresh build... 🏗️\n");
-}
 
 /**
  *  Read the directory :type
@@ -230,119 +219,15 @@ async function main() {
                 props: props.default,
               };
 
-              /**
-               * Check if the method already exists in the registry
-               * If not, add the method to the registry
-               * If yes, check if the code has changed
-               * If the code has changed, update the lastUpdated field and push the method to the registry
-               * If the code has not changed, push the method to the registry
-               */
-              const prevMethod = prevRegistry?.find(
-                (m) =>
-                  m.name === updatedMethod.name &&
-                  m.category === category &&
-                  m.type === type
+              //checking if the method is new or not
+              console.log(
+                `Adding ${type}/${category}/${method} to the registry... 📝\n`
               );
 
-              //checking if the method is new or not
-              if (!prevMethod) {
-                console.log(
-                  `New method found: ${type}/${category}/${method} 🆕`
-                );
-                console.log(
-                  `Adding ${type}/${category}/${method} to the registry... 📝\n`
-                );
-
-                REGISTRY_JSON.push({
-                  ...updatedMethod,
-                  createdAt: {
-                    date: new Date().toISOString(),
-                    packageVersion: packageJSON.version,
-                  },
-                  lastUpdated: {
-                    date: new Date().toISOString(),
-                    packageVersion: packageJSON.version,
-                  },
-                });
-                return;
-              } else {
-                //if the method already exists, check if the code has changed
-                if (prevMethod.code.ts === updatedMethod.code.ts) {
-                  let SHOULD_UPDATE = false;
-                  //check if the examples have changed
-                  if (
-                    JSON.stringify(prevMethod.examples) ===
-                    JSON.stringify(updatedMethod.examples)
-                  ) {
-                    console.log(
-                      `No changes found in example of ${type}/${category}/${method} 🚫`
-                    );
-                  } else {
-                    //if the examples have changed, update the lastUpdated field and push the method to the registry
-                    console.log(
-                      `Some changes found in example of ${type}/${category}/${method} 🔄`
-                    );
-                    SHOULD_UPDATE = true;
-                  }
-
-                  //check if the docs have changed
-                  if (
-                    JSON.stringify(prevMethod.docs) ===
-                    JSON.stringify(updatedMethod.docs)
-                  ) {
-                    console.log(
-                      `No changes found in docs of ${type}/${category}/${method} 🚫`
-                    );
-                  } else {
-                    //if the docs have changed, update the lastUpdated field and push the method to the registry
-                    console.log(
-                      `Some changes found in docs of ${type}/${category}/${method} 🔄`
-                    );
-                    SHOULD_UPDATE = true;
-                  }
-
-                  // check if the props have changed
-                  if (
-                    JSON.stringify(prevMethod.props) ===
-                    JSON.stringify(updatedMethod.props)
-                  ) {
-                    console.log(
-                      `No changes found in props of ${type}/${category}/${method} 🚫`
-                    );
-                  } else {
-                    //if the props have changed, update the lastUpdated field and push the method to the registry
-                    console.log(
-                      `Some changes found in props of ${type}/${category}/${method} 🔄`
-                    );
-                    SHOULD_UPDATE = true;
-                  }
-                  if (!SHOULD_UPDATE) {
-                    REGISTRY_JSON.push(prevMethod);
-                  } else {
-                    REGISTRY_JSON.push({
-                      ...updatedMethod,
-                      createdAt: prevMethod.createdAt,
-                      lastUpdated: {
-                        date: new Date().toISOString(),
-                        packageVersion: packageJSON.version,
-                      },
-                    });
-                  }
-                } else {
-                  //if the code has changed, update the lastUpdated field and push the method to the registry
-                  console.log(
-                    `Some changes found in ${type}/${category}/${method} 🔄`
-                  );
-                  REGISTRY_JSON.push({
-                    ...updatedMethod,
-                    createdAt: prevMethod.createdAt,
-                    lastUpdated: {
-                      date: new Date().toISOString(),
-                      packageVersion: packageJSON.version,
-                    },
-                  });
-                }
-              }
+              REGISTRY_JSON.push({
+                ...updatedMethod,
+              });
+              return;
             })
           );
         })
@@ -352,17 +237,27 @@ async function main() {
   console.log("Completed reading all methods 🥴\n");
   console.log("Total methods found: " + METHODS.length);
 
-  //check if all the methods are unique
+  //check if all the methods are unique on the basis of name
   console.log("Checking for duplicate methods... 🧐");
+  const uniqueMethods = REGISTRY_JSON.map((method) => method.name);
+  // @ts-ignore
+  const unique = new Array(...new Set(uniqueMethods));
 
-  //@ts-ignore
-  const uniqueMethods = [...new Set(METHODS)];
-  if (uniqueMethods.length !== METHODS.length) {
-    console.error("Error: Duplicate methods found 💀");
-    console.error("Exiting... 🏃‍♂️");
+  if (unique.length !== unique.length) {
+    console.error("Duplicate methods found in the registry. Exiting... 😐");
     process.exit(1);
+  } else {
+    console.log("No duplicate methods found!");
   }
-  console.log("No duplicate methods found 🎉\n");
+
+  // sort the registry on the basis of name
+  REGISTRY_JSON = REGISTRY_JSON.sort((a, b) => {
+    if (a.name < b.name) {
+      return -1;
+    } else {
+      return 1;
+    }
+  });
 
   //write the registry to a file
   console.log("Writing registry to file... 📝");

@@ -4,14 +4,6 @@ export interface IRegistryJSON {
     ts: string;
     js: string;
   };
-  createdAt: {
-    date: string;
-    packageVersion: string;
-  };
-  lastUpdated: {
-    date: string;
-    packageVersion: string;
-  };
   category: string;
   type: string;
   examples: {

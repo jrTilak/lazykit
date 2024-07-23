@@ -24,14 +24,6 @@
     "url": "/docs/functions"
   },
   {
-    "label": "zip",
-    "url": "/docs/functions/arrays/zip"
-  },
-  {
-    "label": "unique",
-    "url": "/docs/functions/arrays/unique"
-  },
-  {
     "label": "chunk",
     "url": "/docs/functions/arrays/chunk"
   },
@@ -66,6 +58,14 @@
   {
     "label": "shuffleArr",
     "url": "/docs/functions/arrays/shuffleArr"
+  },
+  {
+    "label": "unique",
+    "url": "/docs/functions/arrays/unique"
+  },
+  {
+    "label": "zip",
+    "url": "/docs/functions/arrays/zip"
   },
   {
     "label": "callAfter",
@@ -132,15 +132,15 @@
     "url": "/docs/functions/objects/omit"
   },
   {
+    "label": "pick",
+    "url": "/docs/functions/objects/pick"
+  },
+  {
     "label": "renameKey",
     "url": "/docs/functions/objects/renameKey"
   },
   {
     "label": "sampleObj",
     "url": "/docs/functions/objects/sampleObj"
-  },
-  {
-    "label": "pick",
-    "url": "/docs/functions/objects/pick"
   }
 ]
