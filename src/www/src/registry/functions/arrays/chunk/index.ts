@@ -1,12 +1,3 @@
-/**
- * Splits an array into chunks of a specified size.
- *
- * @template T - The type of elements in the array.
- * @param {T[]} array - The array to be chunked.
- * @param {number} [size=1] - The size of each chunk.
- * @param {boolean} [strict=false] - Whether to remove the last chunk if it is not equal to the size.
- * @returns {T[][]} - An array of chunks.
- */
 const chunk = <T>(
   array: T[],
   size: number = 1,

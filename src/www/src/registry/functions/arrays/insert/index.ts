@@ -1,13 +1,3 @@
-/**
- * Inserts elements into an array at a specified index.
- *
- * @template T - The type of elements in the array.
- * @param {T[]} arr - The array to insert elements into.
- * @param {number} index - The index at which to insert the elements.
- * @param {boolean} [recursive=false] - Indicates whether to insert elements recursively. If true, the elements will be inserted at every nth index.
- * @param {...T[]} items - The elements to insert into the array.
- * @returns {T[]} - The modified array with the inserted elements.
- */
 const insert = <T>(
   arr: T[],
   index: number,

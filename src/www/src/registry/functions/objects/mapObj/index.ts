@@ -1,13 +1,3 @@
-/**
- * Maps over the properties of an object and applies a callback function to each property.
- *
- * @template T - The type of the values in the input object.
- * @template U - The type of the values in the output object.
- * @param {Record<string, T>} obj - The input object.
- * @param {(value: T, key: string, obj: Record<string, T>) => U} callback - The callback function to apply to each property.
- * @returns {Record<string, U>} - The resulting object with the mapped properties.
- */
-
 const mapObj = <T, U>(
   obj: Record<string, T>,
   callback: (value: T, key: string, obj: Record<string, T>) => U

@@ -1,11 +1,3 @@
-/**
- * Removes element(s) from an array based on the given index(es).
- *
- * @template T - The type of elements in the array.
- * @param {T[]} array - The array from which elements will be removed.
- * @param {number | number[]} index - The index(es) of the element(s) to be removed.
- * @returns {T[]} - A new array with the specified element(s) removed.
- */
 const remove = <T>(array: T[], index: number | number[]): T[] => {
   const len = array.length;
   if (Array.isArray(index)) {

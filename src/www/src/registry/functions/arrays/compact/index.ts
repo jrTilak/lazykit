@@ -1,12 +1,3 @@
-/**
- * Removes falsy values
- * Also removes empty objects and arrays if strict is true
- *
- * @template T - The type of elements in the array.
- * @param {T[]} array - The array to compact.
- * @param {boolean} [strict=false] - If true, also removes empty objects and arrays.
- * @returns {T[]} - The compacted array.
- */
 const compact = <T>(array: T[], strict: boolean = false): T[] => {
   let truthy = array.filter((item) => {
     // remove all falsy values and excluded values

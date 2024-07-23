@@ -1,12 +1,3 @@
-/**
- * Searches an array of objects based on a query string and specified keys.
- *
- * @template T - The type of objects in the array.
- * @param {T[]} array - The array of objects to search.
- * @param {string} queryString - The query string to search for.
- * @param {(keyof T)[] | string[]} keys - The keys to search within each object.
- * @returns {T[]} - The filtered array of objects that match the search criteria.
- */
 const search = <T extends Record<string, unknown>>(
   array: T[],
   queryString: string,

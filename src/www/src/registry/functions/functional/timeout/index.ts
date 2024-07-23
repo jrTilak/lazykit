@@ -1,14 +1,3 @@
-/**
- * Wraps a function with a timeout.
- * If the function does not complete within the specified time, the promise will be rejected.
- *
- * @template Return - The return type of the wrapped function.
- * @template Err - The error type that can be thrown by the wrapped function or the error callback.
- * @param {(...args: any[]) => Return} fn - The function to be wrapped.
- * @param {number} time - The timeout duration in milliseconds.
- * @param {(...args: any[]) => Err} [errCb] - Optional error callback function to handle timeout errors.
- * @returns {(...args: any[]) => Promise<Return>} - A wrapped function that returns a promise.
- */
 const timeout = <Return, Err>(
   fn: (...args: any[]) => Return,
   time: number,
