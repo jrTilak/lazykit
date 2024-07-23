@@ -2,7 +2,7 @@ function debounce<A extends any[]>(
   fn: (...args: A) => void,
   delay: number = 300
 ) {
-  let timer: NodeJS.Timeout;
+  let timer: any;
   return (...args: A) => {
     clearTimeout(timer);
     timer = setTimeout(() => {
