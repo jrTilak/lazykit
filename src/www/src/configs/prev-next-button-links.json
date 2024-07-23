@@ -24,12 +24,8 @@
     "url": "/docs/functions"
   },
   {
-    "label": "partition",
-    "url": "/docs/functions/arrays/partition"
-  },
-  {
-    "label": "remove",
-    "url": "/docs/functions/arrays/remove"
+    "label": "compact",
+    "url": "/docs/functions/arrays/compact"
   },
   {
     "label": "rotate",
@@ -52,32 +48,40 @@
     "url": "/docs/functions/arrays/unique"
   },
   {
-    "label": "zip",
-    "url": "/docs/functions/arrays/zip"
+    "label": "insert",
+    "url": "/docs/functions/arrays/insert"
+  },
+  {
+    "label": "partition",
+    "url": "/docs/functions/arrays/partition"
+  },
+  {
+    "label": "remove",
+    "url": "/docs/functions/arrays/remove"
   },
   {
     "label": "chunk",
     "url": "/docs/functions/arrays/chunk"
   },
   {
-    "label": "compact",
-    "url": "/docs/functions/arrays/compact"
-  },
-  {
-    "label": "insert",
-    "url": "/docs/functions/arrays/insert"
+    "label": "zip",
+    "url": "/docs/functions/arrays/zip"
   },
   {
     "label": "callAfter",
     "url": "/docs/functions/functional/callAfter"
   },
   {
+    "label": "count",
+    "url": "/docs/functions/functional/count"
+  },
+  {
     "label": "callBefore",
     "url": "/docs/functions/functional/callBefore"
   },
   {
-    "label": "count",
-    "url": "/docs/functions/functional/count"
+    "label": "debounce",
+    "url": "/docs/functions/functional/debounce"
   },
   {
     "label": "nTimes",
@@ -108,20 +112,12 @@
     "url": "/docs/functions/gates/nand"
   },
   {
-    "label": "nor",
-    "url": "/docs/functions/gates/nor"
-  },
-  {
     "label": "or",
     "url": "/docs/functions/gates/or"
   },
   {
-    "label": "mapObj",
-    "url": "/docs/functions/objects/mapObj"
-  },
-  {
-    "label": "omit",
-    "url": "/docs/functions/objects/omit"
+    "label": "nor",
+    "url": "/docs/functions/gates/nor"
   },
   {
     "label": "pick",
@@ -130,6 +126,14 @@
   {
     "label": "renameKey",
     "url": "/docs/functions/objects/renameKey"
+  },
+  {
+    "label": "mapObj",
+    "url": "/docs/functions/objects/mapObj"
+  },
+  {
+    "label": "omit",
+    "url": "/docs/functions/objects/omit"
   },
   {
     "label": "sampleObj",
