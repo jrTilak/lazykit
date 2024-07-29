@@ -1,12 +1,3 @@
-/**
- * Rotates an array in the specified direction by a given number of positions.
- *
- * @param arr - The array to rotate.
- * @param n - The number of positions to rotate the array by.
- * @param dir - The direction in which to rotate the array. Defaults to "left".
- * @returns The rotated array.
- * @template T - The type of elements in the array.
- */
 const rotate = <T>(
   arr: T[],
   n: number,
