@@ -7,7 +7,7 @@ import { Announcement } from "@/components/reusable/announce";
 import { ANNOUNCEMENT_DATA } from "@/data/announcement";
 import { Separator } from "@/components/ui/separator";
 import registry from "@/configs/registry.json";
-import InitCommand from "./InitCommand";
+import InitCommand from "./_components/init-command";
 import { Metadata } from "next";
 
 export default async function Home() {
