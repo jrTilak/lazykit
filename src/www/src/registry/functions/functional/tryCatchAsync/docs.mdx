@@ -1,0 +1,74 @@
+---
+name: tryCatchAsync
+desc: Helps to safely execute asynchronous functions
+---
+
+
+<CodePreview methodName="tryCatchAsync"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add tryCatchAsync
+```
+
+## Props
+<PropsTable methodName="tryCatchAsync"/>
+ ---
+
+- **`fn`**: (required) This is the asynchronous function to be called within `tryCatchAsync`. If the function resolves, its result is returned as `[undefined, result]`. If it throws an error, the error is caught and returned as `[error, undefined]`.
+
+
+## Usage
+### Successful Async Function
+
+```javascript
+"use js-executor"
+import tryCatchAsync from "@/helpers/tryCatchAsync"
+
+const fetchUserData = async () => {
+  // Simulates a successful API call
+  return await new Promise((resolve) => {
+    setTimeout(() => resolve("User data fetched!"), 1000);
+  });
+};
+
+const main = async() => {
+  const [error, data] = await tryCatchAsync(fetchUserData);
+
+  console.log(error); // Expected output: undefined
+  console.log(data);  // Expected output: "User data fetched!"
+}
+
+main()
+
+```
+
+In this example, `fetchUserData` simulates a successful API call. `tryCatchAsync` returns `[undefined, "User data fetched!"]`, indicating no error occurred.
+
+
+### Error-Prone Async Function
+
+```javascript
+"use js-executor"
+import tryCatchAsync from "@/helpers/tryCatchAsync"
+
+const fetchUserProfile = async () => {
+  // Simulates a failed API call
+  return await new Promise((_, reject) => {
+    setTimeout(() => reject(new Error("Failed to fetch user profile!")), 1000);
+  });
+};
+
+const main = async() => {
+  const [err, result] = await tryCatchAsync(fetchUserProfile);
+
+  console.log(err);   // Expected output: Error: Failed to fetch user profile!
+  console.log(result); // Expected output: undefined
+}
+
+main()
+
+```
+
+In this example, `fetchUserProfile` simulates an API call that fails. `tryCatchAsync` returns `[Error: Failed to fetch user profile!, undefined]`, showing the error was correctly caught. 

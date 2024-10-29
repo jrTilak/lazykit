@@ -1,0 +1,42 @@
+---
+name: callBefore
+desc: Returns a new function that can be called only for specific number of times.
+---
+<CodePreview methodName="callBefore"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add callBefore
+```
+
+## Props
+<PropsTable methodName="callBefore"/>
+ ---
+
+- `function`: (required) The function to be executed before reaching the specified call count.
+- `count`: (required) A number representing the maximum number of times the function can be executed before it stops returning a result.
+
+## Usage
+
+The `callBefore` utility creates a function wrapper that allows the provided function `fn` to execute only for the first `count` calls. After reaching the `count` threshold, further calls will return `undefined`, making it useful for limiting how often a function can run.
+
+### Example
+
+```javascript
+"use js-executor"
+import callBefore from "@/utils/callBefore";
+
+// Define a function that logs a message
+const logMessage = (msg) => console.log(msg);
+
+// Create a limited function that only logs for the first 2 calls
+const limitedLog = callBefore(logMessage, 2);
+
+limitedLog("Hello"); // Logs "Hello"
+limitedLog("Hello again!"); // Logs "Hello again!"
+limitedLog("This will not be logged"); // No output
+limitedLog("Still no output"); // No output
+```
+
+In this example, `limitedLog` only executes `logMessage` for the first two calls. Subsequent calls after reaching the threshold simply return `undefined` without executing the function, which can be useful for rate-limiting or pre-conditionally restricting function calls.

@@ -1,0 +1,64 @@
+---
+name: renameKeys
+desc: Renames keys in an object.
+---
+
+<CodePreview methodName="renameKeys"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add renameKeys
+```
+
+## Props
+<PropsTable methodName="renameKeys"/>
+---
+
+- `object`: (required) The object from which the keys will be renamed.
+
+- `keys`: (required) An array of objects, each containing `old` (the key to rename) and `new` (the new key name) properties.
+
+### Example Usage
+
+```javascript
+"use js-executor";
+
+import renameKeys from "@/helpers/renameKeys";
+
+const user = {
+  firstName: "Alice",
+  lastName: "Smith",
+  age: 28,
+};
+
+const renamedUser = renameKeys(user, [
+  { old: "firstName", new: "first_name" },
+  { old: "lastName", new: "last_name" },
+]);
+
+console.log(renamedUser); 
+// Output: { age: 28, first_name: "Alice", last_name: "Smith" }
+```
+
+### Example with Nested Object
+
+```javascript
+"use js-executor";
+
+import renameKeys from "@/helpers/renameKeys";
+
+const product = {
+  productId: 101,
+  productName: "Laptop",
+  productPrice: 1200,
+};
+
+const renamedProduct = renameKeys(product, [
+  { old: "productId", new: "id" },
+  { old: "productName", new: "name" },
+]);
+
+console.log(renamedProduct); 
+// Output: { productPrice: 1200, id: 101, name: "Laptop" }
+```

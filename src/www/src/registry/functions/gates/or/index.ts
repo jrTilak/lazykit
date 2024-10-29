@@ -1,4 +1,4 @@
-const or = (...args: any[]) => {
+const or = (...args: unknown[]) => {
   return args.some((arg) => Boolean(arg));
 };
 

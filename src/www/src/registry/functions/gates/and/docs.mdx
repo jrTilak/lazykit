@@ -1,0 +1,33 @@
+---
+name: and
+desc: Performs a logical AND operation on the given arguments.
+---
+
+<CodePreview methodName="and"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add and
+```
+
+## Props
+<PropsTable methodName="and"/>
+
+## Usage
+```javascript
+"use js-executor";
+import and from "@/helpers/and";
+
+console.log(and(true, true));
+// Expected Output: true
+
+console.log(and(true, false));
+// Expected Output: false
+
+console.log(and());
+// Expected Output: false
+
+console.log(and(1, "lazykit"));
+// Expected Output: true
+```

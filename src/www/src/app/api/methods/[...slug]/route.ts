@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import registry from "../../../../configs/registry.json";
+import registry from "@/configs/registry.json";
+import omit from "@/registry/functions/objects/omit";
 interface Context {
   params: {
     slug: string[];
@@ -26,7 +27,7 @@ export const GET = async (req: NextRequest, context: Context) => {
 
   return NextResponse.json(
     {
-      ...res,
+      ...omit(res, ["props"]),
       code: res.code[lang],
     },
     {

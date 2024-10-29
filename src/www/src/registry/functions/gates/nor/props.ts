@@ -6,7 +6,7 @@ const Props: IRegistryFunctionPropTable[] = [
     required: true,
     defaultValue: undefined,
     propDesc: "The arguments to perform the NOR operation on.",
-    type: "any[]",
+    type: "unknown[]",
   },
 ];
 

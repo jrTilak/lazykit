@@ -1,0 +1,70 @@
+---
+name: zip
+desc: Zips arrays together in the form of an array of arrays.
+---
+
+<CodePreview methodName="zip"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add zip
+```
+
+## Props
+<PropsTable methodName="zip"/>
+---
+- `arr`: (required) The arrays to be zipped together.
+- `strict`: (optional, default: `false`) If set to `true`, limits the zipped output to the shortest input array length. If `false`, uses the longest array's length, filling undefined for missing elements.
+
+### Zipping Two Arrays with Default Behavior
+```javascript
+"use js-executor";
+
+import zip from '@/helpers/zip';
+
+const arrays = [[1, 2, 3], ["a", "b", "c", "d"]];
+const result = zip({ arr: arrays });
+
+console.log(result); 
+// Output: [[1, "a"], [2, "b"], [3, "c"], [undefined, "d"]]
+```
+
+### Strict Zipping Based on Minimum Array Length
+```javascript
+"use js-executor";
+import zip from '@/helpers/zip';
+
+const arrays = [[1, 2, 3], ["x", "y"]];
+const strictResult = zip({ arr: arrays, strict: true });
+
+console.log(strictResult); 
+// Output: [[1, "x"], [2, "y"]]
+```
+
+
+
+### Zipping Three Arrays with Default Behavior
+```javascript
+"use js-executor";
+
+import zip from '@/helpers/zip';
+
+const arrays = [[1, 2, 3], ["a", "b", "c", "d"], [true, false]];
+const result = zip({ arr: arrays });
+
+console.log(result); 
+// Output: [[1, "a", true], [2, "b", false], [3, "c", undefined], [undefined, "d", undefined]]
+```
+
+### Strict Zipping with Three Arrays (Minimum Length)
+```javascript
+"use js-executor";
+import zip from '@/helpers/zip';
+
+const arrays = [[1, 2, 3], ["x", "y", "z"], [10, 20]];
+const strictResult = zip({ arr: arrays, strict: true });
+
+console.log(strictResult); 
+// Output: [[1, "x", 10], [2, "y", 20]]
+```

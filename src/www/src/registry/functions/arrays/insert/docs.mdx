@@ -1,0 +1,65 @@
+---
+name: insert
+desc: Inserts elements into an array at a specified index.
+---
+
+
+<CodePreview methodName="insert"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add insert
+```
+
+## Props
+<PropsTable methodName="insert"/>
+ ---
+- `array`: (required) The array to which elements will be added.
+
+- `index`: (required) The index at which to insert elements. If negative, counting starts from the end of the array.
+
+- `items`: (required) The elements to be inserted into the array.
+
+- `strict`: (optional, default: `false`) If `true`, inserts elements at every nth index, creating recursive insertions throughout the array.
+
+## Usage
+
+### Basic Insertion
+
+```javascript
+"use js-executor";
+import insert from '@/helpers/insert';
+
+const array = [1, 2, 3, 4, 5];
+const result = insert(array, 2, [10, 20]);
+
+console.log(result); 
+// Output: [1, 2, 10, 20, 3, 4, 5]
+```
+
+### Insertion with Negative Index
+
+```javascript
+"use js-executor";
+import insert from '@/helpers/insert';
+
+const array = [1, 2, 3, 4, 5];
+const result = insert(array, -1, [99]);
+
+console.log(result); 
+// Output: Error
+```
+
+### Recursive Insertion with `strict` Option
+
+```javascript
+"use js-executor";
+import insert from '@/helpers/insert';
+
+const array = [1, 2, 3, 4, 5];
+const result = insert(array, 2, [7, 8], true);
+
+console.log(result); 
+// Output: [1, 2, 7, 8, 3, 4, 7, 8, 5]
+```

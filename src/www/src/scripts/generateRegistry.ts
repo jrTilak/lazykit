@@ -1,29 +1,22 @@
 import * as fs from "fs";
-import { readFolders } from "../utils/readFolders";
-import { readFileAsString, readFiles } from "../utils/readFiles";
+import { readFolders } from "../helpers/readFolders";
+import { readFileAsString, readFiles } from "../helpers/readFiles";
 import * as typescript from "typescript";
-import packageJSON from "../../package.json";
-import { IDoc, IRegistryJSON } from "@/types/registry.types";
+import { IRegistryJSON } from "@/types/registry.types";
 import { generateNavbar } from "./generateNavbar";
-import matter from "gray-matter";
+import { formatCode } from "@/helpers/format-code";
 
 //eg:  registry/:type/:category/{index.ts, docs.tsx, *.examples.ts}
 const REGISTRY_DIR = "../registry";
 
 const PATH_TO_REGISTRY_CONFIG = "../configs/registry.json";
-const NECESSARY_FILES = [
-  "index.ts",
-  "index.test.ts",
-  "docs.md",
-  "props.ts",
-  // "*.example.ts",
-];
+const NECESSARY_FILES = ["index.ts", "index.test.ts", "docs.mdx", "props.ts"];
 
 let REGISTRY_JSON: IRegistryJSON[] = [];
 
 /**
  *  Read the directory :type
- * Type can be any of the following for example: function (javascript utility functions), react-hooks, etc
+ * Type can be any of the following for example: functions (javascript utility functions), react-hooks, etc
  **/
 const types = readFolders(REGISTRY_DIR);
 const METHODS: any = [];
@@ -87,22 +80,6 @@ async function main() {
                * Else, continue with the script
                */
               const availableFiles = readFiles(pathUptoMethod);
-              /**
-               * Check if at least one example file is present in the method folder
-               */
-              const exampleFiles = availableFiles.filter((file) =>
-                file.includes(".example.ts")
-              );
-              if (exampleFiles.length === 0) {
-                console.error(
-                  `Error: No example file found in ${type}/${category}/${method}. 😐\nExiting...`
-                );
-                process.exit(1);
-              }
-
-              const examples = exampleFiles.map((file) =>
-                readFileAsString(pathUptoMethod + "/" + file)
-              );
 
               /**
                * Add the example files in the registry
@@ -128,13 +105,12 @@ async function main() {
                * See if that file exports a default object and another object named Info with  description as compulsory field and externalLinks as optional fields. If externalLinks is present, it should be an array of objects with label and url as compulsory fields.
                */
 
-              const docsMd = readFileAsString(pathUptoMethod + "/docs.md");
-              const dataFromMd = matter(docsMd);
+              const docsMd = readFileAsString(pathUptoMethod + "/docs.mdx");
 
               // Check if default export is present
               if (!docsMd) {
                 console.error(
-                  `Error: docs.md file is missing in ${type}/${category}/${method}/. 😐\nExiting...`
+                  `Error: docs.mdx file is missing in ${type}/${category}/${method}/. 😐\nExiting...`
                 );
                 process.exit(1);
               }
@@ -193,29 +169,11 @@ async function main() {
               const updatedMethod = {
                 name: method.split(".ts")[0],
                 code: {
-                  ts,
-                  js,
+                  ts: await formatCode(ts, "typescript"),
+                  js: await formatCode(js, "babel"),
                 },
                 category,
                 type,
-                /**
-                 * Support examples in both typescript and javascript
-                 */
-                examples: examples.map((ex) => {
-                  return {
-                    ts: ex,
-                    js: typescript.transpileModule(ex, {
-                      compilerOptions: {
-                        target: typescript.ScriptTarget.ESNext,
-                        module: typescript.ModuleKind.ESNext,
-                      },
-                    }).outputText,
-                  };
-                }),
-                docs: {
-                  metaData: dataFromMd.data as unknown as IDoc,
-                  md: dataFromMd.content,
-                },
                 props: props.default,
               };
 

@@ -1,15 +1,18 @@
-type Args = {
-  arr: any[][];
+type Args<T extends Array<Array<unknown>>> = {
+  arr: T;
   strict?: boolean;
 };
 
-const zip = ({ arr, strict = false }: Args): any[][] => {
+const zip = <T extends Array<Array<unknown>>>({
+  arr,
+  strict = false,
+}: Args<T>): T => {
   const maxIndex = arr.map((a) => a.length).reduce((a, b) => Math.max(a, b), 0);
   const minIndex = arr
     .map((a) => a.length)
     .reduce((a, b) => Math.min(a, b), maxIndex);
 
-  const result: any[][] = [];
+  let result = [] as unknown[][];
 
   const upto = strict ? minIndex : maxIndex;
 
@@ -17,7 +20,8 @@ const zip = ({ arr, strict = false }: Args): any[][] => {
     const zip = arr.map((a) => a[i]);
     result.push(zip);
   }
-  return result;
+
+  return result as T;
 };
 
 export default zip;

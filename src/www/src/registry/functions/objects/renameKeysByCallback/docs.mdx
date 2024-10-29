@@ -1,0 +1,43 @@
+---
+name: renameKeysByCallback
+desc: Renames keys in an object using a given callback function.
+---
+
+<CodePreview methodName="renameKeysByCallback"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add renameKeysByCallback
+```
+
+## Props
+<PropsTable methodName="renameKeysByCallback"/>
+---
+
+
+- **`object`**: (required) The object from which the keys will be renamed.
+
+- **`callback`**: (required) A function that takes an old key name and returns the new key name.
+
+### Example Usage
+
+### Converting keys to snake_case
+```javascript
+"use js-executor";
+
+import renameKeysByCallback from "@/helpers/renameKeysByCallback";
+
+const user = {
+  firstName: "Alice",
+  lastName: "Smith",
+  age: 28,
+};
+
+const renamedUser = renameKeysByCallback(user, (oldKey) => {
+  // Callback to rename keys to snake_case
+  return oldKey.replace(/([A-Z])/g, "_$1").toLowerCase();
+});
+
+console.log(renamedUser);
+```

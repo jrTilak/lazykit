@@ -5,23 +5,24 @@ const Props: IRegistryFunctionPropTable[] = [
     title: "array",
     required: true,
     defaultValue: undefined,
-    propDesc: "The array to process.",
+    propDesc: "The array to be processed into chunks.",
     type: "array",
   },
   {
     title: "size",
-    required: false,
-    defaultValue: "1",
-    propDesc: "The length of each chunk.",
+    required: true,
+    defaultValue: undefined,
+    propDesc: "The desired length of each chunk.",
     type: "number",
   },
   {
-    title: "strict",
+    title: "config.style",
     required: false,
-    defaultValue: "false",
+    defaultValue: "normal",
     propDesc:
-      "If true, the last chunk will be truncated if it does not fit exactly.",
-    type: "boolean",
+      "Determines the behavior of the last chunk: 'normal' keeps it as is, 'repeat' fills the last chunk with elements from the start if it doesn't fit the specified size, and 'remove' truncates the last chunk if its length is not equal to the specified size.",
+    type: "enum",
+    enums: ["normal", "repeat", "remove"],
   },
 ];
 

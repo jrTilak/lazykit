@@ -1,0 +1,34 @@
+---
+name : nand
+desc: Performs a logical NAND operation on the given arguments.
+---
+
+
+<CodePreview methodName="nand"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add nand
+```
+
+## Props
+<PropsTable methodName="nand"/>
+
+## Usage
+```javascript
+"use js-executor"
+import nand from "@/helpers/nand";
+
+console.log(nand(true, true));
+// Expected Output: false
+
+console.log(nand(true, false));
+// Expected Output: true
+
+console.log(nand());
+// Expected Output: false
+
+console.log(nand(1, "lazykit"));
+// Expected Output: false
+```

@@ -1,0 +1,26 @@
+---
+name: unique
+desc: Creates a unique array from the input array.
+---
+
+<CodePreview methodName="unique"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add unique
+```
+
+## Props
+<PropsTable methodName="unique"/>
+
+## Usage
+```javascript
+"use js-executor";
+import unique from "@/helpers/unique";
+
+const arr = [1, 2, 3, 3];
+const result = unique(arr);
+console.log(result);
+// Expected Output: [1, 2, 3]
+```

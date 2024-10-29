@@ -1,0 +1,58 @@
+---
+name: tryCatch
+desc: Helps to safely execute synchronous functions
+---
+
+
+<CodePreview methodName="tryCatch"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add tryCatch
+```
+
+## Props
+<PropsTable methodName="tryCatch"/>
+ ---
+
+The `tryCatch` function is a utility that helps safely execute synchronous functions. If the function executes successfully, it returns `[undefined, result]`; if an error is thrown, it returns `[error, undefined]`. This allows you to handle errors without using `try...catch` directly, making error handling in synchronous code cleaner and more predictable.
+
+- **`function`**: The function to execute inside the `try-catch` block. The result will either contain an error or the return value of the function.
+
+## Usage Examples
+
+### Basic Usage with Success
+```javascript
+"use js-executor"
+import tryCatch from "@/utils/tryCatch";
+
+const [error, result] = tryCatch(() => {
+  // Simulate a successful operation
+  return "Operation successful!";
+});
+
+if (error) {
+  console.error("Error:", error);
+} else {
+  console.log("Result:", result); // Output: "Result: Operation successful!"
+}
+```
+
+### Handling an Error
+```javascript
+"use js-executor"
+import tryCatch from "@/utils/tryCatch";
+
+const [error, result] = tryCatch(() => {
+  throw new Error("Something went wrong!");
+});
+
+if (error) {
+  console.error("Caught error:", error.message); // Output: "Caught error: Something went wrong!"
+} else {
+  console.log("Result:", result);
+}
+```
+
+The `tryCatch` utility is especially useful for functions that might throw errors, allowing cleaner handling and standardized output by using the returned tuple.

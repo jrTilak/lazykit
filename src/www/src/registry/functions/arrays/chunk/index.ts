@@ -1,20 +1,29 @@
 const chunk = <T>(
   array: T[],
-  size: number = 1,
-  strict: boolean = false
-  //remove the last chunk if it is not equal to the size
+  size: number,
+  config?: {
+    style: "normal" | "repeat" | "remove";
+  }
 ): T[][] => {
   const result: T[][] = [];
 
-  //push the chunks into the result array
+  // Push the chunks into the result array
   for (let i = 0; i < array.length; i += size) {
     result.push(array.slice(i, i + size));
   }
 
-  //remove the last chunk if it is not equal to the size
-  if (strict && result[result.length - 1].length !== size) {
-    result.pop();
+  if (config?.style === "remove" && result[result.length - 1].length !== size) {
+    result.pop(); // Remove the last chunk if it doesn't match the size
+  } else if (config?.style === "repeat") {
+    // Repeat elements from the start if the last chunk is smaller
+    const lastChunk = result[result.length - 1];
+    if (lastChunk.length < size) {
+      const elementsNeeded = size - lastChunk.length;
+      const repeatedElements = array.slice(0, elementsNeeded); // Get elements from the start
+      result[result.length - 1] = lastChunk.concat(repeatedElements); // Fill the last chunk
+    }
   }
+
   return result;
 };
 

@@ -1,0 +1,35 @@
+---
+name: sleep
+desc: Sleeps the execution for the specified number of milliseconds.
+---
+<CodePreview methodName="sleep"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add sleep
+```
+
+## Props
+<PropsTable methodName="sleep"/>
+ ---
+
+- **`ms`**: (required) The number of milliseconds to sleep before resolving the Promise.
+
+---
+
+## Usage Example
+
+The `sleep` function pauses execution for a specified duration, returning a Promise that resolves after the delay.
+
+```javascript
+"use js-executor"
+import sleep from "@/utils/sleep";
+
+//iife
+(async () => {
+  console.log("sleeping for 1 second");
+  await sleep(1000);
+  console.log("done sleeping"); // This will be printed after 1 second
+})();
+```

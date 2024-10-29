@@ -1,28 +1,37 @@
 import NotFound from "@/components/pages/not-found";
-import PAGES_CONFIG from "../_configs/_pages.config";
-import MethodPage from "../_pages/method-page";
 import prevNextBtnJson from "@/configs/prev-next-button-links.json";
-import registry from "@/configs/registry.json";
-import types from "@/configs/types.json";
-import TypePage from "../_pages/type-page";
-import { PACKAGE_INFO } from "@/data/info";
+import { getPredefinedPageBySlug } from "@/helpers/get-predefined-page-by-slug";
+import RenderMdx from "@/components/mdx/render-mdx";
+import { getMethodPageBySlug } from "@/helpers/get-method-page-by-slug";
+import { Separator } from "@/components/ui/separator";
 
-const DocsPage = ({ params: { slug } }: { params: { slug: string[] } }) => {
-  const predefinedPage = PAGES_CONFIG.find(
-    (page) => page.path === `/docs/${slug.join("/")}`
-  );
+const DocsPage = async ({ params: { slug } }: { params: { slug: string[] } }) => {
+  const predefinedPage = await getPredefinedPageBySlug(slug.join("/"));
   if (predefinedPage) {
-    return <predefinedPage.component />;
+    return (
+      <RenderMdx>
+        {predefinedPage.content}
+      </RenderMdx>
+    )
   }
-  if (
-    slug.length === 1 &&
-    types.filter((type) => type.label.toLowerCase() === slug[0]).length === 1
-  ) {
-    return <TypePage type={slug[0]} />;
+
+  const methodPage = await getMethodPageBySlug(slug.join("/"));
+  if (methodPage) {
+    return (
+      <RenderMdx>
+        <h1 className="mt-2 scroll-m-20 text-4xl font-bold">
+          {methodPage.meta.name}
+        </h1>
+        <p className="leading-7 [&:not(:first-child)]:mt-2.5 text-muted-foreground">
+          {methodPage.meta.desc}
+        </p>
+        <Separator className="mb-4 mt-2" />
+        {/* external links */}
+        {methodPage.content}
+      </RenderMdx>
+    )
   }
-  if (slug.length === 3) {
-    return <MethodPage slug={slug} />;
-  }
+
   return <NotFound />;
 };
 export default DocsPage;
@@ -34,37 +43,37 @@ export async function generateStaticParams() {
   return urls.map((url) => ({ slug: url }));
 }
 
-export const generateMetadata = async ({
-  params: { slug },
-}: {
-  params: { slug: string[] };
-}) => {
-  const predefinedPage = PAGES_CONFIG.find(
-    (page) => page.path === `/docs/${slug.join("/")}`
-  );
-  if (predefinedPage) {
-    return predefinedPage.metaData;
-  }
-  if (
-    slug.length === 1 &&
-    types.filter((type) => type.label.toLowerCase() === slug[0]).length === 1
-  ) {
-    return {
-      title: `${slug[0]} | ${PACKAGE_INFO.name}`,
-    };
-  }
-  if (slug.length === 3) {
-    const methodData = registry?.find(
-      (method: any) =>
-        method.type === slug[0] &&
-        method.category === slug[1] &&
-        method.name === slug[2]
-    );
-    if (!methodData) return;
+// export const generateMetadata = async ({
+//   params: { slug },
+// }: {
+//   params: { slug: string[] };
+// }) => {
+//   const predefinedPage = PAGES_CONFIG.find(
+//     (page) => page.path === `/docs/${slug.join("/")}`
+//   );
+//   if (predefinedPage) {
+//     return predefinedPage.metaData;
+//   }
+//   if (
+//     slug.length === 1 &&
+//     types.filter((type) => type.label.toLowerCase() === slug[0]).length === 1
+//   ) {
+//     return {
+//       title: `${slug[0]} | ${PACKAGE_INFO.name}`,
+//     };
+//   }
+//   if (slug.length === 3) {
+//     const methodData = registry?.find(
+//       (method: any) =>
+//         method.type === slug[0] &&
+//         method.category === slug[1] &&
+//         method.name === slug[2]
+//     );
+//     if (!methodData) return;
 
-    return {
-      title: `${methodData?.name} | ${PACKAGE_INFO.name}`,
-      description: methodData?.docs?.metaData?.desc as string,
-    };
-  }
-};
+//     return {
+//       title: `${methodData?.name} | ${PACKAGE_INFO.name}`,
+//       description: methodData?.docs?.metaData?.desc as string,
+//     };
+//   }
+// };

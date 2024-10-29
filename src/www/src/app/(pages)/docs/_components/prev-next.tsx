@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import prevNextButtonLinks from "@/configs/prev-next-button-links.json";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
+
 const PrevNext = () => {
   const pathname = usePathname();
   const router = useRouter();

@@ -3,13 +3,14 @@ import Link from "next/link";
 import githubIcon from "@/assets/icons/github-142-svgrepo-com.svg";
 import { CREATOR_INFO, GITHUB_INFO, PACKAGE_INFO } from "@/data/info";
 import Image from "next/image";
-import { Announcement } from "@/components/reusable/announce";
+import { Announcement } from "@/components/globals/announce";
 import { ANNOUNCEMENT_DATA } from "@/data/announcement";
 import { Separator } from "@/components/ui/separator";
 import registry from "@/configs/registry.json";
 import InitCommand from "./_components/init-command";
 import { Metadata } from "next";
-
+import { Card, CardContent } from "@/components/ui/card";
+import { Fragment } from "react";
 export default async function Home() {
   const getGithubStars = async () => {
     const res = await fetch(GITHUB_INFO.api, {
@@ -39,22 +40,21 @@ export default async function Home() {
 
   return (
     <>
-      <main className="flex flex-col gap-8 md:gap-16 xl:gap-24 pt-[10vh] md:pt-[15vh] lg:pt-[20vh] items-center justify-center text-center px-2">
+      <main className="flex flex-col gap-8 md:gap-16 xl:gap-24 pt-[10vh] md:pt-[15vh] lg:pt-[20vh] items-center justify-center text-center px-2 min-h-[calc(100vh-180px)]">
         <div className="flex flex-col items-center justify-center gap-3">
-          <div className="flex flex-col gap-2 items-center justify-center max-w-3xl">
+          <div className="flex flex-col gap-2 items-center justify-center max-w-4xl">
             <Announcement {...ANNOUNCEMENT_DATA} />
             <div className="flex flex-col gap-3 sm:gap-5 items-center justify-center">
               <h1 className="text-3xl sm:text-5xl !font-semibold">
-                Trim the fat,
-                <br className="md:hidden" /> keep the function!
+                Drop the Excess,
+                <br className="md:hidden" /> Keep the Impact!
               </h1>
-              <p className="max-w-md text-muted-foreground text-base sm:text-xl">
-                Refine your JavaScript workflows with Lazykit.{" "}
-                <br className="hidden sm:block" />A concentrated collection of
-                lean utility functions, not a bloated library.
+              <p className="max-w-lg text-muted-foreground text-base sm:text-xl">
+                Refine your JavaScript, React, and TypeScript workflows with LazyKit.
+                A concentrated toolkit of powerful snippets—no excess, all essence.
               </p>
               <div className="flex gap-4">
-                <Link href="/docs/introduction">
+                <Link href="/docs">
                   <Button className="px-6">Get Started</Button>
                 </Link>
                 <Link href={GITHUB_INFO.url} target="_blank">
@@ -78,38 +78,52 @@ export default async function Home() {
           <InitCommand />
         </div>
         <div className="flex gap-3 sm:gap-6 items-center justify-center">
-          {[
-            {
-              title: registry.length,
-              description: "Utility Functions",
-            },
-            {
-              title: `${weeklyDownloads || 0}+`,
-              description: "Weekly Downloads",
-            },
-            {
-              title: stars || "0",
-              description: "GitHub Stars",
-            },
-          ].map((item, i) => (
-            <>
-              {i > 0 && (
-                <Separator orientation="vertical" className=" h-8 md:h-12" />
-              )}
+          <Card>
+            <CardContent className="grid grid-cols-[1fr_10px_1fr] sm:flex items-center gap-y-4 gap-x-9 justify-center p-6 text-center">
+              {[
+                {
+                  title: registry.length,
+                  description: "Utility Functions",
+                },
+                {
+                  title: registry.length,
+                  description: "React Hooks",
+                },
+                {
+                  title: `${weeklyDownloads || 0}+`,
+                  description: "Weekly Downloads",
+                },
+                {
+                  title: stars || "0",
+                  description: "GitHub Stars",
+                },
+              ].map((stats, i) => (
+                <Fragment key={i}>
+                  {i !== 0 && (
+                    <Separator
+                      orientation="vertical"
+                      className="h-14 w-px hidden max-sm:[&:nth-child(2)]:block max-sm:[&:nth-child(7)]:block sm:block"
+                    />
+                  )}
+                  {i === 2 && (
+                    <Separator
+                      orientation="horizontal"
+                      className="h-px w-full sm:hidden col-span-3"
+                    />
+                  )}
+                  <div className="flex flex-col items-center justify-center">
+                    <h3 className="text-xl md:text-2xl xl:text-3xl font-medium">
+                      {stats.title}
+                    </h3>
+                    <p className="text-sm md:text-base text-muted-foreground">
+                      {stats.description}
+                    </p>
+                  </div>
+                </Fragment>
+              ))}
+            </CardContent>
+          </Card>
 
-              <div
-                key={i}
-                className="flex flex-col gap-2 items-center justify-center"
-              >
-                <h3 className=" text-2xl sm:text-4xl !font-semibold">
-                  {item.title}
-                </h3>
-                <p className="text-muted-foreground text-sm sm:text-base md:text-lg lg:text-xl">
-                  {item.description}
-                </p>
-              </div>
-            </>
-          ))}
         </div>
       </main>
       <footer className="w-full px-4 sm:px-12 pt-3 pb-6 border-t border-muted dark:border-gray-900 mt-8 text-center lg:text-start">

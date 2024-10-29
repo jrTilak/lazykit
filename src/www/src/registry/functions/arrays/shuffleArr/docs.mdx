@@ -1,0 +1,28 @@
+---
+name: shuffleArr
+desc: Shuffles the elements of an array using Fisher-Yates algorithm.
+---
+
+
+<CodePreview methodName="shuffleArr"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add shuffleArr
+```
+
+## Props
+<PropsTable methodName="shuffleArr"/>
+---
+
+## Usage
+```javascript
+"use js-executor";
+import shuffleArr from "@/helpers/shuffleArr";
+
+const arr = [1, 2, 3, 4, 5];
+const shuffledArr = shuffleArr(arr);
+console.log(shuffledArr);
+// Expected output: shuffled array of given array
+```

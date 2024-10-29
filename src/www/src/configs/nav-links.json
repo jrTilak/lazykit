@@ -60,10 +60,6 @@
             "url": "/docs/functions/arrays/sampleArr"
           },
           {
-            "label": "search",
-            "url": "/docs/functions/arrays/search"
-          },
-          {
             "label": "shuffleArr",
             "url": "/docs/functions/arrays/shuffleArr"
           },
@@ -120,6 +116,14 @@
           {
             "label": "timeout",
             "url": "/docs/functions/functional/timeout"
+          },
+          {
+            "label": "tryCatch",
+            "url": "/docs/functions/functional/tryCatch"
+          },
+          {
+            "label": "tryCatchAsync",
+            "url": "/docs/functions/functional/tryCatchAsync"
           }
         ]
       },
@@ -150,6 +154,10 @@
         "url": "/docs/functions/objects",
         "methods": [
           {
+            "label": "filterObj",
+            "url": "/docs/functions/objects/filterObj"
+          },
+          {
             "label": "mapObj",
             "url": "/docs/functions/objects/mapObj"
           },
@@ -162,8 +170,12 @@
             "url": "/docs/functions/objects/pick"
           },
           {
-            "label": "renameKey",
-            "url": "/docs/functions/objects/renameKey"
+            "label": "renameKeys",
+            "url": "/docs/functions/objects/renameKeys"
+          },
+          {
+            "label": "renameKeysByCallback",
+            "url": "/docs/functions/objects/renameKeysByCallback"
           },
           {
             "label": "sampleObj",

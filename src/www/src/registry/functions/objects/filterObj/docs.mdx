@@ -1,0 +1,35 @@
+---
+name: filterObj
+desc: Same as Array.prototype.filter, but for objects.
+---
+
+
+<CodePreview methodName="filterObj"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add filterObj
+```
+
+## Props
+<PropsTable methodName="filterObj"/>
+
+---
+
+- `object`: (required) The object to filter.
+- `predicate`: (required) A function that takes the value, key and object and returns `true` if the property should be included in the filtered object.
+
+### Example Usage
+
+Here's how you can use the `filterObj` function:
+
+```javascript
+"use js-executor"
+
+import filterObj from "@/helpers/filterObj";
+
+const user = { name: "Charlie", age: 28, isActive: true, role: "editor" };
+const result = filterObj(user, (value, key) => typeof value === "string");
+console.log(result)
+```

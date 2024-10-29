@@ -12,8 +12,7 @@ const Props: IRegistryFunctionPropTable[] = [
     title: "index",
     required: true,
     defaultValue: undefined,
-    propDesc:
-      "The index at which to insert the elements, If negative, the index will start from the end of the array.",
+    propDesc: "The index at which to insert the elements.",
     type: "number",
   },
   {

@@ -1,0 +1,41 @@
+---
+name: nTimes
+desc: Calls a function n times and returns an array of the results.
+---
+
+<CodePreview methodName="nTimes"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add nTimes
+```
+
+## Props
+<PropsTable methodName="nTimes"/>
+ ---
+
+- `function`: (required) The function to be called `n` times. This function takes the current iteration index as an argument.
+- `n`: (optional, default: `1`) The number of times to call the function.
+
+## Usage
+
+The `nTimes` function allows you to execute a function `n` times and collect each result in an array. It’s particularly useful for cases where you need to initialize values or generate items based on iteration indices.
+
+### Example
+
+```javascript
+"use js-executor";
+import nTimes from "@/utils/nTimes";
+
+// Function to be executed multiple times
+const generateRandomNumber = (i) => Number(i + Math.random().toFixed(2));
+
+// Call generateRandomNumber 5 times
+const results = nTimes(generateRandomNumber, 5);
+
+console.log(results);
+// Example output: [0.36, 1.73, 2.18, 3.45, 4.07]
+```
+
+In this example, `generateRandomNumber` is executed 5 times with the index passed in each call. The `nTimes` utility collects the return values in an array, allowing for flexible repetitive function execution with unique values each time.

@@ -1,24 +1,20 @@
 "use client";
-import { toast } from "@/components/ui/use-toast";
+
+import toast from "react-hot-toast";
 
 const InitCommand = () => {
   const handleClick = () => {
     try {
       navigator.clipboard.writeText("npx @jrtilak/lazykit@latest init");
-      toast({
-        description: "Command copied to clipboard 🚀",
-      });
+      toast.success("Command copied to clipboard 🚀")
     } catch (err) {
-      toast({
-        description: "Failed to copy command 😢",
-        variant: "destructive",
-      });
+      toast.error("Failed to copy command 😢")
     }
   };
   return (
     <div
       onClick={handleClick}
-      className="bg-muted text-muted-foreground px-8 py-3 rounded-lg cursor-pointer hover:scale-[1.01] transition-transform flex items-center justify-center gap-2"
+      className="bg-muted text-muted-foreground px-8 py-3 font-fira-code rounded-lg cursor-pointer hover:scale-[1.01] transition-transform flex items-center justify-center gap-2"
     >
       <span className="text-muted-foreground">$</span>
       <span className="text-primary dark:text-purple-400">npx</span>

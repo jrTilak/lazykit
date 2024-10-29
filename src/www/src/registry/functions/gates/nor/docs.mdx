@@ -1,0 +1,37 @@
+---
+name: nor
+desc: Performs a logical NOR operation on the given arguments.
+---
+
+
+<CodePreview methodName="nor"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add nor
+```
+
+## Props
+<PropsTable methodName="nor"/>
+
+## Usage
+```javascript
+"use js-executor"
+import nor from "@/helpers/nor";
+
+console.log(nor(true, true));
+// Expected Output: false
+
+console.log(nor(true, false));
+// Expected Output: false
+
+console.log(nor(false, false));
+// Expected Output: true
+
+console.log(nor());
+// Expected Output: false
+
+console.log(nor(1, "lazykit"));
+// Expected Output: false
+```

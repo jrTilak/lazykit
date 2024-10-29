@@ -1,0 +1,47 @@
+---
+name: count
+desc: returns the result of a function and the number of times that function is invoked.
+---
+<CodePreview methodName="count"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add count
+```
+
+## Props
+<PropsTable methodName="count"/>
+ ---
+- `function`: (required) The function to be wrapped and counted each time it is called.
+
+### Usage
+
+The `count` utility function wraps a given function `fn` and keeps track of the number of times it’s called. It provides a `getCount` method on the wrapper function, which returns the total count of calls.
+
+### Example
+
+```javascript
+"use js-executor";
+import count from "@/utils/count";
+
+// Define a function to count calls
+const add = (a, b) => a + b;
+
+// Wrap the function to enable call counting
+const countedAdd = count(add);
+
+// Call the function a few times
+console.log("Count: ", countedAdd.getCount());; // 0
+
+console.log("Sum: ", countedAdd(3, 5)); // 8
+console.log("Count: ", countedAdd.getCount()); // 1
+
+console.log("Sum: ", countedAdd(2, 7));; // 9
+console.log("Count: ", countedAdd.getCount());; // 2
+
+console.log("Sum: ", countedAdd(1, 4));; // 5
+console.log("Count: ", countedAdd.getCount());; // 3
+```
+
+In this example, `countedAdd` acts as a normal function but tracks each time it's called. The `getCount` method provides a way to access the current call count, making this utility useful for tracking usage metrics, debugging, or applying limits based on call frequency.

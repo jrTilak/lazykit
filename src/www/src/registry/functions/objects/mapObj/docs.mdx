@@ -1,0 +1,68 @@
+---
+name: mapObj
+desc: Same as Array.prototype.map, but for objects.
+---
+
+
+<CodePreview methodName="mapObj"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add mapObj
+```
+
+## Props
+<PropsTable methodName="mapObj"/>
+
+---
+
+- `object`: (required) The object to process, where each property will be transformed based on the callback function provided.
+  
+- `callback`: (required) A function that is applied to each property of the object. It receives three arguments: the property's value, the property's key, and the original object.
+
+## Example Usage
+
+### Basic Example
+```javascript
+"use js-executor";
+
+import mapObj from "@/helpers/mapObj";
+
+const originalObject = {
+  name: "John",
+  age: 30,
+  city: "New York",
+};
+
+const transformedObject = mapObj(originalObject, (value, key) => {
+  return typeof value === "number" ? value * 2 : value.toUpperCase();
+});
+
+console.log(transformedObject); 
+// Output: { name: "JOHN", age: 60, city: "NEW YORK" }
+```
+
+### With Nested Objects
+
+```javascript
+"use js-executor";
+
+import mapObj from "@/helpers/mapObj";
+
+const data = {
+  alice: {
+    age: 28,
+  },
+  los: {
+    age: 50,
+  },
+};
+
+const ages = mapObj(data, (value) => {
+  return value.age;
+});
+
+console.log(ages); 
+// Output: { alice: 28, los: 50 }
+```

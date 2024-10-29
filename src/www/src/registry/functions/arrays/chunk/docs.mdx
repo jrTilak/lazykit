@@ -1,0 +1,93 @@
+---
+name: chunk
+desc: Chunks an array into smaller arrays of a specified size.
+---
+
+<CodePreview methodName="chunk"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add chunk
+```
+
+## Props
+<PropsTable methodName="chunk"/>
+ ---
+- `array`: (required) The input array to be divided into chunks.
+  
+- `size`: (required) The length of each resulting chunk.
+  
+- `config.style`: (optional, default: "normal") Defines the behavior of the last chunk:
+  - `normal`: Keeps the last chunk as is.
+  - `repeat`: Fills the last chunk with elements from the start if it's shorter than the specified size.
+  - `remove`: Truncates the last chunk if its length does not match the specified size. 
+
+## Usage
+### Basic Chunking
+```typescript
+"use js-executor"
+import chunk from '@/helpers/chunk';
+
+const numbers = [1, 2, 3, 4, 5];
+const result = chunk(numbers, 2);
+// Output: [[1, 2], [3, 4], [5]]
+console.log(result);
+```
+*This example splits the array into chunks of size 2. The last chunk contains the remaining element.*
+
+---
+
+### Remove Uneven Length Chunk
+```javascript
+"use js-executor";
+import chunk from '@/helpers/chunk';
+
+const numbers = [1, 2, 3, 4, 5];
+const result = chunk(numbers, 2, { style: "remove" });
+// Output: [[1, 2], [3, 4]]
+console.log(result);
+```
+*Here, the last chunk is removed since it contains only one element and does not match the specified size of 2.*
+
+---
+
+### Repeat Elements to Fill Last Chunk
+```javascript
+"use js-executor"
+import chunk from '@/helpers/chunk';
+
+const numbers = [1, 2, 3, 4, 5];
+const result = chunk(numbers, 3, { style: "repeat" });
+// Output: [[1, 2, 3], [4, 5, 1]]
+console.log(result);
+```
+*In this example, the last chunk is filled with elements from the start of the array since it has fewer elements than the specified size of 3.*
+
+---
+
+### Normal Behavior (Default)
+```javascript
+"use js-executor"
+import chunk from '@/helpers/chunk';
+
+const numbers = [1, 2, 3, 4, 5];
+const result = chunk(numbers, 3);
+// Output: [[1, 2, 3], [4, 5]]
+console.log(result);
+```
+*This usage shows the default behavior of the function, where the last chunk is not modified and remains as it is.*
+
+---
+
+### Using Strings
+```javascript
+"use js-executor"
+import chunk from '@/helpers/chunk';
+
+const fruits = ['apple', 'banana', 'cherry', 'date', 'elderberry'];
+const result = chunk(fruits, 2, { style: "remove" });
+// Output: [['apple', 'banana'], ['cherry', 'date']]
+console.log(result);
+```
+*Here, the string array is split into chunks of size 2, and the last chunk is removed because it doesn't meet the size requirement.*

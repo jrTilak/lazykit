@@ -1,0 +1,37 @@
+---
+name: or
+desc: Performs a logical OR operation on the given arguments.
+---
+
+<CodePreview methodName="or"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add or
+```
+
+## Props
+<PropsTable methodName="or"/>
+
+## Usage
+```javascript
+"use js-executor"
+import or from "@/helpers/or";
+
+console.log(or(true, true));
+// Expected Output: true
+
+console.log(or(false, true));
+// Expected Output: true
+
+console.log(or(false, false));
+// Expected Output: false
+
+console.log(or());
+// Expected Output: false
+
+console.log(or(1, "lazykit"));
+// Expected Output: true
+
+```

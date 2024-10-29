@@ -6,14 +6,6 @@ export interface IRegistryJSON {
   };
   category: string;
   type: string;
-  examples: {
-    js: string;
-    ts: string;
-  }[];
-  docs: {
-    metaData: IDoc;
-    md: string;
-  };
   props: IRegistryFunctionPropTable[];
 }
 

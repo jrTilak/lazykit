@@ -1,0 +1,70 @@
+---
+name: timeout
+desc: The timeout function wraps a function with a timeout. If the function does not complete within the specified time, the promise will be rejected.
+---
+
+<CodePreview methodName="timeout"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add timeout
+```
+
+## Props
+<PropsTable methodName="timeout"/>
+ ---
+- `function`: (required) The function to be wrapped with a timeout.
+- `time`: (required) The timeout duration in milliseconds.
+- `errCb`: (optional) Error callback function to handle timeout errors. If not provided, the promise will be rejected with a "Function timed out" error message.
+
+---
+
+## Usage
+
+### Synchronous Function Example:
+   This example wraps a synchronous function with a timeout.
+
+   ```javascript
+   "use js-executor";
+   import timeout from "@/utils/timeout";
+
+   function syncFunction() {
+     return "Quick result";
+   }
+
+   const timedSyncFunction = timeout(syncFunction, 500); // Timeout set to 500 ms
+
+   timedSyncFunction()
+     .then((result) => console.log(result)) // Logs: "Quick result"
+     .catch((error) => console.error(error.message));
+   ```
+
+   In this case, `syncFunction` completes immediately, so `timedSyncFunction` resolves successfully before the timeout.
+
+### Asynchronous Function with Error Callback:
+   This example demonstrates an asynchronous function that might exceed the timeout. An error callback `onTimeout` provides custom error handling.
+
+   ```javascript
+   "use js-executor";
+
+   import timeout from "@/utils/timeout";
+
+   async function fetchData() {
+     return new Promise((resolve) => setTimeout(() => resolve("Data received"), 3000)); // 3 seconds delay
+   }
+
+   const onTimeout = () => "Fetching data timed out"; // Custom error message
+
+   const timedFetchData = timeout(fetchData, 1000, onTimeout); // Timeout set to 1 second
+
+   timedFetchData()
+     .then((data) => console.log(data))
+     .catch((error) => console.error(error)); // Logs: "Fetching data timed out"
+   ```
+
+   Here, `fetchData` takes 3 seconds, but `timedFetchData` has a 1-second timeout. When the timeout is reached, `onTimeout` is called, and the promise is rejected with `"Fetching data timed out"`.
+
+---
+
+These examples illustrate how `timeout` can be used with both synchronous and asynchronous functions and provide custom error handling with `errCb`.

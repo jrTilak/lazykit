@@ -1,0 +1,47 @@
+---
+name: compact
+desc: Removes falsy values from an array, If strict is true, also removes empty objects and arrays.
+---
+
+<CodePreview methodName="compact"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add compact
+```
+
+## Props
+<PropsTable methodName="compact"/>
+ ---
+- `array`: (required) The input array to process and filter out falsy values.
+
+- `strict`: (optional, default: `false`) If `true`, also removes empty objects and arrays from the result.
+
+## Usage
+
+###  Basic Usage
+
+```javascript
+"use js-executor"
+import compact from '@/helpers/compact';
+
+const mixedArray = [0, 1, false, 2, '', 3, null, undefined, {}, [], [4, 5]];
+const result = compact(mixedArray);
+
+console.log(result); 
+// Output: [1, 2, 3, {}, [], [4, 5]]
+```
+
+### Using the `strict` Option
+
+```javascript
+"use js-executor"
+import compact from '@/helpers/compact';
+
+const mixedArray = [0, 1, false, 2, '', 3, null, undefined, {}, [], [4, 5]];
+const result = compact(mixedArray, true);
+
+console.log(result); 
+// Output: [1, 2, 3, [4, 5]]
+```

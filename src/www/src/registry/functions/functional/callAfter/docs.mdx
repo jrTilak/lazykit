@@ -1,0 +1,43 @@
+---
+name: callAfter
+desc: Returns a new function that can be called only after calling a specific number of times.
+---
+<CodePreview methodName="callAfter"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add callAfter
+```
+
+## Props
+<PropsTable methodName="callAfter"/>
+ ---
+
+- `function`: (required) The function that will be executed after the specified count of calls has been reached.
+- `count`: (required) A number indicating the count of calls required before executing the function.
+
+## Usage
+
+The `callAfter` utility creates a wrapper function that delays execution of the provided function `fn` until it has been called a specified number of times. Each call increments an internal counter until it reaches the `count` threshold. Once the threshold is met, `fn` is executed with the given arguments, returning its result. Before the threshold, the function returns `undefined`.
+
+### Example
+
+```javascript
+"use js-executor"
+import callAfter from "@/utils/callAfter";
+
+// Create a function that logs a message
+const logMessage = (msg) => console.log(msg);
+
+// Set up a delayed function that only executes after 3 calls
+const delayedLog = callAfter(logMessage, 3);
+
+delayedLog("Hello"); // No output
+delayedLog("Hello"); // No output
+delayedLog("Hello"); // No output
+delayedLog("Hello again!"); // Logs "Hello again!" immediately on 4th call
+delayedLog("Hello again! 2");
+```
+
+This utility is useful when you want to delay function execution until a specific event or condition occurs multiple times, making it ideal for situations where you only want an action to occur after several triggers or validations.

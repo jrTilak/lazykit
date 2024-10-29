@@ -10,6 +10,7 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "target": "ES2016",
     "jsx": "preserve",
     "incremental": true,
     "plugins": [
@@ -28,6 +29,6 @@
     ".next/types/**/*.ts",
     "./src/**/*.ts",
     "./src/**/*.tsx"
-  ],
+, "src/contents/pages/functions.mdx"  ],
   "exclude": ["node_modules"]
 }

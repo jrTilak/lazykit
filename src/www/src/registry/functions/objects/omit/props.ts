@@ -14,7 +14,7 @@ const Props: IRegistryFunctionPropTable[] = [
     defaultValue: undefined,
     propDesc:
       "An array of keys to omit from the object. The keys must be of the same type as the keys of the input object.",
-    type: "array",
+    type: "string[]",
   },
 ];
 
