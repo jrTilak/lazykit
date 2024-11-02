@@ -10,10 +10,23 @@ desc: returns the result of a function and the number of times that function is 
 npx @jrtilak/lazykit add count
 ```
 
-## Props
-<PropsTable methodName="count"/>
- ---
-- `function`: (required) The function to be wrapped and counted each time it is called.
+## Parameters
+
+- `fn` (`(...args: A) => R`)  
+  The function whose calls are to be counted. This function will receive the same arguments that are passed to the returned function.
+
+## Returns
+
+- `((...args: A) => R) & { getCount: () => number }`  
+  Returns a new function (the wrapper) that, when called, invokes `fn` and counts the number of times it has been called. The wrapper also includes a `getCount` method that returns the number of times the function has been invoked.
+
+## Type Parameters
+
+- `A`  
+  The type of the arguments accepted by the function `fn`. This allows the wrapper function to accept the same parameters as `fn`, ensuring type safety.
+
+- `R`  
+  The return type of the function `fn`. This allows the wrapper function to return the same type as `fn`.
 
 ### Usage
 

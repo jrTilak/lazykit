@@ -11,14 +11,18 @@ desc: Renames keys in an object using a given callback function.
 npx @jrtilak/lazykit add renameKeysByCallback
 ```
 
-## Props
-<PropsTable methodName="renameKeysByCallback"/>
----
+## Parameters
 
+- `obj` (`T`)  
+  The input object whose keys will be renamed.
 
-- **`object`**: (required) The object from which the keys will be renamed.
+- `cb` (`(key: keyof T) => string`)  
+  A callback function that takes a key of the input object and returns the new key name.
 
-- **`callback`**: (required) A function that takes an old key name and returns the new key name.
+## Returns
+
+- `R`  
+  A new object with the keys renamed based on the provided callback function.
 
 ### Example Usage
 

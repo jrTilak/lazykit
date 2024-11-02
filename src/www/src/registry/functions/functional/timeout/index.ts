@@ -1,3 +1,6 @@
+/**
+ * The timeout function wraps a function with a timeout. If the function does not complete within the specified time, the promise will be rejected.
+ **/
 const timeout = <Return, Err>(
   fn: (...args: any[]) => Return,
   time: number,

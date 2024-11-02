@@ -10,12 +10,26 @@ desc: Returns a new function that can be called only after calling a specific nu
 npx @jrtilak/lazykit add callAfter
 ```
 
-## Props
-<PropsTable methodName="callAfter"/>
- ---
+## Parameters
 
-- `function`: (required) The function that will be executed after the specified count of calls has been reached.
-- `count`: (required) A number indicating the count of calls required before executing the function.
+- `fn` (`(...args: S) => T`)  
+  The function to be called after the specified count. This function will receive the same arguments that are passed to the returned function.
+
+- `count` (`number`)  
+  The number of times the returned function must be called before `fn` is executed.
+
+## Returns
+
+- `((...args: S) => T | undefined)`  
+  Returns a new function that, when called, will only execute `fn` after it has been called the specified number of times. Until that point, it will return `undefined`.
+
+## Type Parameters
+
+- `T`  
+  The return type of the function `fn`.
+
+- `S`  
+  The type of the arguments accepted by the function `fn`. This allows the returned function to accept the same parameters as `fn`, ensuring type safety.
 
 ## Usage
 

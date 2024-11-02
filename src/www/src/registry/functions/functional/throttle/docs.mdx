@@ -9,13 +9,23 @@ desc: Return a throttled function that invokes the passed function at most once 
 ```bash
 npx @jrtilak/lazykit add throttle
 ```
+## Parameters
 
-## Props
-<PropsTable methodName="throttle"/>
- ---
+- `fn` (`(...args: A) => void`)  
+  The function to be throttled. This function will be invoked at most once every `limit` milliseconds.
 
-1. **function**: Required function to throttle. It executes at most once per interval defined by `limit`.
-2. **limit**: Required number that sets the minimum delay (in milliseconds) between consecutive calls of the throttled function.
+- `limit` (`number`)  
+  The minimum time interval (in milliseconds) between invocations of `fn`.
+
+## Returns
+
+- `(...args: A) => void`  
+  Returns a new throttled function that, when called, will invoke `fn` at most once per every `limit` milliseconds.
+
+## Type Parameters
+
+- `A`  
+  The type of the arguments accepted by the function `fn`. This allows the throttled function to accept the same parameters as `fn`, ensuring type safety.
 
 
 ## Usage

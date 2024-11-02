@@ -10,7 +10,7 @@ import { formatCode } from "@/helpers/format-code";
 const REGISTRY_DIR = "../registry";
 
 const PATH_TO_REGISTRY_CONFIG = "../configs/registry.json";
-const NECESSARY_FILES = ["index.ts", "index.test.ts", "docs.mdx", "props.ts"];
+const NECESSARY_FILES = ["index.ts", "index.test.ts", "docs.mdx"];
 
 let REGISTRY_JSON: IRegistryJSON[] = [];
 
@@ -115,28 +115,6 @@ async function main() {
                 process.exit(1);
               }
 
-              // Check if Props export is present
-
-              const props = await import(
-                `@/registry/${type}/${category}/${method}/props.ts`
-              );
-
-              if (props.default) {
-                props.default.forEach((prop: any) => {
-                  if (!prop.title || !prop.propDesc || !prop.type) {
-                    console.error(
-                      `Error: title, propDesc, type are missing in Props export in ${type}/${category}/${method}/docs.tsx. 😐\nExiting...`
-                    );
-                    process.exit(1);
-                  }
-                });
-              } else {
-                console.error(
-                  `Error: Default export is missing in ${type}/${category}/${method}/props.ts. 😐\nExiting...`
-                );
-                process.exit(1);
-              }
-
               /**
                * Check if the index.ts file has default export
                */
@@ -174,7 +152,6 @@ async function main() {
                 },
                 category,
                 type,
-                props: props.default,
               };
 
               //checking if the method is new or not

@@ -12,21 +12,23 @@ desc: Retrieves a value from local storage with optional parsing and a default r
 npx @jrtilak/lazykit add getLocalStorageItem
 ```
 
-## Props
-<PropsTable methodName="getLocalStorageItem"/>
+## Parameters
 
----
+- `key` (`string`)  
+  The key of the item in local storage to retrieve.
 
-- `key`: (required) A `string` representing the unique identifier for the value stored in local storage. This key is used to retrieve the associated value.
+- `defaultValue` (`Value`)  
+  The default value to return if the item is not found or if there is an error during retrieval or parsing.
 
-- `defaultValue`: (required) The value to return if the specified key does not exist in local storage or if an error occurs during retrieval. This value should match the expected type `Value`.
+- `config` (`GetConfig<Value>`)  
+  Optional configuration object that determines how to parse the stored value. This can be:
+  - An object with a `defaultParser` property (`boolean`), which specifies whether to use JSON parsing.
+  - A function that takes the stored value as a string and returns a parsed value of type `Value`.
 
-- `config`: (optional) An object or a function that configures how the stored value is retrieved and parsed. It can be of the following types:
-  - `{ defaultParser: boolean }`: If this object is provided and `defaultParser` is `true`, the function attempts to parse the stored value as JSON. If the value is not in JSON format, it will return the value as is.
-  - `(storedValue: string) => Value`: A custom function that takes the stored string value and returns a parsed or transformed value of type `Value`. This function provides flexibility for specific parsing requirements.
----
+## Returns
 
-The return type of the `getLocalStorageItem` function is `Value`. This means that the function retrieves a value from the browser's local storage associated with the provided key. If the key does not exist or if an error occurs during retrieval or parsing, the function returns the `defaultValue` provided by the user. This ensures that the return type is consistent with the type of the `defaultValue`, allowing for a smooth integration into TypeScript's type system.
+- `Value`  
+  The retrieved value from local storage, parsed according to the `config` options, or the `defaultValue` if the item is not found or an error occurs.
 
 
 ## Example Usage

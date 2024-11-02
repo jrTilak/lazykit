@@ -11,13 +11,23 @@ desc: Removes elements from an array at a specified index.
 npx @jrtilak/lazykit add remove
 ```
 
-## Props
-<PropsTable methodName="remove"/>
----
+## Parameters
 
-- `array`: (required) The array to process and remove elements from.
+- `array` (`T[]`)  
+  The array from which elements will be removed.
 
-- `index(s)`: (required) The index (or indices) of elements to remove from the array. Negative indices are supported, representing positions counted from the end of the array.
+- `index` (`number | number[]`)  
+  The index or indices of the elements to be removed. This can be a single index or an array of indices. Negative indices are supported and will remove elements from the end of the array.
+
+## Returns
+
+- `T[]`  
+  Returns a new array with the specified elements removed. The original array remains unchanged.
+
+## Type Parameters
+
+- `T`  
+  The type of elements in the array. This allows the function to work with arrays of any type, ensuring type safety for the elements being removed.
 
 ## Example Usage
 

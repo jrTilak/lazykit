@@ -1,3 +1,6 @@
+/**
+ * returns the result of a function and the number of times that function is invoked.
+ **/
 const count = <A extends any[], R>(fn: (...args: A) => R) => {
   let callCount = 0;
 

@@ -9,14 +9,16 @@ desc: Sleeps the execution for the specified number of milliseconds.
 ```bash
 npx @jrtilak/lazykit add sleep
 ```
+## Parameters
 
-## Props
-<PropsTable methodName="sleep"/>
- ---
+- `ms` (`number`)  
+  The number of milliseconds to sleep before resolving the promise.
 
-- **`ms`**: (required) The number of milliseconds to sleep before resolving the Promise.
+## Returns
 
----
+- `Promise<true>`  
+  Returns a promise that resolves to `true` after the specified delay.
+
 
 ## Usage Example
 

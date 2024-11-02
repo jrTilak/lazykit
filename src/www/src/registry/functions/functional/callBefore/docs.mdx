@@ -10,12 +10,26 @@ desc: Returns a new function that can be called only for specific number of time
 npx @jrtilak/lazykit add callBefore
 ```
 
-## Props
-<PropsTable methodName="callBefore"/>
- ---
+## Parameters
 
-- `function`: (required) The function to be executed before reaching the specified call count.
-- `count`: (required) A number representing the maximum number of times the function can be executed before it stops returning a result.
+- `fn` (`(...args: S) => T`)  
+  The function to be called a specified number of times. This function will receive the same arguments that are passed to the returned function.
+
+- `count` (`number`)  
+  The number of times the returned function is allowed to invoke `fn`. After this count is reached, further calls will return `undefined`.
+
+## Returns
+
+- `((...args: S) => T | undefined)`  
+  Returns a new function that, when called, will execute `fn` for the specified number of times. Once the count is reached, subsequent calls will return `undefined`.
+
+## Type Parameters
+
+- `T`  
+  The return type of the function `fn`.
+
+- `S`  
+  The type of the arguments accepted by the function `fn`. This allows the returned function to accept the same parameters as `fn`, ensuring type safety.
 
 ## Usage
 

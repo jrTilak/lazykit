@@ -1,3 +1,6 @@
+/**
+ * Inserts elements into an array at a specified index.
+ **/
 const insert = <T>(
   arr: T[],
   index: number,

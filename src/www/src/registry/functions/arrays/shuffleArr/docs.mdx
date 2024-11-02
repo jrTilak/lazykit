@@ -12,9 +12,20 @@ desc: Shuffles the elements of an array using Fisher-Yates algorithm.
 npx @jrtilak/lazykit add shuffleArr
 ```
 
-## Props
-<PropsTable methodName="shuffleArr"/>
----
+## Parameters
+
+- `arr` (`T[]`)  
+  The array to be shuffled. The function creates a copy of this array before shuffling to maintain the original order.
+
+## Returns
+
+- `T[]`  
+  Returns a new array with the elements shuffled randomly. The original array remains unchanged.
+
+## Type Parameters
+
+- `T`  
+  The type of elements in the array. This allows the function to work with arrays of any type, ensuring type safety for the shuffled elements.
 
 ## Usage
 ```javascript

@@ -1,3 +1,6 @@
+/**
+ * Helps to safely execute synchronous functions
+ **/
 type TryCatchReturn<Err, Return> = [Err, undefined] | [undefined, Return];
 
 const tryCatch = <Err extends Error, Return>(

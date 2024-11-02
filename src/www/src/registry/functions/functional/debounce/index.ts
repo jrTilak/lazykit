@@ -1,4 +1,8 @@
-function debounce<A extends any[]>(
+/**
+ * Returns a debounced function that delays invoking the passed function until after `given` milliseconds have elapsed since the last time the debounced function was invoked.
+ **/
+
+function debounce<A extends unknown[]>(
   fn: (...args: A) => void,
   delay: number = 300
 ) {

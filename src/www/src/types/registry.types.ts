@@ -6,7 +6,6 @@ export interface IRegistryJSON {
   };
   category: string;
   type: string;
-  props: IRegistryFunctionPropTable[];
 }
 
 export interface IDoc {
@@ -37,21 +36,3 @@ export interface INavLinkForPrevNextButton {
   label: string;
   url: string;
 }
-
-export type IRegistryFunctionPropTable =
-  | {
-      title: string;
-      required: boolean;
-      defaultValue: string | undefined;
-      propDesc: string;
-      type: "enum";
-      enums: string[];
-    }
-  | {
-      title: string;
-      required: boolean;
-      defaultValue: string | undefined;
-      propDesc: string;
-      type: string;
-      typeDesc?: string;
-    };

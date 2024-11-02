@@ -1,3 +1,6 @@
+/**
+ * Returns a new function that can be called only for specific number of times.
+ **/
 const callBefore = <T, S extends any[]>(
   fn: (...args: S) => T,
   count: number

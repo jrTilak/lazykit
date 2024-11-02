@@ -1,3 +1,6 @@
+/**
+ * Zips arrays together in the form of an array of arrays.
+ **/
 type Args<T extends Array<Array<unknown>>> = {
   arr: T;
   strict?: boolean;

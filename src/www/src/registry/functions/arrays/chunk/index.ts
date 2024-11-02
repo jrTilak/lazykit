@@ -1,3 +1,6 @@
+/**
+ * Chunks an array into smaller arrays of a specified size.
+ **/
 const chunk = <T>(
   array: T[],
   size: number,

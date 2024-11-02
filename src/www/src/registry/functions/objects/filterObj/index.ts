@@ -1,3 +1,6 @@
+/**
+ * Same as Array.prototype.filter, but for objects.
+ **/
 const filterObj = <T extends Record<string, unknown>>(
   obj: T,
   predicate: (value: T[keyof T], key: keyof T) => boolean

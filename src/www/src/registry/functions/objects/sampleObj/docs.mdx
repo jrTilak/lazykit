@@ -10,9 +10,16 @@ desc: Returns a sample object with the specified keys and values as random numbe
 npx @jrtilak/lazykit add sampleObj
 ```
 
-## Props
-<PropsTable methodName="sampleObj"/>
----
+## Parameters
+
+- `...keys` (`string[]`)  
+  An array of keys for which random number values will be generated in the returned object.
+
+## Returns
+
+- `R | Record<string, number>`  
+  A new object where each specified key is associated with a random number between 0 (inclusive) and 1 (exclusive).
+
 
 ## Usage
 ```javascript

@@ -1,6 +1,6 @@
 ---
 name: decounce
-desc: Return a debounced function that delays invoking the passed function until after `given` milliseconds have elapsed since the last time the debounced function was invoked.
+desc: Returns a debounced function that delays invoking the passed function until after `given` milliseconds have elapsed since the last time the debounced function was invoked.
 ---
 
 <CodePreview methodName="debounce"/>
@@ -11,13 +11,23 @@ desc: Return a debounced function that delays invoking the passed function until
 npx @jrtilak/lazykit add debounce
 ```
 
-## Props
-<PropsTable methodName="debounce"/>
- ---
+## Parameters
 
-- **`function`**: (required) The function that you want to debounce, meaning it will delay its execution until after a specified delay time.
-  
-- **`delay`**: (required) The amount of time (in milliseconds) to wait before executing the debounced function after the last call.
+- `fn` (`(...args: A) => void`)  
+  The function to debounce. This function will be invoked after the specified delay.
+
+- `delay` (optional) (`number`)  
+  The number of milliseconds to wait before invoking `fn` after the last call to the debounced function. Defaults to `300`.
+
+## Returns
+
+- `(...args: A) => void`  
+  Returns a new debounced function that, when called, will delay the invocation of `fn` until after the specified delay has elapsed since the last time the debounced function was invoked.
+
+## Type Parameters
+
+- `A`  
+  The type of the arguments accepted by the function `fn`. This allows the debounced function to accept the same parameters as `fn`, ensuring type safety.
 
 ## Usage
 

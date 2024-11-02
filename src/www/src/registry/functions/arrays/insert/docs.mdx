@@ -12,16 +12,29 @@ desc: Inserts elements into an array at a specified index.
 npx @jrtilak/lazykit add insert
 ```
 
-## Props
-<PropsTable methodName="insert"/>
- ---
-- `array`: (required) The array to which elements will be added.
+## Parameters
 
-- `index`: (required) The index at which to insert elements. If negative, counting starts from the end of the array.
+- `arr` (`T[]`)  
+  The original array into which elements will be inserted.
 
-- `items`: (required) The elements to be inserted into the array.
+- `index` (`number`)  
+  The index at which to insert the specified elements. Negative indices are not supported and will throw an error.
 
-- `strict`: (optional, default: `false`) If `true`, inserts elements at every nth index, creating recursive insertions throughout the array.
+- `items` (`...T[]`)  
+  The elements to be inserted into the array at the specified index.
+
+- `recursive` (optional) (`boolean`)  
+  A flag that determines whether to insert the items multiple times based on the calculated condition. Defaults to `false`.
+
+## Returns
+
+- `T[]`  
+  Returns a new array with the specified elements inserted at the given index. If `recursive` is true, the items are inserted multiple times based on the array length and index.
+
+## Type Parameters
+
+- `T`  
+  The type of elements in the array. This allows the function to work with arrays of any type, ensuring type safety for the inserted elements.
 
 ## Usage
 

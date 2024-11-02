@@ -10,13 +10,23 @@ desc: Returns a new function that can be called only once.
 ```bash
 npx @jrtilak/lazykit add once
 ```
+## Parameters
 
-## Props
-<PropsTable methodName="once"/>
- ---
+- `fn` (`(...args: S) => T`)  
+  The function to be called only once. This function will receive the same arguments that are passed to the returned function.
 
+## Returns
 
-- `function`: (required) The function to be executed only once. Any additional calls will return `undefined`.
+- `((...args: S) => T | undefined)`  
+  Returns a new function that, when called, will invoke `fn` only once. Subsequent calls will return `undefined`.
+
+## Type Parameters
+
+- `T`  
+  The return type of the function `fn`.
+
+- `S`  
+  The type of the arguments accepted by the function `fn`. This allows the returned function to accept the same parameters as `fn`, ensuring type safety.
 
 ## Usage
 

@@ -10,15 +10,18 @@ desc: Picks the specified keys from an object.
 ```bash
 npx @jrtilak/lazykit add pick
 ```
+## Parameters
 
-## Props
-<PropsTable methodName="pick"/>
+- `obj` (`T`)  
+  The input object from which properties will be picked.
 
----
+- `keys` (`K[]`)  
+  An array of keys to pick from the input object. The keys must be valid keys of the input object.
 
-- `object`: (required) The object from which specified keys will be picked.
+## Returns
 
-- `keys`: (required) An array of keys to pick from the object. The keys must match the type of the keys in the input object.
+- `Pick<T, K>`  
+  A new object that contains only the specified keys from the input object.
 
 ## Example Usage
 

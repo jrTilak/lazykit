@@ -11,11 +11,25 @@ desc: Zips arrays together in the form of an array of arrays.
 npx @jrtilak/lazykit add zip
 ```
 
-## Props
-<PropsTable methodName="zip"/>
----
-- `arr`: (required) The arrays to be zipped together.
-- `strict`: (optional, default: `false`) If set to `true`, limits the zipped output to the shortest input array length. If `false`, uses the longest array's length, filling undefined for missing elements.
+## Parameters
+
+- `arr` (`T`)  
+  An array of arrays to be zipped together. Each inner array represents a collection of elements that will be combined based on their indices.
+
+- `strict` (optional) (`boolean`)  
+  A flag that determines whether to limit the zipping process to the shortest array's length. If set to `true`, only the elements up to the shortest array's length will be included in the result. Defaults to `false`.
+
+## Returns
+
+- `T`  
+  Returns a new array of arrays, where each inner array contains the elements from the input arrays at the corresponding indices. If `strict` is true, only elements up to the length of the shortest array will be included.
+
+## Type Parameters
+
+- `T`  
+  The type of the input array of arrays. This allows the function to work with nested arrays of any type, ensuring type safety for the zipped elements.
+
+## Usage
 
 ### Zipping Two Arrays with Default Behavior
 ```javascript

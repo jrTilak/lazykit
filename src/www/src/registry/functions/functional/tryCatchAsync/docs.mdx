@@ -12,11 +12,23 @@ desc: Helps to safely execute asynchronous functions
 npx @jrtilak/lazykit add tryCatchAsync
 ```
 
-## Props
-<PropsTable methodName="tryCatchAsync"/>
- ---
+## Parameters
 
-- **`fn`**: (required) This is the asynchronous function to be called within `tryCatchAsync`. If the function resolves, its result is returned as `[undefined, result]`. If it throws an error, the error is caught and returned as `[error, undefined]`.
+- `fn` (`() => Promise<Return>`)  
+  An asynchronous function to execute safely. If the function throws an error, it will be caught and handled.
+
+## Returns
+
+- `Promise<TryCatchReturnAsync<Err, Return>>`  
+  Returns a promise that resolves to a tuple where the first element is either an error (if one occurred) or `undefined`, and the second element is the return value of the function (if it executed successfully) or `undefined`.
+
+## Type Parameters
+
+- `Err extends Error`  
+  The type of the error that may be thrown by the asynchronous function `fn`.
+
+- `Return`  
+  The return type of the asynchronous function `fn`.
 
 
 ## Usage

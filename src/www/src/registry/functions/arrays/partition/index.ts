@@ -1,3 +1,6 @@
+/**
+ * Partitions an array into two arrays based on a given callback ie predicate.
+ **/
 const partition = <T>(
   arr: T[],
   predicate: (value: T, i: number, arr: T[]) => boolean

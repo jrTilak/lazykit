@@ -11,14 +11,18 @@ desc: Returns a new object with the specified keys omitted.
 npx @jrtilak/lazykit add omit
 ```
 
-## Props
-<PropsTable methodName="omit"/>
+## Parameters
 
----
+- `obj` (`T`)  
+  The input object from which properties will be omitted.
 
-- `object`: (required) The object from which specified keys will be omitted.
+- `keys` (`K[]`)  
+  An array of keys to omit from the input object. The keys must be valid keys of the input object.
 
-- `keys`: (required) An array of keys to omit from the object. The keys must match the type of the keys in the input object.
+## Returns
+
+- `Omit<T, K>`  
+  A new object that contains all properties of the input object except for the specified keys.
 
 ## Example Usage
 

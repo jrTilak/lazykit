@@ -10,16 +10,28 @@ desc: Rotates the elements of an array by a given number of positions.
 ```bash
 npx @jrtilak/lazykit add rotate
 ```
+## Parameters
 
-## Props
-<PropsTable methodName="rotate"/>
----
+- `arr` (`T[]`)  
+  The array whose elements will be rotated.
 
-- `array`: (required) The array to be rotated.
-- `position`: (required) The number of positions to rotate the array.
-- `direction`: (optional, default: `"left"`) Specifies the direction to rotate the array. Can be either `"left"` or `"right"`.
+- `n` (`number`)  
+  The number of positions to rotate the array. A positive number indicates the number of positions to rotate.
 
-### Example Usage
+- `dir` (optional) (`"left" | "right"`)  
+  The direction to rotate the elements. Defaults to `"left"`. If set to `"right"`, the elements will be rotated in the opposite direction.
+
+## Returns
+
+- `T[]`  
+  Returns a new array with the elements rotated by the specified number of positions in the specified direction. The original array remains unchanged.
+
+## Type Parameters
+
+- `T`  
+  The type of elements in the array. This allows the function to work with arrays of any type, ensuring type safety for the rotated elements.
+
+## Usage
 
 ### Left Rotation by 2 Positions
 ```javascript

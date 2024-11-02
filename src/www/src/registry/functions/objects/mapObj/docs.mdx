@@ -12,14 +12,19 @@ desc: Same as Array.prototype.map, but for objects.
 npx @jrtilak/lazykit add mapObj
 ```
 
-## Props
-<PropsTable methodName="mapObj"/>
+## Parameters
 
----
+- `obj` (`Record<string, T>`)  
+  An object whose properties will be transformed.
 
-- `object`: (required) The object to process, where each property will be transformed based on the callback function provided.
-  
-- `callback`: (required) A function that is applied to each property of the object. It receives three arguments: the property's value, the property's key, and the original object.
+- `callback` (`(value: T, key: string, obj: Record<string, T>) => U`)  
+  A function that is called for each property in the object. It receives the property value, the property key, and the entire object as arguments, returning the transformed value.
+
+## Returns
+
+- `Record<string, U>`  
+  A new object with the same keys as the input object, but with values transformed by the callback function.
+
 
 ## Example Usage
 

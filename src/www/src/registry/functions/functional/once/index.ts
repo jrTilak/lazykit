@@ -1,3 +1,6 @@
+/**
+ * Returns a new function that can be called only once.
+ **/
 const once = <T, S extends any[]>(
   fn: (...args: S) => T
 ): ((...args: S) => T | undefined) => {

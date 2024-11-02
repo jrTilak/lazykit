@@ -1,3 +1,6 @@
+/**
+ * Renames keys in an object.
+ **/
 const renameKeys = <
   T extends Record<string, unknown>,
   K extends keyof T,

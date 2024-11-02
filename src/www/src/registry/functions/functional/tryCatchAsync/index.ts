@@ -1,3 +1,7 @@
+/**
+ * Helps to safely execute asynchronous functions
+ **/
+
 type TryCatchReturnAsync<Err, Return> = Promise<
   [Err, undefined] | [undefined, Return]
 >;

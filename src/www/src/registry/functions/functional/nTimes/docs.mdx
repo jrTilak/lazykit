@@ -11,16 +11,27 @@ desc: Calls a function n times and returns an array of the results.
 npx @jrtilak/lazykit add nTimes
 ```
 
-## Props
-<PropsTable methodName="nTimes"/>
- ---
+## Parameters
 
-- `function`: (required) The function to be called `n` times. This function takes the current iteration index as an argument.
-- `n`: (optional, default: `1`) The number of times to call the function.
+- `fn` (`(i: number) => T`)  
+  The function to be called. It receives the index of the current call as an argument.
+
+- `n` (optional) (`number`)  
+  The number of times to call the function `fn`. Defaults to `1`. Must be greater than or equal to `0`.
+
+## Returns
+
+- `T[]`  
+  Returns an array of results obtained by calling `fn` `n` times. Each result corresponds to the return value of `fn` for each call.
+
+## Type Parameters
+
+- `T`  
+  The return type of the function `fn`. This allows the `nTimes` function to return an array of results of the same type as that returned by `fn`.
 
 ## Usage
 
-The `nTimes` function allows you to execute a function `n` times and collect each result in an array. It’s particularly useful for cases where you need to initialize values or generate items based on iteration indices.
+The `nTimes` function allows you to execute a function `n` times and collect each result in an array. It's particularly useful for cases where you need to initialize values or generate items based on iteration indices.
 
 ### Example
 

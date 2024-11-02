@@ -12,24 +12,24 @@ desc: Stores a value in local storage with optional parsing.
 npx @jrtilak/lazykit add setLocalStorageItem
 ```
 
-## Props
-<PropsTable methodName="setLocalStorageItem"/>
+## Parameters
 
----
+- `key` (`string`)  
+  The key under which the value should be stored in local storage.
 
-- `key`: (required) A string representing the key name for the item in `localStorage`.
-- `value`: (required) The data to be stored in `localStorage`; can be any type.
-- `config`: (optional) Can be an object or function. When `defaultParser` is set to `true`, values are JSON stringified if they are objects or arrays. Alternatively, a custom parsing function can be provided to format the value.
+- `value` (`unknown`)  
+  The value to store in local storage, which can be of any type.
 
----
-The function `setLocalStorageItem` returns a `boolean` value:
+- `config` (`Config<Value>`)  
+  Optional configuration object that determines how to store the value. This can be:
+  - An object with a `defaultParser` property (`boolean`), indicating whether to use JSON serialization for objects and arrays.
+  - A function that takes the value of type `Value` and returns a string to store in local storage.
 
-- `true`: Indicates that the item was successfully stored in `localStorage`.
-- `false`: Indicates that storing the item in `localStorage` failed. This might occur if `localStorage` is not available (for example, in a server environment or if the browser does not support it), or if there's an error during parsing or storage.
+## Returns
 
-The return value allows you to handle cases where storage might fail gracefully.
+- `boolean`  
+  Returns `true` if the value was successfully stored in local storage, and `false` if the operation failed (for instance, if local storage is not supported or an error occurs during storage).
 
----
 
 
 ## Example Usage

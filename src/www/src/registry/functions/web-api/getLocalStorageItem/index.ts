@@ -1,3 +1,6 @@
+/**
+ * Retrieves a value from local storage with optional parsing and a default return.
+ **/
 type GetConfig<Value> =
   | {
       defaultParser: boolean;

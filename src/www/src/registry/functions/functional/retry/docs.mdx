@@ -11,14 +11,26 @@ desc: Retries the given function a specified number of times with a delay betwee
 ```bash
 npx @jrtilak/lazykit add retry
 ```
+## Parameters
 
-## Props
-<PropsTable methodName="retry"/>
- ---
+- `fn` (`Function`)  
+  The function to retry. This function should return a promise.
 
-- `function`: (required) The function to retry upon failure.
-- `retries`: (optional) Number of times to attempt retrying the function in case of failure. Default is `3`.
-- `delay`: (optional) Time in milliseconds to wait between retries. Default is `1000` milliseconds.
+- `retries` (optional) (`number`)  
+  The number of times to retry the function if it fails. Defaults to `3`.
+
+- `delay` (optional) (`number`)  
+  The number of milliseconds to wait between retries. Defaults to `1000`.
+
+## Returns
+
+- `Promise<T>`  
+  Returns a promise that resolves to the value returned by `fn` if it succeeds, or rejects with the last error if all retries fail.
+
+## Type Parameters
+
+- `T`  
+  The return type of the function `fn`. This ensures that the returned promise has the correct type based on what `fn` returns.
 
 ## Usage
 

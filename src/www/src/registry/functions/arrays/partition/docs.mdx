@@ -11,16 +11,27 @@ desc: Partitions an array into two arrays based on a given callback ie predicate
 ```bash
 npx @jrtilak/lazykit add partition
 ```
+## Parameters
 
-## Props
-<PropsTable methodName="partition"/>
----
+- `arr` (`T[]`)  
+  The array to be partitioned into two groups based on the provided predicate function.
 
-- `array`: (required) The array to partition into two groups.
-  
-- `predicate`: (required) A function that determines the partitioning; should return `true` for elements in the first group and `false` for elements in the second.
+- `predicate` (`(value: T, i: number, arr: T[]) => boolean`)  
+  A callback function that is invoked for each element in the array. It receives the current element, its index, and the original array as arguments. The function should return `true` for elements that should be included in the first returned array and `false` for those that should be included in the second.
 
-### Usage
+## Returns
+
+- `[T[], T[]]`  
+  Returns a tuple containing two arrays:
+  - The first array contains elements for which the predicate returned `true`.
+  - The second array contains elements for which the predicate returned `false`.
+
+## Type Parameters
+
+- `T`  
+  The type of elements in the array. This allows the function to work with arrays of any type, ensuring type safety for the partitioned elements.
+
+## Usage
 
 ### Partitioning even and odd numbers
 ```javascript

@@ -10,14 +10,20 @@ desc: Renames keys in an object.
 ```bash
 npx @jrtilak/lazykit add renameKeys
 ```
+## Parameters
 
-## Props
-<PropsTable methodName="renameKeys"/>
----
+- `obj` (`T`)  
+  The input object whose keys will be renamed.
 
-- `object`: (required) The object from which the keys will be renamed.
+- `keys` (`Array<{ old: K; new: N }>`)
+  An array of objects specifying which keys to rename. Each object has two properties:
+  - `old` (`K`): The key in the original object to be renamed.
+  - `new` (`N`): The new key name.
 
-- `keys`: (required) An array of objects, each containing `old` (the key to rename) and `new` (the new key name) properties.
+## Returns
+
+- `Omit<T, K> & Record<N, T[K]>`  
+  A new object with the specified keys renamed.
 
 ### Example Usage
 

@@ -10,9 +10,19 @@ desc: Generates an array of random numbers.
 ```bash
 npx @jrtilak/lazykit add sampleArr
 ```
+## Parameters
 
-## Props
-<PropsTable methodName="sampleArr"/>
+- `size` (`number`)  
+  The size of the array to be generated. It must be a positive number.
+
+## Returns
+
+- `number[]`  
+  Returns an array of random numbers, where the length of the array is determined by the `size` parameter.
+
+## Errors
+
+- Throws an error if `size` is less than zero, indicating that a positive number is required.
 
 ## Usage
 ### Positive Index

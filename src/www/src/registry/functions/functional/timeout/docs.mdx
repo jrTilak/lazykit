@@ -11,14 +11,30 @@ desc: The timeout function wraps a function with a timeout. If the function does
 npx @jrtilak/lazykit add timeout
 ```
 
-## Props
-<PropsTable methodName="timeout"/>
- ---
-- `function`: (required) The function to be wrapped with a timeout.
-- `time`: (required) The timeout duration in milliseconds.
-- `errCb`: (optional) Error callback function to handle timeout errors. If not provided, the promise will be rejected with a "Function timed out" error message.
+## Parameters
 
----
+- `fn` (`(...args: any[]) => Return`)  
+  The function to wrap with a timeout. This function can be synchronous or asynchronous.
+
+- `time` (`number`)  
+  The time (in milliseconds) before the function times out.
+
+- `errCb` (optional) (`(...args: any[]) => Err`)  
+  An optional callback function that is invoked if the timeout occurs. It receives the same arguments as `fn`.
+
+## Returns
+
+- `(...args: any[]) => Promise<Return>`  
+  Returns a function that, when called, returns a promise. The promise resolves with the result of `fn` if it completes within the specified time, or it rejects with an error if the function times out.
+
+## Type Parameters
+
+- `Return`  
+  The return type of the function `fn`.
+
+- `Err`  
+  The type of the error returned by the `errCb` callback, if provided.
+
 
 ## Usage
 

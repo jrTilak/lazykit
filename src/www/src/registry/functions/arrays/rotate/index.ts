@@ -1,3 +1,6 @@
+/**
+ * Rotates the elements of an array by a given number of positions.
+ **/
 const rotate = <T>(
   arr: T[],
   n: number,

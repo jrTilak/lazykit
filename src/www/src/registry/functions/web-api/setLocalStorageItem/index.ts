@@ -1,3 +1,6 @@
+/**
+ * Stores a value in local storage with optional parsing.
+ **/
 type Config<Value> =
   | {
       defaultParser: boolean;
