@@ -154,5 +154,13 @@
   {
     "label": "sampleObj",
     "url": "/docs/functions/objects/sampleObj"
+  },
+  {
+    "label": "getLocalStorageItem",
+    "url": "/docs/functions/web-api/getLocalStorageItem"
+  },
+  {
+    "label": "setLocalStorageItem",
+    "url": "/docs/functions/web-api/setLocalStorageItem"
   }
 ]

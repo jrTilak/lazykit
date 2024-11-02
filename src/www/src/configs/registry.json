@@ -186,6 +186,36 @@
     ]
   },
   {
+    "name": "getLocalStorageItem",
+    "code": {
+      "ts": "type GetConfig<Value> =\n  | {\n      defaultParser: boolean;\n    }\n  | ((storedValue: string) => Value);\n\nconst getLocalStorageItem = <Value,>(\n  key: string,\n  defaultValue: Value,\n  config: GetConfig<Value> = {\n    defaultParser: true,\n  },\n): Value => {\n  if (typeof window === 'undefined' || !('localStorage' in window)) {\n    return defaultValue;\n  }\n\n  const storedValue = localStorage.getItem(key);\n  if (!storedValue) return defaultValue;\n\n  try {\n    if (typeof config === 'object' && config.defaultParser) {\n      return JSON.parse(storedValue) as Value;\n    } else if (typeof config === 'function') {\n      return config(storedValue);\n    }\n    return storedValue as unknown as Value;\n  } catch {\n    return defaultValue;\n  }\n};\n\nexport default getLocalStorageItem;\n",
+      "js": "const getLocalStorageItem = (\n  key,\n  defaultValue,\n  config = {\n    defaultParser: true,\n  },\n) => {\n  if (typeof window === 'undefined' || !('localStorage' in window)) {\n    return defaultValue;\n  }\n  const storedValue = localStorage.getItem(key);\n  if (!storedValue) return defaultValue;\n  try {\n    if (typeof config === 'object' && config.defaultParser) {\n      return JSON.parse(storedValue);\n    } else if (typeof config === 'function') {\n      return config(storedValue);\n    }\n    return storedValue;\n  } catch {\n    return defaultValue;\n  }\n};\nexport default getLocalStorageItem;\n"
+    },
+    "category": "web-api",
+    "type": "functions",
+    "props": [
+      {
+        "title": "key",
+        "required": true,
+        "propDesc": "The key under which the value is stored in local storage.",
+        "type": "string"
+      },
+      {
+        "title": "defaultValue",
+        "required": true,
+        "propDesc": "The default value to return if the item doesn't exist in local storage.",
+        "type": "Value"
+      },
+      {
+        "title": "config",
+        "required": false,
+        "defaultValue": "{ defaultParser: true }",
+        "propDesc": "An optional configuration object or function for parsing the stored value.",
+        "type": "GetConfig<Value>"
+      }
+    ]
+  },
+  {
     "name": "insert",
     "code": {
       "ts": "const insert = <T,>(\n  arr: T[],\n  index: number,\n  [...items]: T[],\n  recursive: boolean = false,\n): T[] => {\n  const isNegativeIndex = index < 0;\n\n  if (isNegativeIndex) {\n    throw new Error('Negative index is not supported!');\n  }\n\n  if (!recursive) {\n    const newArr = [...arr.slice(0, index), ...items, ...arr.slice(index)];\n    return newArr;\n  } else {\n    const shouldInsert = Math.floor(arr.length / index);\n    let newArr = [...arr];\n    for (let i = 0; i < shouldInsert; i++) {\n      const insertIndex = (i + 1) * index + i * items.length;\n      newArr = [\n        ...newArr.slice(0, insertIndex),\n        ...items,\n        ...newArr.slice(insertIndex),\n      ];\n    }\n    return newArr;\n  }\n};\n\nexport default insert;\n",
@@ -570,6 +600,36 @@
         "required": true,
         "propDesc": "The keys for the object.",
         "type": "string[]"
+      }
+    ]
+  },
+  {
+    "name": "setLocalStorageItem",
+    "code": {
+      "ts": "type Config<Value> =\n  | {\n      defaultParser: boolean;\n    }\n  | ((value: Value) => string);\n\nconst setLocalStorageItem = <Value,>(\n  key: string,\n  value: unknown,\n  config: Config<Value> = {\n    defaultParser: true,\n  },\n): boolean => {\n  if (typeof window === 'undefined' || !('localStorage' in window)) {\n    return false;\n  }\n\n  try {\n    let parsed: string = '';\n    if (typeof config === 'object' && config.defaultParser) {\n      if (typeof value === 'object' || Array.isArray(value)) {\n        parsed = JSON.stringify(value);\n      } else {\n        parsed = value as string;\n      }\n    } else if (typeof config === 'function') {\n      parsed = config(value as Value);\n    } else {\n      parsed = value as string;\n    }\n    localStorage.setItem(key, parsed);\n    return true;\n  } catch {\n    return false;\n  }\n};\n\nexport default setLocalStorageItem;\n",
+      "js": "const setLocalStorageItem = (\n  key,\n  value,\n  config = {\n    defaultParser: true,\n  },\n) => {\n  if (typeof window === 'undefined' || !('localStorage' in window)) {\n    return false;\n  }\n  try {\n    let parsed = '';\n    if (typeof config === 'object' && config.defaultParser) {\n      if (typeof value === 'object' || Array.isArray(value)) {\n        parsed = JSON.stringify(value);\n      } else {\n        parsed = value;\n      }\n    } else if (typeof config === 'function') {\n      parsed = config(value);\n    } else {\n      parsed = value;\n    }\n    localStorage.setItem(key, parsed);\n    return true;\n  } catch {\n    return false;\n  }\n};\nexport default setLocalStorageItem;\n"
+    },
+    "category": "web-api",
+    "type": "functions",
+    "props": [
+      {
+        "title": "key",
+        "required": true,
+        "propDesc": "The key under which the value will be stored in localStorage.",
+        "type": "string"
+      },
+      {
+        "title": "value",
+        "required": true,
+        "propDesc": "The value to store in localStorage. Can be any data type.",
+        "type": "unknown"
+      },
+      {
+        "title": "config",
+        "required": false,
+        "defaultValue": "{ defaultParser: true }",
+        "propDesc": "Configuration object for parsing. If `defaultParser` is true, values will be JSON stringified by default. Alternatively, a custom parser function can be provided to process the value before storage.",
+        "type": "{ defaultParser: boolean } | (value: Value) => string"
       }
     ]
   },

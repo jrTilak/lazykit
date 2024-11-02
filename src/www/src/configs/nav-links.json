@@ -182,6 +182,20 @@
             "url": "/docs/functions/objects/sampleObj"
           }
         ]
+      },
+      {
+        "label": "Web-api",
+        "url": "/docs/functions/web-api",
+        "methods": [
+          {
+            "label": "getLocalStorageItem",
+            "url": "/docs/functions/web-api/getLocalStorageItem"
+          },
+          {
+            "label": "setLocalStorageItem",
+            "url": "/docs/functions/web-api/setLocalStorageItem"
+          }
+        ]
       }
     ]
   }

@@ -10,6 +10,7 @@ import SidebarLink from "./sidebar-link";
 import { META_DATA } from "@/data/metadata";
 import Link from "next/link";
 import Image from "next/image";
+import { capitalCase } from "change-case";
 
 const Sidebar = () => {
   return (
@@ -53,7 +54,7 @@ const Sidebar = () => {
                 return (
                   <AccordionItem key={i} value={category.label}>
                     <AccordionTrigger className="hover:no-underline">
-                      <span className="text-lg">{category.label}</span>
+                      <span className="text-lg">{capitalCase(category.label)}</span>
                     </AccordionTrigger>
                     <AccordionContent>
                       {category.methods.map((link, i) => {
