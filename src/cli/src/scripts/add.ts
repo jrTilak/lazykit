@@ -6,11 +6,12 @@ import { REGISTRY_URL } from "../data/constant.js";
 import exitProcess from "../utils/exitProcess.js";
 import path from "path";
 import cliSpinners from "cli-spinners";
+import { camelCase, kebabCase } from "change-case";
 
 export default async function add(...args: any[]) {
   const method = args[0];
   const arg = args[1];
-  let pathToInstall: string;
+  let pathToInstall = "";
 
   /**
    * Check if the project is initialized or not.
@@ -22,27 +23,14 @@ export default async function add(...args: any[]) {
     console.log(chalk.dim("Run `npm init -y` to create a package.json file."));
     exitProcess(1);
   }
+
   if (!config.isInitialized) {
     console.log(chalk.red("\nProject is not initialized\n"));
 
-    /**
-     * Ask the user for path to install the method using inquirer.
-     */
-    if (arg.path) {
-      pathToInstall = arg.path;
-    } else {
-      const ans = await inquirer.prompt([
-        {
-          type: "input",
-          name: "path",
-          message: "Enter the path to install the method",
-          default: "src/utils",
-        },
-      ]);
-      pathToInstall = ans.path;
-    }
-  } else {
-    pathToInstall = config.config.path;
+    console.log(
+      chalk.dim("Run `npx @jrtilak/lazykit init` to init the project")
+    );
+    exitProcess(1);
   }
 
   /**
@@ -58,8 +46,8 @@ export default async function add(...args: any[]) {
    * If the user has not provided the language flag, then use the language of the project configuration.
    */
   const getLang = async () => {
-    if (arg.javascript) return "js";
-    if (arg.typescript) return "ts";
+    if (arg.javascript) return "javascript";
+    if (arg.typescript) return "typescript";
     if (!config.isInitialized) {
       const ans = await inquirer.prompt([
         {
@@ -67,15 +55,17 @@ export default async function add(...args: any[]) {
           name: "language",
           message: "Confirm the language: ",
           choices: [
-            { name: "Typescript", value: "ts" },
-            { name: "Javascript", value: "js" },
+            { name: "Typescript", value: "typescript" },
+            { name: "Javascript", value: "javascript" },
           ],
-          default: "js",
+          default: "javascript",
         },
       ]);
       return ans.language;
     }
-    return config?.config?.language === "ts" ? "ts" : "js";
+    return config?.config?.language === "typescript"
+      ? "typescript"
+      : "javascript";
   };
   const lang = await getLang();
 
@@ -94,9 +84,8 @@ export default async function add(...args: any[]) {
       chalk.dim(spinner.frames[i]) + " Downloading method...\r"
     );
   }, spinner.interval);
-
   const res = await fetch(
-    `${REGISTRY_URL}/api/methods/${method}?lang=${lang}`,
+    `${REGISTRY_URL}/api/methods?name=${method.join(",")}&lang=${lang}`,
     {
       method: "GET",
       headers: {
@@ -104,7 +93,7 @@ export default async function add(...args: any[]) {
       },
     }
   );
-  const data = await res.json();
+  const data = (await res.json())?.data ?? [];
 
   clearInterval(interval);
 
@@ -123,14 +112,38 @@ export default async function add(...args: any[]) {
        * Write the method to the file.
        * The method is written to the file in the path provided in the project configuration.
        */
-      const { name, code } = data;
-      const file = `${pathToInstall}/${name}.${lang}`;
-      const currentDir = process.cwd();
 
-      // Ensure the directory exists
-      fs.mkdirSync(path.dirname(`${currentDir}/${file}`), { recursive: true });
+      data?.forEach((method) => {
+        const { name, code, type } = method;
+        let filename = name;
+        if (type === "react-hooks") {
+          filename =
+            config.config.filenameConvention?.reactHooks === "camelCase"
+              ? camelCase(name)
+              : kebabCase(name);
+        } else {
+          filename =
+            config.config.filenameConvention?.helperFunctions === "camelCase"
+              ? camelCase(name)
+              : kebabCase(name);
+        }
 
-      fs.writeFileSync(`${currentDir}/${file}`, code);
+        pathToInstall = pathToInstall
+          ? pathToInstall
+          : type === "react-hooks"
+            ? config.config.paths.reactHooks
+            : config.config.paths.helperFunctions;
+
+        const file = `${pathToInstall}/${filename}.${lang === "typescript" ? "ts" : "js"}`;
+        const currentDir = process.cwd();
+
+        // Ensure the directory exists
+        fs.mkdirSync(path.dirname(`${currentDir}/${file}`), {
+          recursive: true,
+        });
+
+        fs.writeFileSync(`${currentDir}/${file}`, code);
+      });
 
       console.log(chalk.green(`Method ${method} added successfully! 🚀`));
     } catch (e) {

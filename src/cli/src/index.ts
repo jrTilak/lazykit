@@ -5,12 +5,8 @@ import chalk from "chalk";
 import init from "./scripts/init.js";
 import teardown from "./scripts/teardown.js";
 import add from "./scripts/add.js";
-import dotenv from "dotenv";
 import { GITHUB_URL, REGISTRY_URL } from "./data/constant.js";
 import exitProcess from "./utils/exitProcess.js";
-
-//todo: The idea of using dotenv is to add some key while fetching the code so that the code api will be only accessible by CLI
-dotenv.config();
 
 /**
  * Main CLI program
@@ -34,7 +30,7 @@ if (process.argv.length === 2) {
   console.log("For help, run: ", chalk.blue("--help"));
   console.log(
     "For documentation, visit: ",
-    chalk.green(REGISTRY_URL + "/docs/introduction")
+    chalk.green(REGISTRY_URL + "/docs")
   );
   console.log("For github, visit: ", chalk.green(GITHUB_URL));
   exitProcess(0);
@@ -46,19 +42,10 @@ if (process.argv.length === 2) {
 program
   .command("init")
   .description("Initialize the project")
-  .option("-js, --javascript", "Initialize the project with javascript")
-  .option("-ts, --typescript", "Initialize the project with typescript")
-  .option(
-    "-p <path>, --path <path>",
-    "Initialize the project in the given path"
-  )
+  .option("-y, --yes", "Initialize the project using default options")
   .option(
     "-f, --force",
     "Force initialize the project, even if the project is already initialized"
-  )
-  .option(
-    "-s, --separate",
-    "Initialize the project configuration in separate file called lazykit.config.js else in package.json"
   )
   .action(init);
 
@@ -72,7 +59,7 @@ program
   .action(teardown);
 
 program
-  .command("add <method>")
+  .command("add <method...>")
   .description("Add a new method to the project")
   .option("-p, --path <path>", "Add the method in the given path")
   .option("-ts, --typescript", "Add the method in typescript")
