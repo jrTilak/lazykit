@@ -82,11 +82,11 @@ export default async function Home() {
             <CardContent className="grid grid-cols-[1fr_10px_1fr] sm:flex items-center gap-y-4 gap-x-9 justify-center p-6 text-center">
               {[
                 {
-                  title: registry.length,
+                  title: registry.filter((method) => method.type === "functions").length,
                   description: "Utility Functions",
                 },
                 {
-                  title: registry.length,
+                  title: registry.filter((method) => method.type === "react-hooks").length,
                   description: "React Hooks",
                 },
                 {

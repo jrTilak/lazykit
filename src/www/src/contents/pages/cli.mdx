@@ -1,0 +1,68 @@
+---
+title: "CLI"
+slug: "cli"
+---
+
+# CLI
+
+LazyKit provides a powerful CLI program that allows you to add utility methods to your project like a pro. This guide will walk you through the initial setup, installation, and teardown commands for effectively managing utility methods.
+
+## Introduction  
+One of the simplest ways to add utility methods to your project is by copying the code and pasting it directly into your files. However, this approach can become cumbersome and inefficient over time. The LazyKit CLI program streamlines this process, allowing you to add utility methods to your project in a more efficient and organized manner.
+
+## Initial Setup  
+To get started with the LazyKit CLI, you need to initialize your project with the following command:
+
+```bash
+npx @jrtilak/lazykit@latest init
+```
+
+**Note:** Ensure that your project contains a `package.json` file for the initialization to work correctly.
+
+### Questions During Initialization  
+You will be asked the following questions during the initialization process:
+
+- **Language**: Choose between TypeScript or JavaScript.
+- **Separate**: `true` or `false`. If `true`, the configuration will be stored in a separate file called `lazykit.config.json`; otherwise, it will be included in `package.json` under `lazykit`.
+- **Path to store helper functions**: Specify where you want to save the utility functions, e.g., `@/helpers`.
+- **Path to store React hooks**: Indicate the directory where you want to keep your React hooks, e.g., `@/hooks`.
+- **Filename convention for helper functions**: Choose between `camelCase` or `kebab-case` for naming utility function files.
+- **Filename convention for React hooks**: Choose between `camelCase` or `kebab-case` for naming React hook files.
+
+
+###  Flags  
+You can also pass flags to the `init` command to skip the interactive questions. Here are the available flags:
+
+- `--yes` or `-y`: Initialize the project with default options.
+
+## Teardown  
+If you need to remove the LazyKit configuration from your project, you can use the teardown command:
+
+```bash
+npx @jrtilak/lazykit@latest teardown
+```
+
+This command will delete the configuration file from your project, cleaning up any LazyKit settings.
+
+## Installation  
+To install specific utility methods into your project, use the following command:
+
+```bash
+npx @jrtilak/lazykit@latest add <method-name>
+```
+
+Replace `<method-name>` with the name of the utility method you wish to add. This command will seamlessly integrate the chosen utility method into your project.
+
+**OR**
+
+```bash
+npx @jrtilak/lazykit@latest add method1 method2 method3
+```
+
+## Other Commands
+### List Available Methods
+To view a list of all available methods, use the following command:
+
+```bash
+npx @jrtilak/lazykit@latest list
+```

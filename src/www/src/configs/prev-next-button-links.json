@@ -9,7 +9,7 @@
   },
   {
     "label": "Installation",
-    "url": "/docs/installation"
+    "url": "/docs/cli#installation"
   },
   {
     "label": "lazykit.config.json",
@@ -162,5 +162,13 @@
   {
     "label": "setLocalStorageItem",
     "url": "/docs/functions/web-api/setLocalStorageItem"
+  },
+  {
+    "label": "React Hooks",
+    "url": "/docs/react-hooks"
+  },
+  {
+    "label": "useBoolean",
+    "url": "/docs/react-hooks/boolean/useBoolean"
   }
 ]

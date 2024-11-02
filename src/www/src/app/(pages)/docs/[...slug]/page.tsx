@@ -1,9 +1,9 @@
-import NotFound from "@/components/pages/not-found";
 import prevNextBtnJson from "@/configs/prev-next-button-links.json";
 import { getPredefinedPageBySlug } from "@/helpers/get-predefined-page-by-slug";
 import RenderMdx from "@/components/mdx/render-mdx";
 import { getMethodPageBySlug } from "@/helpers/get-method-page-by-slug";
 import { Separator } from "@/components/ui/separator";
+import Error404 from "@/components/blocks/404";
 
 const DocsPage = async ({ params: { slug } }: { params: { slug: string[] } }) => {
   const predefinedPage = await getPredefinedPageBySlug(slug.join("/"));
@@ -32,7 +32,7 @@ const DocsPage = async ({ params: { slug } }: { params: { slug: string[] } }) =>
     )
   }
 
-  return <NotFound />;
+  return <Error404 />;
 };
 export default DocsPage;
 

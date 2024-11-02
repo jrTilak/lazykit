@@ -1,3 +1,4 @@
+"use client"
 import {
   Accordion,
   AccordionContent,
@@ -11,8 +12,13 @@ import { META_DATA } from "@/data/metadata";
 import Link from "next/link";
 import Image from "next/image";
 import { capitalCase } from "change-case";
+import { useParams } from "next/navigation";
 
 const Sidebar = () => {
+  const { slug } = useParams() as {
+    slug: string[]
+  }
+  const heading = capitalCase(slug ? slug[0] : "");
   return (
     <aside className="shadow-lg h-full">
       <div className="h-[calc(100vh-100px)] w-full p-6 pl-8 scrollbar-sm overflow-x-hidden overflow-y-auto">
@@ -45,30 +51,32 @@ const Sidebar = () => {
               </Accordion>
             );
           }
-          return (
-            <Accordion key={i} type="single" collapsible>
-              {/* <span className="text-md font-semibold text-muted-foreground">
+          if (navLink.heading === heading) {
+            return (
+              <Accordion key={i} type="single" collapsible>
+                {/* <span className="text-md font-semibold text-muted-foreground">
                 {navLink.heading}
               </span> */}
-              {navLink.categories.map((category, i) => {
-                return (
-                  <AccordionItem key={i} value={category.label}>
-                    <AccordionTrigger className="hover:no-underline">
-                      <span className="text-lg">{capitalCase(category.label)}</span>
-                    </AccordionTrigger>
-                    <AccordionContent>
-                      {category.methods.map((link, i) => {
-                        return <SidebarLink key={i} link={link} />;
-                      })}
-                    </AccordionContent>
-                  </AccordionItem>
-                );
-              })}
-            </Accordion>
-          );
+                {navLink.categories.map((category, i) => {
+                  return (
+                    <AccordionItem key={i} value={category.label}>
+                      <AccordionTrigger className="hover:no-underline">
+                        <span className="text-lg">{capitalCase(category.label)}</span>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        {category.methods.map((link, i) => {
+                          return <SidebarLink key={i} link={link} />;
+                        })}
+                      </AccordionContent>
+                    </AccordionItem>
+                  );
+                })}
+              </Accordion>
+            )
+          }
         })}
       </div>
-    </aside>
+    </aside >
   );
 };
 export default Sidebar;

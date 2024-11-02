@@ -14,6 +14,7 @@ import {
 import { useRouter } from "next/navigation";
 import navLinks from "@/configs/nav-links.json";
 import { File, FunctionSquare } from "lucide-react";
+import { capitalCase } from "change-case";
 
 const SearchPopup = () => {
   const [open, setOpen] = useState(false);
@@ -39,7 +40,7 @@ const SearchPopup = () => {
         }
       });
     };
-  });
+  }, []);
 
   return (
     <>
@@ -63,7 +64,7 @@ const SearchPopup = () => {
           {navLinks.map((navLink, i) => {
             if (navLink.links) {
               return (
-                <CommandGroup key={i} heading={navLink.heading}>
+                <CommandGroup key={i} heading={capitalCase(navLink.heading)}>
                   {navLink.links?.map((link, i) => {
                     return (
                       <CommandItem
@@ -85,7 +86,7 @@ const SearchPopup = () => {
                     return (
                       <Fragment key={i}>
                         <CommandSeparator />
-                        <CommandGroup key={i} heading={category.label}>
+                        <CommandGroup key={i} heading={`${capitalCase(navLink.heading)} / ${capitalCase(category.label)}`}>
                           {category.methods.map((method, i) => {
                             return (
                               <CommandItem

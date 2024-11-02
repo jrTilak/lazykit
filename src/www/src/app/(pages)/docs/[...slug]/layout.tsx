@@ -7,10 +7,9 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
-import { ChevronRightIcon, SlashIcon } from "lucide-react";
+import { ChevronRightIcon } from "lucide-react";
 
 
 export default function DocsLayout({

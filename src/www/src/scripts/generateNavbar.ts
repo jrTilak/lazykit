@@ -3,8 +3,8 @@ import {
   INavLinkForPrevNextButton,
   IRegistryJSON,
 } from "@/types/registry.types";
+import { capitalCase } from "change-case";
 import * as fs from "fs";
-import * as changeCase from "change-case";
 
 const PATH_TO_REGISTRY = "../configs/registry.json";
 const PATH_TO_NAVBAR = "../configs/nav-links.json";
@@ -29,7 +29,7 @@ const GETTING_STARTED = {
     },
     {
       label: "Installation",
-      url: "/docs/installation",
+      url: "/docs/cli#installation",
     },
     {
       label: "lazykit.config.json",
@@ -81,7 +81,7 @@ export const generateNavbar = () => {
       /**
        * Add this type to the navbar in top section
        */
-      const typeName = changeCase.capitalCase(type);
+      const typeName = capitalCase(type);
       TYPES.push({
         label: typeName,
         url: `/docs/${type}`,
@@ -98,7 +98,7 @@ export const generateNavbar = () => {
       // Remove duplicates and sort alphabetically
       const categories = [...new Set(categoriesArr)].sort();
       const link: INavLink = {
-        heading: type[0].toUpperCase() + type.slice(1),
+        heading: capitalCase(type),
         categories: categories.map((category) => {
           const methods = registry.filter(
             (method) => method.type === type && method.category === category
