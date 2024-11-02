@@ -18,8 +18,8 @@ The configuration file is structured in JSON format, making it easy to read and 
 - **separate**: A boolean value that determines whether the configuration settings are stored in this separate file (`true`) or in the `package.json` file under the `lazykit` property (`false`).
 
 - **paths**: An object that specifies where to store utility functions and React hooks:
-  - **helperFunctionsPath**: A string that defines the directory where utility functions will be stored. This path is relative to the root of your project.
-  - **reactHooksPath**: A string that indicates the directory where React hooks will be saved, also relative to the root of your project.
+  - **helperFunctions**: Indicate the directory where you want to keep your helper functions from root of the project
+  - **reactHooks**: Indicate the directory where you want to keep your React hooks from root of the project
 
 - **filenameConvention**: An object that defines the casing convention for filenames:
   - **helperFunctions**: The naming convention for utility functions, allowing for `camelCase` or `kebab-case`.
@@ -35,8 +35,8 @@ Here's an example of what the `lazykit.config.json` file might look like:
   "language": "typescript",
   "separate": true,
   "paths": {
-    "helperFunctionsPath": "@/helpers",
-    "reactHooksPath": "@/hooks"
+    "helperFunctions": "@/helpers",
+    "reactHooks": "@/hooks"
   },
   "filenameConvention": {
     "helperFunctions": "camelCase",

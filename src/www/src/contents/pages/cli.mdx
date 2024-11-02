@@ -24,8 +24,8 @@ You will be asked the following questions during the initialization process:
 
 - **Language**: Choose between TypeScript or JavaScript.
 - **Separate**: `true` or `false`. If `true`, the configuration will be stored in a separate file called `lazykit.config.json`; otherwise, it will be included in `package.json` under `lazykit`.
-- **Path to store helper functions**: Specify where you want to save the utility functions, e.g., `@/helpers`.
-- **Path to store React hooks**: Indicate the directory where you want to keep your React hooks, e.g., `@/hooks`.
+- **Path to store helper functions**: Indicate the directory where you want to save the utility functions from root of the project, e.g., `./src/helpers`.
+- **Path to store React hooks**: Indicate the directory where you want to keep your React hooks from root of the project, e.g., `./src/hooks`.
 - **Filename convention for helper functions**: Choose between `camelCase` or `kebab-case` for naming utility function files.
 - **Filename convention for React hooks**: Choose between `camelCase` or `kebab-case` for naming React hook files.
 
@@ -34,6 +34,7 @@ You will be asked the following questions during the initialization process:
 You can also pass flags to the `init` command to skip the interactive questions. Here are the available flags:
 
 - `--yes` or `-y`: Initialize the project with default options.
+- `--force` or `-f`: Initialize the project even if it is already initialized.
 
 ## Teardown  
 If you need to remove the LazyKit configuration from your project, you can use the teardown command:
@@ -59,10 +60,10 @@ Replace `<method-name>` with the name of the utility method you wish to add. Thi
 npx @jrtilak/lazykit@latest add method1 method2 method3
 ```
 
-## Other Commands
+{/* ## Other Commands
 ### List Available Methods
 To view a list of all available methods, use the following command:
 
 ```bash
 npx @jrtilak/lazykit@latest list
-```
+``` */}
