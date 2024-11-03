@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import registry from "@/configs/registry.json";
-import omit from "@/registry/functions/objects/omit";
 
 export const GET = async (req: NextRequest) => {
   const getAll = req.nextUrl.searchParams.get("all");
@@ -30,7 +29,7 @@ export const GET = async (req: NextRequest) => {
   return NextResponse.json(
     {
       data: res.map((item) => ({
-        ...omit(item, ["props"]),
+        ...item,
         code: item.code[lang],
       })),
     },

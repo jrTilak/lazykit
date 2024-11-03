@@ -10,7 +10,6 @@ import { extractTextFromElement } from "@/helpers/extract-text-from-element";
 import { generateHeadingId } from "@/helpers/generate-headingId";
 import HighlightCode from "../globals/highlight-code";
 import CodePreview from "../globals/code-preview";
-import PropsTable from "../globals/props-table";
 import VanillaSandbox from "../globals/vanilla-sandbox";
 import * as Examples from "./examples"
 import { Button } from "../ui/button";
@@ -23,7 +22,6 @@ export const MDXComponents = {
   ...Table,
   Button,
   CodePreview,
-  PropsTable,
   VanillaSandbox,
   Examples,
   ComponentPreview,
