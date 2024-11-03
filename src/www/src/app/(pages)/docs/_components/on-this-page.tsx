@@ -28,7 +28,9 @@ const OnThisPage = async ({
         role="button"
         className="flex items-center justify-between flex-row p-3.5"
       >
-        <CardTitle className="text-lg">On this Page</CardTitle>
+        <CardTitle className="text-lg">
+          <Link href={"#"}>On this page</Link>
+        </CardTitle>
       </CardHeader>
       <CardContent className="p-3.5 pt-0 pb-0">
         <div

@@ -170,5 +170,9 @@
   {
     "label": "useBoolean",
     "url": "/docs/react-hooks/boolean/useBoolean"
+  },
+  {
+    "label": "useCounter",
+    "url": "/docs/react-hooks/others/useCounter"
   }
 ]
