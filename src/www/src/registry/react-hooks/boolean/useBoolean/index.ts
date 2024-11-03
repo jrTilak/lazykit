@@ -1,11 +1,6 @@
 /**
-* hook for managing a boolean state, providing easy functions to set the state to true, false, or toggle its value.
-**/
-
-/**
-* hook for managing a boolean state, providing easy functions to set the state to true, false, or toggle its value.
-**/
-
+ * hook for managing a boolean state, providing easy functions to set the state to true, false, or toggle its value.
+ **/
 import { useCallback, useState } from "react";
 
 import type { Dispatch, SetStateAction } from "react";
