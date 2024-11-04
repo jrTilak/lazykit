@@ -12,7 +12,7 @@ import {
   CommandSeparator,
 } from "../ui/command";
 import { useRouter } from "next/navigation";
-import navLinks from "@/configs/nav-links.json";
+import navLinks from "@/.generated/nav-links.json";
 import { File, FunctionSquare } from "lucide-react";
 import { capitalCase } from "change-case";
 

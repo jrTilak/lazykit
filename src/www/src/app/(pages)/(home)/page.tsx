@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Announcement } from "@/components/globals/announce";
 import { ANNOUNCEMENT_DATA } from "@/data/announcement";
 import { Separator } from "@/components/ui/separator";
-import registry from "@/configs/registry.json";
+import registry from "@/.generated/registry";
 import InitCommand from "./_components/init-command";
 import { Metadata } from "next";
 import { Card, CardContent } from "@/components/ui/card";
@@ -82,11 +82,11 @@ export default async function Home() {
             <CardContent className="grid grid-cols-[1fr_10px_1fr] sm:flex items-center gap-y-4 gap-x-9 justify-center p-6 text-center">
               {[
                 {
-                  title: registry.filter((method) => method.type === "functions").length,
+                  title: Object.values(registry).filter((method) => method.type === "functions").length,
                   description: "Utility Functions",
                 },
                 {
-                  title: registry.filter((method) => method.type === "react-hooks").length,
+                  title: Object.values(registry).filter((method) => method.type === "react-hooks").length,
                   description: "React Hooks",
                 },
                 {

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import registry from "@/configs/registry.json";
+import registry from "@/.generated/registry";
 
 export const GET = async (req: NextRequest) => {
   const getAll = req.nextUrl.searchParams.get("all");

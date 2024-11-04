@@ -203,22 +203,16 @@
     "heading": "React Hooks",
     "categories": [
       {
-        "label": "Boolean",
-        "url": "/docs/react-hooks/boolean",
+        "label": "State",
+        "url": "/docs/react-hooks/state",
         "methods": [
           {
             "label": "useBoolean",
-            "url": "/docs/react-hooks/boolean/useBoolean"
-          }
-        ]
-      },
-      {
-        "label": "Others",
-        "url": "/docs/react-hooks/others",
-        "methods": [
+            "url": "/docs/react-hooks/state/useBoolean"
+          },
           {
             "label": "useCounter",
-            "url": "/docs/react-hooks/others/useCounter"
+            "url": "/docs/react-hooks/state/useCounter"
           }
         ]
       }

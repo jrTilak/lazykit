@@ -11,7 +11,6 @@ import { generateHeadingId } from "@/helpers/generate-headingId";
 import HighlightCode from "../globals/highlight-code";
 import CodePreview from "../globals/code-preview";
 import VanillaSandbox from "../globals/vanilla-sandbox";
-import * as Examples from "./examples"
 import { Button } from "../ui/button";
 import { ComponentPreview } from "../globals/component-preview";
 
@@ -23,7 +22,6 @@ export const MDXComponents = {
   Button,
   CodePreview,
   VanillaSandbox,
-  Examples,
   ComponentPreview,
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h1

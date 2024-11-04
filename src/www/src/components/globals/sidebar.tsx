@@ -5,8 +5,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import navLinks from "@/configs/nav-links.json";
-import types from "@/configs/types.json";
+import navLinks from "@/.generated/nav-links.json";
+import types from "@/.generated/types.json";
 import SidebarLink from "./sidebar-link";
 import { META_DATA } from "@/data/metadata";
 import Link from "next/link";

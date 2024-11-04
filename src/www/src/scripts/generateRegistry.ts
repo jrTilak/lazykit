@@ -5,15 +5,15 @@ import * as typescript from "typescript";
 import { IRegistryJSON } from "@/types/registry.types";
 import { generateNavbar } from "./generateNavbar";
 import { formatCode } from "@/helpers/format-code";
+import React from "react";
 
 //eg:  registry/:type/:category/{index.ts, docs.tsx, *.examples.ts}
 const REGISTRY_DIR = "../registry";
 
-const PATH_TO_REGISTRY_CONFIG = "../configs/registry.json";
+const PATH_TO_REGISTRY_CONFIG = "../.generated/registry.tsx";
 const NECESSARY_FILES = ["index.ts", "index.test.ts", "docs.mdx"];
 
-let REGISTRY_JSON: IRegistryJSON[] = [];
-
+let REGISTRY_JSON: Record<string, IRegistryJSON> = {};
 /**
  *  Read the directory :type
  * Type can be any of the following for example: functions (javascript utility functions), react-hooks, etc
@@ -84,6 +84,35 @@ async function main() {
               /**
                * Add the example files in the registry
                */
+              const examples = availableFiles.filter((file) =>
+                file.match(/examples?\.tsx?/)
+              );
+
+              const exampleFiles: IRegistryJSON["examples"] = {};
+              await Promise.all(
+                examples.map(async (exampleFile) => {
+                  const exampleFileDataAsString = readFileAsString(
+                    pathUptoMethod + "/" + exampleFile
+                  );
+                  const key = exampleFile.replace(/.examples?\.tsx?/, "");
+                  const path = `@/registry/${type}/${category}/${method}/${exampleFile.replace(/.tsx?/, "")}`;
+                  const ts = exampleFileDataAsString;
+                  const content = await import(path);
+                  if (!content.default) {
+                    console.error(
+                      `Error: Default export missing in ${type}/${category}/${method}/${exampleFile}. 😐\nExiting...`
+                    );
+                    process.exit(1);
+                  }
+                  exampleFiles[key] = {
+                    // @ts-expect-error: below we are changing the type of component to React component
+                    component: path,
+                    code: {
+                      tsx: await formatCode(ts, "typescript"),
+                    },
+                  };
+                })
+              );
 
               /**
                * Check if all the necessary files are present in the method folder
@@ -150,6 +179,7 @@ async function main() {
                   ts: await formatCode(ts, "typescript"),
                   js: await formatCode(js, "babel"),
                 },
+                examples: exampleFiles,
                 category,
                 type,
               };
@@ -159,9 +189,7 @@ async function main() {
                 `Adding ${type}/${category}/${method} to the registry... 📝\n`
               );
 
-              REGISTRY_JSON.push({
-                ...updatedMethod,
-              });
+              REGISTRY_JSON[updatedMethod.name] = updatedMethod;
               return;
             })
           );
@@ -172,34 +200,37 @@ async function main() {
   console.log("Completed reading all methods 🥴\n");
   console.log("Total methods found: " + METHODS.length);
 
-  //check if all the methods are unique on the basis of name
-  console.log("Checking for duplicate methods... 🧐");
-  const uniqueMethods = REGISTRY_JSON.map((method) => method.name);
-  // @ts-ignore
-  const unique = new Array(...new Set(uniqueMethods));
-
-  if (unique.length !== unique.length) {
-    console.error("Duplicate methods found in the registry. Exiting... 😐");
-    process.exit(1);
-  } else {
-    console.log("No duplicate methods found!");
-  }
-
   // sort the registry on the basis of name
-  REGISTRY_JSON = REGISTRY_JSON.sort((a, b) => {
-    if (a.name < b.name) {
-      return -1;
-    } else {
-      return 1;
-    }
-  });
+  REGISTRY_JSON = Object.keys(REGISTRY_JSON)
+    .sort() // Sort the keys
+    .reduce((acc: Record<string, IRegistryJSON>, key) => {
+      acc[key] = REGISTRY_JSON[key];
+      return acc;
+    }, {});
 
   //write the registry to a file
   console.log("Writing registry to file... 📝");
-  fs.writeFileSync(
-    PATH_TO_REGISTRY_CONFIG,
-    JSON.stringify(REGISTRY_JSON, null, 2)
+
+  const registry = `//@ts-nocheck
+import { lazy } from "react";
+import { IRegistryJSON } from "@/types/registry.types";
+
+const registry = ${JSON.stringify(REGISTRY_JSON, null, 2)} as Record<string, IRegistryJSON>
+
+export default registry;`;
+
+  //  replace the path with lazy import
+  const updatedRegistry = registry.replace(
+    /"component": "(.*)"/g,
+    (match, p1) => {
+      return `"component": lazy(() => import("${p1}").catch(err => {
+        console.error('Failed to import component:', err);
+        return Promise.resolve(() => <div className='my-2 text-destructive'>Error loading component</div>);
+    }))`;
+    }
   );
+
+  fs.writeFileSync(PATH_TO_REGISTRY_CONFIG, updatedRegistry);
   console.log("Registry written to file registry.json 🎉\n");
 
   //generate navbar

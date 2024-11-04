@@ -169,10 +169,10 @@
   },
   {
     "label": "useBoolean",
-    "url": "/docs/react-hooks/boolean/useBoolean"
+    "url": "/docs/react-hooks/state/useBoolean"
   },
   {
     "label": "useCounter",
-    "url": "/docs/react-hooks/others/useCounter"
+    "url": "/docs/react-hooks/state/useCounter"
   }
 ]

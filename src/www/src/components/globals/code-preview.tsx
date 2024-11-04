@@ -1,17 +1,19 @@
 "use client"
-import registry from '@/configs/registry.json'
+import registry from '@/.generated/registry'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Lang, useLang } from '@/providers/lang-provider'
 import Image from 'next/image'
 import HighlightCode from './highlight-code'
 import { useState } from 'react'
+import { IRegistryJSON } from '@/types/registry.types'
 
 
 type Props = {
   methodName: string
 }
 const CodePreview = ({ methodName }: Props) => {
-  const method = registry.find((method) => method.name === methodName)
+  //@ts-expect-error
+  const method: IRegistryJSON = registry[methodName]
   const [lang, setLang] = useState<Lang>()
 
   if (!method) return null

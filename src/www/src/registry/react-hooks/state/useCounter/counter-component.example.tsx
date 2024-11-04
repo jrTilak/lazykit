@@ -3,7 +3,7 @@ import React from 'react';
 import useCounter from '.';
 import { Button } from '@/components/ui/button';
 
-export const CounterComponent = () => {
+const CounterComponent = () => {
   const { count, increment, decrement, reset } = useCounter(0, { min: 0, max: 10 });
 
   return (
@@ -17,3 +17,5 @@ export const CounterComponent = () => {
     </div>
   );
 };
+
+export default CounterComponent;

@@ -1,6 +1,6 @@
 "use client";
 
-import { Moon, Sun } from "lucide-react";
+import { Moon, MoonIcon, MoonStarIcon, Sun, SunIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect } from "react";
 
@@ -17,7 +17,7 @@ const ToggleTheme = () => {
 
   return (
     <button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
-      {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
+      {theme === "light" ? <MoonStarIcon size={20} /> : <SunIcon size={20} />}
     </button>
   );
 };

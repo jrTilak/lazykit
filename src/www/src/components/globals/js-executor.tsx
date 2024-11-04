@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 import HighlightCode from "./highlight-code";
 import { useCallback, useRef, useState } from "react";
 import toast from "react-hot-toast";
-import registry from '@/configs/registry.json'
+import registry from '@/.generated/registry'
 import { extractImports } from "@/helpers/extract-imports";
 import { removeDefaultExport } from "@/helpers/remove-default-export";
 

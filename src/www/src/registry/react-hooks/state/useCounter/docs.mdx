@@ -32,26 +32,4 @@ npx @jrtilak/lazykit add useCounter
 
 ## Usage
 
-
-```jsx
-import React from 'react';
-import useCounter from '.';
-import { Button } from '@/components/ui/button';
-
-export const CounterComponent = () => {
-  const { count, increment, decrement, reset } = useCounter(0, { min: 0, max: 10 });
-
-  return (
-    <div className="flex flex-col gap-2">
-      <h1>Counter: {count}</h1>
-      <Button onClick={increment}>Increment +</Button>
-      <Button onClick={decrement}>Decrement -</Button>
-      <Button onClick={reset}>Reset</Button>
-      <p>{count}</p>
-    </div>
-  );
-};
-```
-<ComponentPreview>
-  <Examples.CounterComponent/>
-</ComponentPreview>
+<ComponentPreview methodName="useCounter" exampleName="counter-component"/>

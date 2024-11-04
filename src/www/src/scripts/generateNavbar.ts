@@ -1,3 +1,4 @@
+import * as R from "@/.generated/registry";
 import {
   INavLink,
   INavLinkForPrevNextButton,
@@ -5,11 +6,10 @@ import {
 } from "@/types/registry.types";
 import { capitalCase } from "change-case";
 import * as fs from "fs";
-
-const PATH_TO_REGISTRY = "../configs/registry.json";
-const PATH_TO_NAVBAR = "../configs/nav-links.json";
-const PATH_TO_PREV_NEXT_BUTTON_LINKS = "../configs/prev-next-button-links.json";
-const PATH_TO_TYPES = "../configs/types.json";
+const PATH_TO_NAVBAR = "../.generated/nav-links.json";
+const PATH_TO_PREV_NEXT_BUTTON_LINKS =
+  "../.generated/prev-next-button-links.json";
+const PATH_TO_TYPES = "../.generated/types.json";
 
 const NAV_LINKS_FOR_PREV_NEXT_BUTTON: INavLinkForPrevNextButton[] = [];
 
@@ -50,9 +50,7 @@ export const generateNavbar = () => {
      * Read the registry.json file
      * This file contains all the methods and their details
      */
-    const registry: IRegistryJSON[] = JSON.parse(
-      fs.readFileSync(PATH_TO_REGISTRY, "utf-8")
-    );
+    const registry: IRegistryJSON[] = Object.values(R.default);
 
     /**
      * Get all the types available in the registry

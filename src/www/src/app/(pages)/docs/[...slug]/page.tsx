@@ -1,4 +1,4 @@
-import prevNextBtnJson from "@/configs/prev-next-button-links.json";
+import prevNextBtnJson from "@/.generated/prev-next-button-links.json";
 import { getPredefinedPageBySlug } from "@/helpers/get-predefined-page-by-slug";
 import RenderMdx from "@/components/mdx/render-mdx";
 import { getMethodPageBySlug } from "@/helpers/get-method-page-by-slug";

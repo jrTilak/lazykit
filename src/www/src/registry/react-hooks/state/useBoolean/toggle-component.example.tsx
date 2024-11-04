@@ -1,33 +1,9 @@
----
-name: useBoolean
-desc:  hook for managing a boolean state, providing easy functions to set the state to true, false, or toggle its value.
----
+"use client"
+import React from 'react';
+import useBoolean from '.';
+import { Button } from '@/components/ui/button';
 
-
-<CodePreview methodName="useBoolean"/>
-
-## Installtion
-
-```bash
-npx @jrtilak/lazykit add useBoolean
-```
-
-## Props
-
-
-- `defaultValue`: (optional) Initial boolean state; defaults to `false`.
-
-## Return Value
-
-- `value`: Current boolean state.
-- `setValue`: Function to update the state directly.
-- `setTrue`: Sets the state to `true`.
-- `setFalse`: Sets the state to `false`.
-- `toggle`: Toggles the state between `true` and `false`.
-
-## Usage
-```jsx
-export const ToggleComponent = () => {
+const ToggleComponent = () => {
   const { value, setValue, setTrue, setFalse, toggle } = useBoolean(false);
 
   return (
@@ -48,7 +24,5 @@ export const ToggleComponent = () => {
     </div>
   );
 };
-```
-<ComponentPreview>
-  <Examples.ToggleComponent/>
-</ComponentPreview>
+
+export default ToggleComponent;

@@ -1,9 +1,20 @@
+import React from "react";
+
 export interface IRegistryJSON {
   name: string;
   code: {
     ts: string;
     js: string;
   };
+  examples: Record<
+    string,
+    {
+      component: React.LazyExoticComponent<() => React.ReactElement>;
+      code: {
+        tsx: string;
+      };
+    }
+  >;
   category: string;
   type: string;
 }

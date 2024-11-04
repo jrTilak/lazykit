@@ -6,8 +6,7 @@ import HighlightCode from "./highlight-code"
 import Loading from "../loaders/loading"
 import { extractImports } from "@/helpers/extract-imports"
 import { removeDefaultExport } from "@/helpers/remove-default-export"
-import registry from '@/configs/registry.json'
-import { LiveProvider, LiveError, LivePreview, LiveEditor } from "react-live";
+import registry from '@/.generated/registry'
 
 type Props = {
   children: React.ReactNode
@@ -59,7 +58,7 @@ const VanillaSandbox = ({ children }: Props) => {
     const { cleanedCode, imports } = extractImports(js)
 
     const codeWithImportedMethods = `
-    ${imports.map((i) => removeDefaultExport(registry.find((r) => r.name === i)?.code.js ?? "")).join("\n")}
+    ${imports.map((i) => removeDefaultExport(registry[i]?.code.js ?? "")).join("\n")}
     ${cleanedCode}
     `
     setJsCodeWithImportedBlockRemoved(codeWithImportedMethods)
