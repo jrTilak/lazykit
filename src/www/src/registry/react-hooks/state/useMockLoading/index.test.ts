@@ -1,6 +1,6 @@
 import { renderHook, act } from "@testing-library/react";
-import useMockLoading from "@/registry/react-hooks/state/useMockLoading";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
+import useMockLoading from ".";
 
 describe("useMockLoading", () => {
   beforeAll(() => {

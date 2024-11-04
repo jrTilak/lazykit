@@ -1,5 +1,4 @@
-import useBoolean from "@/registry/react-hooks/state/useBoolean";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 /**
  * custom hook that simulates a loading state with optional auto-start and manual start/stop controls.
@@ -10,11 +9,15 @@ const useMockLoading = ({
   autoStart = true,
 }) => {
   const [loading, setLoading] = useState(defaultValue);
-  const {
-    value: isAutoStart,
-    setTrue: startLoading,
-    setFalse: stopLoading,
-  } = useBoolean(autoStart);
+  const [isAutoStart, setIsAutoStart] = useState(autoStart);
+
+  const startLoading = useCallback(() => {
+    setIsAutoStart(true);
+  }, []);
+
+  const stopLoading = useCallback(() => {
+    setIsAutoStart(false);
+  }, []);
 
   useEffect(() => {
     let timeout: any;
