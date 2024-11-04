@@ -156,6 +156,10 @@
     "url": "/docs/functions/objects/sampleObj"
   },
   {
+    "label": "sortObjKeys",
+    "url": "/docs/functions/objects/sortObjKeys"
+  },
+  {
     "label": "getLocalStorageItem",
     "url": "/docs/functions/web-api/getLocalStorageItem"
   },

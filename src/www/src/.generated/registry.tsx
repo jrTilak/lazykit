@@ -293,6 +293,16 @@ const registry = {
     "category": "functional",
     "type": "functions"
   },
+  "sortObjKeys": {
+    "name": "sortObjKeys",
+    "code": {
+      "ts": "/**\n * Sorts the keys of an object in ascending or descending order.\n *\n * @template T - The type of the object.\n * @param {T} obj - The object whose keys are to be sorted.\n * @param {boolean} [ascending=true] - Whether to sort the keys in ascending order. Defaults to true.\n * @returns {{ [K in keyof T]: T[K] }} - A new object with sorted keys.\n */\nconst sortObjKeys = <T extends object>(\n  obj: T,\n  ascending: boolean = true,\n): { [K in keyof T]: T[K] } => {\n  return Object.fromEntries(\n    Object.entries(obj).sort(([a], [b]) =>\n      ascending ? a.localeCompare(b) : b.localeCompare(a),\n    ),\n  ) as { [K in keyof T]: T[K] };\n};\n\nexport default sortObjKeys;\n",
+      "js": "/**\n * Sorts the keys of an object in ascending or descending order.\n *\n * @template T - The type of the object.\n * @param {T} obj - The object whose keys are to be sorted.\n * @param {boolean} [ascending=true] - Whether to sort the keys in ascending order. Defaults to true.\n * @returns {{ [K in keyof T]: T[K] }} - A new object with sorted keys.\n */\nconst sortObjKeys = (obj, ascending = true) => {\n  return Object.fromEntries(\n    Object.entries(obj).sort(([a], [b]) =>\n      ascending ? a.localeCompare(b) : b.localeCompare(a),\n    ),\n  );\n};\nexport default sortObjKeys;\n"
+    },
+    "examples": {},
+    "category": "objects",
+    "type": "functions"
+  },
   "throttle": {
     "name": "throttle",
     "code": {

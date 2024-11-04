@@ -180,6 +180,10 @@
           {
             "label": "sampleObj",
             "url": "/docs/functions/objects/sampleObj"
+          },
+          {
+            "label": "sortObjKeys",
+            "url": "/docs/functions/objects/sortObjKeys"
           }
         ]
       },
