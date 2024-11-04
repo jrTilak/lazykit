@@ -18,6 +18,7 @@ const useCounter = (
   config?: Partial<{
     min: number;
     max: number;
+    step: number;
   }>
 ): UseCounterReturn => {
   const [count, setCountFromUseState] = useState(initialValue ?? 0);
@@ -54,12 +55,12 @@ const useCounter = (
   );
 
   const increment = useCallback(() => {
-    setCount((x) => x + 1);
-  }, []);
+    setCount((x) => x + (config?.step ?? 1));
+  }, [config?.step]);
 
   const decrement = useCallback(() => {
-    setCount((x) => x - 1);
-  }, []);
+    setCount((x) => x - (config?.step ?? 1));
+  }, [config?.step]);
 
   const reset = useCallback(() => {
     setCount(initialValue ?? 0);
