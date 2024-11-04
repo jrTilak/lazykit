@@ -4,7 +4,7 @@ import useCounter from '.';
 import { Button } from '@/components/ui/button';
 
 const CounterComponent = () => {
-  const { count, increment, decrement, reset } = useCounter(0, { min: 0, max: 10 });
+  const { count, increment, decrement, reset } = useCounter(0, { min: 0, max: 100, step: 5 });
 
   return (
     <div className="flex flex-col gap-2 w-fit">

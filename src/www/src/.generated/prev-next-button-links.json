@@ -178,5 +178,9 @@
   {
     "label": "useCounter",
     "url": "/docs/react-hooks/state/useCounter"
+  },
+  {
+    "label": "useMockLoading",
+    "url": "/docs/react-hooks/state/useMockLoading"
   }
 ]
