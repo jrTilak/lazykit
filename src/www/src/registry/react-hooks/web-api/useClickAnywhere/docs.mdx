@@ -1,0 +1,29 @@
+---
+name: useClickAnywhere
+desc:  listens for clicks outside specified elements and triggers a callback, with options to enable/disable the listener and handle multiple refs to ignore.
+---
+
+
+<CodePreview methodName="useClickAnywhere"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add useClickAnywhere
+```
+
+## Parameters
+
+- `callback` (`(event: MouseEvent) => void`): The function to be triggered when a click occurs outside the specified elements.
+- `autoEnable` (`boolean`, optional): Whether the click listener is enabled by default. Defaults to `true`.
+- `ignoreRefs` (`React.RefObject<HTMLElement>[]`, optional): Array of refs to elements that should be ignored when determining if the click is outside. Defaults to an empty array.
+
+## Returns
+
+- `enable`: Function to enable the click listener.
+- `disable`: Function to disable the click listener.
+- `isEnabled`: Boolean indicating whether the listener is currently enabled.
+
+## Usage
+
+<ComponentPreview methodName="useClickAnywhere" exampleName="click-anywhere"/>

@@ -182,5 +182,9 @@
   {
     "label": "useMockLoading",
     "url": "/docs/react-hooks/state/useMockLoading"
+  },
+  {
+    "label": "useClickAnywhere",
+    "url": "/docs/react-hooks/web-api/useClickAnywhere"
   }
 ]

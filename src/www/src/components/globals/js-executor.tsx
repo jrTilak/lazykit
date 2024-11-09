@@ -74,7 +74,7 @@ const JSExecutor = ({ code }: Props) => {
     const { cleanedCode, imports } = extractImports(code)
 
     const codeWithImportedMethods = `
-    ${imports.map((i) => removeDefaultExport(registry.find((r) => r.name === i)?.code.js ?? "")).join("\n")}
+    ${imports.map((i) => removeDefaultExport(registry[i]?.code.js ?? "")).join("\n")}
     ${cleanedCode}
     `
 
@@ -145,7 +145,7 @@ const JSExecutor = ({ code }: Props) => {
       <HighlightCode code={code} language="js" wrapButton />
       {!isLoadingTimeout && output?.length > 0 && <div
         ref={outputRef}
-        className="w-full flex flex-col mb-2.5 bg-muted rounded-md max-h-52 overflow-auto border border-muted-foreground/30 p-2 relative ">
+        className="w-full flex flex-col mb-2.5 bg-muted rounded-md overflow-auto border border-muted-foreground/30 p-2 relative ">
         {
           executionTime && <span className="text-xs text-muted-foreground">
             Execution Time: {executionTime.toFixed(4)}ms

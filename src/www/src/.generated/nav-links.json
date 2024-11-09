@@ -223,6 +223,16 @@
             "url": "/docs/react-hooks/state/useMockLoading"
           }
         ]
+      },
+      {
+        "label": "Web-api",
+        "url": "/docs/react-hooks/web-api",
+        "methods": [
+          {
+            "label": "useClickAnywhere",
+            "url": "/docs/react-hooks/web-api/useClickAnywhere"
+          }
+        ]
       }
     ]
   }
