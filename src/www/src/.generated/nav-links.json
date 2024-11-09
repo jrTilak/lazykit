@@ -213,6 +213,10 @@
           {
             "label": "useDebounceCallback",
             "url": "/docs/react-hooks/functional/useDebounceCallback"
+          },
+          {
+            "label": "useDebounceValue",
+            "url": "/docs/react-hooks/functional/useDebounceValue"
           }
         ]
       },

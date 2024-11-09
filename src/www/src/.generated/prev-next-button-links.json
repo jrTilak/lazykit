@@ -176,6 +176,10 @@
     "url": "/docs/react-hooks/functional/useDebounceCallback"
   },
   {
+    "label": "useDebounceValue",
+    "url": "/docs/react-hooks/functional/useDebounceValue"
+  },
+  {
     "label": "useBoolean",
     "url": "/docs/react-hooks/state/useBoolean"
   },

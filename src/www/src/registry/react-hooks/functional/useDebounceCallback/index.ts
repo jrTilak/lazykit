@@ -1,7 +1,7 @@
 import debounce from "@/registry/functions/functional/debounce";
 import { useCallback } from "react";
 
-function useDebounce<A extends unknown[]>(
+function useDebounceCallback<A extends unknown[]>(
   fn: (...args: A) => void,
   delay: number = 300
 ) {
@@ -9,4 +9,4 @@ function useDebounce<A extends unknown[]>(
   return debouncedFn;
 }
 
-export default useDebounce;
+export default useDebounceCallback;
