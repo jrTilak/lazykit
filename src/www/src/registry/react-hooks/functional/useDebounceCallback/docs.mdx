@@ -1,0 +1,27 @@
+---
+name: useDebounceCallback
+desc:  hook for debouncing a callback function
+---
+
+
+<CodePreview methodName="useDebounceCallback"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add useDebounceCallback
+```
+
+## Parameters
+
+- `fn` (`T`): The function to debounce. This function will be delayed based on the specified `delay`.
+- `delay` (`number`, optional): The debounce delay in milliseconds. Defaults to `300`.
+
+## Returns
+
+- `debouncedFn`: A debounced version of the provided function `fn`, which will delay its execution until after the specified `delay` has passed since the last invocation.
+
+
+## Usage
+
+<ComponentPreview methodName="useDebounceCallback" exampleName="debounce"/>

@@ -386,7 +386,7 @@ const registry = {
         return Promise.resolve(() => <div className='my-2 text-destructive'>Error loading component</div>);
     })),
         "code": {
-          "tsx": "import React, { useState, useRef } from 'react';\nimport useClickAnywhere from '.';\n\nconst ClickAnywhereComponent: React.FC = () => {\n  const [clickTime, setClickTime] = useState<string | null>(null);\n  const [status, setStatus] = useState<string>('Disabled');\n  const boxRef = useRef<HTMLDivElement>(null);\n\n  // Callback function for handling the click event\n  const handleClickAnywhere = (event: MouseEvent) => {\n    setClickTime(new Date().toLocaleTimeString());\n  };\n\n  // Use the custom hook with autoEnable set to true\n  const { enable, disable, isEnabled } = useClickAnywhere(\n    handleClickAnywhere,\n    false,\n    [boxRef],\n  );\n\n  // Toggle the status message based on the `enabled` state\n  React.useEffect(() => {\n    setStatus(isEnabled ? 'Enabled' : 'Disabled');\n  }, [isEnabled]);\n\n  return (\n    <div>\n      <div\n        ref={boxRef}\n        style={{\n          padding: '20px',\n          border: '2px solid black',\n          marginBottom: '10px',\n        }}\n      >\n        <p>This is Box 1. Click outside to trigger the event!</p>\n      </div>\n\n      <p>Status: {status}</p>\n      <p>Last clicked at: {clickTime ? clickTime : 'No clicks yet'}</p>\n\n      <div>\n        <button onClick={enable}>Enable Click Detection</button>\n        <button onClick={disable}>Disable Click Detection</button>\n      </div>\n    </div>\n  );\n};\n\nexport default ClickAnywhereComponent;\n"
+          "tsx": "import React, { useState, useRef, useEffect } from 'react';\nimport useClickAnywhere from '.';\nimport { Button } from '@/components/ui/button';\n\nconst ClickAnywhereComponent: React.FC = () => {\n  const [clickTime, setClickTime] = useState<string | null>(null);\n  const [clickCount, setClickCount] = useState<number>(0);\n  const [status, setStatus] = useState<string>('Disabled');\n  const boxRef = useRef<HTMLDivElement>(null);\n\n  // Callback function for handling the click event\n  const handleClickAnywhere = (event: MouseEvent) => {\n    setClickTime(new Date().toLocaleTimeString());\n    setClickCount((prev) => prev + 1);\n  };\n\n  // Use the custom hook with autoEnable set to true\n  const { enable, disable, isEnabled } = useClickAnywhere(\n    handleClickAnywhere,\n    false,\n    [boxRef],\n  );\n\n  // Toggle the status message based on the `enabled` state\n  useEffect(() => {\n    setStatus(isEnabled ? 'Enabled' : 'Disabled');\n  }, [isEnabled]);\n\n  return (\n    <div>\n      <div\n        ref={boxRef}\n        className=\"py-4 px-6 bg-muted border border-muted-foreground rounded-lg mb-4\"\n      >\n        <p>This is Box 1. Click outside to trigger the event!</p>\n      </div>\n\n      <p>Status: {status}</p>\n      <p>Last clicked at: {clickTime ? clickTime : 'No clicks yet'}</p>\n      <p>Total Clicks: {clickCount}</p>\n\n      <div className=\"mt-4 flex items-center gap-4\">\n        <Button variant={'outline'} size={'sm'} onClick={enable}>\n          Enable Click Detection\n        </Button>\n        <Button variant={'outline'} size={'sm'} onClick={disable}>\n          Disable Click Detection\n        </Button>\n      </div>\n    </div>\n  );\n};\n\nexport default ClickAnywhereComponent;\n"
         }
       }
     },
@@ -411,6 +411,26 @@ const registry = {
       }
     },
     "category": "state",
+    "type": "react-hooks"
+  },
+  "useDebounceCallback": {
+    "name": "useDebounceCallback",
+    "code": {
+      "ts": "import debounce from '@/registry/functions/functional/debounce';\nimport { useCallback } from 'react';\n\nfunction useDebounce<A extends unknown[]>(\n  fn: (...args: A) => void,\n  delay: number = 300,\n) {\n  const debouncedFn = useCallback(debounce(fn, delay), [fn, delay]);\n  return debouncedFn;\n}\n\nexport default useDebounce;\n",
+      "js": "import debounce from '@/registry/functions/functional/debounce';\nimport { useCallback } from 'react';\nfunction useDebounce(fn, delay = 300) {\n  const debouncedFn = useCallback(debounce(fn, delay), [fn, delay]);\n  return debouncedFn;\n}\nexport default useDebounce;\n"
+    },
+    "examples": {
+      "debounce": {
+        "component": lazy(() => import("@/registry/react-hooks/functional/useDebounceCallback/debounce.example").catch(err => {
+        console.error('Failed to import component:', err);
+        return Promise.resolve(() => <div className='my-2 text-destructive'>Error loading component</div>);
+    })),
+        "code": {
+          "tsx": "import React, { useState } from 'react';\nimport useDebounce from '.';\n\nconst DebounceExample = () => {\n  const [inputValue, setInputValue] = useState<string>('');\n  const [originalChanges, setOriginalChanges] = useState<number>(0);\n  const [debouncedChanges, setDebouncedChanges] = useState<number>(0);\n\n  // Using the custom debounce hook\n  const debouncedUpdate = useDebounce((value: string) => {\n    setDebouncedValue(value);\n    setDebouncedChanges((prev) => prev + 1);\n  }, 500);\n\n  const [debouncedValue, setDebouncedValue] = useState<string>('');\n\n  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {\n    const newValue = e.target.value;\n    setInputValue(newValue);\n    setOriginalChanges((prev) => prev + 1);\n    debouncedUpdate(newValue); // Debounce the value\n  };\n\n  return (\n    <div className=\"max-w-md mx-auto p-4 bg-white rounded-lg shadow-md\">\n      <h2 className=\"text-xl font-bold text-gray-800 mb-4\">Debounce Example</h2>\n\n      <div className=\"mb-4\">\n        <label htmlFor=\"input\" className=\"block text-gray-700 mb-2\">\n          Type something:\n        </label>\n        <input\n          type=\"text\"\n          id=\"input\"\n          value={inputValue}\n          onChange={handleInputChange}\n          className=\"w-full p-2 border border-gray-300 rounded-md\"\n        />\n      </div>\n\n      <div className=\"space-y-4\">\n        <div>\n          <p className=\"text-gray-700\">\n            <strong>Original Value:</strong> {inputValue}\n          </p>\n          <p className=\"text-gray-500\">Changes: {originalChanges} times</p>\n        </div>\n\n        <div>\n          <p className=\"text-gray-700\">\n            <strong>Debounced Value:</strong> {debouncedValue}\n          </p>\n          <p className=\"text-gray-500\">Changes: {debouncedChanges} times</p>\n        </div>\n      </div>\n    </div>\n  );\n};\n\nexport default DebounceExample;\n"
+        }
+      }
+    },
+    "category": "functional",
     "type": "react-hooks"
   },
   "useMockLoading": {

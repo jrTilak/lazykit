@@ -207,6 +207,16 @@
     "heading": "React Hooks",
     "categories": [
       {
+        "label": "Functional",
+        "url": "/docs/react-hooks/functional",
+        "methods": [
+          {
+            "label": "useDebounceCallback",
+            "url": "/docs/react-hooks/functional/useDebounceCallback"
+          }
+        ]
+      },
+      {
         "label": "State",
         "url": "/docs/react-hooks/state",
         "methods": [
