@@ -1,7 +1,7 @@
 /**
  * compares two or more values deeply, checking both primitive and non-primitive types for equality by comparing their serialized JSON string representations.
  */
-const deepCompare = (...args: any[]): boolean => {
+const deepCompare = (...args: unknown[]): boolean => {
   // If there are less than 2 arguments, return true (nothing to compare)
   if (args.length < 2) {
     return true;

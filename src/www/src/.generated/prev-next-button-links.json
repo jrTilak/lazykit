@@ -192,6 +192,10 @@
     "url": "/docs/react-hooks/state/useBoolean"
   },
   {
+    "label": "useCountdown",
+    "url": "/docs/react-hooks/state/useCountdown"
+  },
+  {
     "label": "useCounter",
     "url": "/docs/react-hooks/state/useCounter"
   },
