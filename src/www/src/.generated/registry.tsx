@@ -353,6 +353,26 @@ const registry = {
     "category": "arrays",
     "type": "functions"
   },
+  "useAsyncEffect": {
+    "name": "useAsyncEffect",
+    "code": {
+      "ts": "import { useEffect } from 'react';\n\n/**\n * A custom hook that handles async operations inside `useEffect`.\n */\nconst useAsyncEffect = (effect: () => Promise<void>, deps?: unknown[]) => {\n  useEffect(() => {\n    const runEffect = async () => {\n      await effect();\n    };\n\n    runEffect();\n  }, deps);\n};\n\nexport default useAsyncEffect;\n",
+      "js": "import { useEffect } from 'react';\n/**\n * A custom hook that handles async operations inside `useEffect`.\n */\nconst useAsyncEffect = (effect, deps) => {\n  useEffect(() => {\n    const runEffect = async () => {\n      await effect();\n    };\n    runEffect();\n  }, deps);\n};\nexport default useAsyncEffect;\n"
+    },
+    "examples": {
+      "async-effect": {
+        "component": lazy(() => import("@/registry/react-hooks/effect/useAsyncEffect/async-effect.example").catch(err => {
+        console.error('Failed to import component:', err);
+        return Promise.resolve(() => <div className='my-2 text-destructive'>Error loading component</div>);
+    })),
+        "code": {
+          "tsx": "'use client';\n\nimport sleep from '@/registry/functions/functional/sleep';\nimport useAsyncEffect from '.';\n\nconst MyComponent = () => {\n  useAsyncEffect(async () => {\n    const data = await sleep(1000);\n    console.log(data);\n  }, []);\n\n  return <div>Nothing to preview - see code instead!</div>;\n};\n\nexport default MyComponent;\n"
+        }
+      }
+    },
+    "category": "effect",
+    "type": "react-hooks"
+  },
   "useBoolean": {
     "name": "useBoolean",
     "code": {
@@ -466,7 +486,7 @@ const registry = {
         return Promise.resolve(() => <div className='my-2 text-destructive'>Error loading component</div>);
     })),
         "code": {
-          "tsx": "'use client';\n\nimport { useRef } from 'react';\nimport useInnerSize from '.';\n\nconst InnerSizeExample = () => {\n  const windowSize = useInnerSize();\n  const boxRef = useRef(null);\n  const boxSize = useInnerSize(boxRef);\n  return (\n    <div className=\"w-full h-full flex items-center justify-center gap-4 text-center p-6\">\n      <span>Try Resizing the window!</span>\n      <div className=\"flex flex-col\">\n        <span>Window Size</span>\n        <span>\n          Height - {windowSize.height}, Width - {windowSize.width}\n        </span>\n      </div>\n      <div\n        ref={boxRef}\n        className=\"w-1/2 border-muted-foreground h-16 flex items-center justify-center\"\n      >\n        <span>Bix Size</span>\n        <span>\n          Height - {boxSize.height}, Width - {boxSize.width}\n        </span>\n      </div>\n    </div>\n  );\n};\nexport default InnerSizeExample;\n"
+          "tsx": "'use client';\n\nimport { useRef } from 'react';\nimport useInnerSize from '.';\n\nconst InnerSizeExample = () => {\n  const windowSize = useInnerSize();\n  const boxRef = useRef(null);\n  const boxSize = useInnerSize(boxRef);\n  return (\n    <div className=\"w-full h-full flex items-center justify-center gap-4 text-center p-6 flex-col\">\n      <span className=\"text-destructive\">Try Resizing the window!</span>\n      <div className=\"flex flex-col\">\n        <span>Window Size</span>\n        <span>\n          Height - {windowSize.height}px, Width - {windowSize.width}px\n        </span>\n      </div>\n      <div\n        ref={boxRef}\n        className=\"w-3/4 border-muted-foreground h-16 flex items-center justify-center flex-col border rounded-md p-4\"\n      >\n        <span>Bix Size</span>\n        <span>\n          Height - {boxSize.height}px, Width - {boxSize.width}px\n        </span>\n      </div>\n    </div>\n  );\n};\nexport default InnerSizeExample;\n"
         }
       }
     },

@@ -172,6 +172,10 @@
     "url": "/docs/react-hooks"
   },
   {
+    "label": "useAsyncEffect",
+    "url": "/docs/react-hooks/effect/useAsyncEffect"
+  },
+  {
     "label": "useDebounceCallback",
     "url": "/docs/react-hooks/functional/useDebounceCallback"
   },

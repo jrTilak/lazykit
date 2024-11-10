@@ -1,8 +1,6 @@
-import { renderHook, act } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
-import React from "react";
+import { describe, expect, it } from "vitest";
 
-describe("useObserve", () => {
+describe("no test", () => {
   it("should be true", () => {
     expect(true);
   });

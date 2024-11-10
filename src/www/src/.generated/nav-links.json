@@ -207,6 +207,16 @@
     "heading": "React Hooks",
     "categories": [
       {
+        "label": "Effect",
+        "url": "/docs/react-hooks/effect",
+        "methods": [
+          {
+            "label": "useAsyncEffect",
+            "url": "/docs/react-hooks/effect/useAsyncEffect"
+          }
+        ]
+      },
+      {
         "label": "Functional",
         "url": "/docs/react-hooks/functional",
         "methods": [
