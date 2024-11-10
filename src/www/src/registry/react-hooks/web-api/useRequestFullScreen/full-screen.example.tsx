@@ -1,3 +1,4 @@
+"use client"
 import { useRef } from 'react';
 import useRequestFullScreen from '.';
 import { Button } from '@/components/ui/button';

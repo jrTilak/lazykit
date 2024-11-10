@@ -8,6 +8,13 @@ const nextConfig = {
         permanent: true,
       },
     ]
+  },
+  images: {
+    remotePatterns: [
+      {
+        hostname: "avatars.githubusercontent.com"
+      }
+    ]
   }
 };
 

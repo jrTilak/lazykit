@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import useToggle from ".";
 import { Button } from "@/components/ui/button";

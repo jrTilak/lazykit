@@ -9,38 +9,36 @@ import { Separator } from "@/components/ui/separator";
 import registry from "@/.generated/registry";
 import InitCommand from "./_components/init-command";
 import { Metadata } from "next";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Fragment } from "react";
+import { ArrowRightIcon } from "lucide-react";
+
 export default async function Home() {
-  const getGithubStars = async () => {
+  const getGithubData = async () => {
     const res = await fetch(GITHUB_INFO.api, {
       next: {
         revalidate: 60 * 60, // 1 hour
       },
     });
     const data = await res.json();
-    return data.stargazers_count;
+    return data
   };
 
-  const getWeeklyDownloads = async () => {
-    const res = await fetch(
-      `https://api.npmjs.org/downloads/point/last-week/${PACKAGE_INFO.name}`,
-      {
-        next: {
-          revalidate: 60 * 60, // 1 hour
-        },
-      }
-    );
+  const getContributorsData = async () => {
+    const res = await fetch(`${GITHUB_INFO.api}/contributors`, {
+      next: {
+        revalidate: 60 * 60, // 1 hour
+      },
+    });
     const data = await res.json();
-    return data.downloads;
+    return data
   };
 
-  const stars = await getGithubStars();
-  const weeklyDownloads = await getWeeklyDownloads();
-
+  const githubData = await getGithubData();
+  const contributors = await getContributorsData()
   return (
     <>
-      <main className="flex flex-col gap-8 md:gap-16 xl:gap-24 pt-[10vh] md:pt-[15vh] lg:pt-[20vh] items-center justify-center text-center px-2 min-h-[calc(100vh-180px)]">
+      <main className="flex flex-col gap-8 md:gap-16 xl:gap-24 pt-[10vh] md:pt-[15vh] items-center justify-center text-center px-2">
         <div className="flex flex-col items-center justify-center gap-3">
           <div className="flex flex-col gap-2 items-center justify-center max-w-4xl">
             <Announcement {...ANNOUNCEMENT_DATA} />
@@ -54,9 +52,6 @@ export default async function Home() {
                 A concentrated toolkit of powerful snippets—no excess, all essence.
               </p>
               <div className="flex gap-4">
-                <Link href="/docs">
-                  <Button className="px-6">Get Started</Button>
-                </Link>
                 <Link href={GITHUB_INFO.url} target="_blank">
                   <Button
                     variant="secondary"
@@ -72,58 +67,89 @@ export default async function Home() {
                     <span>GitHub</span>
                   </Button>
                 </Link>
+                <Link href="/docs">
+                  <Button className="px-6">Get Started <ArrowRightIcon className="ml-2.5 size-5" /></Button>
+                </Link>
               </div>
             </div>
           </div>
           <InitCommand />
         </div>
-        <div className="flex gap-3 sm:gap-6 items-center justify-center">
-          <Card>
-            <CardContent className="grid grid-cols-[1fr_10px_1fr] sm:flex items-center gap-y-4 gap-x-9 justify-center p-6 text-center">
-              {[
-                {
-                  title: Object.values(registry).filter((method) => method.type === "functions").length,
-                  description: "Utility Functions",
-                },
-                {
-                  title: Object.values(registry).filter((method) => method.type === "react-hooks").length,
-                  description: "React Hooks",
-                },
-                {
-                  title: `${weeklyDownloads || 0}+`,
-                  description: "Weekly Downloads",
-                },
-                {
-                  title: stars || "0",
-                  description: "GitHub Stars",
-                },
-              ].map((stats, i) => (
-                <Fragment key={i}>
-                  {i !== 0 && (
-                    <Separator
-                      orientation="vertical"
-                      className="h-14 w-px hidden max-sm:[&:nth-child(2)]:block max-sm:[&:nth-child(7)]:block sm:block"
-                    />
-                  )}
-                  {i === 2 && (
-                    <Separator
-                      orientation="horizontal"
-                      className="h-px w-full sm:hidden col-span-3"
-                    />
-                  )}
-                  <div className="flex flex-col items-center justify-center">
-                    <h3 className="text-xl md:text-2xl xl:text-3xl font-medium">
-                      {stats.title}
-                    </h3>
-                    <p className="text-sm md:text-base text-muted-foreground">
-                      {stats.description}
-                    </p>
-                  </div>
-                </Fragment>
-              ))}
-            </CardContent>
-          </Card>
+        <div className="flex flex-col gap-2.5 items-center justify-center">
+          <div className="flex gap-3 sm:gap-6 items-center justify-center">
+            <Card>
+              <CardContent className="grid grid-cols-[1fr_10px_1fr] sm:flex items-center gap-y-4 gap-x-9 justify-center p-6 text-center">
+                {[
+                  {
+                    title: Object.values(registry).filter((method) => method.type === "functions").length,
+                    description: "Utility Functions",
+                  },
+                  {
+                    title: Object.values(registry).filter((method) => method.type === "react-hooks").length,
+                    description: "React Hooks",
+                  },
+                  {
+                    title: `${githubData.open_issues || 0}`,
+                    description: "Open Issues",
+                  },
+                  {
+                    title: githubData.stargazers_count || "0",
+                    description: "GitHub Stars",
+                  },
+                ].map((stats, i) => (
+                  <Fragment key={i}>
+                    {i !== 0 && (
+                      <Separator
+                        orientation="vertical"
+                        className="h-14 w-px hidden max-sm:[&:nth-child(2)]:block max-sm:[&:nth-child(7)]:block sm:block"
+                      />
+                    )}
+                    {i === 2 && (
+                      <Separator
+                        orientation="horizontal"
+                        className="h-px w-full sm:hidden col-span-3"
+                      />
+                    )}
+                    <div className="flex flex-col items-center justify-center">
+                      <h3 className="text-xl md:text-2xl xl:text-3xl font-medium">
+                        {stats.title}
+                      </h3>
+                      <p className="text-sm md:text-base text-muted-foreground">
+                        {stats.description}
+                      </p>
+                    </div>
+                  </Fragment>
+                ))}
+              </CardContent>
+            </Card>
 
+          </div>
+          <div className="flex gap-3 sm:gap-6 items-center justify-center w-full">
+            <Card className="w-full">
+              <CardTitle className="pt-6 text-lg underline">
+                Contributors 👑
+              </CardTitle>
+              <CardContent className="flex flex-wrap gap-y-4 gap-x-4 justify-center items-center p-6 pt-2.5 text-center">
+                {
+                  contributors?.map((c: any, i: number) => {
+                    return (
+                      <Link
+                        key={i}
+                        target="_blank"
+                        href={c.url}
+                        className="flex flex-col justify-center items-center text-center group"
+                      >
+                        <Image className="size-12 rounded-full bg-muted shadow-inner border border-muted-foreground/40 object-cover object-center" height={48} width={40} src={c.avatar_url} alt="" />
+                        <span className="text-sm text-muted-foreground group-hover:underline">
+                          {c.url.replace("https://api.github.com/users/", "")}
+                        </span>
+                      </Link>
+                    )
+                  })
+                }
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </main>
       <footer className="w-full px-4 sm:px-12 pt-3 pb-6 border-t border-muted dark:border-gray-900 mt-8 text-center lg:text-start">
