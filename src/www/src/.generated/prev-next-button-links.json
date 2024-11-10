@@ -220,6 +220,10 @@
     "url": "/docs/react-hooks/web-api/useObserve"
   },
   {
+    "label": "useRequestFullScreen",
+    "url": "/docs/react-hooks/web-api/useRequestFullScreen"
+  },
+  {
     "label": "useShortcutKey",
     "url": "/docs/react-hooks/web-api/useShortcutKey"
   }
