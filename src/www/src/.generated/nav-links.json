@@ -247,6 +247,10 @@
             "url": "/docs/react-hooks/web-api/useClickAnywhere"
           },
           {
+            "label": "useInnerSize",
+            "url": "/docs/react-hooks/web-api/useInnerSize"
+          },
+          {
             "label": "useObserve",
             "url": "/docs/react-hooks/web-api/useObserve"
           },
