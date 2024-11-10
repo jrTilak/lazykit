@@ -136,7 +136,7 @@ export default async function Home() {
                       <Link
                         key={i}
                         target="_blank"
-                        href={c.url}
+                        href={c.html_url}
                         className="flex flex-col justify-center items-center text-center group"
                       >
                         <Image className="size-12 rounded-full bg-muted shadow-inner border border-muted-foreground/40 object-cover object-center" height={48} width={40} src={c.avatar_url} alt="" />
