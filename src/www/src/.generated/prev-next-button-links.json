@@ -198,5 +198,9 @@
   {
     "label": "useObserve",
     "url": "/docs/react-hooks/web-api/useObserve"
+  },
+  {
+    "label": "useShortcutKey",
+    "url": "/docs/react-hooks/web-api/useShortcutKey"
   }
 ]

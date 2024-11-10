@@ -13,14 +13,13 @@ type Props = {
 }
 
 export const ComponentPreview = ({ exampleName, methodName }: Props) => {
-  //@ts-expect-error
   const example: IRegistryJSON["examples"][string] = registry[methodName]?.examples[exampleName]
 
   if (!example) {
     return <div className='my-2 text-destructive'>Component not found {methodName} - {exampleName}, Try building registry</div>
   }
   return (
-    <Tabs defaultValue="code">
+    <Tabs defaultValue="preview">
       <TabsList className='mt-5'>
         <TabsTrigger value="code">
           Code - TSX
