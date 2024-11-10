@@ -73,6 +73,16 @@ const registry = {
     "category": "functional",
     "type": "functions"
   },
+  "deepCompare": {
+    "name": "deepCompare",
+    "code": {
+      "ts": "/**\n * compares two or more values deeply, checking both primitive and non-primitive types for equality by comparing their serialized JSON string representations.\n */\nconst deepCompare = (...args: any[]): boolean => {\n  // If there are less than 2 arguments, return true (nothing to compare)\n  if (args.length < 2) {\n    return true;\n  }\n\n  // Iterate over the values and compare each pair of consecutive values\n  for (let i = 0; i < args.length - 1; i++) {\n    const a = args[i];\n    const b = args[i + 1];\n\n    // If the types are different, return false\n    if (typeof a !== typeof b) {\n      return false;\n    }\n\n    // For primitive types (boolean, string, number), compare using strict equality\n    if (\n      typeof a === 'boolean' ||\n      typeof a === 'string' ||\n      typeof a === 'number'\n    ) {\n      if (a !== b) return false;\n    } else {\n      // For non-primitive types, we compare by converting to JSON string\n      if (JSON.stringify(a) !== JSON.stringify(b)) {\n        return false;\n      }\n    }\n  }\n\n  return true; // If all comparisons passed, return true\n};\n\nexport default deepCompare;\n",
+      "js": "/**\n * compares two or more values deeply, checking both primitive and non-primitive types for equality by comparing their serialized JSON string representations.\n */\nconst deepCompare = (...args) => {\n  // If there are less than 2 arguments, return true (nothing to compare)\n  if (args.length < 2) {\n    return true;\n  }\n  // Iterate over the values and compare each pair of consecutive values\n  for (let i = 0; i < args.length - 1; i++) {\n    const a = args[i];\n    const b = args[i + 1];\n    // If the types are different, return false\n    if (typeof a !== typeof b) {\n      return false;\n    }\n    // For primitive types (boolean, string, number), compare using strict equality\n    if (\n      typeof a === 'boolean' ||\n      typeof a === 'string' ||\n      typeof a === 'number'\n    ) {\n      if (a !== b) return false;\n    } else {\n      // For non-primitive types, we compare by converting to JSON string\n      if (JSON.stringify(a) !== JSON.stringify(b)) {\n        return false;\n      }\n    }\n  }\n  return true; // If all comparisons passed, return true\n};\nexport default deepCompare;\n"
+    },
+    "examples": {},
+    "category": "compare",
+    "type": "functions"
+  },
   "filterObj": {
     "name": "filterObj",
     "code": {
@@ -366,7 +376,7 @@ const registry = {
         return Promise.resolve(() => <div className='my-2 text-destructive'>Error loading component</div>);
     })),
         "code": {
-          "tsx": "'use client';\n\nimport sleep from '@/registry/functions/functional/sleep';\nimport useAsyncEffect from '.';\n\nconst MyComponent = () => {\n  useAsyncEffect(async () => {\n    const data = await sleep(1000);\n    console.log(data);\n  }, []);\n\n  return <div>Nothing to preview - see code instead!</div>;\n};\n\nexport default MyComponent;\n"
+          "tsx": "'use client';\n\nimport sleep from '@/registry/functions/functional/sleep';\nimport useAsyncEffect from '.';\n\nconst MyComponent = () => {\n  useAsyncEffect(async () => {\n    await sleep(1000);\n  }, []);\n\n  return <div>Nothing to preview - see code instead!</div>;\n};\n\nexport default MyComponent;\n"
         }
       }
     },

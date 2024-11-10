@@ -64,6 +64,10 @@
     "url": "/docs/functions/arrays/zip"
   },
   {
+    "label": "deepCompare",
+    "url": "/docs/functions/compare/deepCompare"
+  },
+  {
     "label": "callAfter",
     "url": "/docs/functions/functional/callAfter"
   },

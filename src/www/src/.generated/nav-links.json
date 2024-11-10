@@ -74,6 +74,16 @@
         ]
       },
       {
+        "label": "Compare",
+        "url": "/docs/functions/compare",
+        "methods": [
+          {
+            "label": "deepCompare",
+            "url": "/docs/functions/compare/deepCompare"
+          }
+        ]
+      },
+      {
         "label": "Functional",
         "url": "/docs/functions/functional",
         "methods": [
