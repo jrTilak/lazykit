@@ -88,7 +88,7 @@ const HighlightCode = ({ hideLineNumbers = false, ...props }: Props) => {
             ref={codeRef} // Attach ref to <pre>
             style={style}
             className={cn(
-              "font-fira-code p-2 rounded-sm text-left tracking-normal overflow-x-auto text-[15px] my-4 pr-10",
+              "font-fira-code p-2 rounded-sm text-left tracking-normal overflow-x-auto text-[14px] my-4 pr-10",
               lineWrap ? "text-wrap" : "text-nowrap"
             )}
           >

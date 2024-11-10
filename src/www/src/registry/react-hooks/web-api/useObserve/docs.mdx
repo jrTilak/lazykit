@@ -1,0 +1,38 @@
+---
+name: useObserve
+desc:  tracks an element's visibility in the viewport, providing callbacks and options for enabling/disabling the observer and customizing the intersection behavior.
+---
+
+
+<CodePreview methodName="useObserve"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add useObserve
+```
+
+## Parameters
+
+- `ref` (`React.RefObject<HTMLElement>`): The reference to the HTML element that will be observed for intersection with the viewport or a specified root element.
+- `config` (`UseObserveConfig`, optional): Configuration options for the IntersectionObserver:
+  - `once` (`boolean`, optional): Trigger the callback only once when the element intersects. Defaults to `false`.
+  - `autoEnable` (`boolean`, optional): Whether the observer should be enabled immediately. Defaults to `true`.
+  - `threshold` (`number | number[]`, optional): Intersection threshold(s) (0 to 1). Defaults to `0`.
+  - `root` (`HTMLElement | null`, optional): The root element for the intersection observer. Defaults to `null`, which means the viewport.
+  - `rootMargin` (`string`, optional): Margin around the root, e.g., `"10px 20px"`. Defaults to `"0px"`.
+  - `onIntersect` (`() => void`, optional): Callback to be called when the element intersects.
+  - `onLeave` (`() => void`, optional): Callback to be called when the element leaves the viewport.
+
+## Returns
+
+- `position`: The position of the observed element (`DOMRect`), or `null` if it cannot be determined.
+- `isIntersecting`: Whether the observed element is currently intersecting the viewport (or the specified root element).
+- `enable`: A function to enable the observer.
+- `disable`: A function to disable the observer.
+- `isEnabled`: Status indicating that the hook is enabled or not.
+
+
+## Usage
+
+<ComponentPreview methodName="useObserve" exampleName="observe"/>

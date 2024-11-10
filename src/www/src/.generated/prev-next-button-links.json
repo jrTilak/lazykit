@@ -194,5 +194,9 @@
   {
     "label": "useClickAnywhere",
     "url": "/docs/react-hooks/web-api/useClickAnywhere"
+  },
+  {
+    "label": "useObserve",
+    "url": "/docs/react-hooks/web-api/useObserve"
   }
 ]

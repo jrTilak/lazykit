@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useRef, useEffect } from 'react';
 import useClickAnywhere from '.';
 import { Button } from '@/components/ui/button';
