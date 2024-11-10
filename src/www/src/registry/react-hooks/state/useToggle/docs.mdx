@@ -1,0 +1,27 @@
+---
+name: useToggle
+desc:  A custom hook to toggle between two values.
+---
+
+
+<CodePreview methodName="useToggle"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add useToggle
+```
+
+## Parameters
+
+- `value1` (`A`): The first value in the toggle. Must be of type `string`, `number`, or `boolean`.
+- `value2` (`B`): The second value in the toggle. Must be of type `string`, `number`, or `boolean`.
+
+## Returns
+
+- `state`: The current state value, which will be one of `value1` or `value2`.
+- `setState`: A function to directly set the state to either `value1` or `value2`.
+- `toggle`: A function to toggle the state between `value1` and `value2`.
+
+## Usage
+<ComponentPreview methodName="useToggle" exampleName="toggle"/>

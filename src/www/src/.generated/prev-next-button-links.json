@@ -204,6 +204,10 @@
     "url": "/docs/react-hooks/state/useMockLoading"
   },
   {
+    "label": "useToggle",
+    "url": "/docs/react-hooks/state/useToggle"
+  },
+  {
     "label": "useClickAnywhere",
     "url": "/docs/react-hooks/web-api/useClickAnywhere"
   },

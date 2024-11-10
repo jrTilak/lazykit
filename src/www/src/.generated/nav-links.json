@@ -259,6 +259,10 @@
           {
             "label": "useMockLoading",
             "url": "/docs/react-hooks/state/useMockLoading"
+          },
+          {
+            "label": "useToggle",
+            "url": "/docs/react-hooks/state/useToggle"
           }
         ]
       },
