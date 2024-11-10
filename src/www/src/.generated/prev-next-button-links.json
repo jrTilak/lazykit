@@ -216,6 +216,10 @@
     "url": "/docs/react-hooks/web-api/useInnerSize"
   },
   {
+    "label": "useIsOnline",
+    "url": "/docs/react-hooks/web-api/useIsOnline"
+  },
+  {
     "label": "useObserve",
     "url": "/docs/react-hooks/web-api/useObserve"
   },
