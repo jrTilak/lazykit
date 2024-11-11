@@ -6,6 +6,7 @@ import { Config } from "../types/config.types.js";
 import checkInitialization from "../utils/checkInitialization.js";
 import packageJson from "../../package.json";
 import exitProcess from "../utils/exitProcess.js";
+import { SCHEMA_URL } from "../data/constant.js";
 
 /**../utils/exit.js
  * Initializes the project with the provided configuration.
@@ -18,6 +19,7 @@ export default async function init(...args: any) {
   const arg = args[0];
 
   const DEFAULT_CONFIG: Config = {
+    $schema: SCHEMA_URL,
     language: "typescript",
     separate: false,
     v: packageJson.version,
@@ -26,8 +28,11 @@ export default async function init(...args: any) {
       reactHooks: "kebab-case",
     },
     paths: {
-      helperFunctions: "@/helpers",
-      reactHooks: "@/hooks",
+      helperFunctions: "/src/helpers",
+      reactHooks: "/src/hooks",
+    },
+    resolve: {
+      alias: {},
     },
   };
 
@@ -130,6 +135,17 @@ export default async function init(...args: any) {
           name: "path",
           message: "Enter the path to store the helper functions: ",
           default: DEFAULT_CONFIG.paths.helperFunctions,
+          validate: (input: string) => {
+            // The path should start with ./, /, or any alias symbol (like @, $, ~), but not directly with a file name (i.e., no trailing file extension at the start)
+            const aliasPattern = /^[/./@~$]/; // Allows /, ./, @, ~, $
+            const isValidPath =
+              aliasPattern.test(input) && !input.match(/\/[^/]*\.[^/]*$/);
+
+            if (isValidPath) {
+              return true;
+            }
+            return "Enter a valid path starting with ./, /, @, $, ~ or any other alias symbol";
+          },
         },
       ]);
 
@@ -143,10 +159,69 @@ export default async function init(...args: any) {
           name: "path",
           message: "Enter the path to store the react-hooks: ",
           default: DEFAULT_CONFIG.paths.reactHooks,
+          validate: (input: string) => {
+            // The path should start with /, or any alias symbol (like @, $, ~), but not directly with a file name (i.e., no trailing file extension at the start)
+            const aliasPattern = /^[/@~$]/; // Allows /, @, ~, $
+            const isValidPath =
+              aliasPattern.test(input) && !input.match(/\/[^/]*\.[^/]*$/);
+
+            if (isValidPath) {
+              return true;
+            }
+            return "Enter a valid path starting with /, @, $, ~ or any other alias symbol";
+          },
         },
       ]);
 
       DEFAULT_CONFIG.paths.reactHooks = ans.path;
+    }
+
+    /**
+     * if the path for helper functions and react hooks starts with other than ./ or /, then ask the user for the alias.
+     */
+    if (DEFAULT_CONFIG.paths.helperFunctions[0] !== "/") {
+      const ans = await inquirer.prompt([
+        {
+          type: "input",
+          name: "alias",
+          message: `Enter the path for the alias ${DEFAULT_CONFIG.paths.helperFunctions}: `,
+          validate: (input: string) => {
+            const aliasPattern = /^[/]/; // Allows /,
+            const isValidAlias = aliasPattern.test(input);
+
+            if (isValidAlias) {
+              return true;
+            }
+            return "Enter a valid alias starting with @, $, ~";
+          },
+        },
+      ]);
+      DEFAULT_CONFIG.resolve.alias[DEFAULT_CONFIG.paths.helperFunctions] =
+        ans.alias;
+    }
+
+    if (
+      DEFAULT_CONFIG.paths.reactHooks[0] !== "." &&
+      DEFAULT_CONFIG.paths.reactHooks[0] !== "/"
+    ) {
+      const ans = await inquirer.prompt([
+        {
+          type: "input",
+          name: "alias",
+          message: `Enter the path for the alias ${DEFAULT_CONFIG.paths.reactHooks}: `,
+          validate: (input: string) => {
+            // The alias should start with ./, /
+            const aliasPattern = /^[/./]/; // Allows /, ./
+            const isValidAlias = aliasPattern.test(input);
+
+            if (isValidAlias) {
+              return true;
+            }
+            return "Enter a valid alias starting with @, $, ~";
+          },
+        },
+      ]);
+      DEFAULT_CONFIG.resolve.alias[DEFAULT_CONFIG.paths.reactHooks] = ans.alias;
     }
 
     /**

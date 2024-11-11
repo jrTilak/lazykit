@@ -61,9 +61,10 @@ program
 program
   .command("add <method...>")
   .description("Add a new method to the project")
-  .option("-p, --path <path>", "Add the method in the given path")
-  .option("-ts, --typescript", "Add the method in typescript")
-  .option("-js, --javascript", "Add the method in javascript")
+  .option(
+    "-f, --force",
+    "Force add the method, even if the method is already added"
+  )
   .action(add);
 
 program.parse(process.argv);

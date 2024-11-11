@@ -21,6 +21,10 @@
       {
         "label": "Changelog",
         "url": "/docs/changelog"
+      },
+      {
+        "label": "Contributing",
+        "url": "/docs/contributing"
       }
     ]
   },

@@ -1,17 +1,16 @@
 import chalk from "chalk";
 import checkInitialization from "../utils/checkInitialization.js";
 import * as fs from "fs";
-import inquirer from "inquirer";
 import { REGISTRY_URL } from "../data/constant.js";
 import exitProcess from "../utils/exitProcess.js";
 import path from "path";
 import cliSpinners from "cli-spinners";
 import { camelCase, kebabCase } from "change-case";
+import { updateImports } from "../utils/update-imports.js";
 
 export default async function add(...args: any[]) {
-  const method = args[0];
+  const methods = args[0];
   const arg = args[1];
-  let pathToInstall = "";
 
   /**
    * Check if the project is initialized or not.
@@ -26,7 +25,6 @@ export default async function add(...args: any[]) {
 
   if (!config.isInitialized) {
     console.log(chalk.red("\nProject is not initialized\n"));
-
     console.log(
       chalk.dim("Run `npx @jrtilak/lazykit init` to init the project")
     );
@@ -34,58 +32,28 @@ export default async function add(...args: any[]) {
   }
 
   /**
-   * Override the path to install the method if the user has provided the path flag.
-   */
-  if (arg.path) {
-    pathToInstall = arg.path;
-  }
-
-  /**
    * Get the language of the project.
-   * If the user has provided the language flag, then use the provided language.
-   * If the user has not provided the language flag, then use the language of the project configuration.
    */
-  const getLang = async () => {
-    if (arg.javascript) return "javascript";
-    if (arg.typescript) return "typescript";
-    if (!config.isInitialized) {
-      const ans = await inquirer.prompt([
-        {
-          type: "list",
-          name: "language",
-          message: "Confirm the language: ",
-          choices: [
-            { name: "Typescript", value: "typescript" },
-            { name: "Javascript", value: "javascript" },
-          ],
-          default: "javascript",
-        },
-      ]);
-      return ans.language;
-    }
-    return config?.config?.language === "typescript"
-      ? "typescript"
-      : "javascript";
-  };
-  const lang = await getLang();
+
+  const lang =
+    config?.config?.language === "typescript" ? "typescript" : "javascript";
 
   /**
    * URL is the URL of the website where the registry is hosted.
    */
-
-  //show spinner
-
   const spinner = cliSpinners.dots;
   let i = 0;
 
   const interval = setInterval(() => {
     i = ++i % spinner.frames.length;
     process.stdout.write(
-      chalk.dim(spinner.frames[i]) + " Downloading method...\r"
+      chalk.dim(spinner.frames[i]) +
+        ` Downloading method ${methods.join(", ")}...\r`
     );
   }, spinner.interval);
+
   const res = await fetch(
-    `${REGISTRY_URL}/api/methods?name=${method.join(",")}&lang=${lang}`,
+    `${REGISTRY_URL}/api/methods?name=${methods.join(",")}&lang=${lang}`,
     {
       method: "GET",
       headers: {
@@ -98,63 +66,69 @@ export default async function add(...args: any[]) {
   clearInterval(interval);
 
   if (res.status === 200) {
-    // show spinner
-    const spinner = cliSpinners.dots;
-    let i = 0;
+    data.map((method) => {
+      const { name, code, type } = method;
 
-    const interval = setInterval(() => {
-      i = ++i % spinner.frames.length;
-      console.log(chalk.dim(spinner.frames[i]) + " Adding method...");
-    }, spinner.interval);
+      const refinedCode = `/**\n  * Taken from @jrtilak/lazykit\n  * See more about this method: ${method.url}\n  */\n${updateImports(code, config.config)}`;
 
-    try {
-      /**
-       * Write the method to the file.
-       * The method is written to the file in the path provided in the project configuration.
-       */
+      let filename = name;
+      if (type === "react-hooks") {
+        filename =
+          config.config.filenameConvention?.reactHooks === "camelCase"
+            ? camelCase(name)
+            : kebabCase(name);
+      } else {
+        filename =
+          config.config.filenameConvention?.helperFunctions === "camelCase"
+            ? camelCase(name)
+            : kebabCase(name);
+      }
 
-      data?.forEach((method) => {
-        const { name, code, type } = method;
-        let filename = name;
-        if (type === "react-hooks") {
-          filename =
-            config.config.filenameConvention?.reactHooks === "camelCase"
-              ? camelCase(name)
-              : kebabCase(name);
-        } else {
-          filename =
-            config.config.filenameConvention?.helperFunctions === "camelCase"
-              ? camelCase(name)
-              : kebabCase(name);
+      let pathToInstall =
+        type === "react-hooks"
+          ? config.config.paths.reactHooks
+          : config.config.paths.helperFunctions;
+
+      if (!pathToInstall.startsWith(".") || !pathToInstall.startsWith("/")) {
+        // Resolve the alias if exists
+        pathToInstall =
+          config.config.resolve?.alias?.[pathToInstall] ?? undefined;
+
+        if (!pathToInstall) {
+          console.log(
+            chalk.red(`\nAlias ${pathToInstall} not found in the configuration`)
+          );
+          return;
         }
+      }
 
-        pathToInstall = pathToInstall
-          ? pathToInstall
-          : type === "react-hooks"
-            ? config.config.paths.reactHooks
-            : config.config.paths.helperFunctions;
+      const file = `${pathToInstall}/${filename}.${lang === "typescript" ? "ts" : "js"}`;
+      const currentDir = process.cwd();
 
-        const file = `${pathToInstall}/${filename}.${lang === "typescript" ? "ts" : "js"}`;
-        const currentDir = process.cwd();
-
-        // Ensure the directory exists
-        fs.mkdirSync(path.dirname(`${currentDir}/${file}`), {
-          recursive: true,
-        });
-
-        fs.writeFileSync(`${currentDir}/${file}`, code);
+      // Ensure the directory exists
+      fs.mkdirSync(path.dirname(`${currentDir}/${file}`), {
+        recursive: true,
       });
 
-      console.log(chalk.green(`Method ${method} added successfully! 🚀`));
-    } catch (e) {
-      console.log(chalk.red(`\nError adding method ${method} 😞`));
-    } finally {
-      clearInterval(interval);
-    }
+      /**
+       * If the file already exists, ask the user if they want to overwrite the file.
+       */
+      if (fs.existsSync(`${currentDir}/${file}`) && !arg.force) {
+        console.log(
+          chalk.red(
+            `\nFile ${file} already exists, pass --force to overwrite the file`
+          )
+        );
+      } else {
+        fs.writeFileSync(`${currentDir}/${file}`, refinedCode);
+        console.log(chalk.dim(`Method ${method.name} added successfully! 🚀`));
+      }
+    });
   } else {
-    console.log(chalk.red(`\nError adding method ${method} 😞`));
+    console.log(
+      chalk.red(`\nError adding method ${JSON.stringify(methods)} 😞`)
+    );
     console.log(chalk.dim("Status: " + res.status));
     console.log(chalk.dim("Message: " + data.message));
-    exitProcess(1);
   }
 }

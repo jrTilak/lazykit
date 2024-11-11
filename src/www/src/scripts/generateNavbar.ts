@@ -35,10 +35,13 @@ const GETTING_STARTED = {
       label: "lazykit.config.json",
       url: "/docs/lazykit-config",
     },
-
     {
       label: "Changelog",
       url: "/docs/changelog",
+    },
+    {
+      label: "Contributing",
+      url: "/docs/contributing",
     },
   ],
 };

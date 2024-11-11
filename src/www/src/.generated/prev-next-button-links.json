@@ -20,6 +20,10 @@
     "url": "/docs/changelog"
   },
   {
+    "label": "Contributing",
+    "url": "/docs/contributing"
+  },
+  {
     "label": "Functions",
     "url": "/docs/functions"
   },
