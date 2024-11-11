@@ -32,7 +32,7 @@
     "js-utility",
     "utility functions"
   ],
-  "author": "Tilak Thapa <iamjrtilak@gmail.com>",
+  "author": "Tilak Thapa <contact@jrtilak.dev>",
   "license": "ISC",
   "dependencies": {
     "chalk": "^5.3.0",
