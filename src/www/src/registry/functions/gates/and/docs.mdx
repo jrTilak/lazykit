@@ -1,0 +1,40 @@
+---
+name: and
+desc: Performs a logical AND operation on the given arguments.
+---
+
+<CodePreview methodName="and"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add and
+```
+
+## Parameters
+
+- `...args` (`unknown[]`)  
+  A variable number of arguments to evaluate in the logical AND operation.
+
+## Returns
+
+- `boolean`  
+  Returns `true` if all arguments are truthy; otherwise, returns `false`.
+
+## Usage
+```javascript
+"use js-executor";
+import and from "@/helpers/and";
+
+console.log(and(true, true));
+// Expected Output: true
+
+console.log(and(true, false));
+// Expected Output: false
+
+console.log(and());
+// Expected Output: false
+
+console.log(and(1, "lazykit"));
+// Expected Output: true
+```

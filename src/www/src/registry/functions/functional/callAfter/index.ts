@@ -1,3 +1,6 @@
+/**
+ * Returns a new function that can be called only after calling a specific number of times.
+ **/
 const callAfter = <T, S extends any[]>(
   fn: (...args: S) => T,
   count: number

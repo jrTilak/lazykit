@@ -1,0 +1,39 @@
+---
+name: unique
+desc: Creates a unique array from the input array.
+---
+
+<CodePreview methodName="unique"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add unique
+```
+
+## Parameters
+
+- `arr` (`T[]`)  
+  The array from which to create a unique set of elements. Duplicate elements will be removed.
+
+## Returns
+
+- `T[]`  
+  Returns a new array containing only the unique elements from the original array. The order of elements is preserved based on their first appearance.
+
+## Type Parameters
+
+- `T`  
+  The type of elements in the array. This allows the function to work with arrays of any type, ensuring type safety for the unique elements.
+
+
+## Usage
+```javascript
+"use js-executor";
+import unique from "@/helpers/unique";
+
+const arr = [1, 2, 3, 3];
+const result = unique(arr);
+console.log(result);
+// Expected Output: [1, 2, 3]
+```

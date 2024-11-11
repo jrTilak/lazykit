@@ -1,0 +1,68 @@
+---
+name: tryCatch
+desc: Helps to safely execute synchronous functions
+---
+
+
+<CodePreview methodName="tryCatch"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add tryCatch
+```
+
+## Parameters
+
+- `fn` (`() => Return`)  
+  A function to execute safely. If the function throws an error, it will be caught and handled.
+
+## Returns
+
+- `TryCatchReturn<Err, Return>`  
+  Returns a tuple where the first element is either an error (if one occurred) or `undefined`, and the second element is the return value of the function (if it executed successfully) or `undefined`.
+
+## Type Parameters
+
+- `Err extends Error`  
+  The type of the error that may be thrown by the function `fn`.
+
+- `Return`  
+  The return type of the function `fn`.
+
+## Usage Examples
+
+### Basic Usage with Success
+```javascript
+"use js-executor"
+import tryCatch from "@/utils/tryCatch";
+
+const [error, result] = tryCatch(() => {
+  // Simulate a successful operation
+  return "Operation successful!";
+});
+
+if (error) {
+  console.error("Error:", error);
+} else {
+  console.log("Result:", result); // Output: "Result: Operation successful!"
+}
+```
+
+### Handling an Error
+```javascript
+"use js-executor"
+import tryCatch from "@/utils/tryCatch";
+
+const [error, result] = tryCatch(() => {
+  throw new Error("Something went wrong!");
+});
+
+if (error) {
+  console.error("Caught error:", error.message); // Output: "Caught error: Something went wrong!"
+} else {
+  console.log("Result:", result);
+}
+```
+
+The `tryCatch` utility is especially useful for functions that might throw errors, allowing cleaner handling and standardized output by using the returned tuple.

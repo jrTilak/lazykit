@@ -1,0 +1,57 @@
+---
+name: callAfter
+desc: Returns a new function that can be called only after calling a specific number of times.
+---
+<CodePreview methodName="callAfter"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add callAfter
+```
+
+## Parameters
+
+- `fn` (`(...args: S) => T`)  
+  The function to be called after the specified count. This function will receive the same arguments that are passed to the returned function.
+
+- `count` (`number`)  
+  The number of times the returned function must be called before `fn` is executed.
+
+## Returns
+
+- `((...args: S) => T | undefined)`  
+  Returns a new function that, when called, will only execute `fn` after it has been called the specified number of times. Until that point, it will return `undefined`.
+
+## Type Parameters
+
+- `T`  
+  The return type of the function `fn`.
+
+- `S`  
+  The type of the arguments accepted by the function `fn`. This allows the returned function to accept the same parameters as `fn`, ensuring type safety.
+
+## Usage
+
+The `callAfter` utility creates a wrapper function that delays execution of the provided function `fn` until it has been called a specified number of times. Each call increments an internal counter until it reaches the `count` threshold. Once the threshold is met, `fn` is executed with the given arguments, returning its result. Before the threshold, the function returns `undefined`.
+
+### Example
+
+```javascript
+"use js-executor"
+import callAfter from "@/utils/callAfter";
+
+// Create a function that logs a message
+const logMessage = (msg) => console.log(msg);
+
+// Set up a delayed function that only executes after 3 calls
+const delayedLog = callAfter(logMessage, 3);
+
+delayedLog("Hello"); // No output
+delayedLog("Hello"); // No output
+delayedLog("Hello"); // No output
+delayedLog("Hello again!"); // Logs "Hello again!" immediately on 4th call
+delayedLog("Hello again! 2");
+```
+
+This utility is useful when you want to delay function execution until a specific event or condition occurs multiple times, making it ideal for situations where you only want an action to occur after several triggers or validations.

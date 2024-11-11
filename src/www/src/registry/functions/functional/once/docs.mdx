@@ -1,0 +1,52 @@
+---
+name: once
+desc: Returns a new function that can be called only once.
+---
+
+<CodePreview methodName="once"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add once
+```
+## Parameters
+
+- `fn` (`(...args: S) => T`)  
+  The function to be called only once. This function will receive the same arguments that are passed to the returned function.
+
+## Returns
+
+- `((...args: S) => T | undefined)`  
+  Returns a new function that, when called, will invoke `fn` only once. Subsequent calls will return `undefined`.
+
+## Type Parameters
+
+- `T`  
+  The return type of the function `fn`.
+
+- `S`  
+  The type of the arguments accepted by the function `fn`. This allows the returned function to accept the same parameters as `fn`, ensuring type safety.
+
+## Usage
+
+The `once` function wrapper ensures that a provided function can only be called once. Any subsequent calls to the returned function will be ignored, returning `undefined` instead of executing the function again.
+
+### Example
+
+```javascript
+"use js-executor"
+import once from "@/utils/once";
+
+// Function that we want to run only once
+const initialize = () => console.log("Initialization completed!");
+
+const initializeOnce = once(initialize);
+
+// Call the function multiple times
+initializeOnce(); // Output: Initialization completed!
+initializeOnce(); // No output
+initializeOnce(); // No output
+```
+
+In this example, `initialize` is executed only on the first call to `initializeOnce`. All subsequent calls will be ignored, making it useful for setup functions that should only run once.

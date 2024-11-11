@@ -6,6 +6,6 @@
   <br>
 </h1>
 
-<h4 align="center">Trim the fat, Keep the function</h4>
+<h4 align="center">Drop the Excess, Keep the Impact!</h4>
 
 ![screenshot](./public/image.png)

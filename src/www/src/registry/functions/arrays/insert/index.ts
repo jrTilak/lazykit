@@ -1,3 +1,6 @@
+/**
+ * Inserts elements into an array at a specified index.
+ **/
 const insert = <T>(
   arr: T[],
   index: number,
@@ -5,16 +8,14 @@ const insert = <T>(
   recursive: boolean = false
 ): T[] => {
   const isNegativeIndex = index < 0;
-  // if index is negative, convert it to positive and reverse the array for easier insertion
+
   if (isNegativeIndex) {
-    index = Math.abs(index);
-    arr = arr.reverse();
-    items = items.reverse();
+    throw new Error("Negative index is not supported!");
   }
 
   if (!recursive) {
     const newArr = [...arr.slice(0, index), ...items, ...arr.slice(index)];
-    return isNegativeIndex ? newArr.reverse() : newArr;
+    return newArr;
   } else {
     const shouldInsert = Math.floor(arr.length / index);
     let newArr = [...arr];
@@ -26,7 +27,7 @@ const insert = <T>(
         ...newArr.slice(insertIndex),
       ];
     }
-    return isNegativeIndex ? newArr.reverse() : newArr;
+    return newArr;
   }
 };
 

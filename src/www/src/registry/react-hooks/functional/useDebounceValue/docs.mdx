@@ -1,0 +1,27 @@
+---
+name: useDebounceValue
+desc:  Custom hook that returns a debounced value after a specified delay.
+---
+
+
+<CodePreview methodName="useDebounceValue"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add useDebounceValue
+```
+
+## Parameters
+
+- `value` (`T`): The value to debounce it's changes.
+- `delay` (`number`, optional): The debounce delay in milliseconds. Defaults to `300`.
+
+## Returns
+
+- `debouncedValue`: A debounced version of the provided value, which will delay its chnage until after the specified `delay` has passed since the last chnage.
+
+
+## Usage
+
+<ComponentPreview methodName="useDebounceValue" exampleName="debounce"/>

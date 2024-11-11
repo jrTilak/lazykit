@@ -1,0 +1,69 @@
+---
+name: omit
+desc: Returns a new object with the specified keys omitted.
+---
+
+<CodePreview methodName="omit"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add omit
+```
+
+## Parameters
+
+- `obj` (`T`)  
+  The input object from which properties will be omitted.
+
+- `keys` (`K[]`)  
+  An array of keys to omit from the input object. The keys must be valid keys of the input object.
+
+## Returns
+
+- `Omit<T, K>`  
+  A new object that contains all properties of the input object except for the specified keys.
+
+## Example Usage
+
+```javascript
+"use js-executor";
+
+import omit from "@/helpers/omit";
+
+const originalObject = {
+  name: "Alice",
+  age: 28,
+  city: "Paris",
+  occupation: "Engineer",
+};
+
+const omittedObject = omit(originalObject, ["age", "occupation"]);
+
+console.log(omittedObject); 
+// Output: { name: "Alice", city: "Paris" }
+```
+
+
+```javascript
+"use js-executor";
+
+import omit from "@/helpers/omit";
+
+const settings = {
+  theme: "dark",
+  notifications: true,
+  language: "en",
+  fontSize: 16,
+  preferredColor: {
+    primary: "blue",
+    secondary: "green",
+  }
+};
+
+const updatedSettings = omit(settings, ["theme", "fontSize", ]);
+
+console.log(updatedSettings); 
+// Output: { notifications: true, language: "en" }
+```
+

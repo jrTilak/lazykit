@@ -1,0 +1,242 @@
+[
+  {
+    "label": "Introduction",
+    "url": "/docs/introduction"
+  },
+  {
+    "label": "CLI",
+    "url": "/docs/cli"
+  },
+  {
+    "label": "Installation",
+    "url": "/docs/cli#4-installation"
+  },
+  {
+    "label": "lazykit.config.json",
+    "url": "/docs/lazykit-config"
+  },
+  {
+    "label": "Changelog",
+    "url": "/docs/changelog"
+  },
+  {
+    "label": "Contributing",
+    "url": "/docs/contributing"
+  },
+  {
+    "label": "Functions",
+    "url": "/docs/functions"
+  },
+  {
+    "label": "chunk",
+    "url": "/docs/functions/arrays/chunk"
+  },
+  {
+    "label": "compact",
+    "url": "/docs/functions/arrays/compact"
+  },
+  {
+    "label": "insert",
+    "url": "/docs/functions/arrays/insert"
+  },
+  {
+    "label": "partition",
+    "url": "/docs/functions/arrays/partition"
+  },
+  {
+    "label": "remove",
+    "url": "/docs/functions/arrays/remove"
+  },
+  {
+    "label": "rotate",
+    "url": "/docs/functions/arrays/rotate"
+  },
+  {
+    "label": "sampleArr",
+    "url": "/docs/functions/arrays/sampleArr"
+  },
+  {
+    "label": "shuffleArr",
+    "url": "/docs/functions/arrays/shuffleArr"
+  },
+  {
+    "label": "unique",
+    "url": "/docs/functions/arrays/unique"
+  },
+  {
+    "label": "zip",
+    "url": "/docs/functions/arrays/zip"
+  },
+  {
+    "label": "deepCompare",
+    "url": "/docs/functions/compare/deepCompare"
+  },
+  {
+    "label": "callAfter",
+    "url": "/docs/functions/functional/callAfter"
+  },
+  {
+    "label": "callBefore",
+    "url": "/docs/functions/functional/callBefore"
+  },
+  {
+    "label": "count",
+    "url": "/docs/functions/functional/count"
+  },
+  {
+    "label": "debounce",
+    "url": "/docs/functions/functional/debounce"
+  },
+  {
+    "label": "nTimes",
+    "url": "/docs/functions/functional/nTimes"
+  },
+  {
+    "label": "once",
+    "url": "/docs/functions/functional/once"
+  },
+  {
+    "label": "retry",
+    "url": "/docs/functions/functional/retry"
+  },
+  {
+    "label": "sleep",
+    "url": "/docs/functions/functional/sleep"
+  },
+  {
+    "label": "throttle",
+    "url": "/docs/functions/functional/throttle"
+  },
+  {
+    "label": "timeout",
+    "url": "/docs/functions/functional/timeout"
+  },
+  {
+    "label": "tryCatch",
+    "url": "/docs/functions/functional/tryCatch"
+  },
+  {
+    "label": "tryCatchAsync",
+    "url": "/docs/functions/functional/tryCatchAsync"
+  },
+  {
+    "label": "and",
+    "url": "/docs/functions/gates/and"
+  },
+  {
+    "label": "nand",
+    "url": "/docs/functions/gates/nand"
+  },
+  {
+    "label": "nor",
+    "url": "/docs/functions/gates/nor"
+  },
+  {
+    "label": "or",
+    "url": "/docs/functions/gates/or"
+  },
+  {
+    "label": "filterObj",
+    "url": "/docs/functions/objects/filterObj"
+  },
+  {
+    "label": "mapObj",
+    "url": "/docs/functions/objects/mapObj"
+  },
+  {
+    "label": "omit",
+    "url": "/docs/functions/objects/omit"
+  },
+  {
+    "label": "pick",
+    "url": "/docs/functions/objects/pick"
+  },
+  {
+    "label": "renameKeys",
+    "url": "/docs/functions/objects/renameKeys"
+  },
+  {
+    "label": "renameKeysByCallback",
+    "url": "/docs/functions/objects/renameKeysByCallback"
+  },
+  {
+    "label": "sampleObj",
+    "url": "/docs/functions/objects/sampleObj"
+  },
+  {
+    "label": "sortObjKeys",
+    "url": "/docs/functions/objects/sortObjKeys"
+  },
+  {
+    "label": "getLocalStorageItem",
+    "url": "/docs/functions/web-api/getLocalStorageItem"
+  },
+  {
+    "label": "setLocalStorageItem",
+    "url": "/docs/functions/web-api/setLocalStorageItem"
+  },
+  {
+    "label": "React Hooks",
+    "url": "/docs/react-hooks"
+  },
+  {
+    "label": "useAsyncEffect",
+    "url": "/docs/react-hooks/effect/useAsyncEffect"
+  },
+  {
+    "label": "useDebounceCallback",
+    "url": "/docs/react-hooks/functional/useDebounceCallback"
+  },
+  {
+    "label": "useDebounceValue",
+    "url": "/docs/react-hooks/functional/useDebounceValue"
+  },
+  {
+    "label": "useBoolean",
+    "url": "/docs/react-hooks/state/useBoolean"
+  },
+  {
+    "label": "useCountdown",
+    "url": "/docs/react-hooks/state/useCountdown"
+  },
+  {
+    "label": "useCounter",
+    "url": "/docs/react-hooks/state/useCounter"
+  },
+  {
+    "label": "useMockLoading",
+    "url": "/docs/react-hooks/state/useMockLoading"
+  },
+  {
+    "label": "useStep",
+    "url": "/docs/react-hooks/state/useStep"
+  },
+  {
+    "label": "useToggle",
+    "url": "/docs/react-hooks/state/useToggle"
+  },
+  {
+    "label": "useClickAnywhere",
+    "url": "/docs/react-hooks/web-api/useClickAnywhere"
+  },
+  {
+    "label": "useInnerSize",
+    "url": "/docs/react-hooks/web-api/useInnerSize"
+  },
+  {
+    "label": "useIsOnline",
+    "url": "/docs/react-hooks/web-api/useIsOnline"
+  },
+  {
+    "label": "useObserve",
+    "url": "/docs/react-hooks/web-api/useObserve"
+  },
+  {
+    "label": "useRequestFullScreen",
+    "url": "/docs/react-hooks/web-api/useRequestFullScreen"
+  },
+  {
+    "label": "useShortcutKey",
+    "url": "/docs/react-hooks/web-api/useShortcutKey"
+  }
+]

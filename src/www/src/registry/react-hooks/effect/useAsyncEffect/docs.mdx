@@ -1,0 +1,26 @@
+---
+name: useAsyncEffect
+desc:   custom hook that handles async operations inside `useEffect`.
+---
+
+
+<CodePreview methodName="useAsyncEffect"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add useAsyncEffect
+```
+
+## Parameters
+
+- `effect` (`() => Promise<void>`): An asynchronous function to run inside the `useEffect`. It should return a `Promise`.
+- `deps` (`unknown[]`, optional): An optional dependency array to control when the effect should re-run. If not provided, the effect runs on every render.
+
+## Returns
+
+- No return value. The hook triggers an async operation inside `useEffect`.
+
+## Usage
+
+<ComponentPreview methodName="useAsyncEffect" exampleName="async-effect"/>

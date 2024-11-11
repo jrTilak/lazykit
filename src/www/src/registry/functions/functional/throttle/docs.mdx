@@ -1,0 +1,85 @@
+---
+name: throttle
+desc: Return a throttled function that invokes the passed function at most once per every `given` milliseconds.
+---
+<CodePreview methodName="throttle"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add throttle
+```
+## Parameters
+
+- `fn` (`(...args: A) => void`)  
+  The function to be throttled. This function will be invoked at most once every `limit` milliseconds.
+
+- `limit` (`number`)  
+  The minimum time interval (in milliseconds) between invocations of `fn`.
+
+## Returns
+
+- `(...args: A) => void`  
+  Returns a new throttled function that, when called, will invoke `fn` at most once per every `limit` milliseconds.
+
+## Type Parameters
+
+- `A`  
+  The type of the arguments accepted by the function `fn`. This allows the throttled function to accept the same parameters as `fn`, ensuring type safety.
+
+
+## Usage
+
+This example demonstrates how to use the `throttle` function with a text input field to control the frequency of function calls as the user types.
+
+<VanillaSandbox>
+
+```html
+<div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-lg">
+  <div class="mb-4">
+    <label for="input" class="block text-sm font-medium text-gray-700">
+      Type something:
+    </label>
+    <input type="text" id="input" placeholder="Type something..." class="mt-1 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:ring focus:ring-blue-500"/>
+    <p class="mt-2 text-sm text-gray-600">
+      Value (normal input):
+      <span id="normal-value" class="font-medium"></span>
+    </p>
+    <p class="mt-1 text-sm text-gray-600">
+      Value (throttled input):
+      <span id="throttled-value" class="font-medium"></span>
+    </p>
+  </div>
+</div>
+
+```
+
+
+```javascript
+import throttle from "@/helpers/throttle";
+
+// Function to update the normal value
+function updateNormalValue(event) {
+  document.getElementById('normal-value').innerText = event.target.value;
+}
+
+// Function to update the throttled value
+function updateThrottledValue(value) {
+  document.getElementById('throttled-value').innerText = value;
+}
+
+// Get the input element
+const input = document.getElementById('input');
+
+// Set up event listeners
+input.addEventListener('input', updateNormalValue); // Normal input updates immediately
+input.addEventListener('input', throttle((event) => {
+  updateThrottledValue(event.target.value);
+}, 300)); // Throttled update every 300 ms
+
+```
+
+</VanillaSandbox>
+
+- The normal value updates immediately as the user types in the input field.
+- The throttled value updates every 300 milliseconds, demonstrating how throttling limits the frequency of function execution.

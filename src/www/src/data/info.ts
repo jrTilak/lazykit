@@ -6,8 +6,8 @@ export const GITHUB_INFO = {
 };
 
 export const TWITTER_INFO = {
-  username: "iamjrTilak",
-  url: "https://twitter.com/iamjrTilak",
+  username: "jrtilak_dev",
+  url: "https://twitter.com/jrtilak_dev",
   name: "Tilak Thapa",
 };
 
@@ -16,10 +16,10 @@ export const CREATOR_INFO = {
   username: "jrTilak",
   email: "iamjrtilak@gmail.com",
   website: "https://thapatilak.com.np/",
-  twitter: "https://twitter.com/iamjrTilak",
+  twitter: "https://twitter.com/jrtilak_dev",
   github: "https:github.com/jrtilak",
   linkedin: "https://linkedin.com/in/jrtilak",
-  instagram: "https://instagram.com/iamjrTilak",
+  instagram: "https://instagram.com/jrtilak.dev",
 };
 
 export const PACKAGE_INFO = {

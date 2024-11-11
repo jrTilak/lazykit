@@ -1,0 +1,56 @@
+---
+name: callBefore
+desc: Returns a new function that can be called only for specific number of times.
+---
+<CodePreview methodName="callBefore"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add callBefore
+```
+
+## Parameters
+
+- `fn` (`(...args: S) => T`)  
+  The function to be called a specified number of times. This function will receive the same arguments that are passed to the returned function.
+
+- `count` (`number`)  
+  The number of times the returned function is allowed to invoke `fn`. After this count is reached, further calls will return `undefined`.
+
+## Returns
+
+- `((...args: S) => T | undefined)`  
+  Returns a new function that, when called, will execute `fn` for the specified number of times. Once the count is reached, subsequent calls will return `undefined`.
+
+## Type Parameters
+
+- `T`  
+  The return type of the function `fn`.
+
+- `S`  
+  The type of the arguments accepted by the function `fn`. This allows the returned function to accept the same parameters as `fn`, ensuring type safety.
+
+## Usage
+
+The `callBefore` utility creates a function wrapper that allows the provided function `fn` to execute only for the first `count` calls. After reaching the `count` threshold, further calls will return `undefined`, making it useful for limiting how often a function can run.
+
+### Example
+
+```javascript
+"use js-executor"
+import callBefore from "@/utils/callBefore";
+
+// Define a function that logs a message
+const logMessage = (msg) => console.log(msg);
+
+// Create a limited function that only logs for the first 2 calls
+const limitedLog = callBefore(logMessage, 2);
+
+limitedLog("Hello"); // Logs "Hello"
+limitedLog("Hello again!"); // Logs "Hello again!"
+limitedLog("This will not be logged"); // No output
+limitedLog("Still no output"); // No output
+```
+
+In this example, `limitedLog` only executes `logMessage` for the first two calls. Subsequent calls after reaching the threshold simply return `undefined` without executing the function, which can be useful for rate-limiting or pre-conditionally restricting function calls.

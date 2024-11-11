@@ -1,0 +1,34 @@
+---
+name: useShortcutKey
+desc:  triggers a callback or click on specified keyboard shortcuts, with options to enable/disable and prevent default actions.
+---
+
+
+<CodePreview methodName="useShortcutKey"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add useShortcutKey
+```
+## Parameters
+
+- `ref` (`React.RefObject<HTMLElement>`): The reference to the HTML element to which the keyboard shortcut is applied.
+- `config` (`UseShortcutKeyConfig`): Configuration options for the keyboard shortcut:
+  - `keys` (`string | string[] | string[][]`): Defines the key(s) or key combinations to listen for. This can be:
+    - A single key (e.g., `"Enter"`).
+    - An array of keys (e.g., `["Control", "S"]`).
+    - An array of key combinations (e.g., `[['Control', 'S'], ['Alt', 'N']]`).
+  - `preventDefault` (`boolean`, optional): Whether to prevent the default action for the key combination. Defaults to `true`.
+  - `callback` (`ShortcutKeyCallback`, optional): Callback triggered when the specified key combination is pressed.
+  - `autoEnable` (`boolean`, optional): Whether to enable the shortcut listening by default. Defaults to `true`.
+
+## Returns
+
+- `enable`: Function to enable the shortcut key listener.
+- `disable`: Function to disable the shortcut key listener.
+- `isEnabled`: Whether the shortcut key listener is currently enabled.
+
+## Usage
+
+<ComponentPreview methodName="useShortcutKey" exampleName="shortcut-key"/>

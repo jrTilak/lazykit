@@ -1,0 +1,35 @@
+---
+name: useStep
+desc:  A custom hook to handle steps in a process with additional options like rotate and callbacks.
+---
+
+
+<CodePreview methodName="useStep"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add useStep
+```
+
+## Parameters
+
+- `totalSteps` (`number`, required): The total number of steps in the process.
+- `rotate` (`boolean`, optional, default: `false`): If `true`, the steps will rotate (wrap around) after reaching the end or start.
+- `onChange` (`(currentStep: number) => void`, optional): A callback function triggered when the current step changes.
+- `onNext` (`(currentStep: number) => void`, optional): A callback function triggered when moving to the next step.
+- `onPrev` (`(currentStep: number) => void`, optional): A callback function triggered when moving to the previous step.
+
+## Returns
+
+- `currentStep`: The current step in the process.
+- `nextStep`: A function to move to the next step, wrapping around if `rotate` is enabled.
+- `prevStep`: A function to move to the previous step, wrapping around if `rotate` is enabled.
+- `resetStep`: A function to reset the step to the first one.
+- `isFirstStep`: A boolean value indicating if the current step is the first step.
+- `isLastStep`: A boolean value indicating if the current step is the last step.
+
+## Usage
+
+
+<ComponentPreview methodName="useStep" exampleName="step"/>

@@ -1,3 +1,7 @@
+/**
+ * Return a throttled function that invokes the passed function at most once per every `given` milliseconds.
+ **/
+
 function throttle<A extends any[]>(
   fn: (...args: A) => void,
   limit: number
