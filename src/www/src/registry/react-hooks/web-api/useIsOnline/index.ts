@@ -4,7 +4,12 @@ import { useState, useEffect } from "react";
  * A custom hook to track the online/offline status of the user.
  */
 const useIsOnline = () => {
-  const [isOnline, setIsOnline] = useState<boolean>(navigator.onLine);
+  const [isOnline, setIsOnline] = useState<boolean>(() => {
+    if (typeof window === "undefined" || !("localStorage" in window)) {
+      return false;
+    }
+    return navigator.onLine;
+  });
 
   const updateOnlineStatus = () => {
     setIsOnline(true);
