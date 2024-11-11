@@ -12,7 +12,6 @@ type Props = {
   methodName: string
 }
 const CodePreview = ({ methodName }: Props) => {
-  //@ts-expect-error
   const method: IRegistryJSON = registry[methodName]
   const [lang, setLang] = useState<Lang>()
 
