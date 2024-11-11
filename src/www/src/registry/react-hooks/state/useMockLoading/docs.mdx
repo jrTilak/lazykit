@@ -1,0 +1,36 @@
+---
+name: useMockLoading
+desc:  custom hook that simulates a loading state with optional auto-start and manual start/stop controls.
+---
+
+
+<CodePreview methodName="useMockLoading"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add useMockLoading
+```
+
+## Parameters
+
+- `defaultValue` (`boolean`, optional)  
+  Initial loading state. Defaults to `true`.
+
+- `loadingTime` (`number`, optional)  
+  Duration (in milliseconds) the loading state persists when started. Defaults to `3000`.
+
+- `autoStart` (`boolean`, optional)  
+  Determines whether loading starts automatically on component mount. Defaults to `true`.
+
+## Returns
+
+- `loading`: The current loading state (`boolean`).
+- `startLoading`: Function to manually set loading to `true`.
+- `stopLoading`: Function to manually set loading to `false`.
+
+## Usage
+
+This hook is useful for scenarios where you want to simulate or control a loading state, such as in demos, mock data loading, or testing UI states.
+
+<ComponentPreview methodName="useMockLoading" exampleName="mock-loading"/>

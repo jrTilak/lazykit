@@ -1,0 +1,28 @@
+---
+name: useRequestFullScreen
+desc:  Custom hook to handle entering and exiting fullscreen mode.
+---
+
+
+<CodePreview methodName="useRequestFullScreen"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add useRequestFullScreen
+```
+
+## Parameters
+
+- `ref` (`RefObject<T>`): A reference to the target HTML element that should enter fullscreen. If no reference is provided, the entire document (i.e., `<html>`) will be used.
+
+## Returns
+
+- `isFullScreen`: A boolean indicating whether the element is currently in fullscreen mode.
+- `requestFullScreen`: A function that triggers the request to enter fullscreen mode.
+- `exitFullScreen`: A function that triggers the request to exit fullscreen mode.
+
+
+## Usage
+
+<ComponentPreview methodName="useRequestFullScreen" exampleName="full-screen"/>

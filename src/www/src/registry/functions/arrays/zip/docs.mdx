@@ -1,0 +1,84 @@
+---
+name: zip
+desc: Zips arrays together in the form of an array of arrays.
+---
+
+<CodePreview methodName="zip"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add zip
+```
+
+## Parameters
+
+- `arr` (`T`)  
+  An array of arrays to be zipped together. Each inner array represents a collection of elements that will be combined based on their indices.
+
+- `strict` (optional) (`boolean`)  
+  A flag that determines whether to limit the zipping process to the shortest array's length. If set to `true`, only the elements up to the shortest array's length will be included in the result. Defaults to `false`.
+
+## Returns
+
+- `T`  
+  Returns a new array of arrays, where each inner array contains the elements from the input arrays at the corresponding indices. If `strict` is true, only elements up to the length of the shortest array will be included.
+
+## Type Parameters
+
+- `T`  
+  The type of the input array of arrays. This allows the function to work with nested arrays of any type, ensuring type safety for the zipped elements.
+
+## Usage
+
+### Zipping Two Arrays with Default Behavior
+```javascript
+"use js-executor";
+
+import zip from '@/helpers/zip';
+
+const arrays = [[1, 2, 3], ["a", "b", "c", "d"]];
+const result = zip({ arr: arrays });
+
+console.log(result); 
+// Output: [[1, "a"], [2, "b"], [3, "c"], [undefined, "d"]]
+```
+
+### Strict Zipping Based on Minimum Array Length
+```javascript
+"use js-executor";
+import zip from '@/helpers/zip';
+
+const arrays = [[1, 2, 3], ["x", "y"]];
+const strictResult = zip({ arr: arrays, strict: true });
+
+console.log(strictResult); 
+// Output: [[1, "x"], [2, "y"]]
+```
+
+
+
+### Zipping Three Arrays with Default Behavior
+```javascript
+"use js-executor";
+
+import zip from '@/helpers/zip';
+
+const arrays = [[1, 2, 3], ["a", "b", "c", "d"], [true, false]];
+const result = zip({ arr: arrays });
+
+console.log(result); 
+// Output: [[1, "a", true], [2, "b", false], [3, "c", undefined], [undefined, "d", undefined]]
+```
+
+### Strict Zipping with Three Arrays (Minimum Length)
+```javascript
+"use js-executor";
+import zip from '@/helpers/zip';
+
+const arrays = [[1, 2, 3], ["x", "y", "z"], [10, 20]];
+const strictResult = zip({ arr: arrays, strict: true });
+
+console.log(strictResult); 
+// Output: [[1, "x", 10], [2, "y", 20]]
+```

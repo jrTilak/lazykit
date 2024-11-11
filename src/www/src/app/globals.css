@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter&family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Fira+Code:wght@300..700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -56,51 +56,35 @@
     @apply border-border scroll-smooth transition-colors;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-bricolage-grotesque;
   }
 
-  /* hide scrollbar */
+  /* scrollbar */
+
   *::-webkit-scrollbar {
-    display: none;
+    @apply w-0;
   }
-
-  /* Hide scrollbar for IE, Edge and Firefox */
   * {
-    -ms-overflow-style: none;
-    /* IE and Edge */
-    scrollbar-width: none;
-    /* Firefox */
+    scrollbar-width: 0;
   }
 
-  /* decrease the width and style of default scrollbar */
-  .scrollbar-md::-webkit-scrollbar {
-    @apply !w-2;
+  .scrollbar::-webkit-scrollbar {
+    @apply w-1 lg:w-[7px];
   }
 
-  .scrollbar-md::-webkit-scrollbar-thumb {
-    @apply bg-neutral-200 dark:bg-neutral-600;
-  }
-  /* decrease the width and style of default scrollbar */
-  .scrollbar-sm::-webkit-scrollbar {
-    @apply !w-1 !rounded-md;
+  .scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/60 transition-all;
   }
 
-  .scrollbar-sm::-webkit-scrollbar-thumb {
-    @apply bg-neutral-200 dark:bg-neutral-600;
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground;
+  }
+  .scrollbar::-webkit-scrollbar-track {
+    @apply bg-muted;
   }
 
-  /* default font */
-  p {
-    @apply font-inter text-muted-foreground;
-  }
-
-  /* default heading font */
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-poppins font-bold;
+  /* for firefox */
+  .scrollbar {
+    scrollbar-width: 3vw;
   }
 }

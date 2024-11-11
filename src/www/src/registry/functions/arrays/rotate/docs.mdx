@@ -1,0 +1,71 @@
+---
+name: rotate
+desc: Rotates the elements of an array by a given number of positions.
+---
+
+<CodePreview methodName="rotate"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add rotate
+```
+## Parameters
+
+- `arr` (`T[]`)  
+  The array whose elements will be rotated.
+
+- `n` (`number`)  
+  The number of positions to rotate the array. A positive number indicates the number of positions to rotate.
+
+- `dir` (optional) (`"left" | "right"`)  
+  The direction to rotate the elements. Defaults to `"left"`. If set to `"right"`, the elements will be rotated in the opposite direction.
+
+## Returns
+
+- `T[]`  
+  Returns a new array with the elements rotated by the specified number of positions in the specified direction. The original array remains unchanged.
+
+## Type Parameters
+
+- `T`  
+  The type of elements in the array. This allows the function to work with arrays of any type, ensuring type safety for the rotated elements.
+
+## Usage
+
+### Left Rotation by 2 Positions
+```javascript
+"use js-executor";
+
+import rotate from '@/helpers/rotate';
+
+const numbers = [1, 2, 3, 4, 5];
+const result1 = rotate(numbers, 2, "left");
+
+console.log(result1); 
+// Output: [3, 4, 5, 1, 2]
+```
+
+### Right Rotation by 3 Positions
+```javascript
+"use js-executor";
+import rotate from '@/helpers/rotate';
+
+const numbers = [1, 2, 3, 4, 5];
+const result2 = rotate(numbers, 3, "right");
+
+console.log(result2); 
+// Output: [3, 4, 5, 1, 2]
+```
+
+### Left Rotation by Default
+```javascript
+"use js-executor";
+import rotate from '@/helpers/rotate';
+
+const numbers = [10, 20, 30, 40, 50];
+const result3 = rotate(numbers, 1);
+
+console.log(result3); 
+// Output: [20, 30, 40, 50, 10]
+```

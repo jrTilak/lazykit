@@ -1,6 +1,6 @@
 import { PartyPopper } from "lucide-react";
 export const ANNOUNCEMENT_DATA = {
-  url: "/docs/introduction",
+  url: "/docs/react-hooks",
   icon: PartyPopper,
-  title: "New Release! @v1.0.2",
+  title: "Introducing React Hooks! v2.0.0",
 };

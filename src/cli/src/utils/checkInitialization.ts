@@ -1,8 +1,9 @@
 import * as fs from "fs";
+import { Config } from "../types/config.types.js";
 
 export default function checkInitialization() {
   let isInitialized = false;
-  let config = null;
+  let config: Config = null;
   let isPackageJsonFound = false;
 
   try {

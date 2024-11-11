@@ -1,0 +1,44 @@
+---
+name: pick
+desc: Picks the specified keys from an object.
+---
+
+<CodePreview methodName="pick"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add pick
+```
+## Parameters
+
+- `obj` (`T`)  
+  The input object from which properties will be picked.
+
+- `keys` (`K[]`)  
+  An array of keys to pick from the input object. The keys must be valid keys of the input object.
+
+## Returns
+
+- `Pick<T, K>`  
+  A new object that contains only the specified keys from the input object.
+
+## Example Usage
+
+```javascript
+"use js-executor";
+
+import pick from "@/helpers/pick";
+
+const userSettings = {
+  theme: "light",
+  language: "fr",
+  notifications: false,
+  location: "Canada",
+};
+
+const selectedSettings = pick(userSettings, ["theme", "language"]);
+
+console.log(selectedSettings); 
+// Output: { theme: "light", language: "fr" }
+```

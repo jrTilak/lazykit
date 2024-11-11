@@ -1,0 +1,84 @@
+---
+name: decounce
+desc: Returns a debounced function that delays invoking the passed function until after `given` milliseconds have elapsed since the last time the debounced function was invoked.
+---
+
+<CodePreview methodName="debounce"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add debounce
+```
+
+## Parameters
+
+- `fn` (`(...args: A) => void`)  
+  The function to debounce. This function will be invoked after the specified delay.
+
+- `delay` (optional) (`number`)  
+  The number of milliseconds to wait before invoking `fn` after the last call to the debounced function. Defaults to `300`.
+
+## Returns
+
+- `(...args: A) => void`  
+  Returns a new debounced function that, when called, will delay the invocation of `fn` until after the specified delay has elapsed since the last time the debounced function was invoked.
+
+## Type Parameters
+
+- `A`  
+  The type of the arguments accepted by the function `fn`. This allows the debounced function to accept the same parameters as `fn`, ensuring type safety.
+
+## Usage
+
+<VanillaSandbox>
+```html
+<div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-lg">
+  <div class="mb-4">
+    <label for="input" class="block text-sm font-medium text-gray-700">
+      Type something:
+    </label>
+    <input type="text" id="input" placeholder="Type something..." class="mt-1 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:ring focus:ring-blue-500"
+    />
+    <p class="mt-2 text-sm text-gray-600">
+      Value (without debounce):
+      <span id="no-debounce-value" class="font-medium">
+      </span>
+    </p>
+    <p class="mt-1 text-sm text-gray-600">
+      Value (with debounce):
+      <span id="debounced-value" class="font-medium">
+      </span>
+    </p>
+  </div>
+</div>
+```
+
+```javascript
+import debounce from "@/helpers/debounce"
+
+console.log("js");
+
+
+// Function to update values
+function updateValueWithoutDebounce(event) {
+  document.getElementById('no-debounce-value').innerText = event.target.value;
+}
+
+function updateValueWithDebounce(value) {
+  document.getElementById('debounced-value').innerText = value;
+}
+
+// Get the input element
+const input = document.getElementById('input');
+
+// Set up event listeners
+input.addEventListener('input', updateValueWithoutDebounce);
+input.addEventListener('input', debounce((event) => {
+  updateValueWithDebounce(event.target.value);
+}, 300)); // 300 ms debounce
+```
+
+</VanillaSandbox>
+
+This example effectively illustrates how debounce can help optimize user input handling in web applications by reducing the number of updates that occur in quick succession, resulting in a smoother experience.

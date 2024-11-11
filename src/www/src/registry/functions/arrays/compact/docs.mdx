@@ -1,0 +1,57 @@
+---
+name: compact
+desc: Removes falsy values from an array, If extend is true, also removes empty objects and arrays.
+---
+
+<CodePreview methodName="compact"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add compact
+```
+## Parameters
+
+- `array` (`T[]`)  
+  The array from which to remove falsy values. The function iterates over this array to filter out the unwanted elements.
+
+- `extend` (optional) (`boolean`)  
+  A flag that determines whether to remove empty objects and arrays in addition to falsy values. Defaults to `false`.
+
+## Returns
+
+- `T[]`  
+  Returns a new array containing only the truthy values from the original array. If `extend` is true, it also excludes empty objects and arrays.
+
+## Type Parameters
+
+- `T`  
+  The type of elements in the array. This allows the function to work with arrays of any type, ensuring type safety for the filtered elements.
+
+## Usage
+
+###  Basic Usage
+
+```javascript
+"use js-executor"
+import compact from '@/helpers/compact';
+
+const mixedArray = [0, 1, false, 2, '', 3, null, undefined, {}, [], [4, 5]];
+const result = compact(mixedArray);
+
+console.log(result); 
+// Output: [1, 2, 3, {}, [], [4, 5]]
+```
+
+### Using the `extend` Option
+
+```javascript
+"use js-executor"
+import compact from '@/helpers/compact';
+
+const mixedArray = [0, 1, false, 2, '', 3, null, undefined, {}, [], [4, 5]];
+const result = compact(mixedArray, true);
+
+console.log(result); 
+// Output: [1, 2, 3, [4, 5]]
+```

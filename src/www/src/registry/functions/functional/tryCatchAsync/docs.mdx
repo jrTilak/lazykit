@@ -1,0 +1,86 @@
+---
+name: tryCatchAsync
+desc: Helps to safely execute asynchronous functions
+---
+
+
+<CodePreview methodName="tryCatchAsync"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add tryCatchAsync
+```
+
+## Parameters
+
+- `fn` (`() => Promise<Return>`)  
+  An asynchronous function to execute safely. If the function throws an error, it will be caught and handled.
+
+## Returns
+
+- `Promise<TryCatchReturnAsync<Err, Return>>`  
+  Returns a promise that resolves to a tuple where the first element is either an error (if one occurred) or `undefined`, and the second element is the return value of the function (if it executed successfully) or `undefined`.
+
+## Type Parameters
+
+- `Err extends Error`  
+  The type of the error that may be thrown by the asynchronous function `fn`.
+
+- `Return`  
+  The return type of the asynchronous function `fn`.
+
+
+## Usage
+### Successful Async Function
+
+```javascript
+"use js-executor"
+import tryCatchAsync from "@/helpers/tryCatchAsync"
+
+const fetchUserData = async () => {
+  // Simulates a successful API call
+  return await new Promise((resolve) => {
+    setTimeout(() => resolve("User data fetched!"), 1000);
+  });
+};
+
+const main = async() => {
+  const [error, data] = await tryCatchAsync(fetchUserData);
+
+  console.log(error); // Expected output: undefined
+  console.log(data);  // Expected output: "User data fetched!"
+}
+
+main()
+
+```
+
+In this example, `fetchUserData` simulates a successful API call. `tryCatchAsync` returns `[undefined, "User data fetched!"]`, indicating no error occurred.
+
+
+### Error-Prone Async Function
+
+```javascript
+"use js-executor"
+import tryCatchAsync from "@/helpers/tryCatchAsync"
+
+const fetchUserProfile = async () => {
+  // Simulates a failed API call
+  return await new Promise((_, reject) => {
+    setTimeout(() => reject(new Error("Failed to fetch user profile!")), 1000);
+  });
+};
+
+const main = async() => {
+  const [err, result] = await tryCatchAsync(fetchUserProfile);
+
+  console.log(err);   // Expected output: Error: Failed to fetch user profile!
+  console.log(result); // Expected output: undefined
+}
+
+main()
+
+```
+
+In this example, `fetchUserProfile` simulates an API call that fails. `tryCatchAsync` returns `[Error: Failed to fetch user profile!, undefined]`, showing the error was correctly caught. 

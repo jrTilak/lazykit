@@ -1,0 +1,27 @@
+---
+name: useInnerSize
+desc:  tracks the size of a referenced element or the window and returns its width and height, updating on window resize.
+---
+
+
+<CodePreview methodName="useInnerSize"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add useInnerSize
+```
+
+## Parameters
+
+- `ref` (`React.RefObject<HTMLElement>`, optional): A reference to an HTML element whose size you want to track. If not provided, it tracks the window's size.
+
+## Returns
+
+- `width`: The current width of the tracked element (or window).
+- `height`: The current height of the tracked element (or window).
+
+
+## Usage
+
+<ComponentPreview methodName="useInnerSize" exampleName="inner-size"/>

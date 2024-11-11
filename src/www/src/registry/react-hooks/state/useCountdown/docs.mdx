@@ -1,0 +1,45 @@
+---
+name: useCountdown
+desc:  A custom hook to manage countdowns or count-ups with configurable options. 
+
+---
+
+
+<CodePreview methodName="useCountdown"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add useCountdown
+```
+
+## Parameters
+
+- `from` (`number`): The starting value of the countdown.
+- `to` (`number`, optional): The ending value of the countdown. Defaults to `0`
+- `dir` (`"inc" | "dec" | "auto"`, optional): The direction of the countdown. Can be:
+  - `"inc"`: Increment (count-up).
+  - `"dec"`: Decrement (count-down).
+  - `"auto"`: Automatically determines the direction based on `from` and `to` values.
+- `config` (`object`, optional): Configuration options for the countdown.
+  - `changeBy` (`number`, optional): The amount to increment or decrement the time by. Defaults to `1`.
+  - `interval` (`number`, optional): The interval time in milliseconds. Defaults to `1000ms` (1 second).
+  - `onChange` (`(time: number) => void`, optional): A callback function that is triggered every time the time changes.
+  - `onStart` (`() => void`, optional): A callback function that is triggered when the countdown starts.
+  - `onEnd` (`() => void`, optional): A callback function that is triggered when the countdown ends.
+  - `autoStart` (`boolean`, optional): Whether the countdown should start automatically. Defaults to `false`.
+
+## Returns
+
+- `time`: The current countdown time.
+- `isCounting`: A boolean that indicates whether the countdown is active.
+- `controls`: Object containing control functions to manage the countdown:
+  - `start`: Function to start the countdown.
+  - `pause`: Function to pause the countdown.
+  - `stop`: Function to stop the countdown.
+  - `reset`: Function to reset the countdown to the starting value.
+
+## Usage
+
+
+<ComponentPreview methodName="useCountdown" exampleName="countdown"/>

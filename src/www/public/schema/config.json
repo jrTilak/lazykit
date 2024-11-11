@@ -1,0 +1,103 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LazyKit Configuration",
+  "description": "Configuration schema for the LazyKit CLI settings.",
+  "type": "object",
+  "properties": {
+    "v": {
+      "type": "string",
+      "description": "Version of the LazyKit CLI.",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "language": {
+      "type": "string",
+      "description": "Programming language for the project.",
+      "enum": [
+        "typescript",
+        "javascript"
+      ]
+    },
+    "separate": {
+      "type": "boolean",
+      "description": "Determines if LazyKit config is stored separately or within package.json."
+    },
+    "paths": {
+      "type": "object",
+      "description": "Specifies directories for helper functions and React hooks.",
+      "properties": {
+        "helperFunctions": {
+          "type": "string",
+          "description": "Path to store helper functions, relative to the project root."
+        },
+        "reactHooks": {
+          "type": "string",
+          "description": "Path to store React hooks, relative to the project root."
+        }
+      },
+      "required": [
+        "helperFunctions",
+        "reactHooks"
+      ]
+    },
+    "filenameConvention": {
+      "type": "object",
+      "description": "Defines naming conventions for filenames.",
+      "properties": {
+        "helperFunctions": {
+          "type": "string",
+          "description": "Naming convention for helper functions.",
+          "enum": [
+            "camelCase",
+            "kebab-case"
+          ]
+        },
+        "reactHooks": {
+          "type": "string",
+          "description": "Naming convention for React hooks.",
+          "enum": [
+            "camelCase",
+            "kebab-case"
+          ]
+        }
+      },
+      "required": [
+        "helperFunctions",
+        "reactHooks"
+      ]
+    },
+    "resolve": {
+      "type": "object",
+      "description": "Defines alias paths for specific directories.",
+      "properties": {
+        "alias": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "alias": {
+                "type": "string",
+                "description": "Alias for the path if it is not a relative path."
+              },
+              "path": {
+                "type": "string",
+                "description": "Path to the directory, relative to the project root."
+              }
+            },
+            "required": [
+              "alias",
+              "path"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "v",
+    "language",
+    "separate",
+    "paths",
+    "filenameConvention"
+  ],
+  "additionalProperties": false
+}

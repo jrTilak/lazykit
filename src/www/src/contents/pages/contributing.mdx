@@ -1,0 +1,98 @@
+---
+title: "Contributing"
+slug: "contributing"
+---
+
+# Contributing
+
+Thank you for your interest in contributing to LazyKit! We welcome contributions that align with our mission of creating reusable and efficient code snippets, hooks, and utilities for developers. This guide provides steps and guidelines to help you contribute effectively.
+
+## Registry `/src/www`
+The Registry is a Next.js application housing our library of reusable code snippets. Here's an overview of key files, folders, and conventions to follow.
+
+
+
+### Important Files and Folders
+
+- `src/.generated`: Generated files created during the build process for the Registry. **Do not modify these manually**. If you encounter any merge conflicts, you can delete this folder and rebuild it using `pnpm build:registry`.
+  
+- `src/contents`: Contains all MDX files for static pages.
+
+- `src/registry`: Houses all the code snippets in organized folders by type and category.
+
+
+### Registry Structure
+
+The Registry code is organized by type and category, as shown below:
+
+```text
+src/registry/{type}/{category}/{methodName}/*
+```
+
+Each method should have at least the following files:
+
+- `index.ts`: Source code of the method. The method must be exported as a default export.
+- `index.test.ts`: Test files for the method, written using Vitest.
+- `*.example.ts` or `*.example.tsx` (optional): Example files, especially for React hooks. This file should demonstrate usage and, if applicable, interactive examples.
+- `docs.mdx`: Documentation file for the method. This file should include:
+
+```text
+---
+name: 
+desc: 
+---
+
+<CodePreview methodName=""/>
+
+Installation
+...
+Parameters
+...
+Returns
+...
+Usage 
+...
+```
+
+### Writing Documentation
+
+The documentation in `docs.mdx` should include:
+
+- **Basic Metadata**: At the top, specify `name` and `desc`.
+- **Installation Instructions**: Include the command to add the method.
+- **Usage Examples**: Add code samples and usage notes.
+
+For interactive examples, use the `js-executor` or `VanillaRender` components. Here's how:
+
+- **Direct JS Execution**: Add `"use js-executor"` at the beginning of the code block to enable in-browser execution.
+- **VanillaRender Component**: For non-React examples (e.g., HTML/JS/CSS), use the `VanillaRender` component to embed code directly.
+- **React Hook Examples**: Use `.example.tsx` files for React hooks and render them within `docs.mdx` using:
+  ```mdx
+  <ComponentPreview methodName="useAsyncEffect" exampleName="async-effect"/>
+  ```
+  The `exampleName` corresponds to the example file name without `.example.tsx`.
+
+> **Note**: After adding new methods or examples, run `pnpm build:registry` from the project root to build the Registry.
+
+### Adding a Method
+
+To add a new method, create a new folder under the appropriate `{type}/{category}/` path. At a minimum, add the following files:
+
+- `index.ts` for the source code.
+- `docs.mdx` for documentation.
+- `index.test.ts` for tests.
+
+Then, build the Registry by running:
+```bash
+pnpm build:registry
+```
+
+---
+
+## CLI `/src/cli`
+
+The CLI component provides a way to install methods directly into user projects
+
+---
+
+Thank you for contributing to LazyKit! Your contributions make a difference in creating a valuable, developer-friendly resource.

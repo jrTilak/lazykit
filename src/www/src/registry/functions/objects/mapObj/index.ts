@@ -1,3 +1,6 @@
+/**
+ * Same as Array.prototype.map, but for objects.
+ **/
 const mapObj = <T, U>(
   obj: Record<string, T>,
   callback: (value: T, key: string, obj: Record<string, T>) => U

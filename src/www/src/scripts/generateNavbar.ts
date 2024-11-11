@@ -1,15 +1,15 @@
+import * as R from "@/.generated/registry";
 import {
   INavLink,
   INavLinkForPrevNextButton,
   IRegistryJSON,
 } from "@/types/registry.types";
+import { capitalCase } from "change-case";
 import * as fs from "fs";
-import * as changeCase from "change-case";
-
-const PATH_TO_REGISTRY = "../configs/registry.json";
-const PATH_TO_NAVBAR = "../configs/nav-links.json";
-const PATH_TO_PREV_NEXT_BUTTON_LINKS = "../configs/prev-next-button-links.json";
-const PATH_TO_TYPES = "../configs/types.json";
+const PATH_TO_NAVBAR = "../.generated/nav-links.json";
+const PATH_TO_PREV_NEXT_BUTTON_LINKS =
+  "../.generated/prev-next-button-links.json";
+const PATH_TO_TYPES = "../.generated/types.json";
 
 const NAV_LINKS_FOR_PREV_NEXT_BUTTON: INavLinkForPrevNextButton[] = [];
 
@@ -29,16 +29,19 @@ const GETTING_STARTED = {
     },
     {
       label: "Installation",
-      url: "/docs/installation",
+      url: "/docs/cli#4-installation",
     },
     {
       label: "lazykit.config.json",
       url: "/docs/lazykit-config",
     },
-
     {
       label: "Changelog",
       url: "/docs/changelog",
+    },
+    {
+      label: "Contributing",
+      url: "/docs/contributing",
     },
   ],
 };
@@ -50,9 +53,7 @@ export const generateNavbar = () => {
      * Read the registry.json file
      * This file contains all the methods and their details
      */
-    const registry: IRegistryJSON[] = JSON.parse(
-      fs.readFileSync(PATH_TO_REGISTRY, "utf-8")
-    );
+    const registry: IRegistryJSON[] = Object.values(R.default);
 
     /**
      * Get all the types available in the registry
@@ -81,7 +82,7 @@ export const generateNavbar = () => {
       /**
        * Add this type to the navbar in top section
        */
-      const typeName = changeCase.capitalCase(type);
+      const typeName = capitalCase(type);
       TYPES.push({
         label: typeName,
         url: `/docs/${type}`,
@@ -98,7 +99,7 @@ export const generateNavbar = () => {
       // Remove duplicates and sort alphabetically
       const categories = [...new Set(categoriesArr)].sort();
       const link: INavLink = {
-        heading: type[0].toUpperCase() + type.slice(1),
+        heading: capitalCase(type),
         categories: categories.map((category) => {
           const methods = registry.filter(
             (method) => method.type === type && method.category === category

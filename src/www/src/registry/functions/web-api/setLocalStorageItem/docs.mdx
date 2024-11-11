@@ -1,0 +1,65 @@
+---
+name: setLocalStorageItem
+desc: Stores a value in local storage with optional parsing.
+---
+
+
+<CodePreview methodName="setLocalStorageItem"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add setLocalStorageItem
+```
+
+## Parameters
+
+- `key` (`string`)  
+  The key under which the value should be stored in local storage.
+
+- `value` (`unknown`)  
+  The value to store in local storage, which can be of any type.
+
+- `config` (`Config<Value>`)  
+  Optional configuration object that determines how to store the value. This can be:
+  - An object with a `defaultParser` property (`boolean`), indicating whether to use JSON serialization for objects and arrays.
+  - A function that takes the value of type `Value` and returns a string to store in local storage.
+
+## Returns
+
+- `boolean`  
+  Returns `true` if the value was successfully stored in local storage, and `false` if the operation failed (for instance, if local storage is not supported or an error occurs during storage).
+
+
+
+## Example Usage
+
+### Saving an object to localStorage
+```javascript
+"use js-executor";
+import setLocalStorageItem from "@/helpers/setLocalStorageItem";
+
+const user = {
+  name: "Alice",
+  age: 30,
+  role: "admin",
+};
+
+// Stores the object using the default JSON parser
+setLocalStorageItem("user", user);
+```
+
+### Using a custom parsing function
+```javascript
+"use js-executor";
+import setLocalStorageItem from "@/helpers/setLocalStorageItem";
+
+const score = 85;
+
+// Custom parser to add a prefix
+setLocalStorageItem("userScore", score, (value) => `Score-${value}`);
+```
+
+In this example:
+- The first usage stores a user object as a JSON string in `localStorage`.
+- The second usage stores a number, prefixed as `"Score-85"`.

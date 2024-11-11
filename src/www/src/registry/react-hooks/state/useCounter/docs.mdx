@@ -1,0 +1,36 @@
+---
+name: useCounter
+desc:  custom hook that manages a counter with increment, decrement, reset, and setCount functionalities.
+---
+
+
+<CodePreview methodName="useCounter"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add useCounter
+```
+
+## Parameters
+
+- `initialValue` (`number`, optional)  
+  The initial value of the counter. Defaults to `0`.
+
+- `config` (`object`, optional)  
+  Configuration object that may include:
+  - `min` (`number`): The minimum value of the counter.
+  - `max` (`number`): The maximum value of the counter.
+  - `step` (`number`): The step value to increment or decrement the counter.
+
+## Returns
+
+- `count`: Current count value.
+- `increment`: Function to increase the count by 1.
+- `decrement`: Function to decrease the count by 1.
+- `reset`: Function to reset the count to the initial value.
+- `setCount`: Function to set the count directly.
+
+## Usage
+
+<ComponentPreview methodName="useCounter" exampleName="counter-component"/>

@@ -1,0 +1,60 @@
+---
+name: retry
+desc: Retries the given function a specified number of times with a delay between each retry.
+---
+
+
+<CodePreview methodName="retry"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add retry
+```
+## Parameters
+
+- `fn` (`Function`)  
+  The function to retry. This function should return a promise.
+
+- `retries` (optional) (`number`)  
+  The number of times to retry the function if it fails. Defaults to `3`.
+
+- `delay` (optional) (`number`)  
+  The number of milliseconds to wait between retries. Defaults to `1000`.
+
+## Returns
+
+- `Promise<T>`  
+  Returns a promise that resolves to the value returned by `fn` if it succeeds, or rejects with the last error if all retries fail.
+
+## Type Parameters
+
+- `T`  
+  The return type of the function `fn`. This ensures that the returned promise has the correct type based on what `fn` returns.
+
+## Usage
+
+```javascript
+"use js-executor"
+import retry from "@/utils/retry";
+
+let count = 0;
+const fn = async () => {
+  count++;
+  console.log("Retry: ", count);
+  if(count < 4){
+    throw new Error("failed");
+  }
+};
+
+retry(fn, 5, 1000)
+.then(() => {
+  console.log("success");
+})
+.catch((error) => {
+  console.log(error.message);
+});
+// Expected output: "failed" after retrying twice but It will call the function 3 times.
+
+```
+

@@ -1,0 +1,74 @@
+---
+name: getLocalStorageItem
+desc: Retrieves a value from local storage with optional parsing and a default return.
+---
+
+
+<CodePreview methodName="getLocalStorageItem"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add getLocalStorageItem
+```
+
+## Parameters
+
+- `key` (`string`)  
+  The key of the item in local storage to retrieve.
+
+- `defaultValue` (`Value`)  
+  The default value to return if the item is not found or if there is an error during retrieval or parsing.
+
+- `config` (`GetConfig<Value>`)  
+  Optional configuration object that determines how to parse the stored value. This can be:
+  - An object with a `defaultParser` property (`boolean`), which specifies whether to use JSON parsing.
+  - A function that takes the stored value as a string and returns a parsed value of type `Value`.
+
+## Returns
+
+- `Value`  
+  The retrieved value from local storage, parsed according to the `config` options, or the `defaultValue` if the item is not found or an error occurs.
+
+
+## Example Usage
+
+### Basic Retrieval
+```javascript
+"use js-executor";
+import getLocalStorageItem from "@/helpers/getLocalStorageItem";
+
+const token = getLocalStorageItem("authToken", "defaultToken");
+console.log(token); // Outputs the stored auth token or "defaultToken" if not found
+```
+
+### Retrieving an Object with Default Value
+```javascript
+"use js-executor";
+import getLocalStorageItem from "@/helpers/getLocalStorageItem";
+
+const defaultSettings = { theme: "light", notifications: true };
+const userSettings = getLocalStorageItem(
+  "userSettings",
+  defaultSettings
+);
+console.log(userSettings); // Outputs the stored settings or the default settings
+```
+
+### Using a Custom Parser
+```javascript
+"use js-executor";
+import getLocalStorageItem from "@/helpers/getLocalStorageItem";
+
+const userLoggedIn = getLocalStorageItem(
+  "isLoggedIn",
+  false,
+  (storedValue) => {
+    // Custom parser to convert "true"/"false" string to boolean
+    return storedValue === "true";
+  }
+);
+console.log(userLoggedIn); // Outputs true or false based on stored value
+```
+
+These props and examples illustrate how the `getLocalStorageItem` function can be utilized to handle data retrieval from local storage effectively while providing robust error handling and customization options.

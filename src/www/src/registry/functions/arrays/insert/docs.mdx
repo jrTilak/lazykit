@@ -1,0 +1,78 @@
+---
+name: insert
+desc: Inserts elements into an array at a specified index.
+---
+
+
+<CodePreview methodName="insert"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add insert
+```
+
+## Parameters
+
+- `arr` (`T[]`)  
+  The original array into which elements will be inserted.
+
+- `index` (`number`)  
+  The index at which to insert the specified elements. Negative indices are not supported and will throw an error.
+
+- `items` (`...T[]`)  
+  The elements to be inserted into the array at the specified index.
+
+- `recursive` (optional) (`boolean`)  
+  A flag that determines whether to insert the items multiple times based on the calculated condition. Defaults to `false`.
+
+## Returns
+
+- `T[]`  
+  Returns a new array with the specified elements inserted at the given index. If `recursive` is true, the items are inserted multiple times based on the array length and index.
+
+## Type Parameters
+
+- `T`  
+  The type of elements in the array. This allows the function to work with arrays of any type, ensuring type safety for the inserted elements.
+
+## Usage
+
+### Basic Insertion
+
+```javascript
+"use js-executor";
+import insert from '@/helpers/insert';
+
+const array = [1, 2, 3, 4, 5];
+const result = insert(array, 2, [10, 20]);
+
+console.log(result); 
+// Output: [1, 2, 10, 20, 3, 4, 5]
+```
+
+### Insertion with Negative Index
+
+```javascript
+"use js-executor";
+import insert from '@/helpers/insert';
+
+const array = [1, 2, 3, 4, 5];
+const result = insert(array, -1, [99]);
+
+console.log(result); 
+// Output: Error
+```
+
+### Recursive Insertion with `strict` Option
+
+```javascript
+"use js-executor";
+import insert from '@/helpers/insert';
+
+const array = [1, 2, 3, 4, 5];
+const result = insert(array, 2, [7, 8], true);
+
+console.log(result); 
+// Output: [1, 2, 7, 8, 3, 4, 7, 8, 5]
+```

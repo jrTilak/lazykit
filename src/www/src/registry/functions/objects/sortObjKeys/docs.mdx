@@ -1,0 +1,40 @@
+---
+desc: Sorts the keys of an object in ascending or descending order.
+---
+
+<CodePreview methodName="sortObjKeys" />
+
+## Installation
+
+```bash
+npx @jrtilak/lazykit add sortObjKeys
+```
+
+## Parameters
+
+- `obj` (`R | Record<string, any>`)
+  - The object whose keys are to be sorted.
+- `ascending` (`boolean`, optional)
+  - Determines the sorting order. If `true`, the keys are sorted in ascending order (default). If `false`, the keys are sorted in descending order.
+
+## Returns
+
+- `R | Record<string, any>`
+  - A new object with the keys of the input object sorted based on the provided sorting order.
+
+## Usage
+
+```javascript
+"use js-executor";
+import sortObjKeys from "@/helpers/sortObjKeys";
+
+const obj = { c: 3, a: 1, b: 2 };
+
+// Sort in ascending order (default)
+const ascendingObj = sortObjKeys(obj);
+console.log(ascendingObj); // Expected output: { a: 1, b: 2, c: 3 }
+
+// Sort in descending order
+const descendingObj = sortObjKeys(obj, false);
+console.log(descendingObj); // Expected output: { c: 3, b: 2, a: 1 }
+```

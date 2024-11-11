@@ -1,3 +1,6 @@
+/**
+ * Removes elements from an array at a specified index.
+ **/
 const remove = <T>(array: T[], index: number | number[]): T[] => {
   const len = array.length;
   if (Array.isArray(index)) {

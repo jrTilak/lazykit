@@ -1,3 +1,6 @@
+/**
+ * Retries the given function a specified number of times with a delay between each retry.
+ **/
 const retry = async <T>(
   fn: Function,
   retries: number = 3,

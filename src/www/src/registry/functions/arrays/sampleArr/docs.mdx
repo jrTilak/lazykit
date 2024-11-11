@@ -1,0 +1,46 @@
+---
+name: sampleArr
+desc: Generates an array of random numbers.
+---
+
+<CodePreview methodName="sampleArr"/>
+
+## Installtion
+
+```bash
+npx @jrtilak/lazykit add sampleArr
+```
+## Parameters
+
+- `size` (`number`)  
+  The size of the array to be generated. It must be a positive number.
+
+## Returns
+
+- `number[]`  
+  Returns an array of random numbers, where the length of the array is determined by the `size` parameter.
+
+## Errors
+
+- Throws an error if `size` is less than zero, indicating that a positive number is required.
+
+## Usage
+### Positive Index
+```javascript
+"use js-executor"
+import sampleArr from "@/helpers/sampleArr";
+
+const arr = sampleArr(5);
+console.log(arr);
+// Expected output: an array of 5 random numbers
+```
+### Negative Index
+
+```javascript
+"use js-executor"
+import sampleArr from "@/helpers/sampleArr";
+
+const arr = sampleArr(-5);
+console.log(arr);
+// Expected output: Error
+```
