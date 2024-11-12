@@ -21,18 +21,21 @@ export default async function init(...args: any) {
   const DEFAULT_CONFIG: Config = {
     $schema: SCHEMA_URL,
     language: "typescript",
-    separate: false,
+    separate: true,
     v: packageJson.version,
     filenameConvention: {
       helperFunctions: "kebab-case",
       reactHooks: "kebab-case",
     },
     paths: {
-      helperFunctions: "/src/helpers",
-      reactHooks: "/src/hooks",
+      helperFunctions: "@/helpers",
+      reactHooks: "@/hooks",
     },
     resolve: {
-      alias: {},
+      alias: {
+        "@/helpers": "/src/helpers",
+        "@/hooks": "/src/hooks",
+      },
     },
   };
 
@@ -77,28 +80,29 @@ export default async function init(...args: any) {
         );
         exitProcess(1);
       }
+    }
+    /**
+     * Parse the package.json file to a JSON object.
+     * If the package.json file is invalid, then exit the process.
+     */
+    let packageJsonObj = undefined;
+    try {
+      packageJsonObj = JSON.parse(packageJson);
+    } catch (e) {
+      console.log(chalk.red("\nInvalid package.json file 💀"));
+      console.log(
+        chalk.dim(
+          "Please make sure that the package.json file is a valid JSON file\n"
+        )
+      );
+      exitProcess(1);
+    }
 
-      /**
-       * Parse the package.json file to a JSON object.
-       * If the package.json file is invalid, then exit the process.
-       */
-      let packageJsonObj = undefined;
-      try {
-        packageJsonObj = JSON.parse(packageJson);
-      } catch (e) {
-        console.log(chalk.red("\nInvalid package.json file 💀"));
-        console.log(
-          chalk.dim(
-            "Please make sure that the package.json file is a valid JSON file\n"
-          )
-        );
-        exitProcess(1);
-      }
-
-      /**
-       * Check if the project is a typescript project or a javascript project.
-       * If the project is a typescript project, then set the typescript flag to true or set the javascript flag to true.
-       */
+    /**
+     * Check if the project is a typescript project or a javascript project.
+     * If the project is a typescript project, then set the typescript flag to true or set the javascript flag to true.
+     */
+    {
       if (
         packageJsonObj?.devDependencies?.typescript ||
         packageJsonObj?.dependencies?.typescript
@@ -240,7 +244,7 @@ export default async function init(...args: any) {
               name: "camelCase",
             },
             {
-              value: "kebabCase",
+              value: "kebab-case",
               name: "kebab-case",
             },
           ],
@@ -263,7 +267,7 @@ export default async function init(...args: any) {
               name: "camelCase",
             },
             {
-              value: "kebabCase",
+              value: "kebab-case",
               name: "kebab-case",
             },
           ],
