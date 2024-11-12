@@ -70,23 +70,11 @@
       "description": "Defines alias paths for specific directories.",
       "properties": {
         "alias": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "alias": {
-                "type": "string",
-                "description": "Alias for the path if it is not a relative path."
-              },
-              "path": {
-                "type": "string",
-                "description": "Path to the directory, relative to the project root."
-              }
-            },
-            "required": [
-              "alias",
-              "path"
-            ]
+          "type": "object",
+          "description": "Record of alias names and their corresponding paths.",
+          "additionalProperties": {
+            "type": "string",
+            "description": "Path to the directory, relative to the project root."
           }
         }
       }
