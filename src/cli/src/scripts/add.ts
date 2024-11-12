@@ -69,7 +69,7 @@ export default async function add(...args: any[]) {
     data.map((method) => {
       const { name, code, type } = method;
 
-      const refinedCode = `/**\n  * Taken from @jrtilak/lazykit\n  * See more about this method: ${method.url}\n  */\n${updateImports(code, config.config)}`;
+      const refinedCode = `/**\n * Taken from @jrtilak/lazykit\n * See more about this method: ${method.url}\n */\n\n${updateImports(code, config.config)}`;
 
       let filename = name;
       if (type === "react-hooks") {

@@ -1,6 +1,6 @@
 {
   "name": "@jrtilak/lazykit",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Refine your JavaScript workflows with Lazykit. A concentrated collection of lean utility functions, not a bloated library.",
   "type": "module",
   "main": "dist/index.js",
