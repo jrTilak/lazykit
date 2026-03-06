@@ -7,4 +7,4 @@ const omit = <T, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> => {
   return newObj as Omit<T, K>;
 };
 
-export default omit;
+export { omit };
