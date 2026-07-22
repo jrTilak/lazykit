@@ -1,0 +1,36 @@
+---
+title: retry
+description: Repeats a failing operation until it succeeds or reaches an attempt limit.
+category: Functional
+kind: function
+source: registry/functions/retry.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="retry" />
+
+## Download
+
+<DownloadCommands name="retry" />
+
+## Examples
+
+<UtilityExamples name="retry" />
+
+## Props
+
+- `operation` (`(attempt: number) => T | PromiseLike<T>`) — Work to run. `attempt` starts at `1`.
+- `options.maxAttempts` (`number`, default: `3`) — Total number of allowed attempts.
+- `options.delayMs` (`number`, default: `0`) — Delay between failed attempts.
+- `options.shouldRetry` (`(error, failedAttempt) => boolean | Promise<boolean>`) — Optional decision function that can stop retrying early.
+
+### Returns
+
+`Promise<Awaited<T>>` — The first successful value. The final operation error is thrown when retrying stops.

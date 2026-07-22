@@ -1,0 +1,34 @@
+---
+title: renameKeys
+description: Copies an object and simultaneously renames selected own properties.
+category: Objects
+kind: function
+source: registry/functions/renameKeys.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="renameKeys" />
+
+## Download
+
+<DownloadCommands name="renameKeys" />
+
+## Examples
+
+<UtilityExamples name="renameKeys" />
+
+## Props
+
+- `object` (`T`) — Object to copy.
+- `mappings` (`readonly { from: keyof T; to: PropertyKey }[]`) — Source and destination key pairs. Values are read from the original object, so mappings do not chain through one another.
+
+### Returns
+
+A new object with each existing source key replaced by its destination key. When destinations collide, the last mapping wins.

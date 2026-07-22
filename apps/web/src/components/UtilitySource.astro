@@ -1,0 +1,20 @@
+---
+import { Code } from "@astrojs/starlight/components";
+
+interface Props {
+  name: string;
+}
+
+const { name } = Astro.props;
+const sources = import.meta.glob("../../../../registry/functions/*.ts", {
+  eager: true,
+  import: "default",
+  query: "?raw",
+}) as Record<string, string>;
+const source = `registry/functions/${name}.ts`;
+const code = sources[`../../../../${source}`];
+
+if (!code) throw new Error(`Missing source for utility: ${name}`);
+---
+
+<Code code={code} lang="ts" title={`${name}.ts`} />

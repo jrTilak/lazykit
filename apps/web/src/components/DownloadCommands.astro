@@ -1,0 +1,25 @@
+---
+import { Code, TabItem, Tabs } from "@astrojs/starlight/components";
+
+interface Props {
+  name: string;
+  target?: "lib" | "hooks";
+}
+
+const { name, target = "lib" } = Astro.props;
+const source = `registry/functions/${name}.ts`;
+const destination = target === "hooks" ? "src/hooks" : "src/lib";
+const rawUrl = `https://raw.githubusercontent.com/jrTilak/lazykit/HEAD/${source}`;
+const wgetCommand = `wget -O ${destination}/${name}.ts ${rawUrl}`;
+const curlCommand = `curl --fail --location --output ${destination}/${name}.ts ${rawUrl}`;
+---
+
+<Tabs syncKey="utility-download">
+  <TabItem label="wget">
+    <Code code={wgetCommand} lang="bash" title="Terminal" />
+  </TabItem>
+
+  <TabItem label="curl">
+    <Code code={curlCommand} lang="bash" title="Terminal" />
+  </TabItem>
+</Tabs>

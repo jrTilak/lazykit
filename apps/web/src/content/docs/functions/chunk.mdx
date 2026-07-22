@@ -1,0 +1,35 @@
+---
+title: chunk
+description: Splits an array into fixed-size groups and controls how an incomplete final group is handled.
+category: Arrays
+kind: function
+source: registry/functions/chunk.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="chunk" />
+
+## Download
+
+<DownloadCommands name="chunk" />
+
+## Examples
+
+<UtilityExamples name="chunk" />
+
+## Props
+
+- `array` (`readonly T[]`) — Values to divide into groups.
+- `size` (`number`) — Positive safe integer specifying each group’s size.
+- `options.remainder` (`"keep" | "discard" | "wrap"`, default: `"keep"`) — Keeps the incomplete group, discards it, or fills it by cycling from the beginning of `array`.
+
+### Returns
+
+`T[][]` — New arrays containing the grouped values. The input is not mutated.

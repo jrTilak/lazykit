@@ -1,39 +1,34 @@
 <h1 align="center">
   <br>
-  <a href="https://lazykit.thapatilak.com.np/"><img src="./src/www/public/logo.svg" alt="@jrtilak/lazykit" width="150"></a>
+  <a href="https://lazykit.thapatilak.com.np/"><img src="./apps/web/src/assets/logo.svg" alt="LazyKit" width="150"></a>
   <br>
-  @jrtilak/lazykit
+  LazyKit
   <br>
 </h1>
 
-<h3 align="center">Drop the Excess, Keep the Impact!</h3>
+<h3 align="center">Drop the excess, keep the impact.</h3>
 
----
+LazyKit is a personal collection of TypeScript utilities and React hooks. Choose the source you need, place it in your project, and adapt it to your workflow.
 
-Refine your JavaScript, React, and TypeScript workflows with LazyKit. A concentrated toolkit of powerful snippets—no excess, all essence.
-
-![screenshot](./src/www/public/image.png)
+Utilities live in [`registry/`](./registry) with named exports, Bun tests, and adjacent examples.
 
 ## Documentation
 
-Visit [here](https://lazykit.thapatilak.com.np/docs/) for detailed documentation.
+The documentation site is a small Astro + Starlight app in [`apps/web`](./apps/web).
 
-## Contributing
+```bash
+bun install
+bun run dev
+```
 
-Visit [here](https://lazykit.thapatilak.com.np/docs/contributing) for contributing guidelines.
+Run the repository checks with:
+
+```bash
+bun run test
+bun run check
+bun run build
+```
 
 ## License
 
-Visit [here](./LICENSE) for license information.
-
-## Some Useful Links
-
-- [NPM Package](https://www.npmjs.com/package/@jrtilak/lazykit)
-- [Develop Branch](https://lazykit-www-git-dev-tilak-thapas-projects.vercel.app/)
-- [Master Branch](https://lazykit.thapatilak.com.np/)
-
-```bash
-npx @jrtilak/lazykit@latest init 
-```
-
-Thank you for using Lazykit! <3
+[MIT](./LICENSE)

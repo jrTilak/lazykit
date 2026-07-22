@@ -1,0 +1,34 @@
+---
+title: debounce
+description: Delays a function until calls have stopped for a specified duration.
+category: Functional
+kind: function
+source: registry/functions/debounce.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="debounce" />
+
+## Download
+
+<DownloadCommands name="debounce" />
+
+## Examples
+
+<UtilityExamples name="debounce" />
+
+## Props
+
+- `fn` (`(...args: A) => void`) — Function invoked with the arguments from the latest call.
+- `delayMs` (`number`, default: `300`) — Finite, non-negative quiet period in milliseconds.
+
+### Returns
+
+A debounced function with `cancel()`, `flush()`, and `pending()` controls.

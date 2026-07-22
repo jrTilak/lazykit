@@ -1,0 +1,33 @@
+---
+title: once
+description: Invokes a function once and reuses its return value or thrown error.
+category: Functional
+kind: function
+source: registry/functions/once.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="once" />
+
+## Download
+
+<DownloadCommands name="once" />
+
+## Examples
+
+<UtilityExamples name="once" />
+
+## Props
+
+- `fn` (`(...args: A) => R`) — Function invoked with arguments from the first call.
+
+### Returns
+
+`(...args: A) => R` — A wrapper that returns the first result on later calls. If the first invocation throws, later calls rethrow the same value.

@@ -1,0 +1,66 @@
+---
+import { Icon } from "@astrojs/starlight/components";
+
+const { entry } = Astro.locals.starlightRoute;
+const { title, kind } = entry.data;
+const docsPath = `apps/web/${entry.filePath}`;
+const editUrl = `https://github.com/jrTilak/lazykit/edit/HEAD/${docsPath}`;
+---
+
+<div class="page-title-row">
+  <h1 id="_top">{title}</h1>
+  {
+    kind === "function" && (
+      <a
+        class="page-edit-link"
+        href={editUrl}
+        target="_blank"
+        rel="noreferrer"
+        aria-label={`Edit the ${title} documentation on GitHub`}
+      >
+        <Icon name="github" size="1rem" />
+        <span>Edit</span>
+      </a>
+    )
+  }
+</div>
+
+<style>
+  @layer starlight.core {
+    .page-title-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--sl-color-white);
+      font-size: var(--sl-text-h1);
+      font-weight: 600;
+      line-height: var(--sl-line-height-headings);
+    }
+
+    .page-edit-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-inline-start: auto;
+      border: 1px solid var(--sl-color-gray-5);
+      border-radius: 0.45rem;
+      padding: 0.25rem 0.55rem;
+      color: var(--sl-color-text-accent);
+      font-size: var(--sl-text-xs);
+      font-weight: 600;
+      line-height: 1.25;
+      text-decoration: none;
+    }
+
+    .page-edit-link:hover {
+      border-color: var(--sl-color-accent);
+      background: var(--sl-color-gray-6);
+    }
+  }
+</style>

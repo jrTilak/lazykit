@@ -1,0 +1,35 @@
+---
+title: withTimeout
+description: Wraps a function and rejects when waiting for its result exceeds a deadline.
+category: Functional
+kind: function
+source: registry/functions/withTimeout.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="withTimeout" />
+
+## Download
+
+<DownloadCommands name="withTimeout" />
+
+## Examples
+
+<UtilityExamples name="withTimeout" />
+
+## Props
+
+- `fn` (`(...args: A) => R | PromiseLike<R>`) — Work to invoke with the wrapper’s arguments.
+- `timeoutMs` (`number`) — Finite, non-negative deadline in milliseconds.
+- `createError` (`(...args: A) => Error`) — Optional factory for a contextual timeout error.
+
+### Returns
+
+`(...args: A) => Promise<Awaited<R>>` — A wrapper that resolves with the operation or rejects with its error or the timeout error.

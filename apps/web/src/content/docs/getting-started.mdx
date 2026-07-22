@@ -1,0 +1,33 @@
+---
+title: Getting started
+description: Add a LazyKit utility to your TypeScript project.
+sidebar:
+  order: 1
+---
+
+import { Steps } from "@astrojs/starlight/components";
+
+## Add a utility
+
+<Steps>
+1. **Choose a function.** Browse the [functions directory](/functions/) and
+   open the utility you need.
+
+2. **Pick a download method.** Every function page provides `wget` and `curl`
+   commands that place the selected implementation in `src/lib`. You can also
+   copy the displayed source manually.
+
+3. **Use the named export.** Import the copied function from `src/lib`, then
+   adapt the implementation to fit your project.
+</Steps>
+
+## Work on the documentation
+
+From the repository root:
+
+```bash
+bun install
+bun run dev
+```
+
+Create a production build with `bun run build`.

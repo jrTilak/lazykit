@@ -1,0 +1,37 @@
+---
+import { Code } from "@astrojs/starlight/components";
+
+interface Props {
+  name: string;
+}
+
+const { name } = Astro.props;
+const allExamples = import.meta.glob(
+  "../../../../registry/functions/*.example.ts",
+  {
+    eager: true,
+    import: "default",
+    query: "?raw",
+  },
+) as Record<string, string>;
+
+const examples = Object.entries(allExamples)
+  .map(([path, code]) => ({ path, code, file: path.split("/").at(-1) ?? path }))
+  .filter(({ file }) =>
+    file === `${name}.example.ts` ||
+    new RegExp(`^${name}\\.\\d+\\.example\\.ts$`).test(file),
+  )
+  .sort((a, b) => {
+    const order = (file: string) =>
+      Number(file.match(/\.(\d+)\.example\.ts$/)?.[1] ?? 1);
+    return order(a.file) - order(b.file);
+  });
+
+if (examples.length === 0) throw new Error(`Missing examples for utility: ${name}`);
+---
+
+{
+  examples.map(({ code, file }) => (
+    <Code code={code} lang="ts" title={file} />
+  ))
+}

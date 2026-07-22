@@ -1,0 +1,37 @@
+---
+title: LazyKit
+description: A personal collection of copyable TypeScript utilities and React hooks.
+template: splash
+hero:
+  tagline: A personal TypeScript toolkit—copy what helps, change what you need.
+  image:
+    file: ../../assets/logo.svg
+    alt: LazyKit logo
+  actions:
+    - text: Browse functions
+      link: /functions/
+      icon: right-arrow
+    - text: Get started
+      link: /getting-started/
+      icon: open-book
+      variant: minimal
+---
+
+import { Card, CardGrid } from "@astrojs/starlight/components";
+
+<CardGrid>
+  <Card title="Made for everyday work" icon="setting">
+    A growing personal shelf of the small TypeScript helpers I reach for across
+    projects.
+  </Card>
+
+  <Card title="Own the source" icon="open-book">
+    Each utility is ready to copy into your project as a named TypeScript
+    export.
+  </Card>
+
+  <Card title="Easy to adapt" icon="pencil">
+    The code becomes part of your project, so you can rename it, reshape it, or
+    keep it exactly as it is.
+  </Card>
+</CardGrid>
