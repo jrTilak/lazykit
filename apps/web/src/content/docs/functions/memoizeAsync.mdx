@@ -1,0 +1,31 @@
+---
+title: memoizeAsync
+description: Shares and caches asynchronous work using every argument.
+category: Async
+kind: function
+source: registry/functions/memoizeAsync.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="memoizeAsync" />
+
+## Download
+
+<DownloadCommands name="memoizeAsync" />
+
+## Examples
+
+<UtilityExamples name="memoizeAsync" />
+
+## Props
+
+- `fn` — Synchronous or asynchronous operation to cache.
+- `cacheRejected` (`boolean`) — Keep rejected promises when `true`; defaults to `false`.
+- The returned function provides `clear()`.

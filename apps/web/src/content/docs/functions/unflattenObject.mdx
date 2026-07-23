@@ -1,0 +1,31 @@
+---
+title: unflattenObject
+description: Expands dot-delimited keys into nested plain objects.
+category: Objects
+kind: function
+source: registry/functions/unflattenObject.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="unflattenObject" />
+
+## Download
+
+<DownloadCommands name="unflattenObject" />
+
+## Examples
+
+<UtilityExamples name="unflattenObject" />
+
+## Props
+
+- `object` (`Record<string, unknown>`) — Flat path mapping.
+- Returns a nested `Record<string, unknown>`.
+- Throws for empty, unsafe, or conflicting path segments.

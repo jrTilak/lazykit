@@ -1,0 +1,31 @@
+---
+title: uniqueBy
+description: Keeps the first value for each distinct derived key.
+category: Arrays
+kind: function
+source: registry/functions/uniqueBy.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="uniqueBy" />
+
+## Download
+
+<DownloadCommands name="uniqueBy" />
+
+## Examples
+
+<UtilityExamples name="uniqueBy" />
+
+## Props
+
+- `array` (`readonly T[]`) — Values to deduplicate.
+- `getKey` (`(value, index) => Key`) — Produces the identity key.
+- Returns a new `T[]` in first-seen order.

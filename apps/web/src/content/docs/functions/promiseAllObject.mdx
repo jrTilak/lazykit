@@ -1,0 +1,31 @@
+---
+title: promiseAllObject
+description: Resolves promise values while preserving object keys.
+category: Async
+kind: function
+source: registry/functions/promiseAllObject.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="promiseAllObject" />
+
+## Download
+
+<DownloadCommands name="promiseAllObject" />
+
+## Examples
+
+<UtilityExamples name="promiseAllObject" />
+
+## Props
+
+- `object` (`T`) — Object containing values or promises.
+- Returns `Promise<{ [K in keyof T]: Awaited<T[K]> }>`.
+- Only own enumerable string and symbol properties are included.

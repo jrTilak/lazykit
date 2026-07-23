@@ -1,0 +1,31 @@
+---
+title: memoize
+description: Memoizes successful synchronous results using every argument.
+category: Functional
+kind: function
+source: registry/functions/memoize.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="memoize" />
+
+## Download
+
+<DownloadCommands name="memoize" />
+
+## Examples
+
+<UtilityExamples name="memoize" />
+
+## Props
+
+- `fn` (`(...args) => Return`) — Function whose successful results are cached.
+- Object arguments use reference identity; primitive arguments use `Map` equality.
+- The returned function provides `clear()`.

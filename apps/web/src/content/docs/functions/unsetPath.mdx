@@ -1,0 +1,31 @@
+---
+title: unsetPath
+description: Immutably removes an own property at an object path.
+category: Objects
+kind: function
+source: registry/functions/unsetPath.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="unsetPath" />
+
+## Download
+
+<DownloadCommands name="unsetPath" />
+
+## Examples
+
+<UtilityExamples name="unsetPath" />
+
+## Props
+
+- `object` (`T`) — Root object or array.
+- `path` — Non-empty dot path or segment array.
+- Missing paths return the original object; array indexes are spliced.

@@ -1,0 +1,31 @@
+---
+title: minBy
+description: Finds the first item with the smallest finite derived number.
+category: Arrays
+kind: function
+source: registry/functions/minBy.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="minBy" />
+
+## Download
+
+<DownloadCommands name="minBy" />
+
+## Examples
+
+<UtilityExamples name="minBy" />
+
+## Props
+
+- `array` (`readonly T[]`) — Candidate values.
+- `getValue` (`(value, index) => number`) — Produces comparable numbers.
+- Returns `T | undefined`; non-finite results are ignored.

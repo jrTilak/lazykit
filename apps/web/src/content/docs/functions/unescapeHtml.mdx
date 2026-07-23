@@ -1,0 +1,30 @@
+---
+title: unescapeHtml
+description: Decodes the HTML entities produced by escapeHtml.
+category: Strings
+kind: function
+source: registry/functions/unescapeHtml.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="unescapeHtml" />
+
+## Download
+
+<DownloadCommands name="unescapeHtml" />
+
+## Examples
+
+<UtilityExamples name="unescapeHtml" />
+
+## Props
+
+- `value` (`string`) — Text containing supported entities.
+- Decodes one layer of `lt`, `gt`, `quot`, `amp`, `#39`, and `#x27` entities.

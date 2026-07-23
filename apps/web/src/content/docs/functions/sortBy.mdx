@@ -1,0 +1,31 @@
+---
+title: sortBy
+description: Stably sorts a copied array by one or more selectors.
+category: Arrays
+kind: function
+source: registry/functions/sortBy.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="sortBy" />
+
+## Download
+
+<DownloadCommands name="sortBy" />
+
+## Examples
+
+<UtilityExamples name="sortBy" />
+
+## Props
+
+- `array` (`readonly T[]`) — Values to sort without mutation.
+- `...selectors` — Produce strings, numbers, bigints, booleans, dates, or nullish values.
+- Nullish values sort last.

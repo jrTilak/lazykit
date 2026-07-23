@@ -11,10 +11,15 @@ export const collections = {
         category: z
           .enum([
             "Arrays",
+            "Async",
             "Comparison",
+            "Formatting",
             "Functional",
             "Logic",
+            "Numbers",
             "Objects",
+            "Strings",
+            "Validation",
             "Web APIs",
           ])
           .optional(),

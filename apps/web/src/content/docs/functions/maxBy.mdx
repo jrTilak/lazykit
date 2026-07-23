@@ -1,0 +1,31 @@
+---
+title: maxBy
+description: Finds the first item with the largest finite derived number.
+category: Arrays
+kind: function
+source: registry/functions/maxBy.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="maxBy" />
+
+## Download
+
+<DownloadCommands name="maxBy" />
+
+## Examples
+
+<UtilityExamples name="maxBy" />
+
+## Props
+
+- `array` (`readonly T[]`) — Candidate values.
+- `getValue` (`(value, index) => number`) — Produces comparable numbers.
+- Returns `T | undefined`; non-finite results are ignored.

@@ -1,0 +1,31 @@
+---
+title: flattenObject
+description: Flattens nested plain objects into dot-delimited keys.
+category: Objects
+kind: function
+source: registry/functions/flattenObject.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="flattenObject" />
+
+## Download
+
+<DownloadCommands name="flattenObject" />
+
+## Examples
+
+<UtilityExamples name="flattenObject" />
+
+## Props
+
+- `object` (`Record<string, unknown>`) — Plain object to flatten.
+- Arrays, dates, and class instances remain leaf values.
+- Throws for circular values or keys containing dots.

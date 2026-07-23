@@ -1,0 +1,31 @@
+---
+title: mapConcurrent
+description: Maps values asynchronously with bounded concurrency and stable ordering.
+category: Async
+kind: function
+source: registry/functions/mapConcurrent.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="mapConcurrent" />
+
+## Download
+
+<DownloadCommands name="mapConcurrent" />
+
+## Examples
+
+<UtilityExamples name="mapConcurrent" />
+
+## Props
+
+- `array` (`readonly T[]`) — Source values.
+- `concurrency` (`number`) — Positive safe-integer limit.
+- `transform` — Receives value, index, and source; results retain source order.

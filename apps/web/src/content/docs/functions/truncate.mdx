@@ -1,0 +1,31 @@
+---
+title: truncate
+description: Truncates text to a maximum code-point length including its marker.
+category: Strings
+kind: function
+source: registry/functions/truncate.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="truncate" />
+
+## Download
+
+<DownloadCommands name="truncate" />
+
+## Examples
+
+<UtilityExamples name="truncate" />
+
+## Props
+
+- `value` (`string`) — Text to shorten.
+- `maxLength` (`number`) — Non-negative safe-integer maximum.
+- `omission` (`string`) — Marker included within the maximum, defaulting to `…`.

@@ -1,0 +1,31 @@
+---
+title: stripIndent
+description: Removes shared indentation from multiline text.
+category: Strings
+kind: function
+source: registry/functions/stripIndent.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="stripIndent" />
+
+## Download
+
+<DownloadCommands name="stripIndent" />
+
+## Examples
+
+<UtilityExamples name="stripIndent" />
+
+## Props
+
+- `value` (`string`) — Multiline text.
+- Leading and trailing template-literal blank lines are removed.
+- Line endings are normalized to `\n`.

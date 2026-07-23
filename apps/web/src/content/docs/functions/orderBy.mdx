@@ -1,0 +1,31 @@
+---
+title: orderBy
+description: Stably sorts a copied array with independently directed rules.
+category: Arrays
+kind: function
+source: registry/functions/orderBy.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="orderBy" />
+
+## Download
+
+<DownloadCommands name="orderBy" />
+
+## Examples
+
+<UtilityExamples name="orderBy" />
+
+## Props
+
+- `array` (`readonly T[]`) — Values to sort.
+- `rules` — Selector and optional `asc` or `desc` direction pairs.
+- Returns a new `T[]`.

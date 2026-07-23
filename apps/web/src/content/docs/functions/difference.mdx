@@ -1,0 +1,31 @@
+---
+title: difference
+description: Returns values from the first array that do not occur in the comparison arrays.
+category: Arrays
+kind: function
+source: registry/functions/difference.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="difference" />
+
+## Download
+
+<DownloadCommands name="difference" />
+
+## Examples
+
+<UtilityExamples name="difference" />
+
+## Props
+
+- `array` (`readonly T[]`) — Values to filter.
+- `...others` (`readonly T[][]`) — Arrays containing excluded values.
+- Returns a new `T[]` and preserves duplicates from the first array.

@@ -1,0 +1,31 @@
+---
+title: hasPath
+description: Checks whether every segment of an object path exists as an own property.
+category: Objects
+kind: function
+source: registry/functions/hasPath.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="hasPath" />
+
+## Download
+
+<DownloadCommands name="hasPath" />
+
+## Examples
+
+<UtilityExamples name="hasPath" />
+
+## Props
+
+- `object` (`unknown`) — Value to inspect.
+- `path` (`string | readonly PropertyKey[]`) — Dot path or explicit segments.
+- Returns `boolean`; inherited properties do not count.

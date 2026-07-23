@@ -1,0 +1,31 @@
+---
+title: interpolate
+description: Replaces nested placeholders with values from an object.
+category: Strings
+kind: function
+source: registry/functions/interpolate.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="interpolate" />
+
+## Download
+
+<DownloadCommands name="interpolate" />
+
+## Examples
+
+<UtilityExamples name="interpolate" />
+
+## Props
+
+- `template` (`string`) — Text containing `{{ dot.path }}` placeholders.
+- `values` (`object`) — Own properties used for replacements.
+- `missing` — `keep`, `empty`, or `throw`; defaults to `keep`.

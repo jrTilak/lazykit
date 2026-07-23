@@ -1,0 +1,31 @@
+---
+title: unionBy
+description: Combines arrays while keeping the first value for each derived key.
+category: Arrays
+kind: function
+source: registry/functions/unionBy.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="unionBy" />
+
+## Download
+
+<DownloadCommands name="unionBy" />
+
+## Examples
+
+<UtilityExamples name="unionBy" />
+
+## Props
+
+- `arrays` (`readonly (readonly T[])[]`) — Arrays to combine.
+- `getKey` (`(value: T) => Key`) — Produces the identity key.
+- Returns a distinct, first-seen `T[]`.

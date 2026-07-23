@@ -1,0 +1,31 @@
+---
+title: differenceBy
+description: Returns values whose derived keys do not occur in the comparison arrays.
+category: Arrays
+kind: function
+source: registry/functions/differenceBy.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="differenceBy" />
+
+## Download
+
+<DownloadCommands name="differenceBy" />
+
+## Examples
+
+<UtilityExamples name="differenceBy" />
+
+## Props
+
+- `array` (`readonly T[]`) — Values to filter.
+- `others` (`readonly (readonly T[])[]`) — Arrays containing excluded keys.
+- `getKey` (`(value: T) => Key`) — Produces the comparison key.

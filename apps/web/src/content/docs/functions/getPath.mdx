@@ -1,0 +1,31 @@
+---
+title: getPath
+description: Reads an own property using dot notation or explicit path segments.
+category: Objects
+kind: function
+source: registry/functions/getPath.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="getPath" />
+
+## Download
+
+<DownloadCommands name="getPath" />
+
+## Examples
+
+<UtilityExamples name="getPath" />
+
+## Props
+
+- `object` (`unknown`) — Value to traverse.
+- `path` (`string | readonly PropertyKey[]`) — Dot path or explicit segments.
+- `defaultValue` (`unknown`) — Returned for missing or undefined values.

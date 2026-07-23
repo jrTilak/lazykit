@@ -1,0 +1,31 @@
+---
+title: formatDuration
+description: Formats milliseconds as a compact multi-unit duration.
+category: Formatting
+kind: function
+source: registry/functions/formatDuration.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="formatDuration" />
+
+## Download
+
+<DownloadCommands name="formatDuration" />
+
+## Examples
+
+<UtilityExamples name="formatDuration" />
+
+## Props
+
+- `milliseconds` (`number`) — Finite duration, rounded to whole milliseconds.
+- `maxUnits` (`number`) — Number of displayed non-zero units from `1` to `5`.
+- Supports days through milliseconds and negative durations.

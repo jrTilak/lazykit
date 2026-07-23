@@ -1,0 +1,31 @@
+---
+title: compactObject
+description: Recursively removes null and undefined properties and array entries.
+category: Objects
+kind: function
+source: registry/functions/compactObject.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="compactObject" />
+
+## Download
+
+<DownloadCommands name="compactObject" />
+
+## Examples
+
+<UtilityExamples name="compactObject" />
+
+## Props
+
+- `object` (`T`) — Object or array to copy recursively.
+- Returns `T` without nullish entries while keeping `0`, `false`, and empty strings.
+- Circular references are preserved.

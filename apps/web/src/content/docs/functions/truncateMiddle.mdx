@@ -1,0 +1,31 @@
+---
+title: truncateMiddle
+description: Truncates the middle of text while preserving both ends.
+category: Strings
+kind: function
+source: registry/functions/truncateMiddle.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="truncateMiddle" />
+
+## Download
+
+<DownloadCommands name="truncateMiddle" />
+
+## Examples
+
+<UtilityExamples name="truncateMiddle" />
+
+## Props
+
+- `value` (`string`) — Text to shorten.
+- `maxLength` (`number`) — Non-negative safe-integer maximum.
+- `omission` (`string`) — Marker included within the maximum.

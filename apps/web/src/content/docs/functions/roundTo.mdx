@@ -1,0 +1,31 @@
+---
+title: roundTo
+description: Rounds a finite number to a requested decimal position.
+category: Numbers
+kind: function
+source: registry/functions/roundTo.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="roundTo" />
+
+## Download
+
+<DownloadCommands name="roundTo" />
+
+## Examples
+
+<UtilityExamples name="roundTo" />
+
+## Props
+
+- `value` (`number`) — Finite number to round.
+- `precision` (`number`) — Integer from `-100` to `100`; defaults to `0`.
+- Negative precision rounds positions left of the decimal point.

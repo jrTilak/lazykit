@@ -1,0 +1,31 @@
+---
+title: loadScript
+description: Loads an external browser script once and shares concurrent requests.
+category: Web APIs
+kind: function
+source: registry/functions/loadScript.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="loadScript" />
+
+## Download
+
+<DownloadCommands name="loadScript" />
+
+## Examples
+
+<UtilityExamples name="loadScript" />
+
+## Props
+
+- `source` (`string`) — Absolute or document-relative script URL.
+- `attributes` (`Record<string, string>`) — Optional script attributes.
+- Returns the loaded `HTMLScriptElement`; failed new elements are removed for retry.

@@ -1,0 +1,31 @@
+---
+title: intersection
+description: Returns distinct values shared by every provided array.
+category: Arrays
+kind: function
+source: registry/functions/intersection.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="intersection" />
+
+## Download
+
+<DownloadCommands name="intersection" />
+
+## Examples
+
+<UtilityExamples name="intersection" />
+
+## Props
+
+- `array` (`readonly T[]`) — The ordered source array.
+- `...others` (`readonly T[][]`) — Arrays that must contain each result.
+- Returns distinct values in first-seen order.

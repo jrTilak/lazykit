@@ -1,0 +1,31 @@
+---
+title: mapKeys
+description: Transforms an object's own enumerable keys.
+category: Objects
+kind: function
+source: registry/functions/mapKeys.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="mapKeys" />
+
+## Download
+
+<DownloadCommands name="mapKeys" />
+
+## Examples
+
+<UtilityExamples name="mapKeys" />
+
+## Props
+
+- `object` (`T`) — Source object.
+- `transform` — Receives value, key, and source object and returns a property key.
+- Later key collisions replace earlier values.

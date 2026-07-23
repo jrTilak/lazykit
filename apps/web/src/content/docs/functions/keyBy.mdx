@@ -1,0 +1,31 @@
+---
+title: keyBy
+description: Indexes array values by a derived property key.
+category: Arrays
+kind: function
+source: registry/functions/keyBy.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="keyBy" />
+
+## Download
+
+<DownloadCommands name="keyBy" />
+
+## Examples
+
+<UtilityExamples name="keyBy" />
+
+## Props
+
+- `array` (`readonly T[]`) — Values to index.
+- `getKey` (`(value, index) => PropertyKey`) — Produces each object key.
+- Later duplicate keys replace earlier values.

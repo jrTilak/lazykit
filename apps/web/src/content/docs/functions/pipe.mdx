@@ -1,0 +1,31 @@
+---
+title: pipe
+description: Passes a value through unary functions from left to right.
+category: Functional
+kind: function
+source: registry/functions/pipe.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="pipe" />
+
+## Download
+
+<DownloadCommands name="pipe" />
+
+## Examples
+
+<UtilityExamples name="pipe" />
+
+## Props
+
+- `value` — Initial value.
+- Up to five unary transformation functions are type-inferred.
+- Returns the final transformed value.

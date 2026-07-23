@@ -1,0 +1,31 @@
+---
+title: mergeDeep
+description: Recursively merges plain objects while replacing arrays and class instances.
+category: Objects
+kind: function
+source: registry/functions/mergeDeep.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="mergeDeep" />
+
+## Download
+
+<DownloadCommands name="mergeDeep" />
+
+## Examples
+
+<UtilityExamples name="mergeDeep" />
+
+## Props
+
+- `base` (`Base`) — Default object.
+- `override` (`Override`) — Values applied over the base.
+- Returns `Base & Override`; blocks unsafe prototype keys.

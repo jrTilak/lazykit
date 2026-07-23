@@ -1,0 +1,31 @@
+---
+title: poll
+description: Repeats an operation until its result satisfies a condition.
+category: Async
+kind: function
+source: registry/functions/poll.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="poll" />
+
+## Download
+
+<DownloadCommands name="poll" />
+
+## Examples
+
+<UtilityExamples name="poll" />
+
+## Props
+
+- `operation` — Receives a one-based attempt number.
+- `until` — Sync or async success predicate.
+- `intervalMs` — Fixed delay or callback; `maxAttempts` and `signal` are optional.

@@ -1,0 +1,30 @@
+---
+title: titleCase
+description: Converts text from common word boundaries into readable title case.
+category: Strings
+kind: function
+source: registry/functions/titleCase.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="titleCase" />
+
+## Download
+
+<DownloadCommands name="titleCase" />
+
+## Examples
+
+<UtilityExamples name="titleCase" />
+
+## Props
+
+- `value` (`string`) — Text containing common word boundaries.
+- Returns capitalized words separated by spaces.

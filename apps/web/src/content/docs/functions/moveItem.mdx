@@ -1,0 +1,31 @@
+---
+title: moveItem
+description: Moves an item to another existing index without mutating the array.
+category: Arrays
+kind: function
+source: registry/functions/moveItem.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="moveItem" />
+
+## Download
+
+<DownloadCommands name="moveItem" />
+
+## Examples
+
+<UtilityExamples name="moveItem" />
+
+## Props
+
+- `array` (`readonly T[]`) — Source values.
+- `fromIndex` (`number`) — Existing source index; negatives count from the end.
+- `toIndex` (`number`) — Existing destination index; negatives count from the end.
