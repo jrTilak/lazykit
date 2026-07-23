@@ -1,0 +1,36 @@
+---
+title: useList
+description: Manages an immutable dense list with common editing controls.
+category: State
+kind: hook
+source: registry/react-hooks/useList.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="useList" kind="hook" />
+
+## Download
+
+<DownloadCommands name="useList" kind="hook" />
+
+## Examples
+
+<UtilityExamples name="useList" kind="hook" />
+
+## Props
+
+- `initialItems` (`readonly Item[]`, default: `[]`) — Dense initial list and
+  latest reset snapshot. Sparse arrays are rejected.
+
+### Returns
+
+`UseListResult<Item>` with readonly `items`, `setItems`, `append`, `prepend`,
+`insertAt`, `setAt`, `updateAt`, `move`, `removeAt`, `removeWhere`, `clear`, and
+`reset`. Index controls are no-ops for non-safe or out-of-range indexes.

@@ -1,6 +1,6 @@
 ---
 title: LazyKit
-description: A personal collection of copyable TypeScript utilities and React hooks.
+description: A personal collection of copyable TypeScript utilities, React hooks, and Zod schemas.
 template: splash
 hero:
   tagline: A personal TypeScript toolkit—copy what helps, change what you need.
@@ -11,18 +11,46 @@ hero:
     - text: Browse functions
       link: /functions/
       icon: right-arrow
-    - text: Get started
-      link: /getting-started/
-      icon: open-book
+    - text: Browse React hooks
+      link: /hooks/
+      icon: right-arrow
+      variant: minimal
+    - text: Browse Zod schemas
+      link: /schemas/
+      icon: right-arrow
       variant: minimal
 ---
 
-import { Card, CardGrid } from "@astrojs/starlight/components";
+import { getCollection } from "astro:content";
+import { Card, CardGrid, LinkCard } from "@astrojs/starlight/components";
+
+export const entries = await getCollection("docs");
+export const counts = {
+  functions: entries.filter(({ data }) => data.kind === "function").length,
+  hooks: entries.filter(({ data }) => data.kind === "hook").length,
+};
+
+## At a glance
+
+<CardGrid>
+  <LinkCard
+    title={`${counts.functions} TypeScript helpers`}
+    description="Zero-dependency functions for everyday application code."
+    href="/functions/"
+  />
+  <LinkCard
+    title={`${counts.hooks} React hooks`}
+    description="Typed hooks for state, timing, the DOM, storage, and browser APIs."
+    href="/hooks/"
+  />
+</CardGrid>
+
+## Why LazyKit
 
 <CardGrid>
   <Card title="Made for everyday work" icon="setting">
-    A growing personal shelf of the small TypeScript helpers I reach for across
-    projects.
+    A growing personal shelf of TypeScript functions, React hooks, and Zod
+    schemas I reach for across projects.
   </Card>
 
   <Card title="Own the source" icon="open-book">

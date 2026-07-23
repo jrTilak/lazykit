@@ -1,0 +1,37 @@
+---
+title: useMergedRefs
+description: Combines callback and object refs into one React ref callback.
+category: Functional
+kind: hook
+source: registry/react-hooks/useMergedRefs.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="useMergedRefs" kind="hook" />
+
+## Download
+
+<DownloadCommands name="useMergedRefs" kind="hook" />
+
+## Examples
+
+<UtilityExamples name="useMergedRefs" kind="hook" />
+
+## Props
+
+- `refs` (`readonly (Ref<Value> | null | undefined)[]`) — Callback or object
+  refs that should all receive the same value.
+
+### Returns
+
+`RefCallback<Value>` — A merged callback that assigns the mounted value and
+`null` cleanup to every supplied ref. Its identity stays stable when refs are
+added, removed, or reordered; newly added refs receive the current value and
+removed refs receive `null` after commit.

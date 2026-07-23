@@ -1,0 +1,36 @@
+---
+title: useFullscreen
+description: Controls standards-based fullscreen mode for an element or the page.
+category: DOM
+kind: hook
+source: registry/react-hooks/useFullscreen.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="useFullscreen" kind="hook" />
+
+## Download
+
+<DownloadCommands name="useFullscreen" kind="hook" />
+
+## Examples
+
+<UtilityExamples name="useFullscreen" kind="hook" />
+
+## Props
+
+- `ref` (`RefObject<ElementType | null>`) — Optional fullscreen target. The
+  document root is used only when the argument is omitted; a supplied empty ref
+  is not redirected to the root.
+
+### Returns
+
+`UseFullscreenReturn` with state, support, error, and async `enter`, `exit`, and
+`toggle` controls. Controls resolve `false` when unavailable or rejected.

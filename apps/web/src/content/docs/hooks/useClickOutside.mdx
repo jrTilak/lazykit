@@ -1,0 +1,38 @@
+---
+title: useClickOutside
+description: Runs a handler when a pointer event occurs outside supplied elements.
+category: DOM
+kind: hook
+source: registry/react-hooks/useClickOutside.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="useClickOutside" kind="hook" />
+
+## Download
+
+<DownloadCommands name="useClickOutside" kind="hook" />
+
+## Examples
+
+<UtilityExamples name="useClickOutside" kind="hook" />
+
+## Props
+
+- `refs` — One ref or a readonly list of refs that count as inside.
+- `handler` — Receives the exact event selected by `eventType`.
+- `options.eventType` — `"pointerdown"` by default; also accepts `"click"`,
+  `"mousedown"`, or `"touchstart"`.
+- `options.enabled` — Enables the listener. Defaults to `true`.
+- `options.capture` — Uses capture-phase listening. Defaults to `true`.
+
+### Returns
+
+Nothing. Events inside any current element, including composed paths, are ignored.

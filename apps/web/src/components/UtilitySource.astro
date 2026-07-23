@@ -3,18 +3,44 @@ import { Code } from "@astrojs/starlight/components";
 
 interface Props {
   name: string;
+  kind?: "function" | "hook" | "schema";
 }
 
-const { name } = Astro.props;
-const sources = import.meta.glob("../../../../registry/functions/*.ts", {
+const { name, kind = "function" } = Astro.props;
+const functionSources = import.meta.glob("../../../../registry/functions/*.ts", {
   eager: true,
   import: "default",
   query: "?raw",
 }) as Record<string, string>;
-const source = `registry/functions/${name}.ts`;
+const hookSources = import.meta.glob("../../../../registry/react-hooks/*.ts", {
+  eager: true,
+  import: "default",
+  query: "?raw",
+}) as Record<string, string>;
+const schemaSources = import.meta.glob("../../../../registry/zod-schemas/*.ts", {
+  eager: true,
+  import: "default",
+  query: "?raw",
+}) as Record<string, string>;
+const registries = {
+  function: "registry/functions",
+  hook: "registry/react-hooks",
+  schema: "registry/zod-schemas",
+} as const;
+const sourcesByKind = {
+  function: functionSources,
+  hook: hookSources,
+  schema: schemaSources,
+};
+const source = `${registries[kind]}/${name}.ts`;
+const sources = sourcesByKind[kind];
 const code = sources[`../../../../${source}`];
 
 if (!code) throw new Error(`Missing source for utility: ${name}`);
 ---
 
-<Code code={code} lang="ts" title={`${name}.ts`} />
+<Code
+  code={code}
+  lang="ts"
+  title={`${name}.ts`}
+/>

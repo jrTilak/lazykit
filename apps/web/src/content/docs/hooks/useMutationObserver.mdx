@@ -1,0 +1,35 @@
+---
+title: useMutationObserver
+description: Observes DOM mutations for an element assigned through a callback ref.
+category: DOM
+kind: hook
+source: registry/react-hooks/useMutationObserver.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="useMutationObserver" kind="hook" />
+
+## Download
+
+<DownloadCommands name="useMutationObserver" kind="hook" />
+
+## Examples
+
+<UtilityExamples name="useMutationObserver" kind="hook" />
+
+## Props
+
+- `callback` (`MutationCallback`) — Receives records and the active observer.
+- `options` — Native mutation options plus `enabled`. When no observation mode
+  is supplied, `childList` defaults to `true`.
+
+### Returns
+
+The callback `ref` and `isSupported`.

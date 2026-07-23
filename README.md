@@ -8,7 +8,9 @@
 
 <h3 align="center">Drop the excess, keep the impact.</h3>
 
-LazyKit is a personal collection of TypeScript utilities and React hooks. Choose the source you need, place it in your project, and adapt it to your workflow.
+LazyKit is a personal collection of TypeScript utilities, React hooks, and Zod
+schemas. Choose the source you need, place it in your project, and adapt it to
+your workflow.
 
 Utilities live in [`registry/`](./registry) with named exports, Bun tests, and adjacent examples.
 

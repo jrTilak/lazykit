@@ -1,0 +1,45 @@
+---
+title: useStorageState
+description: Synchronizes generic React state with local or session storage across same- and cross-document updates.
+category: Storage
+kind: hook
+source: registry/react-hooks/useStorageState.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="useStorageState" kind="hook" />
+
+## Download
+
+<DownloadCommands name="useStorageState" kind="hook" />
+
+## Examples
+
+<UtilityExamples name="useStorageState" kind="hook" />
+
+## Props
+
+- `key` (`string`) — Storage key to read, write, remove, and subscribe to.
+- `initialValue` (`NonCallable<T> | () => T`) — Fallback used for missing, cleared, unavailable, or invalid persisted data. Each key and storage-area pair captures its fallback.
+- `options.storage` (`"local" | "session"`, default: `"local"`) — Backing storage area.
+- `options.codec` (`StorageCodec<T>`) — `parse(storedValue)` and `stringify(value)` functions. Changing the codec identity rereads the current key.
+- `options.initializeWithValue` (`boolean`, default: `true`) — Reads during browser initialization. The hook always waits until an effect when rendered on the server.
+- `options.onError` (`(error: unknown) => void`) — Receives read, parse, serialization, write, and removal failures.
+
+### Returns
+
+An object containing:
+
+- `value` (`T`) — Current value.
+- `setValue` (`StorageStateSetter<T>`) — Accepts a direct non-callable value or an updater.
+- `remove()` — Removes the key and restores the initial value.
+- `error` (`unknown | undefined`) — Latest storage or codec failure.
+
+Callable values must be returned by the lazy initializer and updater wrappers, such as `() => handler`. The default codec uses `JSON.parse` and `JSON.stringify` and treats parsed data as `T`. Use a validating codec for data written outside the application. Native `storage` events synchronize other documents, including `Storage.clear()`.

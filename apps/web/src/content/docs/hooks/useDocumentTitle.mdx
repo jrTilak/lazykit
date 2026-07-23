@@ -1,0 +1,34 @@
+---
+title: useDocumentTitle
+description: Coordinates the browser document title across mounted hook instances.
+category: Web APIs
+kind: hook
+source: registry/react-hooks/useDocumentTitle.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="useDocumentTitle" kind="hook" />
+
+## Download
+
+<DownloadCommands name="useDocumentTitle" kind="hook" />
+
+## Examples
+
+<UtilityExamples name="useDocumentTitle" kind="hook" />
+
+## Props
+
+- `title` (`string | null`) — Title owned by this hook instance. `null` removes its current title layer.
+- `options.restoreOnUnmount` (`boolean`, default: `true`) — Removes this instance's title layer on unmount. `false` retains that layer.
+
+### Returns
+
+`void`. The most recently updated mounted instance owns the visible title. Removing instances out of order reveals the latest remaining layer. The hook performs no document access during server rendering.

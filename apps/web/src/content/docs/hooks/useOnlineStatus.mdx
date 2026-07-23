@@ -1,0 +1,35 @@
+---
+title: useOnlineStatus
+description: Tracks browser online and offline status with an SSR-safe snapshot.
+category: Web APIs
+kind: hook
+source: registry/react-hooks/useOnlineStatus.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="useOnlineStatus" kind="hook" />
+
+## Download
+
+<DownloadCommands name="useOnlineStatus" kind="hook" />
+
+## Examples
+
+<UtilityExamples name="useOnlineStatus" kind="hook" />
+
+## Props
+
+This hook takes no arguments.
+
+### Returns
+
+A boolean from `navigator.onLine`; the server snapshot is optimistically
+`true`. This is the browser's connectivity signal, not proof that a particular
+server is reachable.

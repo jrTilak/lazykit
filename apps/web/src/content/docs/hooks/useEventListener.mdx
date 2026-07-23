@@ -1,0 +1,36 @@
+---
+title: useEventListener
+description: Subscribes to a typed DOM event while always calling the latest handler.
+category: DOM
+kind: hook
+source: registry/react-hooks/useEventListener.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="useEventListener" kind="hook" />
+
+## Download
+
+<DownloadCommands name="useEventListener" kind="hook" />
+
+## Examples
+
+<UtilityExamples name="useEventListener" kind="hook" />
+
+## Props
+
+- `target` (`EventListenerTarget<Target>`) — An event target, ref, or `null`.
+- `type` — Event name inferred from the target's event map.
+- `handler` — Receives the matching typed event.
+- `options` — Native listener options plus `enabled`.
+
+### Returns
+
+Nothing. The listener follows ref target swaps and is removed on cleanup.

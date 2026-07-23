@@ -1,0 +1,36 @@
+---
+title: useEventCallback
+description: Returns a stable callback that always delegates to the latest function.
+category: Functional
+kind: hook
+source: registry/react-hooks/useEventCallback.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="useEventCallback" kind="hook" />
+
+## Download
+
+<DownloadCommands name="useEventCallback" kind="hook" />
+
+## Examples
+
+<UtilityExamples name="useEventCallback" kind="hook" />
+
+## Props
+
+- `callback` (`Callback`) — Function to invoke. Its complete callable type,
+  including generic or overloaded signatures and an explicit receiver, is
+  preserved.
+
+### Returns
+
+`EventCallback<Callback>` — A callback with stable identity. After each commit,
+it invokes the latest `callback` supplied to the hook.

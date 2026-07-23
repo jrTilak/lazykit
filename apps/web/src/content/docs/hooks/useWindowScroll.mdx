@@ -1,0 +1,33 @@
+---
+title: useWindowScroll
+description: Tracks the window scroll position and exposes a typed scroll control.
+category: Web APIs
+kind: hook
+source: registry/react-hooks/useWindowScroll.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="useWindowScroll" kind="hook" />
+
+## Download
+
+<DownloadCommands name="useWindowScroll" kind="hook" />
+
+## Examples
+
+<UtilityExamples name="useWindowScroll" kind="hook" />
+
+## Props
+
+This hook takes no arguments.
+
+### Returns
+
+`UseWindowScrollReturn` with `x`, `y`, and both native `scrollTo` signatures.

@@ -1,0 +1,38 @@
+---
+title: email-schema
+description: Validates a trimmed email address and returns a branded value without changing its casing.
+category: Authentication
+kind: schema
+source: registry/zod-schemas/email-schema.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="email-schema" kind="schema" />
+
+## Download
+
+<DownloadCommands name="email-schema" kind="schema" />
+
+## Examples
+
+<UtilityExamples name="email-schema" kind="schema" />
+
+## Props
+
+- `input` (`string`) — The candidate email address. Leading and trailing
+  whitespace is removed before validation.
+
+### Returns
+
+`Email`, a `string` branded with `"Email"`. The trimmed value must pass Zod 4's
+email format and contain at most 254 characters.
+
+Letter casing is preserved, including the local part. The schema validates
+syntax only; it does not confirm that the address or mailbox exists.

@@ -1,0 +1,40 @@
+---
+title: username-schema
+description: Canonicalizes and validates a URL-friendly username with branded output.
+category: Authentication
+kind: schema
+source: registry/zod-schemas/username-schema.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="username-schema" kind="schema" />
+
+## Download
+
+<DownloadCommands name="username-schema" kind="schema" />
+
+## Examples
+
+<UtilityExamples name="username-schema" kind="schema" />
+
+## Props
+
+- `input` (`string`) — The candidate username.
+
+### Returns
+
+`Username`, a canonical `string` branded with `"Username"`. The schema trims
+outer whitespace, lowercases the value, normalizes it to Unicode NFC, and then
+requires 3 to 30 Unicode code points.
+
+The final value contains lowercase ASCII letters or numbers separated by single
+dots, underscores, or hyphens. Separators cannot be repeated or appear at
+either edge. Availability and reserved-name checks remain application-level
+concerns.

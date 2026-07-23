@@ -1,0 +1,37 @@
+---
+title: useScrollLock
+description: Locks scrolling on the document body or a supplied element.
+category: DOM
+kind: hook
+source: registry/react-hooks/useScrollLock.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="useScrollLock" kind="hook" />
+
+## Download
+
+<DownloadCommands name="useScrollLock" kind="hook" />
+
+## Examples
+
+<UtilityExamples name="useScrollLock" kind="hook" />
+
+## Props
+
+- `ref` — Optional element ref. Omitting it selects the document body.
+- `options.enabled` — Enables the lock. Defaults to `true`.
+- `options.preserveScrollbarGap` — Adds body padding for the removed scrollbar.
+  The gap remains while any nested lock requests it.
+
+### Returns
+
+Nothing. Nested hook instances are reference-counted and original styles are
+restored after the final lock releases.

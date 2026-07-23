@@ -1,0 +1,33 @@
+---
+title: useBeforeUnload
+description: Requests the browser's standard leave-page confirmation when unsaved work should block navigation.
+category: Web APIs
+kind: hook
+source: registry/react-hooks/useBeforeUnload.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="useBeforeUnload" kind="hook" />
+
+## Download
+
+<DownloadCommands name="useBeforeUnload" kind="hook" />
+
+## Examples
+
+<UtilityExamples name="useBeforeUnload" kind="hook" />
+
+## Props
+
+- `shouldBlock` (`boolean | (() => boolean)`, default: `true`) — Boolean or latest predicate deciding whether to prevent the `beforeunload` event. `false` installs no listener; a predicate is evaluated for each event.
+
+### Returns
+
+`void`. The listener is removed on unmount and is never installed during server rendering. Browsers control the confirmation text; custom messages are intentionally unsupported.

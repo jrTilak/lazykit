@@ -1,0 +1,33 @@
+---
+title: useWindowSize
+description: Returns a concurrent-safe snapshot of the viewport dimensions.
+category: Web APIs
+kind: hook
+source: registry/react-hooks/useWindowSize.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="useWindowSize" kind="hook" />
+
+## Download
+
+<DownloadCommands name="useWindowSize" kind="hook" />
+
+## Examples
+
+<UtilityExamples name="useWindowSize" kind="hook" />
+
+## Props
+
+This hook takes no arguments.
+
+### Returns
+
+`WindowSize` with numeric `width` and `height`. The server snapshot is zero.

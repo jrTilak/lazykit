@@ -10,7 +10,7 @@ const editUrl = `https://github.com/jrTilak/lazykit/edit/HEAD/${docsPath}`;
 <div class="page-title-row">
   <h1 id="_top">{title}</h1>
   {
-    kind === "function" && (
+    (kind === "function" || kind === "hook" || kind === "schema") && (
       <a
         class="page-edit-link"
         href={editUrl}

@@ -1,0 +1,51 @@
+---
+title: slug-schema
+description: Converts a string into a canonical lowercase ASCII slug and returns a branded value.
+category: Formats
+kind: schema
+source: registry/zod-schemas/slug-schema.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="slug-schema" kind="schema" />
+
+## Download
+
+<DownloadCommands name="slug-schema" kind="schema" />
+
+## Examples
+
+<UtilityExamples name="slug-schema" kind="schema" />
+
+## Props
+
+- `input` (`string`) — Text to canonicalize into a slug.
+
+### Returns
+
+`Slug`, a `string` branded with `"Slug"`. The input is trimmed, normalized to
+Unicode NFKD, stripped of combining marks, lowercased, and converted to ASCII
+letters and numbers separated by single hyphens. Leading and trailing hyphens
+are removed.
+
+Before canonicalization, the schema rejects unpaired UTF-16 surrogates and C0
+or C1 control characters, including tabs and line breaks. Ordinary leading and
+trailing spaces remain valid and are trimmed. Punctuation remains valid input
+and is converted into separators.
+
+The canonical output must contain 1 to 100 characters. Inputs that contain no
+ASCII letter or number after canonicalization are rejected. Decomposable
+diacritics such as `è` become their ASCII base letter; scripts without an ASCII
+decomposition are removed rather than transliterated.
+
+Canonicalization is many-to-one: inputs such as `Hello, World!` and
+`hello---world` both produce `hello-world`. The brand proves that the returned
+value passed this schema, not that it is unique. Applications must check the
+final canonical slug against their own routes or stored records.

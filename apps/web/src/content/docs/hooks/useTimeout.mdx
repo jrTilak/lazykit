@@ -1,0 +1,40 @@
+---
+title: useTimeout
+description: Schedules the latest callback once with reset, cancel, and pending controls.
+category: Timing
+kind: hook
+source: registry/react-hooks/useTimeout.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="useTimeout" kind="hook" />
+
+## Download
+
+<DownloadCommands name="useTimeout" kind="hook" />
+
+## Examples
+
+<UtilityExamples name="useTimeout" kind="hook" />
+
+## Props
+
+- `callback` (`() => void`) — Latest callback to invoke when the timeout completes.
+- `delayMs` (`number | null`) — Finite, non-negative delay. `null` disables and clears the timeout; `0` is valid.
+
+### Returns
+
+An object containing:
+
+- `reset()` — Restarts the timeout using the current delay.
+- `cancel()` — Clears the timeout.
+- `isPending` (`boolean`) — Whether a timeout is scheduled.
+
+Changing only the callback does not restart the timer. Changing the delay does. A caller's layout effect can cancel the scheduled timeout before it fires.

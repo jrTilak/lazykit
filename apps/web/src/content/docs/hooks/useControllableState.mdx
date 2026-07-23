@@ -1,0 +1,42 @@
+---
+title: useControllableState
+description: Supports controlled and uncontrolled component state through one API.
+category: State
+kind: hook
+source: registry/react-hooks/useControllableState.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="useControllableState" kind="hook" />
+
+## Download
+
+<DownloadCommands name="useControllableState" kind="hook" />
+
+## Examples
+
+<UtilityExamples name="useControllableState" kind="hook" />
+
+## Props
+
+- `options.defaultValue` (`Value`) — Initial value when the `value` property is
+  omitted.
+- `options.value` (`Value`, optional) — Controlled value. An explicitly present
+  `undefined` still selects controlled mode.
+- `options.onChange` (`(value: Value) => void`, optional) — Receives requested
+  changes in either mode.
+
+### Returns
+
+`UseControllableStateResult<Value>` with `value`, stable React-compatible
+`setValue`, and `isControlled`. Controlled updates notify `onChange` without
+changing the supplied value. Switching to uncontrolled mode starts from the
+last committed controlled value. Replace callable values through an updater
+such as `setValue(() => nextFunction)`.

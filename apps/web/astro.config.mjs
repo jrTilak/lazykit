@@ -9,7 +9,7 @@ export default defineConfig({
     starlight({
       title: "LazyKit",
       description:
-        "A personal collection of copyable TypeScript utilities and React hooks.",
+        "A personal collection of copyable TypeScript utilities, React hooks, and Zod schemas.",
       favicon: "/logo.svg",
       logo: {
         src: "./src/assets/logo.svg",
@@ -46,6 +46,20 @@ export default defineConfig({
           items: [
             { label: "All functions", slug: "functions" },
             { autogenerate: { directory: "functions" } },
+          ],
+        },
+        {
+          label: "React hooks",
+          items: [
+            { label: "All hooks", slug: "hooks" },
+            { autogenerate: { directory: "hooks" } },
+          ],
+        },
+        {
+          label: "Zod schemas",
+          items: [
+            { label: "All schemas", slug: "schemas" },
+            { autogenerate: { directory: "schemas" } },
           ],
         },
       ],
