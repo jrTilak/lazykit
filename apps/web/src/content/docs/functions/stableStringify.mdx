@@ -1,0 +1,31 @@
+---
+title: stableStringify
+description: Serializes values with deterministic object-key ordering.
+category: Objects
+kind: function
+source: registry/functions/stableStringify.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="stableStringify" />
+
+## Download
+
+<DownloadCommands name="stableStringify" />
+
+## Examples
+
+<UtilityExamples name="stableStringify" />
+
+## Props
+
+- `value` (`unknown`) — JSON-compatible value.
+- `space` (`string | number`) — Optional JSON indentation.
+- Returns `string | undefined` and throws for cycles or `bigint`.

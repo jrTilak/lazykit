@@ -1,0 +1,31 @@
+---
+title: sumBy
+description: Sums finite numeric values produced by a selector.
+category: Arrays
+kind: function
+source: registry/functions/sumBy.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="sumBy" />
+
+## Download
+
+<DownloadCommands name="sumBy" />
+
+## Examples
+
+<UtilityExamples name="sumBy" />
+
+## Props
+
+- `array` (`readonly T[]`) — Values to total. Empty slots are skipped.
+- `getValue` (`(value: T, index, array: readonly (T | undefined)[]) => number`) — Produces each amount and is invoked without a receiver. `value` is always present; the original array retains skipped holes.
+- Throws when the selector returns a non-finite number or the running total overflows.

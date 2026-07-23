@@ -1,0 +1,31 @@
+---
+title: invert
+description: Exchanges an object's keys and property-key values.
+category: Objects
+kind: function
+source: registry/functions/invert.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="invert" />
+
+## Download
+
+<DownloadCommands name="invert" />
+
+## Examples
+
+<UtilityExamples name="invert" />
+
+## Props
+
+- `object` — An object whose present values are strings, numbers, or symbols.
+- Returns `InvertResult<T>`, a null-prototype object with optional inverse keys.
+- Later value collisions replace earlier keys.

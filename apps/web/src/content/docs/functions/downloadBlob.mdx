@@ -1,0 +1,31 @@
+---
+title: downloadBlob
+description: Starts a browser download for an in-memory Blob.
+category: Web APIs
+kind: function
+source: registry/functions/downloadBlob.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="downloadBlob" />
+
+## Download
+
+<DownloadCommands name="downloadBlob" />
+
+## Examples
+
+<UtilityExamples name="downloadBlob" />
+
+## Props
+
+- `blob` (`Blob`) — Browser data to download.
+- `filename` (`string`) — Non-empty suggested filename.
+- The temporary anchor and object URL are always released.

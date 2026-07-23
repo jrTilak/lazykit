@@ -1,0 +1,61 @@
+---
+import { Code } from "@astrojs/starlight/components";
+
+interface Props {
+  name: string;
+  kind?: "function" | "hook" | "schema";
+}
+
+const { name, kind = "function" } = Astro.props;
+const functionExamples = import.meta.glob(
+  "../../../../registry/functions/*.example.ts",
+  {
+    eager: true,
+    import: "default",
+    query: "?raw",
+  },
+) as Record<string, string>;
+const hookExamples = import.meta.glob(
+  "../../../../registry/react-hooks/*.example.tsx",
+  {
+    eager: true,
+    import: "default",
+    query: "?raw",
+  },
+) as Record<string, string>;
+const schemaExamples = import.meta.glob(
+  "../../../../registry/zod-schemas/*.example.ts",
+  {
+    eager: true,
+    import: "default",
+    query: "?raw",
+  },
+) as Record<string, string>;
+const examplesByKind = {
+  function: functionExamples,
+  hook: hookExamples,
+  schema: schemaExamples,
+};
+const allExamples = examplesByKind[kind];
+const extension = kind === "hook" ? "tsx" : "ts";
+
+const examples = Object.entries(allExamples)
+  .map(([path, code]) => ({ path, code, file: path.split("/").at(-1) ?? path }))
+  .filter(({ file }) =>
+    file === `${name}.example.${extension}` ||
+    new RegExp(`^${name}\\.\\d+\\.example\\.${extension}$`).test(file),
+  )
+  .sort((a, b) => {
+    const order = (file: string) =>
+      Number(file.match(/\.(\d+)\.example\.(?:ts|tsx)$/)?.[1] ?? 1);
+    return order(a.file) - order(b.file);
+  });
+
+if (examples.length === 0) throw new Error(`Missing examples for utility: ${name}`);
+---
+
+{
+  examples.map(({ code, file }) => (
+    <Code code={code} lang={kind === "hook" ? "tsx" : "ts"} title={file} />
+  ))
+}

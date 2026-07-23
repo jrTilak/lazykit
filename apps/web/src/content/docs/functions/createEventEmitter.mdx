@@ -1,0 +1,31 @@
+---
+title: createEventEmitter
+description: Creates a synchronous, type-safe event emitter.
+category: Functional
+kind: function
+source: registry/functions/createEventEmitter.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="createEventEmitter" />
+
+## Download
+
+<DownloadCommands name="createEventEmitter" />
+
+## Examples
+
+<UtilityExamples name="createEventEmitter" />
+
+## Props
+
+- The type parameter maps event names to payload types.
+- Provides `on`, `once`, `off`, `emit`, `clear`, and `listenerCount`.
+- Listeners run synchronously from a stable snapshot.

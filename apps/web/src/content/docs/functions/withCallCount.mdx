@@ -1,0 +1,35 @@
+---
+title: withCallCount
+description: Wraps a function and tracks how many times the wrapper is invoked.
+category: Functional
+kind: function
+source: registry/functions/withCallCount.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="withCallCount" />
+
+## Download
+
+<DownloadCommands name="withCallCount" />
+
+## Examples
+
+<UtilityExamples name="withCallCount" />
+
+## Props
+
+- `fn` (`(...args: A) => R`) — Function whose wrapper invocations should be counted; its receiver is preserved.
+
+### Returns
+
+The wrapped function with `getCallCount()` and `resetCallCount()` methods. Calls are counted even when `fn` throws.
+Properties on a callable object remain available through the wrapper. Callables
+that already define either control name are rejected.

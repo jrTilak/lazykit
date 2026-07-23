@@ -1,0 +1,39 @@
+---
+title: useHotkey
+description: Runs a callback for one or more keyboard shortcuts.
+category: DOM
+kind: hook
+source: registry/react-hooks/useHotkey.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="useHotkey" kind="hook" />
+
+## Download
+
+<DownloadCommands name="useHotkey" kind="hook" />
+
+## Examples
+
+<UtilityExamples name="useHotkey" kind="hook" />
+
+## Props
+
+- `hotkeys` (`string | readonly string[]`) — Shortcuts such as `"mod+s"` or
+  `"shift+alt+k"`. Each chord must contain exactly one non-modifier key. Use
+  `"plus"` for the `+` key, such as `"shift+plus"`.
+- `handler` — Receives the matching keyboard event.
+- `options` — Controls target, enabled state, repeats, editable elements,
+  exact modifiers, and default prevention.
+
+### Returns
+
+Nothing. `mod` accepts either Control or Command. With exact modifiers enabled,
+pressing both does not match.

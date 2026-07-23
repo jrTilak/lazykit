@@ -1,0 +1,41 @@
+---
+title: useToggle
+description: Toggles between two values while preserving their exact union type.
+category: State
+kind: hook
+source: registry/react-hooks/useToggle.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="useToggle" kind="hook" />
+
+## Download
+
+<DownloadCommands name="useToggle" kind="hook" />
+
+## Examples
+
+<UtilityExamples name="useToggle" kind="hook" />
+
+## Props
+
+- `first` (`First`) — First toggle value and the default initial value.
+- `second` (`Second`) — Second toggle value.
+- `initialValue` (`First | Second`, optional) — Which configured value to use
+  initially. Object values are compared by identity.
+
+### Returns
+
+`UseToggleResult<First, Second>` containing `value`, `setValue`, and `toggle`.
+Runtime validation prevents JavaScript callers and updater callbacks from
+introducing a third value. If either configured value changes and the current
+value no longer belongs to the pair, the hook resets to the new `first` value.
+Callable choices are replaced through an updater such as
+`setValue(() => nextFunction)`, avoiding function-as-updater ambiguity.

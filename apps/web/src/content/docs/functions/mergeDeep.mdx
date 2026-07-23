@@ -1,0 +1,50 @@
+---
+title: mergeDeep
+description: Recursively merges plain objects while replacing arrays and class instances.
+category: Objects
+kind: function
+source: registry/functions/mergeDeep.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="mergeDeep" />
+
+## Download
+
+<DownloadCommands name="mergeDeep" />
+
+## Examples
+
+<UtilityExamples name="mergeDeep" />
+
+## Props
+
+- `base` (`Base`) — Default object.
+- `override` (`Override`) — Values applied over the base.
+
+### Returns
+
+`DeepMerge<Base, Override>` — A recursive override-wins type. Conflicting
+properties use the override type instead of an intersection. Arrays, functions,
+built-in objects, class instances, and other non-plain values are replaced;
+replacement arrays and nested plain objects are copied.
+
+TypeScript cannot identify arbitrary class instances from their structural type.
+When both operands are provably record-like, `DeepMerge` returns the precise
+recursive merge. Otherwise it returns a conservative union of replacement and
+merge shapes, so fields that disappear when a class instance is replaced are
+not promised statically. Common built-ins, arrays, and functions always use the
+override type.
+
+All own properties are merged, including non-enumerable and symbol keys.
+Visibility, configurability, and writability are retained from the property that
+supplies the result. Null-prototype objects, circular references, and special
+keys such as `__proto__`, `constructor`, and `prototype` are preserved without
+mutating a prototype.

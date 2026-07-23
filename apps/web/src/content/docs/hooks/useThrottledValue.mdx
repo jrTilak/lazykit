@@ -1,0 +1,34 @@
+---
+title: useThrottledValue
+description: Publishes the latest generic value at most once during each interval.
+category: Timing
+kind: hook
+source: registry/react-hooks/useThrottledValue.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="useThrottledValue" kind="hook" />
+
+## Download
+
+<DownloadCommands name="useThrottledValue" kind="hook" />
+
+## Examples
+
+<UtilityExamples name="useThrottledValue" kind="hook" />
+
+## Props
+
+- `value` (`T`) — Value to throttle.
+- `intervalMs` (`number`) — Finite, non-negative minimum interval between published changes.
+
+### Returns
+
+`T` — The initial value immediately and the latest pending value when the current throttle window ends. Function values are stored as values and are never invoked by the hook.

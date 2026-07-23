@@ -1,0 +1,40 @@
+---
+title: useDebouncedCallback
+description: Delays a callback until calls have stopped while always invoking its latest implementation.
+category: Timing
+kind: hook
+source: registry/react-hooks/useDebouncedCallback.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="useDebouncedCallback" kind="hook" />
+
+## Download
+
+<DownloadCommands name="useDebouncedCallback" kind="hook" />
+
+## Examples
+
+<UtilityExamples name="useDebouncedCallback" kind="hook" />
+
+## Props
+
+- `callback` (`(this: T, ...args: A) => unknown`) — Function invoked with the receiver and arguments from the latest call.
+- `delayMs` (`number`, default: `300`) — Finite, non-negative quiet period in milliseconds.
+
+### Returns
+
+A receiver- and argument-safe debounced function with:
+
+- `cancel()` — Discards a pending invocation.
+- `flush()` — Immediately runs a pending invocation.
+- `pending()` — Reports whether an invocation is waiting.
+
+The returned function keeps the same identity across renders. Changing the delay or unmounting cancels pending work.

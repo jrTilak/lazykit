@@ -1,0 +1,42 @@
+---
+title: withTimeout
+description: Wraps a function and rejects when waiting for its result exceeds a deadline.
+category: Functional
+kind: function
+source: registry/functions/withTimeout.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="withTimeout" />
+
+## Download
+
+<DownloadCommands name="withTimeout" />
+
+## Examples
+
+<UtilityExamples name="withTimeout" />
+
+## Props
+
+- `fn` (`(...args: A) => R`) — Work to invoke with the wrapper’s arguments and receiver.
+- `timeoutMs` (`number`) — Finite, non-negative deadline in milliseconds.
+- `createError` (`(...args: A) => Error`) — Optional factory invoked with the same arguments and receiver.
+
+### Returns
+
+`(...args: A) => Promise<Awaited<R>>` — A wrapper that resolves with the operation or rejects with its error or the timeout error.
+Up to the final ten overloads remain available, with every result transformed
+to a native `Promise`. Earlier overloads remain unexposed. Generic call
+relationships that TypeScript cannot represent after wrapping collapse
+conservatively to their inferred `unknown` parameters and results. Custom
+Promise subtypes are exposed as native `Promise` results because the timeout
+race cannot preserve subtype-specific fields.
+Properties on a callable object remain available through the wrapper.

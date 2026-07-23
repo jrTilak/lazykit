@@ -1,0 +1,31 @@
+---
+title: pLimit
+description: Creates a scheduler that limits concurrently running async tasks.
+category: Async
+kind: function
+source: registry/functions/pLimit.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="pLimit" />
+
+## Download
+
+<DownloadCommands name="pLimit" />
+
+## Examples
+
+<UtilityExamples name="pLimit" />
+
+## Props
+
+- `concurrency` (`number`) — Positive safe-integer task limit.
+- The returned scheduler exposes `activeCount`, `pendingCount`, and `clearQueue`.
+- Clearing rejects pending work without stopping active tasks.

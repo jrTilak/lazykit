@@ -1,0 +1,31 @@
+---
+title: countBy
+description: Counts array values by a derived property key.
+category: Arrays
+kind: function
+source: registry/functions/countBy.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="countBy" />
+
+## Download
+
+<DownloadCommands name="countBy" />
+
+## Examples
+
+<UtilityExamples name="countBy" />
+
+## Props
+
+- `array` (`readonly T[]`) — Values to count. Empty slots are skipped.
+- `getKey` (`CountByKeySelector<T, Key>`) — Selects a bucket and is invoked without a receiver.
+- Returns `Partial<Record<Key, number>>` with a null prototype. A count is `undefined` when that key did not occur.

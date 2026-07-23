@@ -1,0 +1,37 @@
+---
+title: omit
+description: Copies an object without a selected set of properties.
+category: Objects
+kind: function
+source: registry/functions/omit.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="omit" />
+
+## Download
+
+<DownloadCommands name="omit" />
+
+## Examples
+
+<UtilityExamples name="omit" />
+
+## Props
+
+- `object` (`T`) — Plain object to copy.
+- `keys` (`readonly K[]`) — Dense list of string, number, or symbol keys to leave out.
+
+### Returns
+
+`Omit<T, K>` — A shallow copy without the selected properties.
+All own string and symbol properties are preserved, including non-enumerable
+properties. The result preserves the source's ordinary or null prototype.
+Arrays and class instances are rejected with `TypeError`.

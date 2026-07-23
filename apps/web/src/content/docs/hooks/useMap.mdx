@@ -1,0 +1,38 @@
+---
+title: useMap
+description: Manages an immutable Map with stable update controls.
+category: State
+kind: hook
+source: registry/react-hooks/useMap.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="useMap" kind="hook" />
+
+## Download
+
+<DownloadCommands name="useMap" kind="hook" />
+
+## Examples
+
+<UtilityExamples name="useMap" kind="hook" />
+
+## Props
+
+- `initialEntries` (`ReadonlyMap<Key, Value> | readonly [Key, Value][]`,
+  default: `[]`) — Initial entries and latest reset snapshot.
+
+### Returns
+
+`UseMapResult<Key, Value>` with readonly `map`, `set`, `setMany`, `update`,
+`remove`, `clear`, and `reset`. `setMany` materializes an iterable once before
+the React state update, so one-shot generators are safe. The `update`
+callback receives both the current value and an `exists` flag, distinguishing
+a missing key from a key whose value is `undefined`.

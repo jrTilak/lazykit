@@ -1,0 +1,35 @@
+---
+title: useIntersectionObserver
+description: Observes whether an element intersects a root or the viewport.
+category: DOM
+kind: hook
+source: registry/react-hooks/useIntersectionObserver.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="useIntersectionObserver" kind="hook" />
+
+## Download
+
+<DownloadCommands name="useIntersectionObserver" kind="hook" />
+
+## Examples
+
+<UtilityExamples name="useIntersectionObserver" kind="hook" />
+
+## Props
+
+- `options` — Native observer options plus `enabled`, `freezeOnceVisible`, and
+  an `onChange(entry)` callback.
+- `ElementType` — Generic element type attached to the callback ref.
+
+### Returns
+
+The callback `ref`, latest `entry`, `isIntersecting`, and `isSupported`.

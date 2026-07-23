@@ -1,0 +1,32 @@
+---
+title: slugify
+description: Converts text into a lowercase, URL-safe Unicode slug.
+category: Strings
+kind: function
+source: registry/functions/slugify.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="slugify" />
+
+## Download
+
+<DownloadCommands name="slugify" />
+
+## Examples
+
+<UtilityExamples name="slugify" />
+
+## Props
+
+- `value` (`string`) — Text to normalize.
+- `separator` (`string`) — One or more URL-safe punctuation characters (`-`, `.`, `_`, or `~`), defaulting to `-`.
+- Latin diacritics are removed while marks attached to letters or numbers in other Unicode scripts are retained.
+- Reserved URL delimiters, whitespace, alphanumeric characters, and other Unicode symbols are rejected as separators.

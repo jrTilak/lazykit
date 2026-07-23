@@ -1,0 +1,35 @@
+---
+title: useLongPress
+description: Recognizes a pointer press held for a configured duration.
+category: DOM
+kind: hook
+source: registry/react-hooks/useLongPress.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="useLongPress" kind="hook" />
+
+## Download
+
+<DownloadCommands name="useLongPress" kind="hook" />
+
+## Examples
+
+<UtilityExamples name="useLongPress" kind="hook" />
+
+## Props
+
+- `handler` — Runs after the press reaches `delayMs`.
+- `options` — Configure delay, disabled state, movement threshold, and lifecycle
+  callbacks.
+
+### Returns
+
+`LongPressHandlers<ElementType>` — Pointer handlers to spread onto the target.

@@ -1,0 +1,42 @@
+---
+title: Getting started
+description: Add a LazyKit function, React hook, or Zod schema to your project.
+sidebar:
+  order: 1
+---
+
+import { Steps } from "@astrojs/starlight/components";
+
+## Add a utility
+
+<Steps>
+1. **Choose an implementation.** Browse [functions](/functions/),
+   [React hooks](/hooks/), or [Zod schemas](/schemas/) and open the page you
+   need.
+
+2. **Pick a download method.** Use the page's `wget` or `degit` command, or
+   copy the displayed source.
+
+3. **Use the named export.** Import the copied function from `src/lib`, hook
+   from `src/hooks`, or schema from `src/schemas`, then adapt it to fit your
+   project.
+</Steps>
+
+## Use a Zod schema
+
+Schema files import Zod. Add it to the project that receives the copied file:
+
+```bash
+bun add "zod@^4"
+```
+
+## Work on the documentation
+
+From the repository root:
+
+```bash
+bun install
+bun run dev
+```
+
+Create a production build with `bun run build`.

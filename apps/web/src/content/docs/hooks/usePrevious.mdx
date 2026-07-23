@@ -1,0 +1,35 @@
+---
+title: usePrevious
+description: Reads the value from the preceding committed render.
+category: State
+kind: hook
+source: registry/react-hooks/usePrevious.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="usePrevious" kind="hook" />
+
+## Download
+
+<DownloadCommands name="usePrevious" kind="hook" />
+
+## Examples
+
+<UtilityExamples name="usePrevious" kind="hook" />
+
+## Props
+
+- `value` (`Value`) — Value to remember after the current render commits.
+- `initialValue` (`Initial`, optional) — Value returned before the first update.
+
+### Returns
+
+Without an initial value, `Value | undefined`. Supplying `initialValue` returns
+`Value | Initial`.

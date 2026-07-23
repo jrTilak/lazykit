@@ -1,0 +1,42 @@
+---
+title: useHistoryState
+description: Adds bounded undo and redo history to a piece of React state.
+category: State
+kind: hook
+source: registry/react-hooks/useHistoryState.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="useHistoryState" kind="hook" />
+
+## Download
+
+<DownloadCommands name="useHistoryState" kind="hook" />
+
+## Examples
+
+<UtilityExamples name="useHistoryState" kind="hook" />
+
+## Props
+
+- `initialValue` (`Value`) — Initial value and latest reset value.
+- `options.maxHistory` (`number`, default: `100`) — Non-negative safe integer
+  number of past values to retain. Zero disables undo history.
+- `options.isEqual` (`(left, right) => boolean`, default: `Object.is`) —
+  Equality check used to skip equivalent updates.
+
+### Returns
+
+`UseHistoryStateResult<Value>` with `state`, React-compatible `setState`,
+`undo`, `redo`, `reset`, `clearHistory`, `canUndo`, and `canRedo`. Updating
+after an undo starts a new branch and clears redo history. Values are retained
+by identity, matching React state, so object updates should be immutable.
+Replace callable values through an updater such as
+`setState(() => nextFunction)`.

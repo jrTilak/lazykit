@@ -1,0 +1,37 @@
+---
+title: useSet
+description: Manages an immutable Set with add, remove, and toggle controls.
+category: State
+kind: hook
+source: registry/react-hooks/useSet.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="useSet" kind="hook" />
+
+## Download
+
+<DownloadCommands name="useSet" kind="hook" />
+
+## Examples
+
+<UtilityExamples name="useSet" kind="hook" />
+
+## Props
+
+- `initialValues` (`ReadonlySet<Value> | readonly Value[]`, default: `[]`) —
+  Initial values and latest reset snapshot. Sparse arrays are rejected, while
+  an explicit `undefined` remains a valid value when included in `Value`.
+
+### Returns
+
+`UseSetResult<Value>` with readonly `set`, `add`, `addMany`, `remove`, `toggle`,
+`clear`, and `reset`. Duplicate additions and missing removals retain the
+existing Set identity.

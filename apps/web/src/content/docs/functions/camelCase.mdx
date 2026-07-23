@@ -1,0 +1,30 @@
+---
+title: camelCase
+description: Converts text from common word boundaries into camel case.
+category: Strings
+kind: function
+source: registry/functions/camelCase.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="camelCase" />
+
+## Download
+
+<DownloadCommands name="camelCase" />
+
+## Examples
+
+<UtilityExamples name="camelCase" />
+
+## Props
+
+- `value` (`string`) — Text containing spaces, punctuation, camel-case boundaries, or acronyms.
+- Returns a Unicode-aware camel-case string.

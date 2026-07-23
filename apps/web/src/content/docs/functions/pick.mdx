@@ -1,0 +1,40 @@
+---
+title: pick
+description: Copies a selected set of properties from an object.
+category: Objects
+kind: function
+source: registry/functions/pick.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="pick" />
+
+## Download
+
+<DownloadCommands name="pick" />
+
+## Examples
+
+<UtilityExamples name="pick" />
+
+## Props
+
+- `object` (`T`) — Plain object to read from.
+- `keys` (`Keys`) — Dense list of string, number, or symbol keys to copy.
+
+### Returns
+
+`PickedObject<T, Keys>` — A new object containing the selected own properties.
+A fixed tuple of literal keys preserves exact required properties. A dynamic
+array or a tuple containing a union key returns those properties as optional,
+because a call may select only some of them.
+Arrays and class instances are rejected with `TypeError`.
+Special selected keys such as `__proto__` are created as safe data properties.
+The result preserves the source's ordinary or null prototype.

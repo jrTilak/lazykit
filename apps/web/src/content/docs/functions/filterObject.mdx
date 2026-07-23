@@ -1,0 +1,37 @@
+---
+title: filterObject
+description: Keeps the own enumerable properties that satisfy a predicate.
+category: Objects
+kind: function
+source: registry/functions/filterObject.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="filterObject" />
+
+## Download
+
+<DownloadCommands name="filterObject" />
+
+## Examples
+
+<UtilityExamples name="filterObject" />
+
+## Props
+
+- `object` (`T`) — Non-array object whose own enumerable properties should be tested.
+- `predicate` (`(value, key, object) => boolean`) — Returns `true` for properties to retain and is invoked without a receiver. Numeric TypeScript keys arrive as their runtime string form.
+
+### Returns
+
+`Partial<T>` — A null-prototype object containing the matching string and symbol
+properties, so inherited names cannot appear as unprocessed values.
+Arrays are rejected with `TypeError` because the result is a plain object.
+Special keys such as `__proto__` are copied as safe own data properties.

@@ -1,0 +1,35 @@
+---
+title: partition
+description: Splits an array into matching and non-matching groups using a predicate.
+category: Arrays
+kind: function
+source: registry/functions/partition.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="partition" />
+
+## Download
+
+<DownloadCommands name="partition" />
+
+## Examples
+
+<UtilityExamples name="partition" />
+
+## Props
+
+- `array` (`readonly T[]`) — Values to divide. Empty slots are skipped.
+- `predicate` (`(value: T, index, array: readonly (T | undefined)[]) => boolean`) — Returns `true` for the first group, `false` for the second, and is invoked without a receiver. `value` is always present; the original array retains skipped holes.
+- A type-predicate callback narrows both groups: `[Match[], Exclude<T, Match>[]]`.
+
+### Returns
+
+`[T[], T[]]` — Matching values followed by non-matching values, with order preserved in both groups.

@@ -1,0 +1,38 @@
+---
+title: useIdle
+description: Detects inactivity from configurable window events and resets cleanly on new activity.
+category: Web APIs
+kind: hook
+source: registry/react-hooks/useIdle.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="useIdle" kind="hook" />
+
+## Download
+
+<DownloadCommands name="useIdle" kind="hook" />
+
+## Examples
+
+<UtilityExamples name="useIdle" kind="hook" />
+
+## Props
+
+- `timeoutMs` (`number`) — Finite, non-negative inactivity period.
+- `options.enabled` (`boolean`, default: `true`) — Enables listeners and the timer.
+- `options.initialState` (`boolean`, default: `false`) — Initial idle state.
+- `options.events` (`readonly (keyof WindowEventMap)[]`) — Activity events. Defaults to keyboard, pointer, scroll, touch, and focus activity.
+- `options.onIdle` (`() => void`) — Called on the active-to-idle transition.
+- `options.onActive` (`() => void`) — Called when activity ends an idle period.
+
+### Returns
+
+An object with `isIdle` and `reset()`. Resetting marks the user active and restarts the inactivity period. Disabling or unmounting removes every listener and timer.

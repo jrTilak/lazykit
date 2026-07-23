@@ -1,0 +1,33 @@
+---
+title: differenceBy
+description: Returns values whose derived keys do not occur in the comparison arrays.
+category: Arrays
+kind: function
+source: registry/functions/differenceBy.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="differenceBy" />
+
+## Download
+
+<DownloadCommands name="differenceBy" />
+
+## Examples
+
+<UtilityExamples name="differenceBy" />
+
+## Props
+
+- `array` (`readonly Source[]`) — Values to filter. Empty slots are skipped.
+- `others` (`readonly (readonly Comparison[])[]`) — Arrays containing excluded keys. Empty slots in the list or its arrays are skipped.
+- `getKey` (`(value: Source | Comparison, index, array: readonly (Source | Comparison | undefined)[]) => Key`) — Produces the comparison key and is invoked without a receiver. `value` is always present; the current source or comparison array retains skipped holes, so reading one can produce `undefined`.
+
+Returns `Source[]`; comparison values do not widen the result type.

@@ -1,0 +1,31 @@
+---
+title: slidingWindow
+description: Creates overlapping fixed-size windows from an array.
+category: Arrays
+kind: function
+source: registry/functions/slidingWindow.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="slidingWindow" />
+
+## Download
+
+<DownloadCommands name="slidingWindow" />
+
+## Examples
+
+<UtilityExamples name="slidingWindow" />
+
+## Props
+
+- `array` (`readonly T[]`) — Dense source values. Sparse arrays are rejected.
+- `size` (`number`) — Positive safe-integer window size.
+- `step` (`number`) — Positive safe-integer offset, defaulting to `1`.

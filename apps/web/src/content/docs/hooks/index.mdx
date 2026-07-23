@@ -1,0 +1,50 @@
+---
+title: React hooks
+description: Browse every LazyKit React hook by category.
+sidebar:
+  hidden: true
+---
+
+import { getCollection } from "astro:content";
+import { CardGrid, LinkCard } from "@astrojs/starlight/components";
+
+export const categoryOrder = [
+  "State",
+  "Async",
+  "Timing",
+  "Functional",
+  "DOM",
+  "Storage",
+  "Web APIs",
+];
+
+export const hooks = (await getCollection("docs"))
+  .filter(({ data }) => data.kind === "hook" && data.category)
+  .sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+export const categories = categoryOrder
+  .map((category) => ({
+    category,
+    entries: hooks.filter((entry) => entry.data.category === category),
+  }))
+  .filter(({ entries }) => entries.length > 0);
+
+LazyKit currently includes **{hooks.length} React hooks**. Their source files are
+flat and copyable; the groups below come from each page's frontmatter.
+
+{
+  categories.map(({ category, entries }) => (
+    <section>
+      <h2>{category}</h2>
+      <CardGrid>
+        {entries.map((entry) => (
+          <LinkCard
+            title={entry.data.title}
+            description={entry.data.description}
+            href={`/${entry.id.replace(/\/index$/, "")}/`}
+          />
+        ))}
+      </CardGrid>
+    </section>
+  ))
+}

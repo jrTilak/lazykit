@@ -1,0 +1,31 @@
+---
+title: formatBytes
+description: Formats a byte count using decimal or binary units.
+category: Formatting
+kind: function
+source: registry/functions/formatBytes.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="formatBytes" />
+
+## Download
+
+<DownloadCommands name="formatBytes" />
+
+## Examples
+
+<UtilityExamples name="formatBytes" />
+
+## Props
+
+- `bytes` (`number`) — Finite byte count.
+- `binary` (`boolean`) — Use powers of 1024 and IEC units.
+- `maximumFractionDigits` and `locale` are passed to `Intl.NumberFormat`.

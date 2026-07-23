@@ -1,0 +1,41 @@
+---
+title: tryCatch
+description: Runs synchronous or asynchronous work and returns an error-first result tuple.
+category: Functional
+kind: function
+source: registry/functions/tryCatch.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="tryCatch" />
+
+## Download
+
+<DownloadCommands name="tryCatch" />
+
+## Examples
+
+<UtilityExamples name="tryCatch" />
+
+## Props
+
+- `operation` (`() => T | PromiseLike<T>`) — Synchronous or asynchronous work to invoke once.
+
+### Returns
+
+- Synchronous operation: `[Error, undefined] | [undefined, T]`
+- Promise or thenable operation: `Promise<[Error, undefined] | [undefined, Awaited<T>]>`
+
+Existing `Error` instances are preserved. Other thrown or rejected values are wrapped in an `Error` and retained as its `cause`.
+Thenables are assimilated from a single `then` lookup with their receiver preserved.
+Object-compatible broad types, `unknown`, and `void` include both synchronous
+and Promise branches. Thenability can only be determined at runtime, and
+TypeScript permits a value-returning function where a `void` callback is
+expected.

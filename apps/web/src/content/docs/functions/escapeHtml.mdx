@@ -1,0 +1,31 @@
+---
+title: escapeHtml
+description: Escapes characters with special meaning in HTML text and attributes.
+category: Strings
+kind: function
+source: registry/functions/escapeHtml.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="escapeHtml" />
+
+## Download
+
+<DownloadCommands name="escapeHtml" />
+
+## Examples
+
+<UtilityExamples name="escapeHtml" />
+
+## Props
+
+- `value` (`string`) — Untrusted text.
+- Escapes `&`, `<`, `>`, double quotes, and single quotes.
+- This does not sanitize complete HTML documents.

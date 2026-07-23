@@ -1,0 +1,38 @@
+---
+title: useStep
+description: Navigates a finite sequence of steps with optional wrapping.
+category: State
+kind: hook
+source: registry/react-hooks/useStep.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="useStep" kind="hook" />
+
+## Download
+
+<DownloadCommands name="useStep" kind="hook" />
+
+## Examples
+
+<UtilityExamples name="useStep" kind="hook" />
+
+## Props
+
+- `stepCount` (`number`) — Positive safe integer number of zero-based steps.
+- `options.initialStep` (`number`, default: `0`) — Initial and reset step.
+- `options.loop` (`boolean`, default: `false`) — Wraps past either boundary
+  instead of clamping.
+
+### Returns
+
+`UseStepResult` containing `currentStep`, React-compatible `setStep`, `next`,
+`previous`, `reset`, `isFirst`, and `isLast`. Steps are normalized again if
+`stepCount` changes.

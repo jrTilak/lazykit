@@ -1,0 +1,40 @@
+---
+title: useAsyncTask
+description: Runs abort-aware work on demand and exposes the state of its latest invocation.
+category: Async
+kind: hook
+source: registry/react-hooks/useAsyncTask.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="useAsyncTask" kind="hook" />
+
+## Download
+
+<DownloadCommands name="useAsyncTask" kind="hook" />
+
+## Examples
+
+<UtilityExamples name="useAsyncTask" kind="hook" />
+
+## Props
+
+- `task` (`(signal: AbortSignal, ...args: A) => R | PromiseLike<R>`) — Work to run. It receives a distinct abort signal followed by the arguments passed to `run`.
+- `options.abortPrevious` (`boolean`, default: `true`) — Aborts active earlier invocations when a new invocation starts.
+
+### Returns
+
+An object containing:
+
+- `state` — A discriminated `idle`, `pending`, `success`, or `error` state. Successful data is `Awaited<R>`.
+- `run(...args)` — Starts the task and returns `Promise<Awaited<R>>`.
+- `abort()` — Aborts every active invocation and returns the state to `idle`.
+
+A caller can start `run` from a layout effect. Only the latest invocation can update state, while earlier promises still settle for their callers. `abort()` and unmounting abort every active invocation.

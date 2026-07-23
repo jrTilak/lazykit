@@ -1,0 +1,33 @@
+---
+title: compact
+description: Returns the truthy values from an array while preserving their order.
+category: Arrays
+kind: function
+source: registry/functions/compact.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="compact" />
+
+## Download
+
+<DownloadCommands name="compact" />
+
+## Examples
+
+<UtilityExamples name="compact" />
+
+## Props
+
+- `array` (`readonly T[]`) — Values to filter. Empty slots and JavaScript falsy values such as `false`, `0`, `0n`, `""`, `null`, `undefined`, and `NaN` are removed.
+
+### Returns
+
+`Array<Exclude<T, Falsy>>` — A new array containing the truthy values.

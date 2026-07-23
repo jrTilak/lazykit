@@ -1,0 +1,31 @@
+---
+title: withQueryParams
+description: Adds, replaces, repeats, or removes URL query parameters.
+category: Web APIs
+kind: function
+source: registry/functions/withQueryParams.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="withQueryParams" />
+
+## Download
+
+<DownloadCommands name="withQueryParams" />
+
+## Examples
+
+<UtilityExamples name="withQueryParams" />
+
+## Props
+
+- `input` (`string | URL`) — Absolute, protocol-relative, or relative URL.
+- `params` — Strings, numbers, booleans, arrays, or nullish removals.
+- The original hash and relative URL form are preserved.

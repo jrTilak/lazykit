@@ -1,0 +1,31 @@
+---
+title: isPlainObject
+description: Checks for object literals and null-prototype records.
+category: Validation
+kind: function
+source: registry/functions/isPlainObject.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="isPlainObject" />
+
+## Download
+
+<DownloadCommands name="isPlainObject" />
+
+## Examples
+
+<UtilityExamples name="isPlainObject" />
+
+## Props
+
+- `value` (`unknown`) — Candidate value.
+- Returns a type predicate for `Record<PropertyKey, unknown>`.
+- Arrays, dates, functions, and class instances return `false`.

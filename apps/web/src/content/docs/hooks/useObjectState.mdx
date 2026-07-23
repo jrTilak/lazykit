@@ -1,0 +1,38 @@
+---
+title: useObjectState
+description: Manages plain-object state with type-safe shallow patches and key updates.
+category: State
+kind: hook
+source: registry/react-hooks/useObjectState.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="useObjectState" kind="hook" />
+
+## Download
+
+<DownloadCommands name="useObjectState" kind="hook" />
+
+## Examples
+
+<UtilityExamples name="useObjectState" kind="hook" />
+
+## Props
+
+- `initialState` (`State`) — Plain object used on mount and captured again as
+  the latest reset snapshot. Arrays, functions, and class instances are not
+  supported.
+
+### Returns
+
+`UseObjectStateResult<State>` with `state`, full `setState`, shallow `patch`,
+generic `setKey` and `updateKey`, and `reset`. Copies preserve the plain
+object's prototype and every own property descriptor, including symbols,
+non-enumerable fields, accessors, and an own `__proto__` key.

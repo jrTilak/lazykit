@@ -1,0 +1,53 @@
+---
+title: unsetPath
+description: Immutably removes an own property at an object path.
+category: Objects
+kind: function
+source: registry/functions/unsetPath.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="unsetPath" />
+
+## Download
+
+<DownloadCommands name="unsetPath" />
+
+## Examples
+
+<UtilityExamples name="unsetPath" />
+
+## Props
+
+- `object` (`T`) — Plain-object or array root.
+- `path` (`Path`) — Non-empty dot path or explicit segment tuple.
+
+### Returns
+
+`UnsetPathResult<T, Path>` — An immutable type with the literal target property
+removed. A widened dynamic path returns the conservative `object` type. Missing
+paths return the original object by reference.
+
+Broad, union, branded, and template-pattern segments, plus unions of tuple
+shapes, are dynamic and return `object`, because the type cannot know which
+property was removed.
+
+Array indexes from `0` through `4294967294` are spliced without leaving holes;
+larger, negative, fractional, `NaN`, and infinite numeric keys are ordinary
+properties. Empty paths and paths targeting an array's non-configurable
+`length` property are rejected. A non-plain root or intermediate object throws
+`TypeError`. Own special keys such as `__proto__` are traversed and copied as
+safe data properties.
+
+Known built-ins and functions are rejected statically as roots and as literal
+intermediate segments; removing one at the final segment remains valid.
+Interfaces and custom classes retain runtime validation. Untouched own
+properties, including non-enumerable and symbol properties, preserve their
+descriptors.

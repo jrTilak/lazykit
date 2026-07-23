@@ -1,0 +1,40 @@
+---
+title: useCountdown
+description: Runs a controllable count-up or countdown with clamped steps and optional looping.
+category: Timing
+kind: hook
+source: registry/react-hooks/useCountdown.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="useCountdown" kind="hook" />
+
+## Download
+
+<DownloadCommands name="useCountdown" kind="hook" />
+
+## Examples
+
+<UtilityExamples name="useCountdown" kind="hook" />
+
+## Props
+
+- `from` (`number`) — Finite starting value.
+- `to` (`number`, default: `0`) — Finite terminal value. Direction is inferred from `from` and `to`.
+- `step` (`number`, default: `1`) — Finite, positive amount per tick. Overshoot is clamped to `to`.
+- `intervalMs` (`number`, default: `1000`) — Finite, non-negative tick interval.
+- `autoStart` (`boolean`, default: `false`) — Starts or resumes automatically when the endpoints differ. Changing it to `false` pauses without resetting the current value.
+- `loop` (`boolean`, default: `false`) — Keeps the terminal value for one interval, then restarts at `from`.
+- `onChange` (`(value: number) => void`) — Called after every published tick or loop restart.
+- `onComplete` (`() => void`) — Called whenever a run reaches `to`.
+
+### Returns
+
+An object containing `value`, `isRunning`, `start()`, `pause()`, and `reset()`. Calling `start()` at the terminal value begins a fresh run. Changing `from` or `to` resets the value to `from`.

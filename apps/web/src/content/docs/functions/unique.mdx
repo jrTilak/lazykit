@@ -1,0 +1,33 @@
+---
+title: unique
+description: Removes duplicate values while preserving their first-seen order.
+category: Arrays
+kind: function
+source: registry/functions/unique.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="unique" />
+
+## Download
+
+<DownloadCommands name="unique" />
+
+## Examples
+
+<UtilityExamples name="unique" />
+
+## Props
+
+- `array` (`readonly T[]`) — Values to deduplicate using `Set` equality semantics. Empty slots are skipped.
+
+### Returns
+
+`T[]` — A new array containing the first occurrence of each value.

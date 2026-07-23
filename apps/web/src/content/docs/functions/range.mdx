@@ -1,0 +1,31 @@
+---
+title: range
+description: Generates an ascending or descending numeric range that excludes its end.
+category: Arrays
+kind: function
+source: registry/functions/range.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="range" />
+
+## Download
+
+<DownloadCommands name="range" />
+
+## Examples
+
+<UtilityExamples name="range" />
+
+## Props
+
+- `start` (`number`) — Included boundary.
+- `end` (`number`) — Excluded boundary.
+- `step` (`number`) — Optional non-zero step pointing toward `end`.

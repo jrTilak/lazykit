@@ -1,0 +1,44 @@
+---
+title: unflattenObject
+description: Expands dot-delimited keys into nested plain objects.
+category: Objects
+kind: function
+source: registry/functions/unflattenObject.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="unflattenObject" />
+
+## Download
+
+<DownloadCommands name="unflattenObject" />
+
+## Examples
+
+<UtilityExamples name="unflattenObject" />
+
+## Props
+
+- `object` (`T`) — Plain object whose own string keys are dot paths, including
+  non-enumerable properties.
+
+### Returns
+
+`UnflattenObjectResult<T>` — A nested object inferred from literal path keys,
+including paths declared by an interface and the value type at every leaf.
+Broad string records, optional path mappings, symbol keys, and unusually deep
+shapes use the safe `Record<string, unknown>` fallback. Invalid or conflicting
+literal paths are rejected at compile time; dynamic records remain accepted and
+are validated at runtime.
+
+Leaf values are preserved by reference. The function throws for a non-plain
+input, any own symbol key, empty or unsafe path segments, and any path that is
+both a leaf and the parent of another path. Unsafe segments are `__proto__`,
+`constructor`, and `prototype`.

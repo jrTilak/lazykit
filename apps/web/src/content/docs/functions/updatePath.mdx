@@ -1,0 +1,54 @@
+---
+title: updatePath
+description: Immutably updates a value at an object path.
+category: Objects
+kind: function
+source: registry/functions/updatePath.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="updatePath" />
+
+## Download
+
+<DownloadCommands name="updatePath" />
+
+## Examples
+
+<UtilityExamples name="updatePath" />
+
+## Props
+
+- `object` (`T`) — Plain-object or array root.
+- `path` (`Path`) — Non-empty dot path or explicit segment tuple.
+- `update` (`(this: void, current: UpdatePathValue<T, Path>) => Value`) — Called
+  once without a `this` receiver, with the inferred current value or `undefined`
+  when the path is missing.
+
+### Returns
+
+`UpdatePathResult<T, Path, Value>` — An immutable path-aware result whose target
+uses the updater's return type. Widened dynamic paths use `unknown` for the
+current value and return the conservative `object` type.
+
+The same conservative contract applies to broad, union, branded, and
+template-pattern segments, and to unions of tuple shapes.
+
+Only canonical JavaScript array indexes from `0` through `4294967294` create
+arrays; other numbers are ordinary object keys. Empty paths and paths targeting
+an array's non-configurable `length` property are rejected before the updater is
+called. A non-plain root or intermediate object throws `TypeError`. Special
+segments such as `__proto__` and `constructor` are written as safe own data
+properties.
+
+Known built-ins and functions are rejected statically as roots and as literal
+intermediate segments, but they may be replaced at the final segment. Interfaces
+and arbitrary custom classes retain runtime validation. Untouched own properties,
+including non-enumerable and symbol properties, preserve their descriptors.

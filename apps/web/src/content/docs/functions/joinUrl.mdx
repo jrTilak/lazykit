@@ -1,0 +1,31 @@
+---
+title: joinUrl
+description: Joins URL or path segments without damaging the protocol or suffix.
+category: Web APIs
+kind: function
+source: registry/functions/joinUrl.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="joinUrl" />
+
+## Download
+
+<DownloadCommands name="joinUrl" />
+
+## Examples
+
+<UtilityExamples name="joinUrl" />
+
+## Props
+
+- `base` (`string`) — Absolute URL or path, optionally with query or hash.
+- `...segments` (`string[]`) — Path segments to append.
+- Returns a joined string with duplicate boundary slashes removed.

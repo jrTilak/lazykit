@@ -1,0 +1,33 @@
+---
+title: sleep
+description: Resolves a promise after a specified delay.
+category: Functional
+kind: function
+source: registry/functions/sleep.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="sleep" />
+
+## Download
+
+<DownloadCommands name="sleep" />
+
+## Examples
+
+<UtilityExamples name="sleep" />
+
+## Props
+
+- `delayMs` (`number`) — Finite, non-negative delay in milliseconds.
+
+### Returns
+
+`Promise<void>` — Resolves after the delay.

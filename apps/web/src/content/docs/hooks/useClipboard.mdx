@@ -1,0 +1,40 @@
+---
+title: useClipboard
+description: Copies text through the Clipboard API and tracks the latest request safely.
+category: Web APIs
+kind: hook
+source: registry/react-hooks/useClipboard.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="useClipboard" kind="hook" />
+
+## Download
+
+<DownloadCommands name="useClipboard" kind="hook" />
+
+## Examples
+
+<UtilityExamples name="useClipboard" kind="hook" />
+
+## Props
+
+- `options.resetAfterMs` (`number | null`, default: `2000`) — Finite, non-negative delay before success returns to idle. `null` keeps the latest state.
+
+### Returns
+
+An object containing:
+
+- `state` — A discriminated `idle`, `success`, or `error` state with copied `text` or `error`.
+- `isSupported` (`boolean`) — Whether `navigator.clipboard.writeText` is available after mounting.
+- `copy(text)` — Returns `Promise<void>`, updates only the latest request, and rethrows unavailable-API and write failures.
+- `reset()` — Clears state and invalidates pending requests.
+
+Unsupported Clipboard APIs report `isSupported: false`. Unmounted, reset, or superseded requests never update React state.

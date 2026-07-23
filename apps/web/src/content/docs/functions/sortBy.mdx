@@ -1,0 +1,36 @@
+---
+title: sortBy
+description: Stably sorts a copied array from selector values computed once per item.
+category: Arrays
+kind: function
+source: registry/functions/sortBy.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="sortBy" />
+
+## Download
+
+<DownloadCommands name="sortBy" />
+
+## Examples
+
+<UtilityExamples name="sortBy" />
+
+## Props
+
+- `array` (`readonly T[]`) — Values to sort without mutation. Empty slots are skipped.
+- `...selectors` — Produce strings, numbers, bigints, booleans, dates, or nullish values.
+- Selectors are evaluated exactly once per input item, including secondary selectors.
+- Selectors are invoked without a receiver.
+- Mixed values use the fixed order number, bigint, string, boolean, then valid date.
+  `NaN` and invalid dates follow, with nullish values last.
+- Equal values and values within the same special group retain source order.
+- With no selectors, returns a shallow copy.

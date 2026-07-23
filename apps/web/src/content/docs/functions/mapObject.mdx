@@ -1,0 +1,39 @@
+---
+title: mapObject
+description: Transforms each own enumerable value while preserving its property key.
+category: Objects
+kind: function
+source: registry/functions/mapObject.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="mapObject" />
+
+## Download
+
+<DownloadCommands name="mapObject" />
+
+## Examples
+
+<UtilityExamples name="mapObject" />
+
+## Props
+
+- `object` (`T`) — Non-array object whose own enumerable values should be transformed.
+- `transform` (`(value, key, object) => U`) — Produces the replacement value for each property and is invoked without a receiver. Numeric TypeScript keys arrive as their runtime string form.
+
+### Returns
+
+`Partial<MappedObject<T, U>>` — A new null-prototype object containing the
+transformed own enumerable keys. Properties are optional in the return type
+because TypeScript cannot identify non-enumerable properties statically.
+
+Arrays are rejected with `TypeError`. Symbol and special keys such as
+`__proto__` are preserved as safe own data properties.

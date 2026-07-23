@@ -1,0 +1,42 @@
+---
+import { Code, TabItem, Tabs } from "@astrojs/starlight/components";
+
+interface Props {
+  name: string;
+  kind?: "function" | "hook" | "schema";
+  target?: "lib" | "hooks" | "schemas";
+}
+
+const { name, kind = "function", target } = Astro.props;
+const registries = {
+  function: "registry/functions",
+  hook: "registry/react-hooks",
+  schema: "registry/zod-schemas",
+} as const;
+const defaultTargets = {
+  function: "lib",
+  hook: "hooks",
+  schema: "schemas",
+} as const;
+const destinations = {
+  lib: "src/lib",
+  hooks: "src/hooks",
+  schemas: "src/schemas",
+} as const;
+const registry = registries[kind];
+const source = `${registry}/${name}.ts`;
+const destination = destinations[target ?? defaultTargets[kind]];
+const rawUrl = `https://raw.githubusercontent.com/jrTilak/lazykit/HEAD/${source}`;
+const wgetCommand = `wget -O ${destination}/${name}.ts ${rawUrl}`;
+const degitCommand = `temp_dir="$(mktemp -d)" && bunx degit jrTilak/lazykit/${registry} "$temp_dir" && mv "$temp_dir/${name}.ts" ${destination}/${name}.ts && rm -r "$temp_dir"`;
+---
+
+<Tabs syncKey="utility-download">
+  <TabItem label="wget">
+    <Code code={wgetCommand} lang="bash" title="Terminal" />
+  </TabItem>
+
+  <TabItem label="degit">
+    <Code code={degitCommand} lang="bash" title="Terminal" />
+  </TabItem>
+</Tabs>

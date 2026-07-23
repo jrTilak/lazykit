@@ -1,0 +1,42 @@
+---
+title: useCounter
+description: Manages a bounded numeric counter with configurable steps.
+category: State
+kind: hook
+source: registry/react-hooks/useCounter.ts
+---
+
+import DownloadCommands from "../../../components/DownloadCommands.astro";
+import UtilityExamples from "../../../components/UtilityExamples.astro";
+import UtilitySource from "../../../components/UtilitySource.astro";
+
+<p class="utility-description">{frontmatter.description}</p>
+
+## Code
+
+<UtilitySource name="useCounter" kind="hook" />
+
+## Download
+
+<DownloadCommands name="useCounter" kind="hook" />
+
+## Examples
+
+<UtilityExamples name="useCounter" kind="hook" />
+
+## Props
+
+- `initialValue` (`number`, default: `0`) — Initial and reset value.
+- `options.min` (`number`, optional) — Inclusive lower bound.
+- `options.max` (`number`, optional) — Inclusive upper bound.
+- `options.step` (`number`, default: `1`) — Finite positive default increment
+  and decrement amount.
+
+All numbers must be finite and `min` cannot exceed `max`.
+
+### Returns
+
+`UseCounterResult` with `count`, bounded `setCount`, `increment`, `decrement`,
+and `reset`. Passing a finite non-negative amount to `increment` or `decrement`
+overrides `step` for that call. Use `setCount` for signed arithmetic. The
+current count is clamped again when either bound changes.

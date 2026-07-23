@@ -1,28 +1,49 @@
 {
-  "name": "lazykit",
+  "name": "@jrtilak/lazykit",
   "version": "2.0.0",
-  "description": "",
+  "private": true,
+  "description": "Copyable TypeScript utilities, React hooks, and Zod schemas.",
+  "packageManager": "bun@1.3.14",
+  "workspaces": [
+    "apps/*"
+  ],
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
-    "prepare": "husky",
-    "dev:www": "pnpm --filter www dev",
-    "build:registry": "pnpm --filter www build:registry",
-    "build:www": "pnpm --filter www build",
-    "build:cli": "pnpm --filter @jrtilak/lazykit build",
-    "watch:cli": "pnpm --filter @jrtilak/lazykit watch",
-    "test": "pnpm --filter www test",
-    "lint:www": "pnpm --filter www lint"
+    "dev": "bun run --filter @lazykit/web dev",
+    "build": "bun run --filter @lazykit/web build",
+    "check": "bun run check:functions && bun run check:hooks && bun run check:schemas && bun run --filter @lazykit/web check",
+    "check:functions": "tsc -p tsconfig.functions.json",
+    "check:hooks": "tsc -p tsconfig.hooks.json",
+    "check:schemas": "tsc -p tsconfig.schemas.json",
+    "preview": "bun run --filter @lazykit/web preview",
+    "test": "bun test",
+    "test:functions": "bun test registry/functions",
+    "test:hooks": "bun test registry/react-hooks",
+    "test:schemas": "bun test registry/zod-schemas",
+    "prepare": "husky"
   },
-  "keywords": [],
-  "author": "Tilak Thapa <iamjrtilak@gmail.com>",
-  "license": "ISC",
+  "keywords": [
+    "typescript",
+    "utilities",
+    "react-hooks",
+    "validation",
+    "zod"
+  ],
+  "author": "Tilak Thapa <https://jrtilak.dev>",
+  "license": "MIT",
   "repository": "https://github.com/jrTilak/lazykit.git",
   "devDependencies": {
     "@commitlint/cli": "^19.2.0",
     "@commitlint/config-conventional": "^19.1.0",
-    "husky": "^9.0.11"
-  },
-  "dependencies": {
-    "tsx": "^4.7.1"
+    "@happy-dom/global-registrator": "^20.11.0",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/react": "^16.0.1",
+    "@types/bun": "^1.3.14",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "husky": "^9.0.11",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "^6.0.3",
+    "zod": "^4.4.3"
   }
 }
