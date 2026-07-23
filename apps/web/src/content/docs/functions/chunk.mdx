@@ -26,7 +26,7 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 
 ## Props
 
-- `array` (`readonly T[]`) — Values to divide into groups.
+- `array` (`readonly T[]`) — Dense values to divide into groups. Sparse arrays are rejected.
 - `size` (`number`) — Positive safe integer specifying each group’s size.
 - `options.remainder` (`"keep" | "discard" | "wrap"`, default: `"keep"`) — Keeps the incomplete group, discards it, or fills it by cycling from the beginning of `array`.
 

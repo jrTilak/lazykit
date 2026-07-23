@@ -1,4 +1,7 @@
-type MissingValue = "keep" | "empty" | "throw";
+export type MissingInterpolationValue = "keep" | "empty" | "throw";
+export type InterpolateOptions = {
+  missing?: MissingInterpolationValue;
+};
 
 const readPath = (object: unknown, path: string): unknown => {
   let current = object;
@@ -13,7 +16,7 @@ const readPath = (object: unknown, path: string): unknown => {
 export const interpolate = (
   template: string,
   values: object,
-  { missing = "keep" }: { missing?: MissingValue } = {}
+  { missing = "keep" }: InterpolateOptions = {}
 ): string => {
   return template.replace(/{{\s*([^{}]+?)\s*}}/g, (placeholder, path: string) => {
     const value = readPath(values, path.trim());

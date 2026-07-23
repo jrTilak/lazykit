@@ -10,7 +10,8 @@
   "scripts": {
     "dev": "bun run --filter @lazykit/web dev",
     "build": "bun run --filter @lazykit/web build",
-    "check": "bun run --filter @lazykit/web check",
+    "check": "bun run check:functions && bun run --filter @lazykit/web check",
+    "check:functions": "tsc -p tsconfig.functions.json",
     "preview": "bun run --filter @lazykit/web preview",
     "test": "bun test",
     "test:functions": "bun test registry/functions",
@@ -31,6 +32,7 @@
     "@happy-dom/global-registrator": "^20.11.0",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/react": "^16.0.1",
+    "typescript": "^6.0.3",
     "husky": "^9.0.11",
     "react": "^18.3.1",
     "@types/bun": "^1.3.14",

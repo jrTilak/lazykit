@@ -8,7 +8,7 @@ describe("maxBy", () => {
   });
 
   it("ignores non-finite values", () => {
-    expect(maxBy([1, 2], (value) => value === 2 ? NaN : value)).toBe(1);
+    expect(maxBy([1, 2], (value) => (value === 2 ? NaN : value))).toBe(1);
     expect(maxBy([1], () => -Infinity)).toBeUndefined();
   });
 
@@ -18,5 +18,28 @@ describe("maxBy", () => {
 
   it("can retain an undefined array value as the maximum", () => {
     expect(maxBy([undefined, "later"], (_, index) => -index)).toBeUndefined();
+  });
+
+  it("passes the readonly source array to the selector", () => {
+    const input = [1, 2];
+    const arrays: Array<readonly (number | undefined)[]> = [];
+    maxBy(input, (_value, _index, array) => {
+      arrays.push(array);
+      return 0;
+    });
+    expect(arrays).toEqual([input, input]);
+  });
+
+  it("skips empty slots and preserves original indexes", () => {
+    const sparse = Array<number>(4);
+    sparse[1] = 10;
+    sparse[3] = 20;
+    const calls: Array<[number, number, boolean]> = [];
+
+    expect(maxBy(sparse, (value, index, array) => {
+      calls.push([value, index, Object.hasOwn(array, 0)]);
+      return value;
+    })).toBe(20);
+    expect(calls).toEqual([[10, 1, false], [20, 3, false]]);
   });
 });

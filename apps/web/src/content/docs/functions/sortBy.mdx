@@ -1,6 +1,6 @@
 ---
 title: sortBy
-description: Stably sorts a copied array by one or more selectors.
+description: Stably sorts a copied array from selector values computed once per item.
 category: Arrays
 kind: function
 source: registry/functions/sortBy.ts
@@ -26,6 +26,11 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 
 ## Props
 
-- `array` (`readonly T[]`) — Values to sort without mutation.
+- `array` (`readonly T[]`) — Values to sort without mutation. Empty slots are skipped.
 - `...selectors` — Produce strings, numbers, bigints, booleans, dates, or nullish values.
-- Nullish values sort last.
+- Selectors are evaluated exactly once per input item, including secondary selectors.
+- Selectors are invoked without a receiver.
+- Mixed values use the fixed order number, bigint, string, boolean, then valid date.
+  `NaN` and invalid dates follow, with nullish values last.
+- Equal values and values within the same special group retain source order.
+- With no selectors, returns a shallow copy.

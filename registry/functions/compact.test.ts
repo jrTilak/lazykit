@@ -25,4 +25,10 @@ describe("compact", () => {
     expect(result).not.toBe(input);
     expect(input).toEqual([0, 1, 2]);
   });
+
+  it("skips empty slots without materializing undefined", () => {
+    const sparse = Array<number>(3);
+    sparse[1] = 1;
+    expect(compact(sparse)).toEqual([1]);
+  });
 });

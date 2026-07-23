@@ -5,6 +5,7 @@ describe("isPlainObject", () => {
   it("accepts literals and null-prototype objects", () => {
     expect(isPlainObject({})).toBe(true);
     expect(isPlainObject(Object.create(null))).toBe(true);
+    expect(isPlainObject({ [Symbol.toStringTag]: "Custom" })).toBe(true);
   });
 
   it("rejects arrays, instances, dates, functions, primitives, and null", () => {

@@ -1,6 +1,6 @@
 ---
 title: truncateMiddle
-description: Truncates the middle of text while preserving both ends.
+description: Truncates the middle of text by grapheme while preserving both ends.
 category: Strings
 kind: function
 source: registry/functions/truncateMiddle.ts
@@ -27,5 +27,6 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 ## Props
 
 - `value` (`string`) — Text to shorten.
-- `maxLength` (`number`) — Non-negative safe-integer maximum.
-- `omission` (`string`) — Marker included within the maximum.
+- `maxLength` (`number`) — Non-negative safe-integer maximum number of visible characters.
+- `omission` (`string`) — Marker included within the maximum, defaulting to `…`.
+- Uses `Intl.Segmenter` to preserve emoji sequences, flags, and combining marks. Environments without it fall back to Unicode code points.

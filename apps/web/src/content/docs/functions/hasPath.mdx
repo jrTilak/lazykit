@@ -26,6 +26,26 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 
 ## Props
 
-- `object` (`unknown`) — Value to inspect.
-- `path` (`string | readonly PropertyKey[]`) — Dot path or explicit segments.
-- Returns `boolean`; inherited properties do not count.
+- `object` (`T`) — Value to inspect.
+- `path` (`ValidPath<T, Path>`) — A checked literal dot path or segment tuple.
+  Widened `string` and `PropertyKey[]` values remain available for dynamic
+  runtime checks.
+
+Only tuples made entirely from single string or number literals and unique
+symbols receive literal-path validation. Broad, union, branded, and
+template-pattern keys, plus unions of tuple shapes, are dynamic checks.
+
+### Returns
+
+`boolean` — `true` when every segment is an own property. A present property
+whose value is `undefined` still counts, inherited properties do not, and an
+empty path always identifies the root.
+
+For arrays, literal indexes range from `0` through `4294967294`. Larger
+digit-only keys and custom string or symbol metadata are supported when they are
+explicitly declared as own keys on the array type. Inherited Array methods are
+rejected as literal paths.
+
+Known inherited built-in members such as `Date#getTime` and `Map#size` are also
+rejected as literals. Explicitly declared custom own properties on built-in
+values remain valid.

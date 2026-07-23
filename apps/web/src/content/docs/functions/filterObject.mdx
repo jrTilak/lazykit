@@ -26,9 +26,12 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 
 ## Props
 
-- `object` (`T`) — Object whose own enumerable properties should be tested.
-- `predicate` (`(value, key, object) => boolean`) — Returns `true` for properties to retain.
+- `object` (`T`) — Non-array object whose own enumerable properties should be tested.
+- `predicate` (`(value, key, object) => boolean`) — Returns `true` for properties to retain and is invoked without a receiver. Numeric TypeScript keys arrive as their runtime string form.
 
 ### Returns
 
-`Partial<T>` — A new object containing the matching string and symbol properties.
+`Partial<T>` — A null-prototype object containing the matching string and symbol
+properties, so inherited names cannot appear as unprocessed values.
+Arrays are rejected with `TypeError` because the result is a plain object.
+Special keys such as `__proto__` are copied as safe own data properties.

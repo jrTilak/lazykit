@@ -26,8 +26,8 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 
 ## Props
 
-- `array` (`readonly T[]`) — Values to shuffle.
-- `random` (`() => number`, default: `Math.random`) — Random source returning a number from `0` up to, but not including, `1`. Supply a seeded source for reproducible output.
+- `array` (`readonly T[]`) — Dense values to shuffle. Sparse arrays are rejected.
+- `random` (`() => number`, default: `Math.random`) — Receiver-free random source returning a number from `0` up to, but not including, `1`. Supply a seeded source for reproducible output.
 
 ### Returns
 

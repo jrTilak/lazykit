@@ -27,5 +27,6 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 ## Props
 
 - `value` (`string`) — Text to normalize.
-- `separator` (`string`) — Non-alphanumeric separator, defaulting to `-`.
-- Latin diacritics are removed while other Unicode scripts are retained.
+- `separator` (`string`) — One or more URL-safe punctuation characters (`-`, `.`, `_`, or `~`), defaulting to `-`.
+- Latin diacritics are removed while marks attached to letters or numbers in other Unicode scripts are retained.
+- Reserved URL delimiters, whitespace, alphanumeric characters, and other Unicode symbols are rejected as separators.

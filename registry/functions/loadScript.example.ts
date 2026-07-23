@@ -1,6 +1,12 @@
-import { loadScript } from "./loadScript";
+import { loadScript, type LoadScriptAttributes } from "./loadScript";
 
-await loadScript("https://cdn.example.com/widget.js", {
+const attributes = {
   integrity: "sha384-...",
-  crossorigin: "anonymous"
-});
+  crossorigin: "anonymous",
+  referrerpolicy: "no-referrer"
+} satisfies LoadScriptAttributes;
+
+const script: HTMLScriptElement = await loadScript(
+  "https://cdn.example.com/widget.js",
+  attributes
+);

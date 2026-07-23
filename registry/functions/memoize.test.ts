@@ -30,4 +30,35 @@ describe("memoize", () => {
     fn.clear();
     expect(fn()).toBe(3);
   });
+
+  it("forwards and includes the receiver in the cache key", () => {
+    let calls = 0;
+    const read = memoize(function (this: { value: number }, offset: number) {
+      calls += 1;
+      return this.value + offset;
+    });
+    const first = { value: 1 };
+    const second = { value: 10 };
+
+    expect(read.call(first, 2)).toBe(3);
+    expect(read.call(first, 2)).toBe(3);
+    expect(read.call(second, 2)).toBe(12);
+    expect(calls).toBe(2);
+  });
+
+  it("preserves and delegates callable-object properties", () => {
+    const source = Object.assign((value: number) => value, {
+      label: "identity",
+    });
+    const wrapped = memoize(source);
+
+    expect(wrapped.label).toBe("identity");
+    source.label = "updated";
+    expect(wrapped.label).toBe("updated");
+  });
+
+  it("rejects a callable whose properties collide with memoize controls", () => {
+    const source = Object.assign(() => 1, { clear: () => undefined });
+    expect(() => memoize(source)).toThrow('fn must not define a "clear" property');
+  });
 });

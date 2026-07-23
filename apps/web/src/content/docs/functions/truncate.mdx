@@ -1,6 +1,6 @@
 ---
 title: truncate
-description: Truncates text to a maximum code-point length including its marker.
+description: Truncates text to a maximum grapheme length including its marker.
 category: Strings
 kind: function
 source: registry/functions/truncate.ts
@@ -27,5 +27,6 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 ## Props
 
 - `value` (`string`) — Text to shorten.
-- `maxLength` (`number`) — Non-negative safe-integer maximum.
+- `maxLength` (`number`) — Non-negative safe-integer maximum number of visible characters.
 - `omission` (`string`) — Marker included within the maximum, defaulting to `…`.
+- Uses `Intl.Segmenter` to preserve emoji sequences, flags, and combining marks. Environments without it fall back to Unicode code points.

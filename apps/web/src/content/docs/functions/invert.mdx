@@ -26,6 +26,6 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 
 ## Props
 
-- `object` (`Record<PropertyKey, PropertyKey>`) — Source mapping.
-- Returns a null-prototype inverse record.
+- `object` — An object whose present values are strings, numbers, or symbols.
+- Returns `InvertResult<T>`, a null-prototype object with optional inverse keys.
 - Later value collisions replace earlier keys.

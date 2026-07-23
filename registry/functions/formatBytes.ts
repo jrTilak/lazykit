@@ -1,9 +1,15 @@
 type ByteUnit = "B" | "kB" | "MB" | "GB" | "TB" | "PB" | "KiB" | "MiB" | "GiB" | "TiB" | "PiB";
 
+export type FormatBytesOptions = {
+  binary?: boolean;
+  maximumFractionDigits?: number;
+  locale?: Intl.LocalesArgument;
+};
+
 /** Formats a byte count using decimal or binary units. */
 export const formatBytes = (
   bytes: number,
-  { binary = false, maximumFractionDigits = 1, locale }: { binary?: boolean; maximumFractionDigits?: number; locale?: string | string[] } = {}
+  { binary = false, maximumFractionDigits = 1, locale }: FormatBytesOptions = {}
 ): string => {
   if (!Number.isFinite(bytes)) throw new RangeError("bytes must be finite");
   if (!Number.isSafeInteger(maximumFractionDigits) || maximumFractionDigits < 0 || maximumFractionDigits > 20) {

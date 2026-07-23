@@ -26,8 +26,10 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 
 ## Props
 
-- `fn` (`(...args: A) => R`) — Function whose wrapper invocations should be counted.
+- `fn` (`(...args: A) => R`) — Function whose wrapper invocations should be counted; its receiver is preserved.
 
 ### Returns
 
 The wrapped function with `getCallCount()` and `resetCallCount()` methods. Calls are counted even when `fn` throws.
+Properties on a callable object remain available through the wrapper. Callables
+that already define either control name are rejected.

@@ -33,4 +33,25 @@ describe("partition", () => {
     partition(input, (value) => value > 1);
     expect(input).toEqual([3, 1, 2]);
   });
+
+  it("supports predicates that narrow a union", () => {
+    const input: Array<number | string> = [1, "two", 3, "four"];
+    const [strings, numbers] = partition(
+      input,
+      (value): value is string => typeof value === "string"
+    );
+    expect(strings).toEqual(["two", "four"]);
+    expect(numbers).toEqual([1, 3]);
+  });
+
+  it("skips sparse slots without adding undefined values", () => {
+    const input = new Array<number>(3);
+    input[1] = 2;
+    const leadingSlots: boolean[] = [];
+    expect(partition(input, (value, _index, array) => {
+      leadingSlots.push(Object.hasOwn(array, 0));
+      return value > 0;
+    })).toEqual([[2], []]);
+    expect(leadingSlots).toEqual([false]);
+  });
 });

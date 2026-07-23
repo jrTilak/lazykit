@@ -26,6 +26,8 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 
 ## Props
 
-- `array` (`readonly T[]`) — The ordered source array.
-- `others` (`readonly (readonly T[])[]`) — Arrays that must contain the key.
-- `getKey` (`(value: T) => Key`) — Produces comparison keys.
+- `array` (`readonly Source[]`) — The ordered source array. Empty slots are skipped.
+- `others` (`readonly (readonly Comparison[])[]`) — Arrays that must contain the key. Empty slots in the list or its arrays are skipped.
+- `getKey` (`(value: Source | Comparison, index, array: readonly (Source | Comparison | undefined)[]) => Key`) — Produces comparison keys and is invoked without a receiver. `value` is always present; the current source or comparison array retains skipped holes, so reading one can produce `undefined`.
+
+Returns `Source[]`; comparison values do not widen the result type.

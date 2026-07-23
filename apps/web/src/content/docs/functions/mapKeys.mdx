@@ -27,5 +27,6 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 ## Props
 
 - `object` (`T`) — Source object.
-- `transform` — Receives value, key, and source object and returns a property key.
+- `transform` (`MapKeysTransform<T, Key>`) — Receives the value, runtime string or symbol key, and source object without a callback receiver.
+- Returns `Partial<Record<Key, T[keyof T]>>` with a null prototype.
 - Later key collisions replace earlier values.

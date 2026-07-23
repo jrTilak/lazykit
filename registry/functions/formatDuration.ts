@@ -7,10 +7,14 @@ const units: DurationUnit[] = [
   { label: "ms", milliseconds: 1 },
 ];
 
+export type FormatDurationOptions = {
+  maxUnits?: number;
+};
+
 /** Formats milliseconds as a compact duration with a limited number of units. */
 export const formatDuration = (
   milliseconds: number,
-  { maxUnits = 2 }: { maxUnits?: number } = {}
+  { maxUnits = 2 }: FormatDurationOptions = {}
 ): string => {
   if (!Number.isFinite(milliseconds)) throw new RangeError("milliseconds must be finite");
   if (!Number.isSafeInteger(maxUnits) || maxUnits < 1 || maxUnits > units.length) {

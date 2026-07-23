@@ -26,6 +26,19 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 
 ## Props
 
-- `object` (`Record<string, unknown>`) — Flat path mapping.
-- Returns a nested `Record<string, unknown>`.
-- Throws for empty, unsafe, or conflicting path segments.
+- `object` (`T`) — Plain object whose own string keys are dot paths, including
+  non-enumerable properties.
+
+### Returns
+
+`UnflattenObjectResult<T>` — A nested object inferred from literal path keys,
+including paths declared by an interface and the value type at every leaf.
+Broad string records, optional path mappings, symbol keys, and unusually deep
+shapes use the safe `Record<string, unknown>` fallback. Invalid or conflicting
+literal paths are rejected at compile time; dynamic records remain accepted and
+are validated at runtime.
+
+Leaf values are preserved by reference. The function throws for a non-plain
+input, any own symbol key, empty or unsafe path segments, and any path that is
+both a leaf and the parent of another path. Unsafe segments are `__proto__`,
+`constructor`, and `prototype`.

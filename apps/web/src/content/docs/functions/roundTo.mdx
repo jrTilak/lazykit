@@ -1,6 +1,6 @@
 ---
 title: roundTo
-description: Rounds a finite number to a requested decimal position.
+description: Rounds finite numbers safely across decimal positions and extreme magnitudes.
 category: Numbers
 kind: function
 source: registry/functions/roundTo.ts
@@ -29,3 +29,8 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 - `value` (`number`) — Finite number to round.
 - `precision` (`number`) — Integer from `-100` to `100`; defaults to `0`.
 - Negative precision rounds positions left of the decimal point.
+- Halfway values follow `Math.round`, toward positive infinity, including negative ties.
+- Negative results rounded to zero preserve `-0`.
+- Extreme positive precision returns the original finite value when the requested
+  decimal place is finer than the number can represent; no finite input silently
+  produces `NaN` or infinity.

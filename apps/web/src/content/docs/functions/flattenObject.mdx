@@ -26,6 +26,26 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 
 ## Props
 
-- `object` (`Record<string, unknown>`) — Plain object to flatten.
-- Arrays, dates, and class instances remain leaf values.
-- Throws for circular values or keys containing dots.
+- `object` (`T`) — Plain object whose own string properties are flattened,
+  including non-enumerable properties.
+
+### Returns
+
+`FlattenObjectResult<T>` — A null-prototype object whose inferred keys are the
+dot paths of object literals and declared interfaces and whose values retain
+their leaf types. When an object-shaped property could structurally be either a
+declared interface or a custom class, both its atomic key and flattened keys are
+inferred as optional. Broad string records, unions containing object branches,
+unsupported symbols, and unusually deep shapes use the safe
+`Record<string, unknown>` fallback.
+
+Nested arrays, dates, functions, and class instances remain leaf values. Empty
+objects are preserved. The function throws for a non-plain root, circular
+references, any own symbol key, keys containing dots, or the unsafe path segments
+`__proto__`, `constructor`, and `prototype`.
+
+TypeScript cannot distinguish an arbitrary class instance from a structurally
+identical interface. Common built-ins, arrays, and functions are recognized as
+leaf types; custom instances are still atomic at runtime. Literal dot-containing
+and unsafe keys are rejected at compile time. Dynamic records remain accepted
+and are validated at runtime.

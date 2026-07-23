@@ -1,6 +1,7 @@
 import { mapKeys } from "./mapKeys";
 
 const upper = mapKeys(
-  { firstName: "Ada" },
-  (_value, key) => String(key).toUpperCase()
+  { firstName: "Ada", role: "engineer" },
+  (_value, key) => key.toUpperCase()
 );
+// { FIRSTNAME: "Ada", ROLE: "engineer" }

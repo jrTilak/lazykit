@@ -1,6 +1,6 @@
 ---
 title: loadScript
-description: Loads an external browser script once and shares concurrent requests.
+description: Loads browser scripts with URL deduplication and safe retry behavior.
 category: Web APIs
 kind: function
 source: registry/functions/loadScript.ts
@@ -26,6 +26,17 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 
 ## Props
 
-- `source` (`string`) — Absolute or document-relative script URL.
+- `source` (`string`) — Non-empty absolute or document-relative script URL;
+  surrounding whitespace is ignored.
 - `attributes` (`Record<string, string>`) — Optional script attributes.
-- Returns the loaded `HTMLScriptElement`; failed new elements are removed for retry.
+- Calls for the same resolved URL share one promise while this helper is loading it.
+  Attributes from that first call win, and `source` always overrides a `src` attribute.
+- A matching unmarked script is assumed to have been loaded and is returned without
+  mutation, so its existing integrity, CORS, and other attributes win. Browsers do
+  not expose a reliable load state for arbitrary existing scripts.
+- Helper-owned state is kept privately: concurrent loads are awaited and failed
+  elements are removed, so the next call creates a fresh script and retries.
+- Event listeners and pending state are installed before insertion, so synchronous
+  `load`, `error`, and insertion failures settle correctly.
+- Invalid sources, attributes, and other setup failures reject the returned promise
+  instead of escaping as synchronous exceptions.

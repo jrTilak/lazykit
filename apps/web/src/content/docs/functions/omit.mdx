@@ -26,9 +26,12 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 
 ## Props
 
-- `object` (`T`) — Object to copy.
-- `keys` (`readonly K[]`) — String, number, or symbol keys to leave out.
+- `object` (`T`) — Plain object to copy.
+- `keys` (`readonly K[]`) — Dense list of string, number, or symbol keys to leave out.
 
 ### Returns
 
 `Omit<T, K>` — A shallow copy without the selected properties.
+All own string and symbol properties are preserved, including non-enumerable
+properties. The result preserves the source's ordinary or null prototype.
+Arrays and class instances are rejected with `TypeError`.

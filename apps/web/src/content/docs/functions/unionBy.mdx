@@ -26,6 +26,6 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 
 ## Props
 
-- `arrays` (`readonly (readonly T[])[]`) — Arrays to combine.
-- `getKey` (`(value: T) => Key`) — Produces the identity key.
-- Returns a distinct, first-seen `T[]`.
+- `arrays` (`Arrays extends readonly (readonly unknown[])[]`) — Arrays to combine. Empty slots in either level are skipped.
+- `getKey` (`(value: T, index, array: readonly (T | undefined)[]) => Key`) — Produces the identity key and is invoked without a receiver. `value` is always present; the current array retains skipped holes and the index is relative to it.
+- Returns the distinct, first-seen union of the input arrays’ element types.

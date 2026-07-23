@@ -1,6 +1,6 @@
 ---
 title: renameKeys
-description: Copies an object and simultaneously renames selected own properties.
+description: Copies a plain object and simultaneously renames selected properties.
 category: Objects
 kind: function
 source: registry/functions/renameKeys.ts
@@ -26,9 +26,27 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 
 ## Props
 
-- `object` (`T`) — Object to copy.
-- `mappings` (`readonly { from: keyof T; to: PropertyKey }[]`) — Source and destination key pairs. Values are read from the original object, so mappings do not chain through one another.
+- `object` (`T`) — Plain object to copy.
+- `mappings` (`readonly { from: keyof T; to: PropertyKey }[]`) — Dense list of source and destination key pairs. Values are read from the original object, so mappings do not chain through one another.
 
 ### Returns
 
-A new object with each existing source key replaced by its destination key. When destinations collide, the last mapping wins.
+`RenamedObject<T, Mappings>` — A new object with each existing source key
+replaced by its destination key. Existing destination types are replaced rather
+than intersected. A destination remains optional when every source that can
+produce it is optional, when a source or destination is a union, or when it is
+not otherwise required. Dynamic non-tuple mapping arrays return a conservative
+shape with optional source properties and unknown destination properties.
+Destinations that do not identify a provable single key, such as template-key
+patterns or branded primitive keys, use the same conservative shape.
+
+Values are read before any key is removed, so renames are simultaneous. When
+destinations collide at runtime, the last mapping whose source exists wins.
+Special destinations such as `__proto__` are created as own data properties and
+cannot change the result's prototype.
+
+All unrenamed own properties, including non-enumerable properties, are
+preserved. Renamed properties retain their source enumerability. Each own value
+is read once; inherited mapping sources are ignored. The result preserves the
+source's ordinary or null prototype. Arrays and class instances are rejected
+with `TypeError`.

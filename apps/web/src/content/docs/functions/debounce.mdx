@@ -26,7 +26,7 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 
 ## Props
 
-- `fn` (`(...args: A) => void`) — Function invoked with the arguments from the latest call.
+- `fn` (`(...args: A) => unknown`) — Function invoked with the arguments and receiver from the latest call.
 - `delayMs` (`number`, default: `300`) — Finite, non-negative quiet period in milliseconds.
 
 ### Returns

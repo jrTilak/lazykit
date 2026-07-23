@@ -45,4 +45,13 @@ describe("once", () => {
     expect(runOnce).toThrow("once callback cannot invoke itself recursively");
     expect(runOnce).toThrow("once callback cannot invoke itself recursively");
   });
+
+  it("uses the receiver from the first invocation", () => {
+    const readOnce = once(function (this: { value: number }) {
+      return this.value;
+    });
+
+    expect(readOnce.call({ value: 1 })).toBe(1);
+    expect(readOnce.call({ value: 2 })).toBe(1);
+  });
 });

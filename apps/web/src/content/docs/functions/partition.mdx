@@ -26,8 +26,9 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 
 ## Props
 
-- `array` (`readonly T[]`) — Values to divide.
-- `predicate` (`(value, index, array) => boolean`) — Returns `true` for the first group and `false` for the second.
+- `array` (`readonly T[]`) — Values to divide. Empty slots are skipped.
+- `predicate` (`(value: T, index, array: readonly (T | undefined)[]) => boolean`) — Returns `true` for the first group, `false` for the second, and is invoked without a receiver. `value` is always present; the original array retains skipped holes.
+- A type-predicate callback narrows both groups: `[Match[], Exclude<T, Match>[]]`.
 
 ### Returns
 

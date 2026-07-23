@@ -26,7 +26,7 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 
 ## Props
 
-- `arrays` (`readonly (readonly unknown[])[]`) — Arrays whose values should be grouped by index.
+- `arrays` (`readonly (readonly unknown[])[]`) — Dense arrays whose values should be grouped by index. Sparse outer or inner arrays are rejected.
 - `options.mode` (`"shortest" | "longest"`, default: `"shortest"`) — Stops at the shortest input or continues to the longest and inserts `undefined` for missing values.
 
 ### Returns

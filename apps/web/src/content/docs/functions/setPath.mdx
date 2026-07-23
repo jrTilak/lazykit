@@ -26,6 +26,33 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 
 ## Props
 
-- `object` (`T`) — Root object or array.
-- `path` (`string | readonly PropertyKey[]`) — Non-empty destination path.
-- `value` (`unknown`) — Replacement value. Missing containers are created.
+- `object` (`T`) — Plain-object or array root.
+- `path` (`Path`) — Non-empty dot path or explicit segment tuple.
+- `value` (`Value`) — Replacement value. Missing containers are created.
+
+### Returns
+
+`SetPathResult<T, Path, Value>` — An immutable, path-aware result for literal
+paths. Replaced properties use `Value` instead of retaining their old type.
+Widened dynamic paths return the conservative `object` type.
+
+Broad, union, branded, and template-pattern segments, plus unions of tuple
+shapes, are dynamic paths and return `object`, because no individual
+destination key is guaranteed.
+
+Only canonical JavaScript array indexes from `0` through `4294967294` create
+arrays. Larger, negative, fractional, `NaN`, and infinite numbers are ordinary
+object keys. Empty paths and paths targeting an array's non-configurable
+`length` property are rejected. Plain objects and arrays are copied along the changed path; a
+non-plain root or intermediate object throws `TypeError`.
+
+Known built-ins and functions are rejected statically as roots and as literal
+intermediate segments. A built-in may still be replaced at the final segment.
+Interfaces and arbitrary custom classes cannot be distinguished from plain
+objects structurally, so they retain the runtime check.
+
+Untouched own properties—including non-enumerable, symbol, accessor, and special
+properties—retain their descriptors in the copied containers.
+
+Every write creates an own data property, so `__proto__`, `constructor`, and
+`prototype` are supported without prototype mutation.

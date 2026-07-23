@@ -68,6 +68,18 @@ describe("throttle", () => {
     expect(fn).toHaveBeenCalledTimes(2);
   });
 
+  it("forwards the invocation receiver", () => {
+    Date.now = () => 1_000;
+    const throttled = throttle(function (
+      this: { value: number },
+      amount: number
+    ) {
+      return this.value + amount;
+    }, 100);
+
+    expect(throttled.call({ value: 2 }, 3)).toBe(5);
+  });
+
   it.each([-1, Number.NaN, Number.POSITIVE_INFINITY])(
     "rejects invalid interval %p",
     (interval) => expect(() => throttle(() => undefined, interval)).toThrow(RangeError)

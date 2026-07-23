@@ -3,14 +3,27 @@ import { zip } from "./zip";
 
 describe("zip", () => {
   it("stops at the shortest array by default", () => {
-    expect(zip([[1, 2, 3], ["a", "b"]] as const)).toEqual([
+    expect(
+      zip([
+        [1, 2, 3],
+        ["a", "b"],
+      ] as const),
+    ).toEqual([
       [1, "a"],
       [2, "b"],
     ]);
   });
 
   it("pads to the longest array with undefined when requested", () => {
-    expect(zip([[1, 2, 3], ["a", "b"]] as const, { mode: "longest" })).toEqual([
+    expect(
+      zip(
+        [
+          [1, 2, 3],
+          ["a", "b"],
+        ] as const,
+        { mode: "longest" },
+      ),
+    ).toEqual([
       [1, "a"],
       [2, "b"],
       [3, undefined],
@@ -18,7 +31,13 @@ describe("zip", () => {
   });
 
   it("handles equal-length and three-way input", () => {
-    expect(zip([[1, 2], ["a", "b"], [true, false]] as const)).toEqual([
+    expect(
+      zip([
+        [1, 2],
+        ["a", "b"],
+        [true, false],
+      ] as const),
+    ).toEqual([
       [1, "a", true],
       [2, "b", false],
     ]);
@@ -49,5 +68,22 @@ describe("zip", () => {
     zip([first, second]);
     expect(first).toEqual([1, 2]);
     expect(second).toEqual(["a", "b"]);
+  });
+
+  it("rejects sparse outer and inner arrays", () => {
+    const sparseOuter = Array<readonly number[]>(1);
+    const sparseInner = Array<number>(1);
+    expect(() => zip(sparseOuter)).toThrow(
+      "arrays must not contain empty slots",
+    );
+    expect(() => zip([sparseInner])).toThrow(
+      "input arrays must not contain empty slots",
+    );
+  });
+
+  it("rejects unsupported modes at runtime", () => {
+    expect(() => zip([[1]], { mode: "invalid" as "shortest" })).toThrow(
+      "mode must be shortest or longest",
+    );
   });
 });

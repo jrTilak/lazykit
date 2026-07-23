@@ -5,9 +5,19 @@ type CacheNode = {
   value?: unknown;
 };
 
-type Memoized<Arguments extends unknown[], Return> = ((...args: Arguments) => Return) & {
-  clear: () => void;
+export type MemoizeControls = {
+  readonly clear: () => void;
 };
+
+export type MemoizedFunction<
+  Arguments extends unknown[],
+  Return,
+  This = unknown,
+> = ((this: This, ...args: Arguments) => Return) & MemoizeControls;
+
+type AnyFunction = (this: never, ...args: never[]) => unknown;
+type MemoizeGuard<Function extends AnyFunction> =
+  "clear" extends keyof Function ? never : [];
 
 const createNode = (): CacheNode => ({
   primitive: new Map(),
@@ -26,19 +36,44 @@ const childFor = (node: CacheNode, key: unknown): CacheNode => {
   return child;
 };
 
-/** Memoizes successful results using every argument as a cache key. */
-export const memoize = <Arguments extends unknown[], Return>(
-  fn: (...args: Arguments) => Return
-): Memoized<Arguments, Return> => {
+/** Memoizes successful results using the receiver and every argument as cache keys. */
+export const memoize = <Function extends AnyFunction>(
+  fn: Function,
+  ..._guard: MemoizeGuard<Function>
+): Function & MemoizeControls => {
+  if ("clear" in fn) {
+    throw new TypeError('fn must not define a "clear" property');
+  }
+
   let root = createNode();
-  const memoized = (...args: Arguments): Return => {
-    let node = root;
-    for (const argument of args) node = childFor(node, argument);
-    if (node.hasValue) return node.value as Return;
-    const value = fn(...args);
-    node.value = value;
-    node.hasValue = true;
-    return value;
+
+  const clear = () => {
+    root = createNode();
   };
-  return Object.assign(memoized, { clear: () => { root = createNode(); } });
+
+  return new Proxy(fn, {
+    apply(target, receiver, args) {
+      let node = childFor(root, receiver);
+      for (const argument of args) node = childFor(node, argument);
+      if (node.hasValue) return node.value;
+
+      const value = Reflect.apply(target, receiver, args);
+      node.value = value;
+      node.hasValue = true;
+      return value;
+    },
+    get(target, property, receiver) {
+      return property === "clear"
+        ? clear
+        : Reflect.get(target, property, receiver);
+    },
+    has(target, property) {
+      return property === "clear" || Reflect.has(target, property);
+    },
+    set(target, property, value, receiver) {
+      return property === "clear"
+        ? false
+        : Reflect.set(target, property, value, receiver);
+    },
+  }) as Function & MemoizeControls;
 };

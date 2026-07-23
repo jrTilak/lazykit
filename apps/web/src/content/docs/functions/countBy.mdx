@@ -26,6 +26,6 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 
 ## Props
 
-- `array` (`readonly T[]`) — Values to count.
-- `getKey` (`(value, index) => PropertyKey`) — Selects a bucket.
-- Returns a null-prototype count record.
+- `array` (`readonly T[]`) — Values to count. Empty slots are skipped.
+- `getKey` (`CountByKeySelector<T, Key>`) — Selects a bucket and is invoked without a receiver.
+- Returns `Partial<Record<Key, number>>` with a null prototype. A count is `undefined` when that key did not occur.

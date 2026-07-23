@@ -26,9 +26,15 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 
 ## Props
 
-- `object` (`T`) — Object to read from.
-- `keys` (`readonly K[]`) — String, number, or symbol keys to copy.
+- `object` (`T`) — Plain object to read from.
+- `keys` (`Keys`) — Dense list of string, number, or symbol keys to copy.
 
 ### Returns
 
-`Pick<T, K>` — A new object containing the selected properties.
+`PickedObject<T, Keys>` — A new object containing the selected own properties.
+A fixed tuple of literal keys preserves exact required properties. A dynamic
+array or a tuple containing a union key returns those properties as optional,
+because a call may select only some of them.
+Arrays and class instances are rejected with `TypeError`.
+Special selected keys such as `__proto__` are created as safe data properties.
+The result preserves the source's ordinary or null prototype.

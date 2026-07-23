@@ -1,12 +1,16 @@
-type RetryOptions = {
+export type RetryOptions = {
   maxAttempts?: number;
   delayMs?: number;
-  shouldRetry?: (error: unknown, failedAttempt: number) => boolean | Promise<boolean>;
+  shouldRetry?: (
+    this: void,
+    error: unknown,
+    failedAttempt: number
+  ) => boolean | PromiseLike<boolean>;
 };
 
 /** Repeats a failing operation until it succeeds or reaches the attempt limit. */
 export const retry = async <Return>(
-  operation: (attempt: number) => Return | PromiseLike<Return>,
+  operation: (this: void, attempt: number) => Return,
   {
     maxAttempts = 3,
     delayMs = 0,
@@ -22,7 +26,7 @@ export const retry = async <Return>(
 
   for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
     try {
-      return (await operation(attempt)) as Awaited<Return>;
+      return await operation(attempt);
     } catch (error) {
       const isLastAttempt = attempt === maxAttempts;
       if (isLastAttempt || (shouldRetry && !(await shouldRetry(error, attempt)))) {

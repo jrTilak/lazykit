@@ -26,6 +26,16 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 
 ## Props
 
-- `object` (`T`) — Object or array to copy recursively.
-- Returns `T` without nullish entries while keeping `0`, `false`, and empty strings.
-- Circular references are preserved.
+- `object` (`T`) — Plain object or array to copy recursively.
+
+### Returns
+
+`CompactResult<T>` — A recursive copy where nullish-only properties are
+removed, possibly nullish properties are optional, and array item types exclude
+`null` and `undefined`. `0`, `false`, and empty strings remain.
+
+Arrays and plain objects are compacted. Dates, regular expressions, promises,
+collection objects, typed arrays, and custom class instances remain unchanged
+as leaf values. Circular references, symbol keys, null prototypes, and own
+special keys such as `__proto__` are preserved safely. Non-enumerable
+properties remain non-enumerable when their values survive compaction.

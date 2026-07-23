@@ -16,4 +16,12 @@ describe("slidingWindow", () => {
     expect(() => slidingWindow([], 1, 0)).toThrow(RangeError);
     expect(() => slidingWindow([], 1.5)).toThrow(RangeError);
   });
+
+  it("rejects sparse input instead of preserving holes in windows", () => {
+    const sparse = Array<number>(2);
+    sparse[1] = 1;
+    expect(() => slidingWindow(sparse, 1)).toThrow(
+      "array must not contain empty slots",
+    );
+  });
 });

@@ -1,6 +1,6 @@
 ---
 title: promiseAllObject
-description: Resolves promise values while preserving object keys.
+description: Resolves a plain object's promise values while preserving its keys.
 category: Async
 kind: function
 source: registry/functions/promiseAllObject.ts
@@ -26,6 +26,9 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 
 ## Props
 
-- `object` (`T`) — Object containing values or promises.
-- Returns `Promise<{ [K in keyof T]: Awaited<T[K]> }>`.
-- Only own enumerable string and symbol properties are included.
+- `object` (`PromiseAllObjectInput<T>`) — A plain object containing values or promises.
+- Returns `Promise<PromiseAllObjectResult<T>>`; readonly properties become writable and each value is recursively unwrapped with `Awaited`.
+- All own string and symbol properties are included, including non-enumerable properties.
+- The resolved result preserves the source's ordinary or null prototype.
+- Arrays, functions, class instances, and objects with custom prototypes reject with `TypeError`.
+- A `then` property may be returned when it is not callable. Callable resolved `then` values reject to prevent Promise thenable assimilation.

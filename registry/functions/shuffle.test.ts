@@ -24,6 +24,16 @@ describe("shuffle", () => {
     expect(shuffle([1, 1, 2], () => 0)).toEqual([1, 2, 1]);
   });
 
+  it("rejects sparse input before sampling", () => {
+    const sparse = Array<number>(2);
+    sparse[1] = 1;
+    const random = vi.fn(() => 0.5);
+    expect(() => shuffle(sparse, random)).toThrow(
+      "array must not contain empty slots",
+    );
+    expect(random).not.toHaveBeenCalled();
+  });
+
   it.each([-0.1, 1, Number.NaN, Number.POSITIVE_INFINITY])(
     "rejects invalid random sample %p",
     (sample) => expect(() => shuffle([1, 2], () => sample)).toThrow(RangeError)

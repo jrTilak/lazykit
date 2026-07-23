@@ -26,9 +26,14 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 
 ## Props
 
-- `object` (`T`) — Object whose own enumerable values should be transformed.
-- `transform` (`(value, key, object) => U`) — Produces the replacement value for each property.
+- `object` (`T`) — Non-array object whose own enumerable values should be transformed.
+- `transform` (`(value, key, object) => U`) — Produces the replacement value for each property and is invoked without a receiver. Numeric TypeScript keys arrive as their runtime string form.
 
 ### Returns
 
-`{ [K in keyof T]: U }` — A new object with the same enumerable keys and transformed values.
+`Partial<MappedObject<T, U>>` — A new null-prototype object containing the
+transformed own enumerable keys. Properties are optional in the return type
+because TypeScript cannot identify non-enumerable properties statically.
+
+Arrays are rejected with `TypeError`. Symbol and special keys such as
+`__proto__` are preserved as safe own data properties.

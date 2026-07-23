@@ -1,6 +1,6 @@
 ---
 title: memoize
-description: Memoizes successful synchronous results using every argument.
+description: Memoizes successful synchronous results by receiver and arguments.
 category: Functional
 kind: function
 source: registry/functions/memoize.ts
@@ -27,5 +27,7 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 ## Props
 
 - `fn` (`(...args) => Return`) — Function whose successful results are cached.
-- Object arguments use reference identity; primitive arguments use `Map` equality.
+- The invocation receiver and object arguments use reference identity; primitive keys use `Map` equality.
 - The returned function provides `clear()`.
+- Properties on a callable object remain available through the wrapper.
+- A callable that already defines `clear` is rejected to avoid a control-name collision.

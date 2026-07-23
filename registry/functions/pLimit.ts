@@ -1,8 +1,8 @@
-type Task<Return> = () => Return | PromiseLike<Return>;
+export type LimitedTask<Return> = (this: void) => Return;
 type QueueEntry = { run: () => void; reject: (reason: unknown) => void };
 
-type Limit = {
-  <Return>(task: Task<Return>): Promise<Awaited<Return>>;
+export type Limit = {
+  <Return>(task: LimitedTask<Return>): Promise<Awaited<Return>>;
   readonly activeCount: number;
   readonly pendingCount: number;
   clearQueue: (reason?: unknown) => void;
@@ -20,12 +20,14 @@ export const pLimit = (concurrency: number): Limit => {
     activeCount -= 1;
     queue.shift()?.run();
   };
-  const limit = (<Return>(task: Task<Return>): Promise<Awaited<Return>> => {
+  const limit = (<Return>(
+    task: LimitedTask<Return>
+  ): Promise<Awaited<Return>> => {
     return new Promise<Awaited<Return>>((resolve, reject) => {
       const run = () => {
         activeCount += 1;
         Promise.resolve()
-          .then(task)
+          .then(() => task())
           .then((value) => resolve(value as Awaited<Return>), reject)
           .finally(next);
       };

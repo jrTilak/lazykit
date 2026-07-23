@@ -25,6 +25,13 @@ describe("pLimit", () => {
     await expect(limit(() => 2)).resolves.toBe(2);
   });
 
+  it("invokes tasks without Promise fulfillment arguments", async () => {
+    const limit = pLimit(1);
+    await expect(limit(function () {
+      return arguments.length;
+    })).resolves.toBe(0);
+  });
+
   it("clears and rejects pending tasks without stopping active work", async () => {
     const limit = pLimit(1);
     let release = () => {};

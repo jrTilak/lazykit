@@ -67,6 +67,24 @@ describe("debounce", () => {
     expect(fn.mock.calls).toEqual([[1], [2]]);
   });
 
+  it("uses the receiver from the latest call", () => {
+    const first = { value: 1 };
+    const second = { value: 10 };
+    const debounced = debounce(function (
+      this: { value: number },
+      amount: number
+    ) {
+      this.value += amount;
+    }, 10);
+
+    debounced.call(first, 2);
+    debounced.call(second, 5);
+    debounced.flush();
+
+    expect(first.value).toBe(1);
+    expect(second.value).toBe(15);
+  });
+
   it.each([-1, Number.NaN, Number.POSITIVE_INFINITY])(
     "rejects invalid delay %p",
     (delay) => expect(() => debounce(() => undefined, delay)).toThrow(RangeError)

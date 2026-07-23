@@ -4,3 +4,6 @@ const name = getPath(
   { user: { profile: { name: "Ada" } } },
   "user.profile.name"
 );
+
+// string
+console.log(name);

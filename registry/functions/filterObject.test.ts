@@ -43,4 +43,58 @@ describe("filterObject", () => {
       [symbol]: 1,
     });
   });
+
+  it("passes numeric keys in their runtime string form", () => {
+    const keys: PropertyKey[] = [];
+    filterObject({ 1: "one" }, (_value, key) => {
+      keys.push(key);
+      return true;
+    });
+    expect(keys).toEqual(["1"]);
+  });
+
+  it("snapshots later data properties before an earlier getter deletes them", () => {
+    const input = {} as { first: number; second: number };
+    Object.defineProperties(input, {
+      first: {
+        enumerable: true,
+        get: () => {
+          Reflect.deleteProperty(input, "second");
+          return 1;
+        },
+      },
+      second: { value: 2, enumerable: true, configurable: true },
+    });
+
+    expect(filterObject(input, () => true)).toEqual({ first: 1, second: 2 });
+  });
+
+  it("copies __proto__ as a data property without changing the prototype", () => {
+    const object = JSON.parse('{"__proto__":{"safe":true},"constructor":1}');
+    const result = filterObject(object, () => true);
+
+    expect(Object.getPrototypeOf(result)).toBeNull();
+    expect(Object.hasOwn(result, "__proto__")).toBe(true);
+    expect(result.__proto__).toEqual({ safe: true });
+    expect(Reflect.get(result, "constructor")).toBe(1);
+    expect(({} as { safe?: boolean }).safe).toBeUndefined();
+  });
+
+  it("does not synthesize inherited values in the output", () => {
+    const input = { value: 1 } as {
+      value: number;
+      toString?: number;
+    };
+    const result = filterObject(input, () => true);
+
+    expect(Object.getPrototypeOf(result)).toBeNull();
+    expect(result.toString).toBeUndefined();
+  });
+
+  it("rejects arrays instead of returning an object with an array type", () => {
+    expect(() => {
+      // @ts-expect-error array inputs are intentionally unsupported
+      filterObject([1, 2], () => true);
+    }).toThrow(TypeError);
+  });
 });

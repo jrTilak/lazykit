@@ -18,4 +18,12 @@ describe("moveItem", () => {
     expect(() => moveItem([1], 0, 1)).toThrow(RangeError);
     expect(() => moveItem([1], 0.5, 0)).toThrow(RangeError);
   });
+
+  it("rejects sparse input instead of materializing holes as undefined", () => {
+    const sparse = Array<number>(2);
+    sparse[1] = 1;
+    expect(() => moveItem(sparse, 1, 0)).toThrow(
+      "array must not contain empty slots",
+    );
+  });
 });

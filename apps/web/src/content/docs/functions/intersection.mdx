@@ -26,6 +26,6 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 
 ## Props
 
-- `array` (`readonly T[]`) — The ordered source array.
-- `...others` (`readonly T[][]`) — Arrays that must contain each result.
+- `array` (`readonly T[]`) — The ordered source array. Empty slots are skipped.
+- `...others` (`readonly (readonly unknown[])[]`) — Arrays that must contain each result. Empty slots are skipped, not treated as `undefined`, and their element types do not widen the result.
 - Returns distinct values in first-seen order.

@@ -72,6 +72,44 @@ describe("withTimeout", () => {
     await expect(promise).rejects.toBe(factoryError);
   });
 
+  it("forwards the invocation receiver to the operation and error factory", async () => {
+    const receiver = { name: "job" };
+    const succeeds = withTimeout(function (
+      this: { name: string },
+      suffix: string
+    ) {
+      return this.name + suffix;
+    }, 10);
+    await expect(succeeds.call(receiver, "-1")).resolves.toBe("job-1");
+
+    const timesOut = withTimeout(
+      function (this: { name: string }) {
+        return new Promise<never>(() => undefined);
+      },
+      10,
+      function (this: { name: string }) {
+        return new Error(this.name);
+      }
+    );
+    const promise = timesOut.call(receiver);
+    await Promise.resolve();
+    vi.advanceTimersByTime(10);
+    await expect(promise).rejects.toThrow("job");
+  });
+
+  it("preserves and delegates callable-object properties", async () => {
+    const source = Object.assign(
+      async (value: number) => value,
+      { label: "identity" }
+    );
+    const wrapped = withTimeout(source, 100);
+
+    expect(wrapped.label).toBe("identity");
+    source.label = "updated";
+    expect(wrapped.label).toBe("updated");
+    await expect(wrapped(1)).resolves.toBe(1);
+  });
+
   it.each([-1, Number.NaN, Number.POSITIVE_INFINITY])(
     "rejects invalid timeout %p",
     (timeoutMs) =>

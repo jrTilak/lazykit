@@ -31,4 +31,11 @@ describe("unique", () => {
     unique(input);
     expect(input).toEqual([1, 1, 2]);
   });
+
+  it("ignores empty slots rather than materializing undefined", () => {
+    const sparse = Array<number>(3);
+    sparse[1] = 1;
+    sparse[2] = 1;
+    expect(unique(sparse)).toEqual([1]);
+  });
 });

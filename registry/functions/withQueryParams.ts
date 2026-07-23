@@ -1,4 +1,10 @@
-type QueryValue = string | number | boolean | null | undefined | readonly (string | number | boolean)[];
+export type QueryValue =
+  | string
+  | number
+  | boolean
+  | null
+  | undefined
+  | readonly (string | number | boolean)[];
 
 /** Adds, replaces, or removes query parameters while preserving relative URLs and hashes. */
 export const withQueryParams = (

@@ -1,6 +1,6 @@
 ---
 title: memoizeAsync
-description: Shares and caches asynchronous work using every argument.
+description: Shares and caches asynchronous work by receiver and arguments.
 category: Async
 kind: function
 source: registry/functions/memoizeAsync.ts
@@ -28,4 +28,11 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 
 - `fn` — Synchronous or asynchronous operation to cache.
 - `cacheRejected` (`boolean`) — Keep rejected promises when `true`; defaults to `false`.
+- The invocation receiver is part of the cache key and is forwarded to `fn`.
 - The returned function provides `clear()`.
+- Properties on a callable object remain available through the wrapper. A
+  callable that already defines `clear` is rejected.
+- Up to the final ten overloads are retained, and every exposed result is
+  `Promise<Awaited<R>>`. Earlier overloads remain unexposed.
+- Generic call relationships that TypeScript cannot represent after wrapping
+  collapse conservatively to their inferred `unknown` parameters and results.

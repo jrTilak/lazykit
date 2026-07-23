@@ -1,6 +1,6 @@
 ---
 title: mapConcurrent
-description: Maps values asynchronously with bounded concurrency and stable ordering.
+description: Maps values asynchronously with bounded concurrency and source-ordered results.
 category: Async
 kind: function
 source: registry/functions/mapConcurrent.ts
@@ -26,6 +26,10 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 
 ## Props
 
-- `array` (`readonly T[]`) — Source values.
+- `array` (`readonly T[]`) — Source values. Empty slots are skipped; callback indexes still refer to the original array.
 - `concurrency` (`number`) — Positive safe-integer limit.
-- `transform` — Receives value, index, and source; results retain source order.
+- `transform` (`(value: T, index, array: readonly (T | undefined)[]) => R | PromiseLike<R>`) — Receives an always-present value, its original index, and the original source array, which retains skipped holes.
+- Results retain source order even when callbacks finish out of order.
+- After the first rejection, idle workers stop taking values. Callbacks already in
+  flight continue safely in the background while the returned promise rejects
+  immediately with the first observed error.

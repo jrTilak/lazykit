@@ -26,6 +26,6 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 
 ## Props
 
-- `array` (`readonly T[]`) — Values to deduplicate.
-- `getKey` (`(value, index) => Key`) — Produces the identity key.
+- `array` (`readonly T[]`) — Values to deduplicate. Empty slots are skipped.
+- `getKey` (`(value: T, index, array: readonly (T | undefined)[]) => Key`) — Produces the identity key and is invoked without a receiver. `value` is always present; the original array retains skipped holes.
 - Returns a new `T[]` in first-seen order.

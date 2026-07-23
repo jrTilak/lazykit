@@ -26,6 +26,6 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 
 ## Props
 
-- `array` (`readonly T[]`) — Values to filter.
-- `...others` (`readonly T[][]`) — Arrays containing excluded values.
+- `array` (`readonly T[]`) — Values to filter. Empty slots are skipped.
+- `...others` (`readonly (readonly unknown[])[]`) — Arrays containing excluded values. Empty slots are skipped, not treated as `undefined`, and their element types do not widen the result.
 - Returns a new `T[]` and preserves duplicates from the first array.

@@ -26,6 +26,7 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 
 ## Props
 
-- `array` (`readonly T[]`) — Values to index.
-- `getKey` (`(value, index) => PropertyKey`) — Produces each object key.
+- `array` (`readonly T[]`) — Values to index. Empty slots are skipped.
+- `getKey` (`KeyByKeySelector<T, Key>`) — Produces each object key and is invoked without a receiver.
+- Returns `Partial<Record<Key, T>>` with a null prototype. A value is `undefined` when its key was not produced.
 - Later duplicate keys replace earlier values.

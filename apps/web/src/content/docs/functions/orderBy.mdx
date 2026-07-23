@@ -1,6 +1,6 @@
 ---
 title: orderBy
-description: Stably sorts a copied array with independently directed rules.
+description: Stably sorts a copied array from independently directed selector values.
 category: Arrays
 kind: function
 source: registry/functions/orderBy.ts
@@ -26,6 +26,11 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 
 ## Props
 
-- `array` (`readonly T[]`) — Values to sort.
-- `rules` — Selector and optional `asc` or `desc` direction pairs.
-- Returns a new `T[]`.
+- `array` (`readonly T[]`) — Values to sort. Empty slots are skipped.
+- `rules` — Dense selector and optional `"asc"` or `"desc"` direction pairs. Sparse rule lists are rejected.
+- Every selector is evaluated exactly once per input item.
+- Selectors are invoked without a receiver.
+- Ascending mixed values use the fixed order number, bigint, string, boolean, valid
+  date, `NaN` or invalid date, then nullish. Descending reverses those groups.
+- Equal values and values within the same special group retain source order.
+- Returns a new `T[]`; an empty rule list returns a shallow copy.

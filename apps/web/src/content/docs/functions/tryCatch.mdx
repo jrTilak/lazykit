@@ -34,3 +34,8 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 - Promise or thenable operation: `Promise<[Error, undefined] | [undefined, Awaited<T>]>`
 
 Existing `Error` instances are preserved. Other thrown or rejected values are wrapped in an `Error` and retained as its `cause`.
+Thenables are assimilated from a single `then` lookup with their receiver preserved.
+Object-compatible broad types, `unknown`, and `void` include both synchronous
+and Promise branches. Thenability can only be determined at runtime, and
+TypeScript permits a value-returning function where a `void` callback is
+expected.

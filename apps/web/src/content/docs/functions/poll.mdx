@@ -29,3 +29,4 @@ import UtilitySource from "../../../components/UtilitySource.astro";
 - `operation` — Receives a one-based attempt number.
 - `until` — Sync or async success predicate.
 - `intervalMs` — Fixed delay or callback; `maxAttempts` and `signal` are optional.
+- Aborting after an operation settles prevents the condition from running.

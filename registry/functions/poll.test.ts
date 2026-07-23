@@ -31,4 +31,25 @@ describe("poll", () => {
     queueMicrotask(() => second.abort(new Error("later")));
     await expect(result).rejects.toThrow("later");
   });
+
+  it("does not evaluate the condition after an operation aborts", async () => {
+    const controller = new AbortController();
+    let conditionCalls = 0;
+    const result = poll(
+      () => {
+        controller.abort(new Error("during operation"));
+        return 1;
+      },
+      {
+        until: () => {
+          conditionCalls += 1;
+          return true;
+        },
+        signal: controller.signal,
+      }
+    );
+
+    await expect(result).rejects.toThrow("during operation");
+    expect(conditionCalls).toBe(0);
+  });
 });
